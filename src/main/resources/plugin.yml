@@ -1,0 +1,6 @@
+name: MixTools
+version: '${project.version}'
+main: org.lins.mmmjjkx.mixtools.MixTools
+api-version: 1.18
+authors: [ mmmjjkx ]
+description: An essential plugin like Essentials or CMI
