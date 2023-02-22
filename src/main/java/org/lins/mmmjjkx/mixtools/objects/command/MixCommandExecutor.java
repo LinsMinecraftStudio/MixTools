@@ -16,8 +16,16 @@ public interface MixCommandExecutor extends CommandExecutor {
         return cs.hasPermission("mixtools.command."+name());
     }
     default void register(){
-        PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
-        cmd.setExecutor(this);
+        String require = requirePlugin();
+        if (!require.isBlank()){
+            if (Bukkit.getPluginManager().isPluginEnabled(require)){
+                PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
+                cmd.setExecutor(this);
+            }
+        }else {
+            PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
+            cmd.setExecutor(this);
+        }
     }
     default Player toPlayer(CommandSender cs){
         if (cs instanceof Player){
@@ -29,12 +37,8 @@ public interface MixCommandExecutor extends CommandExecutor {
     }
 
     default Player findPlayer(String name){
-        Player p = Bukkit.getPlayer(name);
-        if (p != null){
-            return p;
-        }else {
-
-            return null;
-        }
+        return Bukkit.getPlayer(name);
     }
+
+    String requirePlugin();
 }

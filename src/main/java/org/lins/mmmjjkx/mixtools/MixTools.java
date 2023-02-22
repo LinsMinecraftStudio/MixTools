@@ -1,6 +1,7 @@
 package org.lins.mmmjjkx.mixtools;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.lins.mmmjjkx.mixtools.managers.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 
@@ -8,6 +9,7 @@ public final class MixTools extends JavaPlugin {
     public static MixTools INSTANCE;
     public static MessageHandler messageHandler;
     public static HookManager hookManager;
+    public static DataManager dataManager;
 
     @Override
     public void onEnable() {
@@ -16,6 +18,7 @@ public final class MixTools extends JavaPlugin {
         saveDefaultConfig();
         messageHandler = new MessageHandler();
         hookManager = new HookManager();
+        dataManager = new DataManager();
     }
 
     @Override
@@ -24,7 +27,6 @@ public final class MixTools extends JavaPlugin {
     }
 
     private void saveResources() {
-        saveResource("data.yml",false);
         saveResource("lang/en-us.yml",false);
         saveResource("lang/zh-cn.yml",false);
     }

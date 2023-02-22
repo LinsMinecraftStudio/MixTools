@@ -31,6 +31,11 @@ public class CMDGamemode implements MixTabExecutor {
     }
 
     @Override
+    public String requirePlugin() {
+        return "";
+    }
+
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player p = toPlayer(sender);
         if (hasPermission(p)){

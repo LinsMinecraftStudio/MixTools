@@ -12,9 +12,18 @@ import java.util.List;
 public interface MixTabExecutor extends MixCommandExecutor, TabExecutor {
     @Override
     default void register() {
-        PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
-        cmd.setExecutor(this);
-        cmd.setTabCompleter(this);
+        String require = requirePlugin();
+        if (!require.isBlank()){
+            if (Bukkit.getPluginManager().isPluginEnabled(require)){
+                PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
+                cmd.setExecutor(this);
+                cmd.setTabCompleter(this);
+            }
+        }else {
+            PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
+            cmd.setExecutor(this);
+            cmd.setTabCompleter(this);
+        }
     }
 
     default List<String> getPlayerNames(){

@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.managers;
+package org.lins.mmmjjkx.mixtools.managers.hookaddon;
 
 import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.jetbrains.annotations.NotNull;
