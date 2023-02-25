@@ -42,6 +42,11 @@ public class CMDEconomy implements MixTabExecutor {
     }
 
     @Override
+    public String usage() {
+        return "/<command> [balance/clear/add/take/currency-symbol] [currency-symbol/player] [amount]";
+    }
+
+    @Override
     public List<String> aliases() {
         return List.of("eco","money");
     }

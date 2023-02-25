@@ -35,11 +35,13 @@ public interface MixCommandExecutor extends CommandExecutor {
                 PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
                 cmd.setExecutor(this);
                 cmd.setAliases(aliases());
+                cmd.setUsage(usage());
             }
         }else {
             PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
             cmd.setExecutor(this);
             cmd.setAliases(aliases());
+            cmd.setUsage(usage());
         }
     }
     default Player toPlayer(CommandSender cs){
@@ -68,6 +70,6 @@ public interface MixCommandExecutor extends CommandExecutor {
     }
 
     String requirePlugin();
-
+    String usage();
     List<String> aliases();
 }

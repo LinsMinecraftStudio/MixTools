@@ -14,3 +14,8 @@ Economy:
   AccountNotFound: "&4That account does not exist."
   TakeSuccess: "&aYou take &c%1 &e%2%3"
   Max: "&4The balance has reached the maximum limit."
+Fly:
+  Disabled: "&aFly disabled."
+  Enabled: "&aFly enabled."
+  OthersDisabled: "&aYou disable &c%1 to fly."
+  OthersEnabled: "&aYou enable &c%1 &ato fly."

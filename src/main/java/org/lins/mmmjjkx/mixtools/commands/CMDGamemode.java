@@ -35,6 +35,11 @@ public class CMDGamemode implements MixTabExecutor {
     }
 
     @Override
+    public String usage() {
+        return "/<command> <gamemode> [player]";
+    }
+
+    @Override
     public List<String> aliases() {
         return List.of("gm");
     }
@@ -49,10 +54,13 @@ public class CMDGamemode implements MixTabExecutor {
                     p.setGameMode(mode);
                     return true;
                 case 2:
-                    GameMode mode2 = GameMode.valueOf(args[0]);
-                    Player p2 = findPlayer(p,args[1]);
-                    p2.setGameMode(mode2);
-                    return true;
+                    if (hasSubPermission(sender,"others")) {
+                        GameMode mode2 = GameMode.valueOf(args[0]);
+                        Player p2 = findPlayer(p, args[1]);
+                        p2.setGameMode(mode2);
+                        return true;
+                    }
+                    return false;
             }
         }
         return false;

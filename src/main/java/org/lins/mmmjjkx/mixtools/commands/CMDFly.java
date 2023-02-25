@@ -7,8 +7,7 @@ import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 
 import java.util.List;
 
-public class CMDKill implements MixTabExecutor {
-
+public class CMDFly implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         if (args.length==0){
@@ -19,7 +18,7 @@ public class CMDKill implements MixTabExecutor {
 
     @Override
     public String name() {
-        return "kill";
+        return "fly";
     }
 
     @Override
@@ -42,22 +41,29 @@ public class CMDKill implements MixTabExecutor {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (args.length==0) {
-                if (p != null) {
-                    p.setHealth(0);
-                    return true;
+                if (p.getAllowFlight()){
+                    p.setAllowFlight(false);
+                    sendMessage(sender,"Fly.Disabled");
                 }else {
-                    sendMessage(sender,"Command.SpecifyPlayer");
-                    return false;
+                    p.setAllowFlight(true);
+                    sendMessage(sender,"Fly.Enabled");
                 }
-            } else if (args.length==1) {
-                Player p2 = findPlayer(p, args[0]);
-                if (p2 != null) {
-                    p2.setHealth(0);
-                    sendMessage(sender,"Command.Kill",p2.getName());
-                    return true;
+                return true;
+            }else if (args.length==1) {
+                if (hasSubPermission(sender, "others")) {
+                    Player p2 = findPlayer(p, args[0]);
+                    if (p2 != null) {
+                        if (p2.getAllowFlight()){
+                            p2.setAllowFlight(false);
+                            sendMessage(sender,"Fly.OthersDisabled",p2.getName());
+                        }else {
+                            p2.setAllowFlight(true);
+                            sendMessage(sender,"Fly.OthersEnabled",p2.getName());
+                        }
+                        return true;
+                    }
                 }
             }
-            return false;
         }
         return false;
     }

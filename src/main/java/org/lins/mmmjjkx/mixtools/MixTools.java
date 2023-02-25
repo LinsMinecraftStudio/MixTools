@@ -36,6 +36,7 @@ public final class MixTools extends JavaPlugin {
         new CMDKillAll().register();
         new CMDKill().register();
         new CMDSuicide().register();
+        new CMDFly().register();
     }
 
     private void saveResources() {

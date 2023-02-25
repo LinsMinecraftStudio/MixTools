@@ -20,6 +20,11 @@ public class CMDKillAll implements MixCommandExecutor {
     }
 
     @Override
+    public String usage() {
+        return "/<command>";
+    }
+
+    @Override
     public List<String> aliases() {
         return null;
     }
