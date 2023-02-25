@@ -13,3 +13,11 @@ commands:
     description: kill somebody or self
   killall:
     description: kill all players
+  anvil:
+    description: open anvil gui
+  workbench:
+    description: open workbench gui
+  sudo:
+    description: execute action by other player
+  suicide:
+    description: suicide

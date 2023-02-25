@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.Inventory;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CMDAnvil implements MixCommandExecutor {
@@ -28,7 +29,7 @@ public class CMDAnvil implements MixCommandExecutor {
 
     @Override
     public List<String> aliases() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

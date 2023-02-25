@@ -5,6 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CMDFly implements MixTabExecutor {
@@ -33,7 +34,7 @@ public class CMDFly implements MixTabExecutor {
 
     @Override
     public List<String> aliases() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

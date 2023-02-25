@@ -38,7 +38,7 @@ public class CMDSudo implements MixTabExecutor {
 
     @Override
     public List<String> aliases() {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override

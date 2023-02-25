@@ -1,7 +1,7 @@
 Command:
   NoPermission: "&4You don't have permission to do that!"
   RunAsConsole: "&4Please don't use the console to execute this command!"
-  NoEnoughArgs: "&4Insufficient arguments."
+  NoEnoughOrTooManyArgs: "&4Insufficient or too many arguments."
   KillAll: "&c%1 &6killed all players."
   Kill: "&6Killed &c%1&6."
   Suicide: "&6Goodbye, a cruel world."
@@ -22,3 +22,5 @@ Fly:
 GUI:
   Workbench: "Workbench"
   Anvil: "Anvil"
+Item:
+  AIR: "&4The item should not be air!"

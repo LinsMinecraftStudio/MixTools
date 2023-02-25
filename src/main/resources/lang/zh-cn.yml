@@ -1,7 +1,7 @@
 Command:
   NoPermission: "&4你没有权限去这样做！"
   RunAsConsole: "&4请不要用控制台执行此指令！"
-  NoEnoughArgs: "&4参数不足！"
+  NoEnoughOrTooManyArgs: "&4参数不足或过多！"
   KillAll: "&c%1&6杀死了所有玩家。"
   Kill: "&6已杀死&c%1&6。"
   Suicide: "&6再见了，残酷的世界。"
@@ -22,3 +22,5 @@ Fly:
 GUI:
   Workbench: "工作台"
   Anvil: "铁砧"
+Item:
+  AIR: "&4物品不能为空气！"
