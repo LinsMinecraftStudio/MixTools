@@ -24,11 +24,13 @@ public final class MixTools extends JavaPlugin {
         dataManager = new DataManager();
         settingsManager = new SettingsManager(getConfig());
         registerCommands();
+        getLogger().info("MixTools enabled!");
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        getLogger().info("MixTools disabled!");
     }
 
     private void registerCommands() {
@@ -37,6 +39,9 @@ public final class MixTools extends JavaPlugin {
         new CMDKill().register();
         new CMDSuicide().register();
         new CMDFly().register();
+        new CMDAnvil().register();
+        new CMDWorkbench().register();
+        new CMDSudo().register();
     }
 
     private void saveResources() {

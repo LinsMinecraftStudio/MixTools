@@ -1,5 +1,5 @@
 Command:
-  NoPermission: "&4你没有权限去执行此指令！"
+  NoPermission: "&4你没有权限去这样做！"
   RunAsConsole: "&4请不要用控制台执行此指令！"
   NoEnoughArgs: "&4参数不足！"
   KillAll: "&c%1&6杀死了所有玩家。"
@@ -14,3 +14,11 @@ Economy:
   AccountNotFound: "&4那个账号不存在！"
   TakeSuccess: "&a你拿走了&c%1 &e%2%3"
   Max: "&a余额已达最高上限。"
+Fly:
+  Disabled: "&a飞行已开启。"
+  Enabled: "&a飞行已关闭。"
+  OthersDisabled: "&a你禁止&c%1飞行。"
+  OthersEnabled: "&a你允许&c%1&a飞行。"
+GUI:
+  Workbench: "工作台"
+  Anvil: "铁砧"

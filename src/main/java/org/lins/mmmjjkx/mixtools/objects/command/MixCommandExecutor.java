@@ -11,6 +11,9 @@ import java.util.List;
 
 public interface MixCommandExecutor extends CommandExecutor {
     String name();
+    String requirePlugin();
+    String usage();
+    List<String> aliases();
     default boolean hasPermission(CommandSender cs){
         boolean b = cs.hasPermission("mixtools.command."+name());
         if (!b){
@@ -53,7 +56,7 @@ public interface MixCommandExecutor extends CommandExecutor {
         }
     }
 
-    default Player findPlayer(Player from,String name){
+    default Player findPlayer(CommandSender from,String name){
         Player p = Bukkit.getPlayer(name);
         if (p == null){
             MixTools.messageHandler.sendMessage(from, "Command.PlayerNotFound");
@@ -69,7 +72,5 @@ public interface MixCommandExecutor extends CommandExecutor {
         MixTools.messageHandler.broadcastMessage(node,args);
     }
 
-    String requirePlugin();
-    String usage();
-    List<String> aliases();
+    default String getMessage(String node,Object... args){return MixTools.messageHandler.getColored(node,args);}
 }

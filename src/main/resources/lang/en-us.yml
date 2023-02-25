@@ -1,5 +1,5 @@
 Command:
-  NoPermission: "&4You don't have permission to execute this command!"
+  NoPermission: "&4You don't have permission to do that!"
   RunAsConsole: "&4Please don't use the console to execute this command!"
   NoEnoughArgs: "&4Insufficient arguments."
   KillAll: "&c%1 &6killed all players."
@@ -19,3 +19,6 @@ Fly:
   Enabled: "&aFly enabled."
   OthersDisabled: "&aYou disable &c%1 to fly."
   OthersEnabled: "&aYou enable &c%1 &ato fly."
+GUI:
+  Workbench: "Workbench"
+  Anvil: "Anvil"
