@@ -20,7 +20,6 @@ public class MessageHandler {
     public MessageHandler() {
         setup();
     }
-
     private void setup() {
         String language = config.getString("language","en-us");
         String fileName = "lang/"+language.toLowerCase()+".yml";
@@ -64,7 +63,7 @@ public class MessageHandler {
         Bukkit.broadcastMessage(getColored(node,args));
     }
 
-    private String colorize(String string) {
+    public String colorize(String string) {
         Pattern pattern = Pattern.compile("&#[a-fA-F0-9]{6}");
         for (Matcher matcher = pattern.matcher(string); matcher.find(); matcher = pattern.matcher(string)) {
             String str = string.substring(matcher.start(), matcher.end());

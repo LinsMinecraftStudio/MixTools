@@ -1,6 +1,5 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -8,10 +7,10 @@ import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
 
 import java.util.List;
 
-public class CMDKillAll implements MixCommandExecutor {
+public class CMDSuicide implements MixCommandExecutor {
     @Override
     public String name() {
-        return "killall";
+        return "suicide";
     }
 
     @Override
@@ -27,11 +26,13 @@ public class CMDKillAll implements MixCommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (hasPermission(sender)){
-            for (Player p: Bukkit.getOnlinePlayers()){
+            Player p = toPlayer(sender);
+            if (p!=null){
                 p.setHealth(0);
+                sendMessage(p,"Command.Suicide");
+                broadcastMessage("Command.Suicide2",p.getName());
+                return true;
             }
-            broadcastMessage("Command.KillAll",sender.getName());
-            return true;
         }
         return false;
     }

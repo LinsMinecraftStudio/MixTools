@@ -5,7 +5,9 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,6 +23,7 @@ public class CMDEconomy implements MixTabExecutor {
             list.add("clear");
             list.add("add");
             list.add("take");
+            list.add("currency-symbol");
         }
         if (args.length==1) {
             return getPlayerNames();
@@ -86,7 +89,7 @@ public class CMDEconomy implements MixTabExecutor {
                         }
                     }
                     return false;
-                case "currency":
+                case "currency-symbol":
                     if (hasSubPermission(sender,"currency-symbol")) {
                         MixTools.settingsManager.setString(CURRENCY_SYMBOL, args[1]);
                         sendMessage(sender,"Economy.ChangeCurrencySymbol");
@@ -100,10 +103,17 @@ public class CMDEconomy implements MixTabExecutor {
                 case "add":
                     if (hasSubPermission(sender,"add")) {
                         if (MixTools.dataManager.getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
-                            MixTools.dataManager.setData(ECONOMY_MONEY, name, MixTools.dataManager.getDoubleData(ECONOMY_MONEY, name) + amount);
-                            sendMessage(p, "Economy.AddSuccess", name,
-                                    MixTools.settingsManager.getString(CURRENCY_SYMBOL), amount);
-                            return true;
+                            String str = MixTools.settingsManager.getString(SettingsKey.MAXIMUM_MONEY);
+                            double max = Double.parseDouble(new BigDecimal(str).toPlainString());
+                            if (MixTools.dataManager.getDoubleData(ECONOMY_MONEY, name)<max) {
+                                MixTools.dataManager.setData(ECONOMY_MONEY, name, MixTools.dataManager.getDoubleData(ECONOMY_MONEY, name) + amount);
+                                sendMessage(p, "Economy.AddSuccess", name,
+                                        MixTools.settingsManager.getString(CURRENCY_SYMBOL), amount);
+                                return true;
+                            }else {
+                                sendMessage(p, "Economy.Max");
+                                return false;
+                            }
                         } else {
                             sendMessage(p, "Economy.AccountNotFound");
                             return false;

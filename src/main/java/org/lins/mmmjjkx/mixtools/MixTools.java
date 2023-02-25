@@ -1,8 +1,7 @@
 package org.lins.mmmjjkx.mixtools;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.lins.mmmjjkx.mixtools.commands.CMDGamemode;
-import org.lins.mmmjjkx.mixtools.commands.CMDKillAll;
+import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 import org.lins.mmmjjkx.mixtools.managers.config.DataManager;
@@ -35,6 +34,8 @@ public final class MixTools extends JavaPlugin {
     private void registerCommands() {
         new CMDGamemode().register();
         new CMDKillAll().register();
+        new CMDKill().register();
+        new CMDSuicide().register();
     }
 
     private void saveResources() {

@@ -4,3 +4,12 @@ main: org.lins.mmmjjkx.mixtools.MixTools
 api-version: 1.18
 authors: [ mmmjjkx ]
 description: An essential plugin like Essentials or CMI
+commands:
+  economy:
+    description: economy system
+  gamemode:
+    description: change game mode
+  kill:
+    description: kill somebody or self
+  killall:
+    description: kill all players
