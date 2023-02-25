@@ -1,2 +1,11 @@
 Command:
   NoPermission: "&4You don't have permission to execute this command!"
+  RunAsConsole: "&4Please don't use the console to execute this command!"
+  NoEnoughArgs: "&4Insufficient arguments."
+  KillAll: "&c%1 &6killed all players."
+Economy:
+  Balance: "&aYour money: &e%1%2"
+  OtherBalance: "&a%1's money: &e%2%3"
+  AddSuccess: "&aYou gave %1 %2%3"
+  AccountNotFound: "&4That account does not exist."
+  TakeSuccess: "&aYou take %1 %2%3"

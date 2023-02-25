@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.ServicePriority;
 import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.commands.CMDEconomy;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsPAPIAddon;
 
@@ -13,7 +14,7 @@ import java.util.logging.Logger;
 
 public class HookManager {
     private final Logger log = MixTools.INSTANCE.getLogger();
-    public MixToolsEconomy economy;
+    private MixToolsEconomy economy;
     public HookManager(){
         setup();
     }
@@ -28,6 +29,7 @@ public class HookManager {
         if (checkVaultInstalled()){
             economy = new MixToolsEconomy();
             Bukkit.getServicesManager().register(Economy.class,economy,MixTools.INSTANCE,ServicePriority.High);
+            new CMDEconomy().register();
             log.info("Hooked into Vault.");
         }else {
             log.warning("Vault is not installed. You can't use commands about economy!");
@@ -48,5 +50,9 @@ public class HookManager {
         }else {
             return s;
         }
+    }
+
+    public MixToolsEconomy getEconomy(){
+        return economy;
     }
 }

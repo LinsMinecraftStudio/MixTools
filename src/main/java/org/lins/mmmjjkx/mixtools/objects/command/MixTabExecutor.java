@@ -13,16 +13,21 @@ public interface MixTabExecutor extends MixCommandExecutor, TabExecutor {
     @Override
     default void register() {
         String require = requirePlugin();
+        if (require == null){
+            require = "";
+        }
         if (!require.isBlank()){
             if (Bukkit.getPluginManager().isPluginEnabled(require)){
                 PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
                 cmd.setExecutor(this);
                 cmd.setTabCompleter(this);
+                cmd.setAliases(aliases());
             }
         }else {
             PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
             cmd.setExecutor(this);
             cmd.setTabCompleter(this);
+            cmd.setAliases(aliases());
         }
     }
 

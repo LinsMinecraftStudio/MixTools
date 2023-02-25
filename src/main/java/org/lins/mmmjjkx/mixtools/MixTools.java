@@ -1,24 +1,30 @@
 package org.lins.mmmjjkx.mixtools;
 
 import org.bukkit.plugin.java.JavaPlugin;
-import org.lins.mmmjjkx.mixtools.managers.DataManager;
+import org.lins.mmmjjkx.mixtools.commands.CMDGamemode;
+import org.lins.mmmjjkx.mixtools.commands.CMDKillAll;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
+import org.lins.mmmjjkx.mixtools.managers.config.DataManager;
+import org.lins.mmmjjkx.mixtools.managers.config.SettingsManager;
 
 public final class MixTools extends JavaPlugin {
     public static MixTools INSTANCE;
     public static MessageHandler messageHandler;
     public static HookManager hookManager;
     public static DataManager dataManager;
+    public static SettingsManager settingsManager;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         INSTANCE = this;
-        saveDefaultConfig();
+        saveResources();
         messageHandler = new MessageHandler();
         hookManager = new HookManager();
         dataManager = new DataManager();
+        settingsManager = new SettingsManager(getConfig());
+        registerCommands();
     }
 
     @Override
@@ -26,7 +32,13 @@ public final class MixTools extends JavaPlugin {
         // Plugin shutdown logic
     }
 
+    private void registerCommands() {
+        new CMDGamemode().register();
+        new CMDKillAll().register();
+    }
+
     private void saveResources() {
+        saveDefaultConfig();
         saveResource("lang/en-us.yml",false);
         saveResource("lang/zh-cn.yml",false);
     }

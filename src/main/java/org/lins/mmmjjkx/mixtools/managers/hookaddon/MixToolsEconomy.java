@@ -4,20 +4,22 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.OfflinePlayer;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.managers.DataManager;
+import org.lins.mmmjjkx.mixtools.managers.config.DataManager;
 
 import java.util.List;
+
+import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.*;
 
 public class MixToolsEconomy implements Economy {
     private final DataManager data = MixTools.dataManager;
     @Override
     public boolean isEnabled() {
-        return false;
+        return true;
     }
 
     @Override
     public String getName() {
-        return null;
+        return "MixTools";
     }
 
     @Override
@@ -47,102 +49,104 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public boolean hasAccount(String playerName) {
-        return false;
+        return data.getBooleanData(HAS_ECONOMY_ACCOUNT, playerName);
     }
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
-        return false;
+        return hasAccount(player.getName());
     }
 
     @Override
     public boolean hasAccount(String playerName, String worldName) {
-        return false;
+        return hasAccount(playerName);
     }
 
     @Override
     public boolean hasAccount(OfflinePlayer player, String worldName) {
-        return false;
+        return hasAccount(player);
     }
 
     @Override
     public double getBalance(String playerName) {
-        return 0;
+        return data.getDoubleData(ECONOMY_MONEY,playerName);
     }
 
     @Override
     public double getBalance(OfflinePlayer player) {
-        return 0;
+        return getBalance(player.getName());
     }
 
     @Override
     public double getBalance(String playerName, String world) {
-        return 0;
+        return getBalance(playerName);
     }
 
     @Override
     public double getBalance(OfflinePlayer player, String world) {
-        return 0;
+        return getBalance(player);
     }
 
     @Override
     public boolean has(String playerName, double amount) {
-        return false;
+        return getBalance(playerName)>=amount;
     }
 
     @Override
     public boolean has(OfflinePlayer player, double amount) {
-        return false;
+        return has(player.getName(), amount);
     }
 
     @Override
     public boolean has(String playerName, String worldName, double amount) {
-        return false;
+        return has(playerName, amount);
     }
 
     @Override
     public boolean has(OfflinePlayer player, String worldName, double amount) {
-        return false;
+        return has(player, amount);
     }
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
-        return null;
+        data.setData(ECONOMY_MONEY,playerName,getBalance(playerName)-amount);
+        return new EconomyResponse(amount,getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
-        return null;
+        return withdrawPlayer(player.getName(),amount);
     }
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, String worldName, double amount) {
-        return null;
+        return withdrawPlayer(playerName, amount);
     }
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, String worldName, double amount) {
-        return null;
+        return withdrawPlayer(player, amount);
     }
 
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
-        return null;
+        data.setData(ECONOMY_MONEY,playerName,getBalance(playerName)+amount);
+        return new EconomyResponse(amount,getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
-        return null;
+        return depositPlayer(player.getName(), amount);
     }
 
     @Override
     public EconomyResponse depositPlayer(String playerName, String worldName, double amount) {
-        return null;
+        return depositPlayer(playerName,amount);
     }
 
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, String worldName, double amount) {
-        return null;
+        return depositPlayer(player,amount);
     }
 
     @Override
@@ -187,7 +191,7 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public EconomyResponse isBankOwner(String name, OfflinePlayer player) {
-        return null;
+        return isBankOwner(name, player.getName());
     }
 
     @Override
@@ -197,7 +201,7 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public EconomyResponse isBankMember(String name, OfflinePlayer player) {
-        return null;
+        return isBankOwner(name, player.getName());
     }
 
     @Override
@@ -207,10 +211,11 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public boolean createPlayerAccount(String playerName) {
-        if (data.getBooleanData(DataManager.HAS_ECONOMY_ACCOUNT,playerName)) {
+        if (data.getBooleanData(HAS_ECONOMY_ACCOUNT,playerName)) {
             return false;
         }else {
-            data.setData(DataManager.MONEY,playerName,0);
+            data.setData(HAS_ECONOMY_ACCOUNT,playerName,true);
+            data.setData(ECONOMY_MONEY,playerName,0);
             return true;
         }
     }

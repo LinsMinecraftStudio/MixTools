@@ -1,6 +1,8 @@
 package org.lins.mmmjjkx.mixtools.managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.lins.mmmjjkx.mixtools.MixTools;
@@ -38,10 +40,6 @@ public class MessageHandler {
         return message.getString(node);
     }
 
-    public String getColored(String node){
-        return colorize(get(node));
-    }
-
     public List<String> getMessages(String node){
         return message.getStringList(node);
     }
@@ -52,6 +50,18 @@ public class MessageHandler {
             list.add(colorize(message));
         }
         return list;
+    }
+
+    public String getColored(String node, Object... args){
+        return String.format(colorize(get(node)),args);
+    }
+
+    public void sendMessage(CommandSender cs,String node,Object... args){
+        cs.sendMessage(getColored(node,args));
+    }
+
+    public void broadcastMessage(String node,Object... args){
+        Bukkit.broadcastMessage(getColored(node,args));
     }
 
     private String colorize(String string) {

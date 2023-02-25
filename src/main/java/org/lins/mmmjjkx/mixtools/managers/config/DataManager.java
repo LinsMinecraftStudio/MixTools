@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.managers;
+package org.lins.mmmjjkx.mixtools.managers.config;
 
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -8,11 +8,10 @@ import java.io.File;
 import java.io.IOException;
 
 public class DataManager {
-    //keys
-    public static String HAS_ECONOMY_ACCOUNT = "has_economy_account";
-    public static String MONEY = "economy.money";
-
-    //////////////////////////////////
+    public void setData(String key, String playerName, double d) {
+        FileConfiguration cs = checkPlayerInData(playerName);
+        cs.set(key,d);
+    }
     public void setData(String key, String playerName, int i){
         FileConfiguration cs = checkPlayerInData(playerName);
         cs.set(key,i);
@@ -29,13 +28,17 @@ public class DataManager {
         FileConfiguration cs = checkPlayerInData(playerName);
         return cs.getString(key);
     }
-    public Boolean getBooleanData(String key, String playerName){
+    public boolean getBooleanData(String key, String playerName){
         FileConfiguration cs = checkPlayerInData(playerName);
         return cs.getBoolean(key);
     }
-    public Integer getIntegerData(String key, String playerName){
+    public int getIntegerData(String key, String playerName){
         FileConfiguration cs = checkPlayerInData(playerName);
         return cs.getInt(key);
+    }
+    public double getDoubleData(String key, String playerName){
+        FileConfiguration cs = checkPlayerInData(playerName);
+        return cs.getDouble(key);
     }
     private FileConfiguration checkPlayerInData(String playerName){
         File f = new File(MixTools.INSTANCE.getDataFolder(),"data/"+playerName+".yml");

@@ -1,6 +1,5 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -36,6 +35,11 @@ public class CMDGamemode implements MixTabExecutor {
     }
 
     @Override
+    public List<String> aliases() {
+        return List.of("gm");
+    }
+
+    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player p = toPlayer(sender);
         if (hasPermission(p)){
@@ -43,10 +47,12 @@ public class CMDGamemode implements MixTabExecutor {
                 case 1:
                     GameMode mode = GameMode.valueOf(args[0]);
                     p.setGameMode(mode);
+                    return true;
                 case 2:
                     GameMode mode2 = GameMode.valueOf(args[0]);
-                    Player p2 = findPlayer(args[1]);
+                    Player p2 = findPlayer(p,args[1]);
                     p2.setGameMode(mode2);
+                    return true;
             }
         }
         return false;

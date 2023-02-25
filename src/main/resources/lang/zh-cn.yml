@@ -1,2 +1,11 @@
 Command:
-  NoPermission: "&4你没有权限去执行此指令!"
+  NoPermission: "&4你没有权限去执行此指令！"
+  RunAsConsole: "&4请不要用控制台执行此指令！"
+  NoEnoughArgs: "&4参数不足！"
+  KillAll: "&c%1 &6杀死了所有玩家。"
+Economy:
+  Balance: "&a你的金钱：&e%1%2。"
+  OtherBalance: "&a%1的金钱：&e%2%3。"
+  AddSuccess: "&a你给了 %1 %2%3。"
+  AccountNotFound: "&4那个账号不存在！"
+  TakeSuccess: "&a你拿走了 %1 %2%3"

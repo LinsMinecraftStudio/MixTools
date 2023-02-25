@@ -1,1 +1,5 @@
 language: "en-us"
+economy:
+  currency-symbol: "$"
+  maximum: 1.0E10
+  initial-currency: 100
