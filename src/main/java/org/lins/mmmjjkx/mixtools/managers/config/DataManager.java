@@ -12,6 +12,7 @@ import org.lins.mmmjjkx.mixtools.objects.home.MixToolsHome;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Set;
 
 public class DataManager {
     public void addHome(MixToolsHome home){
@@ -44,13 +45,21 @@ public class DataManager {
                 section2.getDouble("x"), section2.getDouble("y"), section2.getDouble("z"),
                 Float.parseFloat(section2.getString("pitch")), Float.parseFloat(section2.getString("yaw")));
     }
-    public int getPlayerOwnedHomesAmount(String owner){
-        FileConfiguration cs = checkPlayerInData(owner);
+    public int getPlayerOwnedHomesAmount(Player p){
+        FileConfiguration cs = checkPlayerInData(p.getName());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section!=null){
             return section.getKeys(false).size();
         }
         return 0;
+    }
+    public Set<String> getPlayerOwnedHomesName(Player p){
+        FileConfiguration cs = checkPlayerInData(p.getName());
+        ConfigurationSection section = cs.getConfigurationSection("homes");
+        if (section!=null){
+            return section.getKeys(false);
+        }
+        return null;
     }
     public boolean canCreateHomes(Player p){
         int i = 0;
@@ -67,8 +76,23 @@ public class DataManager {
                 i = Integer.parseInt(amount);
             }
         }
-        return i<getPlayerOwnedHomesAmount(p.getName());
+        return i<getPlayerOwnedHomesAmount(p);
     }
+    public void removeHome(Player p,String name){
+        FileConfiguration cs = checkPlayerInData(p.getName());
+        ConfigurationSection section = cs.getConfigurationSection("homes");
+        if (section == null){
+            MixTools.messageHandler.sendMessage(p,"Home.NoAnyHomes");
+            return;
+        }
+        ConfigurationSection section2 = section.getConfigurationSection(name);
+        if (section2 == null){
+            MixTools.messageHandler.sendMessage(p,"Home.NotExists");
+            return;
+        }
+        section.set(name,null);
+    }
+    /////////////////////////////////////////////////////////////////
     public void setData(String key, String playerName, double d) {
         FileConfiguration cs = checkPlayerInData(playerName);
         cs.set(key,d);

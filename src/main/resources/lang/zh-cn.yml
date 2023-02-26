@@ -26,3 +26,10 @@ GUI:
   Trash: "垃圾箱"
 Item:
   AIR: "&4物品不能为空气！"
+Home:
+  CreateSuccess: "&a你创建了家&e%1&a。"
+  Exists: "&4那个家已经存在了。"
+  NoAnyHomes: "&4你没有任何一个家。"
+  NotExists: "&4那个家不存在。"
+String:
+  NoMatchRegex: "&4某个字符串不匹配正则表达式。"

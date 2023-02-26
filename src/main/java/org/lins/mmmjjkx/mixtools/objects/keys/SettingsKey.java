@@ -7,4 +7,5 @@ public class SettingsKey {
     public static String PLAYER_JOIN_MESSAGE = "message.join";
     public static String PLAYER_QUIT_MESSAGE = "message.quit";
     public static String PLAYER_WELCOME_MESSAGE = "message.welcome";
+    public static String STRING_REGEX = "strRegex";
 }

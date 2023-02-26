@@ -1,11 +1,14 @@
 package org.lins.mmmjjkx.mixtools.utils;
 
 import org.bukkit.ChatColor;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.STRING_REGEX;
 
 public class MixStringUtils {
     private static final Pattern STRIP_ALL_PATTERN = Pattern.compile(ChatColor.COLOR_CHAR + "+([0-9a-fk-orA-FK-OR])");
@@ -50,5 +53,10 @@ public class MixStringUtils {
         }
         matcher.appendTail(builder);
         return builder.toString();
+    }
+
+    public static boolean matchRegex(String str){
+        String regex = MixTools.settingsManager.getString(STRING_REGEX);
+        return str.matches(regex);
     }
 }

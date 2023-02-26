@@ -26,3 +26,10 @@ GUI:
   Trash: "Trash bin"
 Item:
   AIR: "&4The item should not be air!"
+Home:
+  CreateSuccess: "&aYou created home &e%1&a."
+  Exists: "&4That home is already exists."
+  NoAnyHomes: "&4You don't have any homes."
+  NotExists: "&4That home is not exists."
+String:
+  NoMatchRegex: "&4A string does not match the regular expression."
