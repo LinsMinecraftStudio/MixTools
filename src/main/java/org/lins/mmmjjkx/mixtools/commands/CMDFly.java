@@ -47,6 +47,7 @@ public class CMDFly implements MixTabExecutor {
                     sendMessage(sender,"Fly.Disabled");
                 }else {
                     p.setAllowFlight(true);
+                    p.setFallDistance(0);
                     sendMessage(sender,"Fly.Enabled");
                 }
                 return true;
@@ -59,6 +60,7 @@ public class CMDFly implements MixTabExecutor {
                             sendMessage(sender,"Fly.OthersDisabled",p2.getName());
                         }else {
                             p2.setAllowFlight(true);
+                            p2.setFallDistance(0);
                             sendMessage(sender,"Fly.OthersEnabled",p2.getName());
                         }
                         return true;

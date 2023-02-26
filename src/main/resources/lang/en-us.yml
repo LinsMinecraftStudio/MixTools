@@ -22,5 +22,7 @@ Fly:
 GUI:
   Workbench: "Workbench"
   Anvil: "Anvil"
+  Furnace: "Furnace"
+  Trash: "Trash bin"
 Item:
   AIR: "&4The item should not be air!"

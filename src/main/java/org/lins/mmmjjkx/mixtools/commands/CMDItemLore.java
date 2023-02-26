@@ -26,7 +26,6 @@ public class CMDItemLore implements MixTabExecutor {
         }
         return null;
     }
-
     @Override
     public String name() {
         return "itemlore";
@@ -58,7 +57,7 @@ public class CMDItemLore implements MixTabExecutor {
                     List<String> lines = new ArrayList<>();
                     if (args.length>0){
                         for (String arg : args) {
-                            String str = MixTools.messageHandler.colorize(arg);
+                            String str = MixTools.messageHandler.colorize(arg.replaceAll(":space:"," "));
                             lines.add(str);
                         }
                         m.setLore(lines);

@@ -44,6 +44,8 @@ public final class MixTools extends JavaPlugin {
         new CMDSudo().register();
         new CMDItemName().register();
         new CMDItemLore().register();
+        new CMDFurnace().register();
+        new CMDTrash().register();
     }
 
     private void saveResources() {

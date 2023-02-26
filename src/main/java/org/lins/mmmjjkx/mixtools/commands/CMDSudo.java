@@ -47,7 +47,7 @@ public class CMDSudo implements MixTabExecutor {
             if (args.length>1){
                 Player p = findPlayer(sender,args[0]);
                 if (p != null){
-                    for (int i=2;i<args.length-1;i++){
+                    for (int i=1;i<args.length-1;i++){
                         String[] str = args[i].split(":");
                         String key = str[0];
                         String action = str[1].replaceAll(":space:"," ");
@@ -63,7 +63,7 @@ public class CMDSudo implements MixTabExecutor {
                     return true;
                 }
             }else {
-                sendMessage(sender,"Command.NoEnoughArgs");
+                sendMessage(sender,"Command.NoEnoughOrTooManyArgs");
                 return false;
             }
         }

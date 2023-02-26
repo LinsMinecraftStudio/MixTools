@@ -22,5 +22,7 @@ Fly:
 GUI:
   Workbench: "工作台"
   Anvil: "铁砧"
+  Furnace: "熔炉"
+  Trash: "垃圾箱"
 Item:
   AIR: "&4物品不能为空气！"
