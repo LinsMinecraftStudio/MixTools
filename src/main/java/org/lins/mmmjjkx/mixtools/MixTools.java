@@ -1,28 +1,36 @@
 package org.lins.mmmjjkx.mixtools;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
-import org.lins.mmmjjkx.mixtools.managers.config.DataManager;
+import org.lins.mmmjjkx.mixtools.managers.config.FileDataManager;
 import org.lins.mmmjjkx.mixtools.managers.config.SettingsManager;
+import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
+
+import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
 public final class MixTools extends JavaPlugin {
     public static MixTools INSTANCE;
     public static MessageHandler messageHandler;
     public static HookManager hookManager;
-    public static DataManager dataManager;
+    public static FileDataManager dataManager;
     public static SettingsManager settingsManager;
+    private static HikariDataSource dataSource;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         INSTANCE = this;
         saveResources();
+        settingsManager = new SettingsManager(getConfig());
+        if (settingsManager.getBoolean(MYSQL_ENABLED)){
+            dataSource = SettingsKey.getDataSource();
+        }
         messageHandler = new MessageHandler();
         hookManager = new HookManager();
-        dataManager = new DataManager();
-        settingsManager = new SettingsManager(getConfig());
+        dataManager = new FileDataManager();
         registerCommands();
         getLogger().info("MixTools enabled!");
     }
@@ -30,6 +38,7 @@ public final class MixTools extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        dataSource.close();
         getLogger().info("MixTools disabled!");
     }
 

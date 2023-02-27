@@ -8,3 +8,15 @@ messages:
   quit: "&6{player} left the server."
   welcome: "&dWelcome {player}, this is your first access to this server!"
 strRegex: " ^[a-zA-Z0-9_\u4e00-\u9fa5]+$"
+mysql:
+  enabled: false
+  driver-class-name: "com.mysql.jdbc.Driver"
+  jdbc-url: "jdbc:mysql://localhost:3306/mixtools"
+  username: "root"
+  password: "123456"
+  properties:
+    minimum-idle: 10
+    idle-timeout: 30000
+    maximum-pool-size: 20
+    max-lifetime: 12000
+    connection-timeout: 3000

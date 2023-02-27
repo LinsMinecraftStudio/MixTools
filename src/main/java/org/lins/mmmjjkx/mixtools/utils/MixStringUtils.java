@@ -35,9 +35,8 @@ public class MixStringUtils {
             rgbMatcher.appendReplacement(rgbBuilder, "");
         }
         rgbMatcher.appendTail(rgbBuilder);
-        message = rgbBuilder.toString(); // arreter de parler
+        message = rgbBuilder.toString();
 
-        // Legacy Colors
         final StringBuilder builder = new StringBuilder();
         final Matcher matcher = STRIP_ALL_PATTERN.matcher(message);
         searchLoop:

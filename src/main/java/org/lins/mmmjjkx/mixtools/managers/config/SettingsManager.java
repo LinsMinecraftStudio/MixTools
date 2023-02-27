@@ -16,13 +16,10 @@ public class SettingsManager {
     public boolean getBoolean(String key){
         return config.getBoolean(key);
     }
-    public void setInt(String key, int value){
-        config.set(key, value);
+    public long getLong(String key) {
+        return config.getLong(key);
     }
-    public void setString(String key, String value){
-        config.set(key, value);
-    }
-    public void setBoolean(String key, boolean value){
+    public void set(String key, Object value){
         config.set(key, value);
     }
 }

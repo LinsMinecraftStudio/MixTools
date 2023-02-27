@@ -1,9 +1,7 @@
 package org.lins.mmmjjkx.mixtools.managers;
 
-import me.clip.placeholderapi.PlaceholderAPI;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.ServicePriority;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.commands.CMDEconomy;
@@ -39,17 +37,8 @@ public class HookManager {
     public boolean checkPAPIInstalled(){
         return Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI");
     }
-
     public boolean checkVaultInstalled() {
         return Bukkit.getPluginManager().isPluginEnabled("Vault");
-    }
-
-    public String setPlaceHolders(Player p, String s){
-        if (checkPAPIInstalled()){
-            return PlaceholderAPI.setPlaceholders(p,s);
-        }else {
-            return s;
-        }
     }
 
     public MixToolsEconomy getEconomy(){

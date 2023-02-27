@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
-public class DataManager {
+public class FileDataManager {
     public void addHome(MixToolsHome home){
         FileConfiguration cs = checkPlayerInData(home.getOwner().getName());
         ConfigurationSection section = cs.getConfigurationSection("homes");
