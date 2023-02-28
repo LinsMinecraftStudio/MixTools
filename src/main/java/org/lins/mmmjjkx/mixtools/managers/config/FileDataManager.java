@@ -76,7 +76,7 @@ public class FileDataManager {
                 i = Integer.parseInt(amount);
             }
         }
-        return i<getPlayerOwnedHomesAmount(p);
+        return i>getPlayerOwnedHomesAmount(p);
     }
     public void removeHome(Player p,String name){
         FileConfiguration cs = checkPlayerInData(p.getName());
