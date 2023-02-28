@@ -2,7 +2,7 @@ package org.lins.mmmjjkx.mixtools.objects.keys;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.managers.config.SettingsManager;
+import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 
 public class SettingsKey {
     public static String CURRENCY_SYMBOL = "economy.currency-symbol";

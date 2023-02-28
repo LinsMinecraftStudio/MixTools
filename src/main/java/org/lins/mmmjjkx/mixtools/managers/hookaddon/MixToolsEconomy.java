@@ -4,14 +4,15 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.OfflinePlayer;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.managers.config.FileDataManager;
+import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 
 import java.util.List;
 
-import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.*;
+import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
+import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.HAS_ECONOMY_ACCOUNT;
 
 public class MixToolsEconomy implements Economy {
-    private final FileDataManager data = MixTools.dataManager;
+    private final DataManager data = MixTools.dataManager;
     @Override
     public boolean isEnabled() {
         return true;

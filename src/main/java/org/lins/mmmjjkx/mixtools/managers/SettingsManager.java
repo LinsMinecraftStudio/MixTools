@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.managers.config;
+package org.lins.mmmjjkx.mixtools.managers;
 
 import org.bukkit.configuration.file.FileConfiguration;
 

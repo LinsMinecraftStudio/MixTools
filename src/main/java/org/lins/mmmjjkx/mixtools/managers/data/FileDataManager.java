@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.managers.config;
+package org.lins.mmmjjkx.mixtools.managers.data;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -93,21 +93,9 @@ public class FileDataManager {
         section.set(name,null);
     }
     /////////////////////////////////////////////////////////////////
-    public void setData(String key, String playerName, double d) {
+    public void setData(String key, String playerName, Object o) {
         FileConfiguration cs = checkPlayerInData(playerName);
-        cs.set(key,d);
-    }
-    public void setData(String key, String playerName, int i){
-        FileConfiguration cs = checkPlayerInData(playerName);
-        cs.set(key,i);
-    }
-    public void setData(String key, String playerName, boolean b){
-        FileConfiguration cs = checkPlayerInData(playerName);
-        cs.set(key,b);
-    }
-    public void setData(String key, String playerName, String s){
-        FileConfiguration cs = checkPlayerInData(playerName);
-        cs.set(key,s);
+        cs.set(key,o);
     }
     public String getStringData(String key, String playerName){
         FileConfiguration cs = checkPlayerInData(playerName);

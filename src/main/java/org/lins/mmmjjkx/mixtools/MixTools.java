@@ -5,9 +5,12 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
-import org.lins.mmmjjkx.mixtools.managers.config.FileDataManager;
-import org.lins.mmmjjkx.mixtools.managers.config.SettingsManager;
+import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
+import org.lins.mmmjjkx.mixtools.managers.data.FileDataManager;
+import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
+
+import java.sql.SQLException;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
@@ -15,7 +18,7 @@ public final class MixTools extends JavaPlugin {
     public static MixTools INSTANCE;
     public static MessageHandler messageHandler;
     public static HookManager hookManager;
-    public static FileDataManager dataManager;
+    public static DataManager dataManager;
     public static SettingsManager settingsManager;
     private static HikariDataSource dataSource;
 
@@ -30,7 +33,8 @@ public final class MixTools extends JavaPlugin {
         }
         messageHandler = new MessageHandler();
         hookManager = new HookManager();
-        dataManager = new FileDataManager();
+        try {dataManager = new DataManager();
+        } catch (SQLException e) {throw new RuntimeException(e);}
         registerCommands();
         getLogger().info("MixTools enabled!");
     }
