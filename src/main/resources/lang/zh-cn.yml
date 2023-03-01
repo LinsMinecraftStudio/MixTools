@@ -24,6 +24,8 @@ GUI:
   Anvil: "铁砧"
   Furnace: "熔炉"
   Trash: "垃圾箱"
+  OpenTrashBin: ""
+  CloseTrashBin: ""
 Item:
   AIR: "&4物品不能为空气！"
 Home:

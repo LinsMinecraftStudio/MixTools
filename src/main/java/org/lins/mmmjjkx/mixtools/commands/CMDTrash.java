@@ -37,6 +37,7 @@ public class CMDTrash implements MixCommandExecutor {
             if (p != null){
                 p.closeInventory();
                 Inventory i = Bukkit.createInventory(null,36,getMessage("GUI.Trash"));
+                sendMessage(p, "GUI.OpenTrashBin");
                 p.openInventory(i);
                 return true;
             }

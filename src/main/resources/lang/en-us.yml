@@ -24,6 +24,8 @@ GUI:
   Anvil: "Anvil"
   Furnace: "Furnace"
   Trash: "Trash bin"
+  OpenTrashBin: ""
+  CloseTrashBin: ""
 Item:
   AIR: "&4The item should not be air!"
 Home:

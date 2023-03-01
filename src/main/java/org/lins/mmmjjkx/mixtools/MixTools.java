@@ -5,9 +5,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
-import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
-import org.lins.mmmjjkx.mixtools.managers.data.FileDataManager;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
+import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
 import java.sql.SQLException;
