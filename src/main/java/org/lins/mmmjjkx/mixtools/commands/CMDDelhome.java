@@ -46,6 +46,18 @@ public class CMDDelhome implements MixTabExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        if (hasPermission(sender)) {
+            Player p = toPlayer(sender);
+            if (p != null){
+                if (args.length == 1) {
+                    MixTools.dataManager.removeHome(p, args[0]);
+                    return true;
+                }else {
+                    sendMessage(p, "Command.NoEnoughOrTooManyArgs");
+                    return false;
+                }
+            }
+        }
         return false;
     }
 }

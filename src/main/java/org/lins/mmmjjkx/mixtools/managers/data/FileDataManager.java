@@ -29,21 +29,24 @@ public class FileDataManager {
             MixTools.messageHandler.sendMessage(home.getOwner(),"Home.Exists");
             return;
         }
-        section2.set("world", loc.getWorld().getName());
-        section2.set("x", loc.getX());
-        section2.set("y", loc.getY());
-        section2.set("z", loc.getZ());
-        section2.set("pitch", loc.getPitch());
-        section2.set("yaw", loc.getYaw());
+        if (loc.getWorld() != null) {
+            section2.set("world", loc.getWorld().getName());
+            section2.set("x", loc.getX());
+            section2.set("y", loc.getY());
+            section2.set("z", loc.getZ());
+            section2.set("pitch", loc.getPitch());
+            section2.set("yaw", loc.getYaw());
+        }
     }
     public Location getHomeLocation(String owner, String name){
         FileConfiguration cs = checkPlayerInData(owner);
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section == null){return null;}
         ConfigurationSection section2 = section.getConfigurationSection(name);
-        return new Location(Bukkit.getWorld(section2.getString("world")),
+        if (section2 == null){return null;}
+        return new Location(Bukkit.getWorld(section2.getString("world","world")),
                 section2.getDouble("x"), section2.getDouble("y"), section2.getDouble("z"),
-                Float.parseFloat(section2.getString("pitch")), Float.parseFloat(section2.getString("yaw")));
+                Float.parseFloat(section2.getString("pitch","0")), Float.parseFloat(section2.getString("yaw","0")));
     }
     public int getPlayerOwnedHomesAmount(Player p){
         FileConfiguration cs = checkPlayerInData(p.getName());
