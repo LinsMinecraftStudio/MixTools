@@ -96,7 +96,7 @@ public class CMDEconomy implements MixTabExecutor {
                     return false;
                 case "currency-symbol":
                     if (hasSubPermission(sender,"currency-symbol")) {
-                        MixTools.settingsManager.setString(CURRENCY_SYMBOL, args[1]);
+                        MixTools.settingsManager.set(CURRENCY_SYMBOL, args[1]);
                         sendMessage(sender,"Economy.ChangeCurrencySymbol");
                     }
             }
