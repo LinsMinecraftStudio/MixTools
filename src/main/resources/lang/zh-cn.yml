@@ -7,6 +7,8 @@ Command:
   Suicide: "&6再见了，残酷的世界。"
   Suicide2: "&c%1&6结束了自己的生命。"
   SpecifyPlayer: "&4请指定玩家。"
+  CommandGroupExecuted: "&a指令组已执行。"
+  CommandGroupNotFound: "&4那个指令组不存在。"
 Economy:
   Balance: "&a你的金钱：&e%1%2。"
   OtherBalance: "&a%1的金钱：&e%2%3。"

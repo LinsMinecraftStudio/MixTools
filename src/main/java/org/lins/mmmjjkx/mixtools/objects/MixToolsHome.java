@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.objects.home;
+package org.lins.mmmjjkx.mixtools.objects;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

@@ -1,10 +1,9 @@
 package org.lins.mmmjjkx.mixtools.managers.data;
 
 import org.bukkit.Location;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.home.MixToolsHome;
+import org.lins.mmmjjkx.mixtools.objects.MixToolsHome;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
 import java.sql.SQLException;

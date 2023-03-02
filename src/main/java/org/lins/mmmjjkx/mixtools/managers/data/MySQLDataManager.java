@@ -6,7 +6,7 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
-import org.lins.mmmjjkx.mixtools.objects.home.MixToolsHome;
+import org.lins.mmmjjkx.mixtools.objects.MixToolsHome;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
