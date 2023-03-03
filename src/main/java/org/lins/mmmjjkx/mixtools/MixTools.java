@@ -67,6 +67,7 @@ public final class MixTools extends JavaPlugin {
         new CMDTrash().register();
         new CMDSethome().register();
         new CMDDelhome().register();
+        new CMDCommandGroup().register();
     }
 
     private void saveResources() {

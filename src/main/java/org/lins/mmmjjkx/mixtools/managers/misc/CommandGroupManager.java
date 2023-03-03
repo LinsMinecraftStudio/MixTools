@@ -39,6 +39,14 @@ public class CommandGroupManager {
         return groups;
     }
 
+    public void addGroup(String name){
+        addGroup(new MixToolsCommandGroup(name, new ArrayList<>()));
+    }
+
+    public void addGroup(MixToolsCommandGroup group){
+        cmdgroup.set(group.getName(), group.getCommands());
+    }
+
     public Set<String> getAllGroupsName(){
         return cmdgroup.getKeys(false);
     }
@@ -53,6 +61,7 @@ public class CommandGroupManager {
             cmd = parseVariable(p,cmd);
             p.performCommand(cmd);
         }
+        MixTools.messageHandler.sendMessage(from, "CommandGroup.Executed");
     }
 
     private String parseVariable(Player p,String cmd) {

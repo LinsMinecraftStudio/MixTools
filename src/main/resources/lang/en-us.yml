@@ -7,8 +7,10 @@ Command:
   Suicide: "&6Goodbye, a cruel world."
   Suicide2: "&c%1 &6ended his life."
   SpecifyPlayer: "Please specify a player."
-  CommandGroupExecuted: "&aCommand group executed."
-  CommandGroupNotFound: "&4That command group is not exists."
+CommandGroup:
+  Executed: "&aCommand group executed."
+  NotFound: "&4That command group is not exists."
+  Created: "&aCommand group &e%1 &acreated."
 Economy:
   Balance: "&aYour money: &e%1%2"
   OtherBalance: "&a%1's money: &e%2%3"
