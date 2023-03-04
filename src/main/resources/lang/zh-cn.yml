@@ -11,6 +11,10 @@ CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"
   Created: "&a指令组&e%1&a已创建。"
+Spawn:
+  Set: "&a主城位置已设置至 x: &b%1 &ay: &b%2 &az: &b%3&a &apitch: &b%4 &ayaw: &b%5."
+  SpawnLocationNotFound: "&4主城位置未找到，请寻找操作员或服务器所有者请求帮助。"
+  Teleported: "&a你传送到了主城。"
 Economy:
   Balance: "&a你的金钱：&e%1%2。"
   OtherBalance: "&a%1的金钱：&e%2%3。"
@@ -18,6 +22,7 @@ Economy:
   AccountNotFound: "&4那个账号不存在！"
   TakeSuccess: "&a你拿走了&c%1 &e%2%3"
   Max: "&a余额已达最高上限。"
+  ChangeCurrencySymbol: "&a货币符号已更改为&e%1&a。"
 Fly:
   Disabled: "&a飞行已开启。"
   Enabled: "&a飞行已关闭。"

@@ -5,7 +5,10 @@ import net.milkbowl.vault.economy.EconomyResponse;
 import org.bukkit.OfflinePlayer;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
+import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
+import org.lins.mmmjjkx.mixtools.utils.MixNumberUtil;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
@@ -30,22 +33,22 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public int fractionalDigits() {
-        return 0;
+        return -1;
     }
 
     @Override
     public String format(double amount) {
-        return null;
+        return MixNumberUtil.ToStringCurrency(new BigDecimal(amount));
     }
 
     @Override
     public String currencyNamePlural() {
-        return null;
+        return currencyNameSingular();
     }
 
     @Override
     public String currencyNameSingular() {
-        return null;
+        return MixTools.settingsManager.getString(SettingsKey.CURRENCY_SYMBOL);
     }
 
     @Override
@@ -212,12 +215,21 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public boolean createPlayerAccount(String playerName) {
-        if (data.getBooleanData(HAS_ECONOMY_ACCOUNT,playerName)) {
-            return false;
+        if (MixTools.settingsManager.getBoolean(SettingsKey.MYSQL_ENABLED)) {
+            if (data.getBooleanData(HAS_ECONOMY_ACCOUNT, playerName)) {
+                return false;
+            } else {
+                data.checkPlayerInMysqlData(playerName);
+                return true;
+            }
         }else {
-            data.setData(HAS_ECONOMY_ACCOUNT,playerName,true);
-            data.setData(ECONOMY_MONEY,playerName,0);
-            return true;
+            if (data.getBooleanData(HAS_ECONOMY_ACCOUNT, playerName)) {
+                return false;
+            }else {
+                data.setData(HAS_ECONOMY_ACCOUNT, playerName, true);
+                data.setData(ECONOMY_MONEY, playerName, 0);
+                return true;
+            }
         }
     }
 

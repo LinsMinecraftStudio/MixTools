@@ -73,32 +73,35 @@ public class CMDEconomy implements MixTabExecutor {
         if (args.length == 2) {
             String name = args[1];
             switch (args[0]) {
-                case "balance":
-                    if (MixTools.dataManager.getBooleanData(HAS_ECONOMY_ACCOUNT,name)) {
+                case "balance" -> {
+                    if (MixTools.dataManager.getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
                         sendMessage(sender, "Economy.Balance", MixTools.settingsManager.getString(CURRENCY_SYMBOL), name,
                                 MixTools.dataManager.getDoubleData(ECONOMY_MONEY, name));
                         return true;
-                    }else {
-                        sendMessage(p,"Economy.AccountNotFound");
+                    } else {
+                        sendMessage(p, "Economy.AccountNotFound");
                         return false;
                     }
-                case "clear":
-                    if (hasSubPermission(sender,"clear")) {
+                }
+                case "clear" -> {
+                    if (hasSubPermission(sender, "clear")) {
                         if (MixTools.dataManager.getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
                             MixTools.dataManager.setData(ECONOMY_MONEY, name, 0);
-                            sendMessage(sender,"Economy.ClearSuccess");
+                            sendMessage(sender, "Economy.ClearSuccess");
                             return true;
-                        }else {
-                            sendMessage(p,"Economy.AccountNotFound");
+                        } else {
+                            sendMessage(p, "Economy.AccountNotFound");
                             return false;
                         }
                     }
                     return false;
-                case "currency-symbol":
-                    if (hasSubPermission(sender,"currency-symbol")) {
+                }
+                case "currency-symbol" -> {
+                    if (hasSubPermission(sender, "currency-symbol")) {
                         MixTools.settingsManager.set(CURRENCY_SYMBOL, args[1]);
-                        sendMessage(sender,"Economy.ChangeCurrencySymbol");
+                        sendMessage(sender, "Economy.ChangeCurrencySymbol", args[1]);
                     }
+                }
             }
             return true;
         }else if (args.length == 3) {

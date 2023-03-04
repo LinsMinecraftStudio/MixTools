@@ -11,6 +11,10 @@ CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
   Created: "&aCommand group &e%1 &acreated."
+Spawn:
+  Set: "&aSpawn location is set to x: &b%1 &ay: &b%2 &az: &b%3&a &apitch: &b%4 &ayaw: &b%5."
+  SpawnLocationNotFound: "&4Spawn location is not found. Please ask operators or server owner for help."
+  Teleported: "&aYou teleported to the spawn."
 Economy:
   Balance: "&aYour money: &e%1%2"
   OtherBalance: "&a%1's money: &e%2%3"
@@ -18,6 +22,7 @@ Economy:
   AccountNotFound: "&4That account does not exist."
   TakeSuccess: "&aYou take &c%1 &e%2%3"
   Max: "&4The balance has reached the maximum limit."
+  ChangeCurrencySymbol: "&aCurrency symbol is changed to &e%1&a."
 Fly:
   Disabled: "&aFly disabled."
   Enabled: "&aFly enabled."

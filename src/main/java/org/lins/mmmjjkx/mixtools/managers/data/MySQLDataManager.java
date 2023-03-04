@@ -33,7 +33,7 @@ public class MySQLDataManager {
         ps2.execute();
     }
 
-    private void checkPlayerInData(String playerName) throws SQLException {
+    public void checkPlayerInData(String playerName) throws SQLException {
         ResultSet rs = conn.prepareStatement("select * from mixtools_data where name = "+playerName).executeQuery();
         if (rs.getRow()==0){
             conn.prepareStatement("INSERT INTO mixtools_data (name, has_economy_account, economy_money) VALUES ("+playerName

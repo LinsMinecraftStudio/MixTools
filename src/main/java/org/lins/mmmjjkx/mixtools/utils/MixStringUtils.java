@@ -5,6 +5,7 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.util.EnumSet;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -57,5 +58,30 @@ public class MixStringUtils {
     public static boolean matchRegex(String str){
         String regex = MixTools.settingsManager.getString(STRING_REGEX);
         return str.matches(regex);
+    }
+
+    public static long deserializeTime(String str) {
+        if (str == null || str.isEmpty())
+            return 0L;
+        String copy = str.replaceAll("[^0-9smhdw:]", "");
+        if (copy.isEmpty())
+            return 0L;
+        long total = 0;
+        String[] values = copy.split(":");
+        for (String string : values) {
+            if (string.isEmpty())
+                continue;
+            if (string.contains("w")) {
+                string = string.replaceAll("[^0-9]", "");
+                total += TimeUnit.DAYS.toSeconds(Long.parseLong(string) * 7);
+                continue;
+            }
+            TimeUnit unit = string.contains("d") ? TimeUnit.DAYS
+                    : string.contains("h") ? TimeUnit.HOURS
+                    : string.contains("m") ? TimeUnit.MINUTES : TimeUnit.SECONDS;
+            string = string.replaceAll("[^0-9]", "");
+            total += unit.toSeconds(Long.parseLong(string));
+        }
+        return total;
     }
 }

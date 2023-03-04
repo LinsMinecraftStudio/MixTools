@@ -109,4 +109,9 @@ public class DataManager {
             return dataManager.getDoubleData(key, playerName);
         }
     }
+
+    public void checkPlayerInMysqlData(String name){
+        try {mysqlDataManager.checkPlayerInData(name);
+        } catch (SQLException e) {throw new RuntimeException(e);}
+    }
 }
