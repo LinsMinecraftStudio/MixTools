@@ -28,16 +28,6 @@ public class CMDFly implements MixTabExecutor {
     }
 
     @Override
-    public String usage() {
-        return "/<command> [player]";
-    }
-
-    @Override
-    public List<String> aliases() {
-        return new ArrayList<>();
-    }
-
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);

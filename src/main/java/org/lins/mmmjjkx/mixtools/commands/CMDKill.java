@@ -6,7 +6,6 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CMDKill implements MixTabExecutor {
@@ -27,16 +26,6 @@ public class CMDKill implements MixTabExecutor {
     @Override
     public String requirePlugin() {
         return null;
-    }
-
-    @Override
-    public String usage() {
-        return "/<command> [player]";
-    }
-
-    @Override
-    public List<String> aliases() {
-        return new ArrayList<>();
     }
 
     @Override

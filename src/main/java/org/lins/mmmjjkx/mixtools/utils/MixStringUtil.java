@@ -3,6 +3,14 @@ package org.lins.mmmjjkx.mixtools.utils;
 import org.bukkit.ChatColor;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -11,7 +19,7 @@ import java.util.regex.Pattern;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.STRING_REGEX;
 
-public class MixStringUtils {
+public class MixStringUtil {
     private static final Pattern STRIP_ALL_PATTERN = Pattern.compile(ChatColor.COLOR_CHAR + "+([0-9a-fk-orA-FK-OR])");
     private static final Pattern STRIP_RGB_PATTERN = Pattern.compile(ChatColor.COLOR_CHAR + "x((?:" + ChatColor.COLOR_CHAR + "[0-9a-fA-F]){6})");
     public static String unformatString(final String message) {
@@ -83,5 +91,34 @@ public class MixStringUtils {
             total += unit.toSeconds(Long.parseLong(string));
         }
         return total;
+    }
+
+    public static String openFile(String filePath) {
+        int HttpResult;
+        String ee = "";
+        try {
+            URL url = new URL(filePath);
+            URLConnection urlconn = url.openConnection();
+            urlconn.connect();
+            HttpURLConnection httpconn =(HttpURLConnection)urlconn;
+            HttpResult = httpconn.getResponseCode();
+            if(HttpResult != HttpURLConnection.HTTP_OK) {
+                System.out.print("无法连接到");
+            } else {
+                InputStreamReader isReader = new InputStreamReader(urlconn.getInputStream(), StandardCharsets.UTF_8);
+                BufferedReader reader = new BufferedReader(isReader);
+                StringBuilder buffer = new StringBuilder();
+                String line;
+                line = reader.readLine();
+                while (line != null) {
+                    buffer.append(line);
+                    line = reader.readLine();
+                }
+                ee = buffer.toString();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return  ee;
     }
 }

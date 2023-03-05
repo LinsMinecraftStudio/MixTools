@@ -3,6 +3,7 @@ package org.lins.mmmjjkx.mixtools.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
@@ -16,7 +17,7 @@ import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.CURRENCY_SYMBOL
 
 public class CMDEconomy implements MixTabExecutor {
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         List<String> list = new ArrayList<>();
         if (args.length==0){
             list.add("balance");
@@ -26,7 +27,7 @@ public class CMDEconomy implements MixTabExecutor {
             list.add("currency-symbol");
         }
         if (args.length==1) {
-            return getPlayerNames();
+            list = getPlayerNames();
         }
         return list;
     }
@@ -42,28 +43,18 @@ public class CMDEconomy implements MixTabExecutor {
     }
 
     @Override
-    public String usage() {
-        return "/<command> [balance/clear/add/take/currency-symbol] [currency-symbol/player] [amount]";
-    }
-
-    @Override
-    public List<String> aliases() {
-        return List.of("eco","money");
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         Player p = toPlayer(sender);
         if (p != null) {
             if (args.length == 0) {
                 sendMessage(p, "Economy.Balance",
-                        MixTools.settingsManager.getString(CURRENCY_SYMBOL),
-                        MixTools.dataManager.getDoubleData(ECONOMY_MONEY, p.getName()));
+                        MixTools.dataManager.getDoubleData(ECONOMY_MONEY, p.getName()),
+                        MixTools.settingsManager.getString(CURRENCY_SYMBOL));
                 return true;
             } else if (args.length == 1 && args[0].equals("balance")) {
                 sendMessage(p, "Economy.Balance",
-                        MixTools.settingsManager.getString(CURRENCY_SYMBOL),
-                        MixTools.dataManager.getDoubleData(ECONOMY_MONEY, p.getName()));
+                        MixTools.dataManager.getDoubleData(ECONOMY_MONEY, p.getName()),
+                        MixTools.settingsManager.getString(CURRENCY_SYMBOL));
                 return true;
             }
         }else {

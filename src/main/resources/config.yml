@@ -1,7 +1,7 @@
 language: "en-us"
+check-update: true
 economy:
   currency-symbol: "$"
-  maximum: 1.0E10
   initial-currency: 100
 messages:
   join: "&6{player} joined the server."
@@ -20,4 +20,3 @@ mysql:
     maximum-pool-size: 20
     max-lifetime: 12000
     connection-timeout: 3000
-spawn: ~

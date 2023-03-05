@@ -7,8 +7,6 @@ import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
 
-import java.util.List;
-
 public class CMDBack implements MixCommandExecutor {
     @Override
     public String name() {
@@ -17,16 +15,6 @@ public class CMDBack implements MixCommandExecutor {
 
     @Override
     public String requirePlugin() {
-        return null;
-    }
-
-    @Override
-    public String usage() {
-        return "/<command>";
-    }
-
-    @Override
-    public List<String> aliases() {
         return null;
     }
 

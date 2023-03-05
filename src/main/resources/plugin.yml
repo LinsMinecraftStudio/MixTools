@@ -4,43 +4,68 @@ main: org.lins.mmmjjkx.mixtools.MixTools
 api-version: 1.18
 authors: [ mmmjjkx ]
 description: An essential plugin like Essentials or CMI
-softdepend: ["PlaceholderAPI", "Vault"]
+softdepend: [PlaceholderAPI, Vault]
 commands:
+  toolsreload:
+    description: reload mixtools
+    aliases: [tlr]
+    usage: /<command>
   economy:
     description: economy system
+    aliases: [eco,money]
+    usage: /<command> [balance/clear/add/take/currency-symbol] [currency-symbol/player] [amount]
   gamemode:
     description: change game mode
+    aliases: [gm]
+    usage: /<command> <gamemode> [player]
   kill:
     description: kill somebody or self
+    usage: /<command> [player]
   killall:
     description: kill all players
-  anvil:
-    description: open anvil gui
+    usage: /<command>
   workbench:
     description: open workbench gui
+    aliases: [wb]
+    usage: /<command>
   sudo:
     description: execute action by other player
+    usage: /<command> <player> <actions>
   suicide:
     description: suicide
+    usage: /<command>
   back:
     description: return to the previous position
+    usage: /<command>
   commandgroup:
     description: command group
+    aliases: [cg]
+    usage: /<command> <add/run/remove> <groupname/player> <commands>(add)
   delhome:
     description: delete home
+    usage: /<command> <name>
   fly:
     description: fly
-  furnace:
-    description: open furnace gui
+    usage: /<command> [player]
   itemlore:
     description: add item lore
+    usage: /<command> <lores>
   itemname:
     description: change item name
+    usage: /<command> <itemname>
   sethome:
     description: set home
+    usage: /<command> [name]
   setspawn:
     description: set spawn
+    usage: /<command>
   spawn:
     description: spawn
+    usage: /<command>
   trash:
     description: open trash bin
+    usage: /<command>
+  enderchest:
+    description: open ender chest
+    usage: /<command> [player]
+    aliases: [ec]

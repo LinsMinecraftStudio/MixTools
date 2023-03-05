@@ -44,16 +44,6 @@ public class CMDCommandGroup implements MixTabExecutor {
     }
 
     @Override
-    public String usage() {
-        return "/<command> <add/run/remove> <groupname/player>";
-    }
-
-    @Override
-    public List<String> aliases() {
-        return List.of("cg");
-    }
-
-    @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)){
             if (args.length==0||args.length==1) {

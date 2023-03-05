@@ -1,10 +1,10 @@
 package org.lins.mmmjjkx.mixtools.managers.data;
 
+import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.MixToolsHome;
-import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
 import java.sql.SQLException;
 import java.util.Set;
@@ -13,12 +13,13 @@ import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
 public class DataManager {
     private final boolean isMYSQLEnabled = MixTools.settingsManager.getBoolean(MYSQL_ENABLED);
+    private final FileDataManager dataManager;
+    private final MySQLDataManager mysqlDataManager;
 
-    private final FileDataManager dataManager = isMYSQLEnabled ? null : new FileDataManager();
-
-    private final MySQLDataManager mysqlDataManager = isMYSQLEnabled ? new MySQLDataManager(SettingsKey.getDataSource()) : null;
-
-    public DataManager() throws SQLException {}
+    public DataManager(HikariDataSource dataSource) throws SQLException {
+        dataManager = new FileDataManager();
+        mysqlDataManager = isMYSQLEnabled ? new MySQLDataManager(dataSource) : null;
+    }
 
     public void addHome(MixToolsHome home){
         if (isMYSQLEnabled){

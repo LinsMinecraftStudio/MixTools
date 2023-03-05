@@ -21,13 +21,11 @@ public interface MixTabExecutor extends MixCommandExecutor, TabExecutor {
                 PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
                 cmd.setExecutor(this);
                 cmd.setTabCompleter(this);
-                cmd.setAliases(aliases());
             }
         }else {
             PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
             cmd.setExecutor(this);
             cmd.setTabCompleter(this);
-            cmd.setAliases(aliases());
         }
     }
 

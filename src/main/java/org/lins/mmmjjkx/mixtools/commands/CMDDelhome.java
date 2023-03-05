@@ -34,16 +34,6 @@ public class CMDDelhome implements MixTabExecutor {
     }
 
     @Override
-    public String usage() {
-        return "/<command> <name>";
-    }
-
-    @Override
-    public List<String> aliases() {
-        return null;
-    }
-
-    @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (hasPermission(sender)) {
             Player p = toPlayer(sender);

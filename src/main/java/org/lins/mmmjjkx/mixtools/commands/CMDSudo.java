@@ -15,7 +15,7 @@ public class CMDSudo implements MixTabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         List<String> s = new ArrayList<>();
         if (args.length==0){
-            return getPlayerNames();
+            s = getPlayerNames();
         } else if (args.length > 1) {
             s.add("cmd:");
             s.add("chat:");
@@ -35,16 +35,6 @@ public class CMDSudo implements MixTabExecutor {
     }
 
     @Override
-    public String usage() {
-        return "/<command> <player> <action>";
-    }
-
-    @Override
-    public List<String> aliases() {
-        return new ArrayList<>();
-    }
-
-    @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             if (args.length>1){
@@ -53,11 +43,12 @@ public class CMDSudo implements MixTabExecutor {
                     for (int i=1;i<args.length-1;i++){
                         String[] str = args[i].split(":");
                         String key = str[0];
-                        String action = str[1].replaceAll(":space:"," ");
+                        String action = str[1].replaceAll(":sp:"," ");
                         switch (key) {
                             case "chat" -> p.chat(action);
                             case "cmd" -> p.performCommand(action);
                             case "cmdgroup" -> MixTools.miscFeatureManager.getCommandGroupManager().runCommandGroup(sender, p, action);
+
                         }
                     }
                     return true;

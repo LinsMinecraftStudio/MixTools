@@ -119,8 +119,11 @@ public class FileDataManager {
     private FileConfiguration checkPlayerInData(String playerName){
         File f = new File(MixTools.INSTANCE.getDataFolder(),"data/"+playerName+".yml");
         if (!f.exists()) {
-            f.mkdirs();
-            try {f.createNewFile();
+            try {
+                if (!f.getParentFile().exists()){
+                    f.mkdirs();
+                }
+                f.createNewFile();
             } catch (IOException e) {
                 throw new RuntimeException(e);}
         }

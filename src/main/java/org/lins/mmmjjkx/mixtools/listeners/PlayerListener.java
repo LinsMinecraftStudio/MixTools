@@ -13,6 +13,7 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
 import org.lins.mmmjjkx.mixtools.objects.listener.MixToolsListener;
+import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.*;
 
@@ -27,6 +28,7 @@ public class PlayerListener implements MixToolsListener {
             economy.depositPlayer(e.getPlayer(), MixTools.settingsManager.getInt(INITIAL_CURRENCY));
             Bukkit.broadcastMessage(getPlayerMessage(p, PLAYER_WELCOME_MESSAGE));
         }
+        checkVersion(e.getPlayer());
     }
 
     @EventHandler
@@ -65,5 +67,17 @@ public class PlayerListener implements MixToolsListener {
             str = str.replaceAll("<player>",p.getName());
         }
         return MixTools.messageHandler.colorize(str);
+    }
+
+    private void checkVersion(Player p){
+        if (MixTools.settingsManager.getBoolean(CHECK_UPDATE)) {
+            String latest = MixStringUtil.openFile("https://raw.githubusercontent.com/LinsPMStudio/MixTools/main/version.txt");
+            String ver = MixTools.INSTANCE.getDescription().getVersion();
+            if (!ver.equals(latest)) {
+                getMessageHandler().sendMessage(p, "Check-Update.Line1");
+                getMessageHandler().sendMessage(p, "Check-Update.Line2", ver, latest);
+                getMessageHandler().sendMessage(p, "Check-Update.Line3");
+            }
+        }
     }
 }

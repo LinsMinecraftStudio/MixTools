@@ -9,7 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
-import org.lins.mmmjjkx.mixtools.utils.MixStringUtils;
+import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public class CMDItemName implements MixTabExecutor {
                 ItemMeta meta = hand.getItemMeta();
                 if (meta != null && meta.hasDisplayName()) {
                     if (args.length==0) {
-                        s.add(MixStringUtils.unformatString(meta.getDisplayName()));
+                        s.add(MixStringUtil.unformatString(meta.getDisplayName()));
                     }
                 }
             }
@@ -40,16 +40,6 @@ public class CMDItemName implements MixTabExecutor {
     @Override
     public String requirePlugin() {
         return null;
-    }
-
-    @Override
-    public String usage() {
-        return "/<command> <itemName>";
-    }
-
-    @Override
-    public List<String> aliases() {
-        return new ArrayList<>();
     }
 
     @Override

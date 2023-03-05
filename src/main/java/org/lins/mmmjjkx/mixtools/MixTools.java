@@ -1,6 +1,7 @@
 package org.lins.mmmjjkx.mixtools;
 
 import com.zaxxer.hikari.HikariDataSource;
+import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
@@ -38,17 +39,20 @@ public final class MixTools extends JavaPlugin {
         messageHandler = new MessageHandler();
         hookManager = new HookManager();
         miscFeatureManager = new MiscFeatureManager();
-        try {dataManager = new DataManager();
+        try {dataManager = new DataManager(dataSource);
         } catch (SQLException e) {throw new RuntimeException(e);}
         ////////////////////////////////
         registerCommands();
+        Metrics m = new Metrics(this,17788);
         getLogger().info("MixTools enabled!");
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        dataSource.close();
+        if (dataSource != null) {
+            dataSource.close();
+        }
         getLogger().info("MixTools disabled!");
     }
 
@@ -58,12 +62,10 @@ public final class MixTools extends JavaPlugin {
         new CMDKill().register();
         new CMDSuicide().register();
         new CMDFly().register();
-        new CMDAnvil().register();
         new CMDWorkbench().register();
         new CMDSudo().register();
         new CMDItemName().register();
         new CMDItemLore().register();
-        new CMDFurnace().register();
         new CMDTrash().register();
         new CMDSethome().register();
         new CMDDelhome().register();
@@ -78,5 +80,11 @@ public final class MixTools extends JavaPlugin {
         saveResource("commandGroup.yml",false);
         saveResource("lang/en-us.yml",false);
         saveResource("lang/zh-cn.yml",false);
+    }
+
+    public static void setDataSource(HikariDataSource dataSource){
+        MixTools.dataSource = dataSource;
+        try {MixTools.dataManager = new DataManager(dataSource);
+        } catch (SQLException e) {throw new RuntimeException(e);}
     }
 }

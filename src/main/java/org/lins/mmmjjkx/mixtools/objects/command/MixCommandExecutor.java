@@ -7,13 +7,9 @@ import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
-import java.util.List;
-
 public interface MixCommandExecutor extends CommandExecutor {
     String name();
     String requirePlugin();
-    String usage();
-    List<String> aliases();
     default boolean hasPermission(CommandSender cs){
         boolean b = cs.hasPermission("mixtools.command."+name());
         if (!b){
@@ -37,14 +33,10 @@ public interface MixCommandExecutor extends CommandExecutor {
             if (Bukkit.getPluginManager().isPluginEnabled(require)){
                 PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
                 cmd.setExecutor(this);
-                cmd.setAliases(aliases());
-                cmd.setUsage(usage());
             }
         }else {
             PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
             cmd.setExecutor(this);
-            cmd.setAliases(aliases());
-            cmd.setUsage(usage());
         }
     }
     default Player toPlayer(CommandSender cs){

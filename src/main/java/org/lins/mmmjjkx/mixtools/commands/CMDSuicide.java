@@ -3,10 +3,8 @@ package org.lins.mmmjjkx.mixtools.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class CMDSuicide implements MixCommandExecutor {
     @Override
@@ -20,17 +18,7 @@ public class CMDSuicide implements MixCommandExecutor {
     }
 
     @Override
-    public String usage() {
-        return "/<command>";
-    }
-
-    @Override
-    public List<String> aliases() {
-        return new ArrayList<>();
-    }
-
-    @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (p!=null){

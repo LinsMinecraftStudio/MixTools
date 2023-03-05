@@ -1,17 +1,16 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
+import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
-public class CMDSetSpawn implements MixCommandExecutor {
+public class CMDReload implements MixCommandExecutor {
     @Override
     public String name() {
-        return "setspawn";
+        return "toolsreload";
     }
 
     @Override
@@ -22,13 +21,10 @@ public class CMDSetSpawn implements MixCommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)) {
-            Player p = toPlayer(sender);
-            if (p != null) {
-                Location loc = p.getLocation();
-                MixTools.settingsManager.setSpawn(loc);
-                sendMessage(sender,"Spawn.Set",loc.getX(),loc.getY(),loc.getZ(),loc.getPitch(),loc.getYaw());
-                return true;
-            }
+            MixTools.INSTANCE.reloadConfig();
+            MixTools.setDataSource(SettingsKey.getDataSource());
+            sendMessage(sender,"Command.ReloadSuccess");
+            return true;
         }
         return false;
     }

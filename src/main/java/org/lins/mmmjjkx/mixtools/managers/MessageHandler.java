@@ -9,8 +9,6 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.io.File;
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -39,20 +37,8 @@ public class MessageHandler {
         return message.getString(node);
     }
 
-    public List<String> getMessages(String node){
-        return message.getStringList(node);
-    }
-
-    public List<String> getColoredMessages(String node){
-        List<String> list = new ArrayList<>();
-        for (String message : getMessages(node)){
-            list.add(colorize(message));
-        }
-        return list;
-    }
-
     public String getColored(String node, Object... args){
-        return String.format(colorize(get(node)),args);
+        return colorize(String.format(get(node),args));
     }
 
     public void sendMessage(CommandSender cs,String node,Object... args){

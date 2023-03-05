@@ -27,7 +27,10 @@ public class SettingsManager {
         config.set(key, value);
     }
     public void setSpawn(Location loc){
-        ConfigurationSection cs = config.getConfigurationSection("spawn") == null ? config.createSection("spawn") : config.getConfigurationSection("spawn") ;
+        ConfigurationSection cs = config.getConfigurationSection("spawn");
+        if (cs == null){
+            cs = config.createSection("spawn");
+        }
         cs.set("world", loc.getWorld());
         cs.set("x", loc.getX());
         cs.set("y", loc.getY());

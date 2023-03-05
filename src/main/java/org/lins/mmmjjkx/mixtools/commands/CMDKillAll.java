@@ -6,9 +6,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class CMDKillAll implements MixCommandExecutor {
     @Override
     public String name() {
@@ -18,16 +15,6 @@ public class CMDKillAll implements MixCommandExecutor {
     @Override
     public String requirePlugin() {
         return null;
-    }
-
-    @Override
-    public String usage() {
-        return "/<command>";
-    }
-
-    @Override
-    public List<String> aliases() {
-        return new ArrayList<>();
     }
 
     @Override
