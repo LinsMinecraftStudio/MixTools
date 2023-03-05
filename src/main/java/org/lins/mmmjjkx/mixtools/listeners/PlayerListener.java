@@ -2,14 +2,16 @@ package org.lins.mmmjjkx.mixtools.listeners;
 
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
-import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 import org.lins.mmmjjkx.mixtools.objects.listener.MixToolsListener;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.*;
@@ -22,7 +24,7 @@ public class PlayerListener implements MixToolsListener {
         economy.createPlayerAccount(p);
         e.setJoinMessage(getPlayerMessage(p, PLAYER_JOIN_MESSAGE));
         if (!p.hasPlayedBefore()){
-            economy.depositPlayer(e.getPlayer(), MixTools.settingsManager.getInt(SettingsKey.INITIAL_CURRENCY));
+            economy.depositPlayer(e.getPlayer(), MixTools.settingsManager.getInt(INITIAL_CURRENCY));
             Bukkit.broadcastMessage(getPlayerMessage(p, PLAYER_WELCOME_MESSAGE));
         }
     }
@@ -41,10 +43,24 @@ public class PlayerListener implements MixToolsListener {
         }
     }
 
+    @EventHandler
+    public void onDeath(PlayerDeathEvent e){
+        MixTools.miscFeatureManager.addBackPlayer(e.getEntity(), e.getEntity().getLocation());
+    }
+
+    @EventHandler
+    public void onTeleport(PlayerTeleportEvent e){
+        Location from = e.getFrom();
+        if (MixTools.miscFeatureManager.containsBackPlayer(e.getPlayer())){
+            MixTools.miscFeatureManager.removeBackPlayer(e.getPlayer());
+            MixTools.miscFeatureManager.addBackPlayer(e.getPlayer(),from);
+        }
+    }
+
     private String getPlayerMessage(Player p,String key){
         String str = getSettingString(key);
         if (MixTools.hookManager.checkPAPIInstalled()) {
-            return PlaceholderAPI.setPlaceholders(p, str);
+            str = PlaceholderAPI.setPlaceholders(p, str);
         }else {
             str = str.replaceAll("<player>",p.getName());
         }

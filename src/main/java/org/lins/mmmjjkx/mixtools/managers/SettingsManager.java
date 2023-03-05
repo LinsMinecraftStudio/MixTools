@@ -1,6 +1,8 @@
 package org.lins.mmmjjkx.mixtools.managers;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 
@@ -32,5 +34,21 @@ public class SettingsManager {
         cs.set("z", loc.getZ());
         cs.set("pitch", loc.getPitch());
         cs.set("yaw", loc.getYaw());
+    }
+
+    public Location getSpawnLocation() {
+        ConfigurationSection cs = config.getConfigurationSection("spawn");
+        if (cs != null){
+            double x = cs.getDouble("x");
+            double y = cs.getDouble("y");
+            double z = cs.getDouble("z");
+            World w = Bukkit.getWorld(cs.getString("world",""));
+            if (w != null) {
+                return new Location(w, x, y, z,
+                        Float.parseFloat(cs.getString("pitch", "0.000")), Float.parseFloat(cs.getString("yaw", "0.000")));
+            }
+            return null;
+        }
+        return null;
     }
 }

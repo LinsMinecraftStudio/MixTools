@@ -7,6 +7,7 @@ Command:
   Suicide: "&6Goodbye, a cruel world."
   Suicide2: "&c%1 &6ended his life."
   SpecifyPlayer: "Please specify a player."
+  Back: "&aReturn to the previous position."
 CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."

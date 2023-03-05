@@ -48,19 +48,21 @@ public class CMDGamemode implements MixTabExecutor {
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         Player p = toPlayer(sender);
         if (hasPermission(p)){
-            switch (args.length){
-                case 1:
+            switch (args.length) {
+                case 1 -> {
                     GameMode mode = GameMode.valueOf(args[0]);
                     p.setGameMode(mode);
                     return true;
-                case 2:
-                    if (hasSubPermission(sender,"others")) {
+                }
+                case 2 -> {
+                    if (hasSubPermission(sender, "others")) {
                         GameMode mode2 = GameMode.valueOf(args[0]);
                         Player p2 = findPlayer(p, args[1]);
                         p2.setGameMode(mode2);
                         return true;
                     }
                     return false;
+                }
             }
         }
         return false;

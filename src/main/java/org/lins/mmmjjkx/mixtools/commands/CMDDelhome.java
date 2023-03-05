@@ -14,8 +14,7 @@ public class CMDDelhome implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
         List<String> l = new ArrayList<>();
-        if (sender instanceof Player) {
-            Player p = (Player) sender;
+        if (sender instanceof Player p) {
             if (args.length == 0) {
                 Set<String> names = MixTools.dataManager.getPlayerOwnedHomesName(p);
                 l.addAll(names);

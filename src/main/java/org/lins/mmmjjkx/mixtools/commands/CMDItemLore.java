@@ -6,6 +6,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.utils.MixStringUtils;
@@ -15,13 +16,17 @@ import java.util.List;
 
 public class CMDItemLore implements MixTabExecutor {
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (sender instanceof Player) {
-            Player p = (Player) sender;
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
+        if (sender instanceof Player p) {
             ItemStack i = p.getInventory().getItemInMainHand();
-            if (i != null && !i.getType().equals(Material.AIR) && i.hasItemMeta()) {
+            if (!i.getType().equals(Material.AIR) && i.getItemMeta() != null) {
                 ItemMeta m = i.getItemMeta();
-                return List.of(MixStringUtils.unformatString(m.getLore().get(args.length)));
+                String lore = "";
+                try {lore = m.getLore().get(args.length);
+                }catch (Exception ignored){}
+                if (lore != null) {
+                    return List.of(MixStringUtils.unformatString(lore));
+                }
             }
         }
         return null;
@@ -47,12 +52,12 @@ public class CMDItemLore implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (p != null) {
                 ItemStack i = p.getInventory().getItemInMainHand();
-                if (i != null&&!i.getType().equals(Material.AIR)&&i.hasItemMeta()){
+                if (!i.getType().equals(Material.AIR) && i.getItemMeta() != null){
                     ItemMeta m = i.getItemMeta();
                     List<String> lines = new ArrayList<>();
                     if (args.length>0){

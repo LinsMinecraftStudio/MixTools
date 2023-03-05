@@ -4,6 +4,7 @@ main: org.lins.mmmjjkx.mixtools.MixTools
 api-version: 1.18
 authors: [ mmmjjkx ]
 description: An essential plugin like Essentials or CMI
+softdepend: ["PlaceholderAPI", "Vault"]
 commands:
   economy:
     description: economy system
@@ -21,3 +22,25 @@ commands:
     description: execute action by other player
   suicide:
     description: suicide
+  back:
+    description: return to the previous position
+  commandgroup:
+    description: command group
+  delhome:
+    description: delete home
+  fly:
+    description: fly
+  furnace:
+    description: open furnace gui
+  itemlore:
+    description: add item lore
+  itemname:
+    description: change item name
+  sethome:
+    description: set home
+  setspawn:
+    description: set spawn
+  spawn:
+    description: spawn
+  trash:
+    description: open trash bin

@@ -6,6 +6,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.managers.misc.CommandGroupManager;
 import org.lins.mmmjjkx.mixtools.objects.MixToolsCommandGroup;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 
@@ -13,6 +14,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CMDCommandGroup implements MixTabExecutor {
+    private final CommandGroupManager commandGroupManager = MixTools.miscFeatureManager.getCommandGroupManager();
+
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -22,7 +25,7 @@ public class CMDCommandGroup implements MixTabExecutor {
             argsList.add("run");
             argsList.add("remove");
         } else if (args.length==1) {
-            argsList.addAll(MixTools.commandGroupManager.getAllGroupsName());
+            argsList.addAll(commandGroupManager.getAllGroupsName());
         }
         if (args.length==2&&args[1].equals("run")) {
             return getPlayerNames();
@@ -62,18 +65,18 @@ public class CMDCommandGroup implements MixTabExecutor {
                     String cmd = args[i].replaceAll(":sp:"," ");
                     cmds.add(cmd);
                 }
-                MixTools.commandGroupManager.addGroup(new MixToolsCommandGroup(args[1],cmds));
+                commandGroupManager.addGroup(new MixToolsCommandGroup(args[1],cmds));
                 sendMessage(sender,"CommandGroup.Created",args[1]);
                 return true;
             } else if (args.length==2){
                 switch (args[0]){
                     case "add" -> {
-                        MixTools.commandGroupManager.addGroup(args[1]);
+                        commandGroupManager.addGroup(args[1]);
                         sendMessage(sender,"CommandGroup.Created",args[1]);
                         return true;
                     }
                     case "remove" -> {
-                        MixTools.commandGroupManager.addGroup(new MixToolsCommandGroup(args[1],null));
+                        commandGroupManager.addGroup(new MixToolsCommandGroup(args[1],null));
                         sendMessage(sender,"CommandGroup.Removed",args[1]);
                         return true;
                     }
@@ -83,7 +86,7 @@ public class CMDCommandGroup implements MixTabExecutor {
                 Player p = findPlayer(sender, args[1]);
                 String groupName = args[2];
                 if (p!=null) {
-                    MixTools.commandGroupManager.runCommandGroup(sender, p, groupName);
+                    commandGroupManager.runCommandGroup(sender, p, groupName);
                     return true;
                 }
             }

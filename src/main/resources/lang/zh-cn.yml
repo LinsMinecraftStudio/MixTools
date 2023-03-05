@@ -7,6 +7,7 @@ Command:
   Suicide: "&6再见了，残酷的世界。"
   Suicide2: "&c%1&6结束了自己的生命。"
   SpecifyPlayer: "&4请指定玩家。"
+  Back: "&a返回到上一个位置。"
 CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"

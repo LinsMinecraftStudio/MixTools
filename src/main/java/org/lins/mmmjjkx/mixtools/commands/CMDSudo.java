@@ -57,7 +57,7 @@ public class CMDSudo implements MixTabExecutor {
                         switch (key) {
                             case "chat" -> p.chat(action);
                             case "cmd" -> p.performCommand(action);
-                            case "cmdgroup" -> MixTools.commandGroupManager.runCommandGroup(sender, p, action);
+                            case "cmdgroup" -> MixTools.miscFeatureManager.getCommandGroupManager().runCommandGroup(sender, p, action);
                         }
                     }
                     return true;

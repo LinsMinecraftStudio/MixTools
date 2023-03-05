@@ -7,7 +7,7 @@ import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
-import org.lins.mmmjjkx.mixtools.managers.misc.CommandGroupManager;
+import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
 import java.sql.SQLException;
@@ -21,7 +21,7 @@ public final class MixTools extends JavaPlugin {
     public static HookManager hookManager;
     public static DataManager dataManager;
     public static SettingsManager settingsManager;
-    public static CommandGroupManager commandGroupManager;
+    public static MiscFeatureManager miscFeatureManager;
     ////////////////////////////////////////////////////////////////
     private static HikariDataSource dataSource;
 
@@ -37,7 +37,7 @@ public final class MixTools extends JavaPlugin {
         }
         messageHandler = new MessageHandler();
         hookManager = new HookManager();
-        commandGroupManager = new CommandGroupManager();
+        miscFeatureManager = new MiscFeatureManager();
         try {dataManager = new DataManager();
         } catch (SQLException e) {throw new RuntimeException(e);}
         ////////////////////////////////
@@ -68,6 +68,9 @@ public final class MixTools extends JavaPlugin {
         new CMDSethome().register();
         new CMDDelhome().register();
         new CMDCommandGroup().register();
+        new CMDSetSpawn().register();
+        new CMDSpawn().register();
+        new CMDBack().register();
     }
 
     private void saveResources() {

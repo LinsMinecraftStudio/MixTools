@@ -3,6 +3,7 @@ package org.lins.mmmjjkx.mixtools.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.List;
 public class CMDKill implements MixTabExecutor {
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
+    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         if (args.length==0){
             return getPlayerNames();
         }
@@ -39,7 +40,7 @@ public class CMDKill implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (args.length==0) {
