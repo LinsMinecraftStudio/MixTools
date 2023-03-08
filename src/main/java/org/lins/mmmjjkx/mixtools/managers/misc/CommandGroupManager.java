@@ -61,7 +61,6 @@ public class CommandGroupManager {
             cmd = parseVariable(p,cmd);
             p.performCommand(cmd);
         }
-        MixTools.messageHandler.sendMessage(from, "CommandGroup.Executed");
     }
 
     private String parseVariable(Player p,String cmd) {

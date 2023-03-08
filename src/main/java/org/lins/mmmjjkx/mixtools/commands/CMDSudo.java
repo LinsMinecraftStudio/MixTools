@@ -42,13 +42,15 @@ public class CMDSudo implements MixTabExecutor {
                 if (p != null){
                     for (int i=1;i<args.length-1;i++){
                         String[] str = args[i].split(":");
+                        if (str.length!=2){
+                            continue;
+                        }
                         String key = str[0];
-                        String action = str[1].replaceAll(":sp:"," ");
+                        String action = str[1].replaceAll("<sp>"," ");
                         switch (key) {
                             case "chat" -> p.chat(action);
                             case "cmd" -> p.performCommand(action);
                             case "cmdgroup" -> MixTools.miscFeatureManager.getCommandGroupManager().runCommandGroup(sender, p, action);
-
                         }
                     }
                     return true;

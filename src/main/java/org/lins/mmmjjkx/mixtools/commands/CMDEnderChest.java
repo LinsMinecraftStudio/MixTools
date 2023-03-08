@@ -38,6 +38,7 @@ public class CMDEnderChest implements MixTabExecutor {
                     p.openInventory(p.getEnderChest());
                     return true;
                 }
+                return false;
             }else if (args.length==1) {
                 Player p = toPlayer(sender);
                 Player p2 = findPlayer(sender,args[0]);
@@ -45,6 +46,7 @@ public class CMDEnderChest implements MixTabExecutor {
                     p.openInventory(p2.getEnderChest());
                     return true;
                 }
+                return false;
             }
         }
         return false;

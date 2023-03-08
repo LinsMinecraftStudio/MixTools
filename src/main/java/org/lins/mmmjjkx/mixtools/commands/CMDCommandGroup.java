@@ -77,6 +77,7 @@ public class CMDCommandGroup implements MixTabExecutor {
                 String groupName = args[2];
                 if (p!=null) {
                     commandGroupManager.runCommandGroup(sender, p, groupName);
+                    sendMessage(sender, "CommandGroup.Executed");
                     return true;
                 }
             }
