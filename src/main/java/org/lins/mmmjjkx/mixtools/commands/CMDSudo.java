@@ -41,6 +41,10 @@ public class CMDSudo implements MixTabExecutor {
                 Player p = findPlayer(sender,args[0]);
                 if (p != null){
                     for (int i=1;i<args.length-1;i++){
+                        String arg = args[i];
+                        if (!arg.contains(":")){
+                            continue;
+                        }
                         String[] str = args[i].split(":");
                         if (str.length!=2){
                             continue;

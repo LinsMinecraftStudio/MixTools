@@ -48,5 +48,6 @@ Home:
   Exists: "&4That home is already exists."
   NoAnyHomes: "&4You don't have any homes."
   NotExists: "&4That home is not exists."
+  Teleported: "&aTeleported you to home &e%s&a."
 String:
   NoMatchRegex: "&4A string does not match the regular expression."

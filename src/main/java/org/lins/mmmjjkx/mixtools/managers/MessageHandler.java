@@ -34,7 +34,7 @@ public class MessageHandler {
     }
 
     public String get(String node){
-        return message.getString(node);
+        return message.getString(node,"§4Get message '"+node+"' failed, maybe it is not exists.");
     }
 
     public String getColored(String node, Object... args){
