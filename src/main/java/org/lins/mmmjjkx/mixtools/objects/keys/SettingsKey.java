@@ -13,6 +13,7 @@ public class SettingsKey {
     public static String PLAYER_QUIT_MESSAGE = "message.quit";
     public static String PLAYER_WELCOME_MESSAGE = "message.welcome";
     public static String STRING_REGEX = "strRegex";
+    public static String TPA_COOLDOWN = "tpa-cooldown";
     public static String MYSQL_ENABLED = "mysql.enabled";
     public static HikariDataSource getDataSource() {
         SettingsManager sm = MixTools.settingsManager;

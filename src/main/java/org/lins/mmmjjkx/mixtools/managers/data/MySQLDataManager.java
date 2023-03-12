@@ -42,13 +42,13 @@ public class MySQLDataManager {
     }
 
     public void addHome(MixToolsHome home) throws SQLException {
-        Location location = home.getOwner().getLocation();
+        Location location = home.owner().getLocation();
         World w = location.getWorld();
         if (w ==null){
             return;
         }
         conn.prepareStatement("INSERT INTO mixtools_homes (name, owner, world, x, y, z, pitch, yaw) VALUES ("+
-                home.getName()+", "+home.getOwner().getName()+", "+w.getName()+", "+location.getX() + ", "+location.getY() + ", "+location.getZ() + ", "+
+                home.name()+", "+home.owner().getName()+", "+w.getName()+", "+location.getX() + ", "+location.getY() + ", "+location.getZ() + ", "+
                 location.getPitch() + ", "+location.getYaw() + ")").execute();
     }
     public Location getHomeLocation(String owner, String name) throws SQLException {

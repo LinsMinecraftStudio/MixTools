@@ -49,4 +49,4 @@ Home:
   NoAnyHomes: "&4你没有任何一个家。"
   NotExists: "&4那个家不存在。"
 String:
-  NoMatchRegex: "&4某个字符串不匹配正则表达式。"
+  NoMatchRegex: "&4参数%d不匹配正则表达式。"

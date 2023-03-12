@@ -16,17 +16,17 @@ import java.util.Set;
 
 public class FileDataManager {
     public void addHome(MixToolsHome home){
-        FileConfiguration cs = checkPlayerInData(home.getOwner().getName());
+        FileConfiguration cs = checkPlayerInData(home.owner().getName());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section == null){
             section = cs.createSection("homes");
         }
-        Location loc = home.getLoc();
-        ConfigurationSection section2 = section.getConfigurationSection(home.getName());
+        Location loc = home.loc();
+        ConfigurationSection section2 = section.getConfigurationSection(home.name());
         if (section2 == null){
-            section2 = section.createSection(home.getName());
+            section2 = section.createSection(home.name());
         }else {
-            MixTools.messageHandler.sendMessage(home.getOwner(),"Home.Exists");
+            MixTools.messageHandler.sendMessage(home.owner(),"Home.Exists");
             return;
         }
         if (loc.getWorld() != null) {

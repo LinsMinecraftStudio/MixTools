@@ -44,7 +44,7 @@ public class CommandGroupManager {
     }
 
     public void addGroup(MixToolsCommandGroup group){
-        cmdgroup.set(group.getName(), group.getCommands());
+        cmdgroup.set(group.name(), group.commands());
     }
 
     public Set<String> getAllGroupsName(){
