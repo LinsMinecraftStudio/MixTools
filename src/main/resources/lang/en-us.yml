@@ -51,7 +51,14 @@ Home:
   Teleported: "&aTeleported you to home &e%s&a."
 TPA:
   Sent: "&aTeleport request sent."
-  Teleported: "&a%s has accepted your teleport request. Teleporting..."
+  NoRequest: "&4You don't have any teleport request."
+  PlayerLeft: "&cThat player is left."
+  TeleportAccept: "&a%s has accepted your teleport request. Teleporting..."
   Timeout: "&eThe teleport request you sent to %s has expired."
+  Teleported: "&e%s &ahas been teleported to you."
+  Request:
+    Line1: "&e%s &awants to teleport to you."
+    Accept: "&2&l[Accept]"
+    Refuse: "&4&l[Refuse]"
 String:
   NoMatchRegex: "&4Argument %d does not conform to regular expression."

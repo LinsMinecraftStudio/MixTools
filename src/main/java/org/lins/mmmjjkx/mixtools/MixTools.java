@@ -74,6 +74,8 @@ public final class MixTools extends JavaPlugin {
         new CMDSpawn().register();
         new CMDBack().register();
         new CMDHome().register();
+        new CMDTPA().register();
+        new CMDTPAAccept().register();
     }
 
     private void saveResources() {

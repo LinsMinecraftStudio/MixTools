@@ -56,6 +56,7 @@ public class CMDTPA implements MixTabExecutor {
                                 }
                             }
                         }.runTaskTimer(MixTools.INSTANCE, 20, 20);
+                        return true;
                     }
                 }
             }
