@@ -22,7 +22,7 @@ public class CMDReload implements MixCommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)) {
             MixTools.INSTANCE.reloadConfig();
-            MixTools.setDataSource(SettingsKey.getDataSource());
+            MixTools.INSTANCE.setDataSource(SettingsKey.getDataSource());
             sendMessage(sender,"Command.ReloadSuccess");
             return true;
         }

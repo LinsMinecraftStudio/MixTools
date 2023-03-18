@@ -2,9 +2,13 @@ package org.lins.mmmjjkx.mixtools.managers;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.List;
 
 public class SettingsManager {
     private final FileConfiguration config;
@@ -23,6 +27,11 @@ public class SettingsManager {
     public long getLong(String key) {
         return config.getLong(key);
     }
+    public ItemStack getItemStack(String key){
+        Material m = Material.valueOf(config.getString(key,"STONE").toUpperCase());
+        return new ItemStack(m);
+    }
+    public List<Integer> getIntList(String key){return config.getIntegerList(key);}
     public void set(String key, Object value){
         config.set(key, value);
     }

@@ -9,6 +9,7 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.IllegalFormatException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,11 +35,12 @@ public class MessageHandler {
     }
 
     public String get(String node){
-        return message.getString(node,"§4Get message '"+node+"' failed, maybe it is not exists.");
+        return message.getString(node,"§4Get message '"+node+"' failed, maybe it's not exists.");
     }
 
     public String getColored(String node, Object... args){
-        return colorize(String.format(get(node),args));
+        try {return colorize(String.format(get(node),args));
+        } catch (IllegalFormatException e) {return colorize(get(node));}
     }
 
     public void sendMessage(CommandSender cs,String node,Object... args){

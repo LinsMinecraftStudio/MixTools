@@ -4,7 +4,6 @@ import org.bukkit.ChatColor;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -102,9 +101,7 @@ public class MixStringUtil {
             urlconn.connect();
             HttpURLConnection httpconn =(HttpURLConnection)urlconn;
             HttpResult = httpconn.getResponseCode();
-            if(HttpResult != HttpURLConnection.HTTP_OK) {
-                System.out.print("无法连接到");
-            } else {
+            if(HttpResult == HttpURLConnection.HTTP_OK) {
                 InputStreamReader isReader = new InputStreamReader(urlconn.getInputStream(), StandardCharsets.UTF_8);
                 BufferedReader reader = new BufferedReader(isReader);
                 StringBuilder buffer = new StringBuilder();

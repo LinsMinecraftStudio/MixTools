@@ -4,6 +4,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
 
 public class CMDKillAll implements MixCommandExecutor {
@@ -18,7 +19,7 @@ public class CMDKillAll implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             for (Player p: Bukkit.getOnlinePlayers()){
                 p.setHealth(0);

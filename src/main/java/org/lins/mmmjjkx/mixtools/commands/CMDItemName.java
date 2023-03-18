@@ -43,7 +43,7 @@ public class CMDItemName implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (p != null){

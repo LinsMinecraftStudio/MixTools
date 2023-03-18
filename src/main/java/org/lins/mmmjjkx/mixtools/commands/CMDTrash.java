@@ -5,8 +5,14 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
+import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
+
+import java.util.List;
+
+import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.*;
 
 public class CMDTrash implements MixCommandExecutor {
     @Override
@@ -25,9 +31,20 @@ public class CMDTrash implements MixCommandExecutor {
             Player p = toPlayer(sender);
             if (p != null){
                 p.closeInventory();
-                Inventory i = Bukkit.createInventory(null,36,getMessage("GUI.Trash"));
+                int size = (MixTools.settingsManager.getInt(TRASH_LINE)*9);
+                Inventory inv = Bukkit.createInventory(null, size, getMessage("GUI.Trash"));
+                List<Integer> slots = MixTools.settingsManager.getIntList(TRASH_PUT_THING_SLOTS);
+                if (!slots.isEmpty()) {
+                    ItemStack stack = MixTools.settingsManager.getItemStack(TRASH_PUT_THING);
+                    for (int i : slots) {
+                        if (i >= size||i < 0){
+                            continue;
+                        }
+                        inv.setItem(i, stack);
+                    }
+                }
                 sendMessage(p, "GUI.OpenTrashBin");
-                p.openInventory(i);
+                p.openInventory(inv);
                 return true;
             }
         }

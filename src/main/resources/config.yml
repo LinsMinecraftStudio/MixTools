@@ -1,13 +1,14 @@
 language: "en-us"
-check-update: true
+checkUpdate: true
 economy:
-  currency-symbol: "$"
-  initial-currency: 100
+  currencySymbol: "$"
+  initialCurrency: 100
 messages:
   join: "&6{player} joined the server."
   quit: "&6{player} left the server."
   welcome: "&dWelcome {player}, this is your first access to this server!"
 strRegex: " ^[a-zA-Z0-9_\u4e00-\u9fa5]+$"
+tpaCooldown: 60
 mysql:
   enabled: false
   driver-class-name: "com.mysql.jdbc.Driver"
@@ -20,3 +21,7 @@ mysql:
     maximum-pool-size: 20
     max-lifetime: 12000
     connection-timeout: 3000
+trash:
+  putThingSlots: [0,1,2,3,4,5,6,7,8,9,17,18,26,27,35]
+  putThing: "LINE_STAINED_GLASS_PANE"
+  line: 4

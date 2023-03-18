@@ -26,7 +26,7 @@ public final class MixTools extends JavaPlugin {
     public static MiscFeatureManager miscFeatureManager;
     public static BukkitAudiences adventure;
     ////////////////////////////////////////////////////////////////
-    private static HikariDataSource dataSource;
+    private HikariDataSource dataSource;
 
     @Override
     public void onEnable() {
@@ -79,6 +79,8 @@ public final class MixTools extends JavaPlugin {
         new CMDHome().register();
         new CMDTPA().register();
         new CMDTPAAccept().register();
+        new CMDTPARefuse().register();
+        new CMDReload().register();
     }
 
     private void saveResources() {
@@ -88,8 +90,8 @@ public final class MixTools extends JavaPlugin {
         saveResource("lang/zh-cn.yml",false);
     }
 
-    public static void setDataSource(HikariDataSource dataSource){
-        MixTools.dataSource = dataSource;
+    public void setDataSource(HikariDataSource dataSource){
+        this.dataSource = dataSource;
         try {MixTools.dataManager = new DataManager(dataSource);
         } catch (SQLException e) {throw new RuntimeException(e);}
     }

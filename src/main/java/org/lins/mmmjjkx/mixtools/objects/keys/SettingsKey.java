@@ -6,15 +6,18 @@ import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 
 public class SettingsKey {
     public static String CHECK_UPDATE = "check-update";
-    public static String CURRENCY_SYMBOL = "economy.currency-symbol";
+    public static String CURRENCY_SYMBOL = "economy.currencySymbol";
     public static String MAXIMUM_MONEY = "economy.maximum";
     public static String INITIAL_CURRENCY = "economy.initial-currency";
     public static String PLAYER_JOIN_MESSAGE = "message.join";
     public static String PLAYER_QUIT_MESSAGE = "message.quit";
     public static String PLAYER_WELCOME_MESSAGE = "message.welcome";
     public static String STRING_REGEX = "strRegex";
-    public static String TPA_COOLDOWN = "tpa-cooldown";
+    public static String TPA_COOLDOWN = "tpaCooldown";
     public static String MYSQL_ENABLED = "mysql.enabled";
+    public static String TRASH_PUT_THING_SLOTS = "trash.putThingSlots";
+    public static String TRASH_PUT_THING = "trash.putThing";
+    public static String TRASH_LINE = "trash.line";
     public static HikariDataSource getDataSource() {
         SettingsManager sm = MixTools.settingsManager;
         HikariDataSource dataSource = new HikariDataSource();
