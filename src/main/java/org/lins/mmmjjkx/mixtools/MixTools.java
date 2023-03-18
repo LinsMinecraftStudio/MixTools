@@ -1,6 +1,7 @@
 package org.lins.mmmjjkx.mixtools;
 
 import com.zaxxer.hikari.HikariDataSource;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
@@ -23,6 +24,7 @@ public final class MixTools extends JavaPlugin {
     public static DataManager dataManager;
     public static SettingsManager settingsManager;
     public static MiscFeatureManager miscFeatureManager;
+    public static BukkitAudiences adventure;
     ////////////////////////////////////////////////////////////////
     private static HikariDataSource dataSource;
 
@@ -39,6 +41,7 @@ public final class MixTools extends JavaPlugin {
         messageHandler = new MessageHandler();
         hookManager = new HookManager();
         miscFeatureManager = new MiscFeatureManager();
+        adventure = BukkitAudiences.create(this);
         try {dataManager = new DataManager(dataSource);
         } catch (SQLException e) {throw new RuntimeException(e);}
         ////////////////////////////////

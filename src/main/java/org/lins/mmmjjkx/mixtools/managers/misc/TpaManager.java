@@ -1,5 +1,11 @@
 package org.lins.mmmjjkx.mixtools.managers.misc;
 
+
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.MixToolsTeleportRequest;
@@ -31,5 +37,18 @@ public class TpaManager {
             }
         }
         return null;
+    }
+
+    public void buildRequest(MixToolsTeleportRequest request){
+        Player to = request.to();
+        TextComponent component = LegacyComponentSerializer.legacyAmpersand().deserialize(
+                MixTools.messageHandler.getColored("TPA.Request.Accept"));
+        component.clickEvent(ClickEvent.runCommand("/tpaaccept"));
+        TextComponent component2 = LegacyComponentSerializer.legacyAmpersand().deserialize(
+                MixTools.messageHandler.getColored("TPA.Request.Refuse"));
+        component2.clickEvent(ClickEvent.runCommand("/tparefuse"));
+        TextComponent component3 = component.append(Component.space()).append(component2);
+        MixTools.messageHandler.sendMessage(to,"TPA.Request.Line1");
+        MixTools.adventure.player(to).sendMessage(component3);
     }
 }

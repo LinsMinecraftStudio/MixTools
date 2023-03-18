@@ -6,7 +6,7 @@
 
     <groupId>org.lins.mmmjjkx</groupId>
     <artifactId>MixTools</artifactId>
-    <version>1.0-SNAPSHOT-003</version>
+    <version>1.0-SNAPSHOT-004</version>
     <packaging>jar</packaging>
 
     <name>MixTools</name>
@@ -45,6 +45,10 @@
                         <relocation>
                             <pattern>org.slf4j</pattern>
                             <shadedPattern>org.lins.mmmjjkx.mixtools.libs.slf4j</shadedPattern>
+                        </relocation>
+                        <relocation>
+                            <pattern>net.kyori.adventure</pattern>
+                            <shadedPattern>org.lins.mmmjjkx.mixtools.libs.adventure</shadedPattern>
                         </relocation>
                     </relocations>
                 </configuration>
@@ -90,6 +94,11 @@
 
     <dependencies>
         <dependency>
+            <groupId>net.kyori</groupId>
+            <artifactId>adventure-platform-bukkit</artifactId>
+            <version>4.3.0</version>
+        </dependency>
+        <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>5.0.1</version>
@@ -103,7 +112,7 @@
         <dependency>
             <groupId>org.bstats</groupId>
             <artifactId>bstats-bukkit</artifactId>
-            <version>3.0.0</version>
+            <version>3.0.1</version>
         </dependency>
         <dependency>
             <groupId>me.clip</groupId>
