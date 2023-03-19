@@ -5,7 +5,7 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 
 public class SettingsKey {
-    public static String CHECK_UPDATE = "check-update";
+    public static String CHECK_UPDATE = "checkUpdate";
     public static String CURRENCY_SYMBOL = "economy.currencySymbol";
     public static String MAXIMUM_MONEY = "economy.maximum";
     public static String INITIAL_CURRENCY = "economy.initial-currency";

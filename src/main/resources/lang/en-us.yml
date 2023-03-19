@@ -60,5 +60,8 @@ TPA:
     Line1: "&e%s &awants to teleport to you."
     Accept: "&2&l[Accept]"
     Refuse: "&4&l[Refuse]"
+    Hover:
+      Accept: "&aClick to accept"
+      Refuse: "&cClick to refuse"
 String:
   NoMatchRegex: "&4Argument %d does not conform to regular expression."

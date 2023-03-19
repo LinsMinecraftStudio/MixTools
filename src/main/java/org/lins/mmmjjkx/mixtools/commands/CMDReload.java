@@ -10,7 +10,7 @@ import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 public class CMDReload implements MixCommandExecutor {
     @Override
     public String name() {
-        return "toolsreload";
+        return "mixtoolsreload";
     }
 
     @Override

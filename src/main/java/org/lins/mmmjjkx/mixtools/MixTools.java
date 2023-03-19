@@ -18,14 +18,12 @@ import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
 public final class MixTools extends JavaPlugin {
     public static MixTools INSTANCE;
-    ////////////////////////////////////////////////////////////////
     public static MessageHandler messageHandler;
     public static HookManager hookManager;
     public static DataManager dataManager;
     public static SettingsManager settingsManager;
     public static MiscFeatureManager miscFeatureManager;
     public static BukkitAudiences adventure;
-    ////////////////////////////////////////////////////////////////
     private HikariDataSource dataSource;
 
     @Override
@@ -33,7 +31,6 @@ public final class MixTools extends JavaPlugin {
         // Plugin startup logic
         INSTANCE = this;
         saveResources();
-        ////////////////////////////////
         settingsManager = new SettingsManager(getConfig());
         if (settingsManager.getBoolean(MYSQL_ENABLED)){
             dataSource = SettingsKey.getDataSource();
@@ -44,7 +41,6 @@ public final class MixTools extends JavaPlugin {
         adventure = BukkitAudiences.create(this);
         try {dataManager = new DataManager(dataSource);
         } catch (SQLException e) {throw new RuntimeException(e);}
-        ////////////////////////////////
         registerCommands();
         Metrics m = new Metrics(this,17788);
         getLogger().info("MixTools enabled!");
@@ -58,7 +54,6 @@ public final class MixTools extends JavaPlugin {
         }
         getLogger().info("MixTools disabled!");
     }
-
     private void registerCommands() {
         new CMDGamemode().register();
         new CMDKillAll().register();
@@ -82,7 +77,6 @@ public final class MixTools extends JavaPlugin {
         new CMDTPARefuse().register();
         new CMDReload().register();
     }
-
     private void saveResources() {
         saveDefaultConfig();
         saveResource("commandGroup.yml",false);

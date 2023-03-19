@@ -31,6 +31,8 @@ commands:
   commandgroup:
     description: command group
     aliases: [cg]
+  home:
+    description: back to homes
   delhome:
     description: delete home
   fly:
@@ -44,7 +46,7 @@ commands:
   setspawn:
     description: set spawn
   spawn:
-    description: spawn
+    description: back to the spawn
   trash:
     description: open trash bin
   enderchest:

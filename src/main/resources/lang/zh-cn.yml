@@ -59,5 +59,8 @@ TPA:
     Line1: "&e%s &a想要传送到你这里。"
     Accept: "&2&l[接受]"
     Refuse: "&4&l[拒绝]"
+    Hover:
+      Accept: "&a点击接受"
+      Refuse: "&c点击拒绝"
 String:
   NoMatchRegex: "&4参数%d不匹配正则表达式。"

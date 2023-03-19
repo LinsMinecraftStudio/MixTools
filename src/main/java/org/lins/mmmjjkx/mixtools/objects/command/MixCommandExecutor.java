@@ -32,10 +32,12 @@ public interface MixCommandExecutor extends CommandExecutor {
         if (!require.isBlank()){
             if (Bukkit.getPluginManager().isPluginEnabled(require)){
                 PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
+                MixTools.INSTANCE.getLogger().info(name() + (cmd != null));
                 cmd.setExecutor(this);
             }
         }else {
             PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
+            MixTools.INSTANCE.getLogger().info(name() + (cmd != null));
             cmd.setExecutor(this);
         }
     }

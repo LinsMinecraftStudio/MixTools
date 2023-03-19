@@ -12,7 +12,7 @@ import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
 public class CMDTPAAccept implements MixCommandExecutor {
     @Override
     public String name() {
-        return "tpaccept";
+        return "tpaaccept";
     }
 
     @Override
