@@ -13,7 +13,7 @@ import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 
 import java.util.List;
 
-public class CMDTPA implements MixTabExecutor {
+public class CMDTPAHere implements MixTabExecutor {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -25,7 +25,7 @@ public class CMDTPA implements MixTabExecutor {
 
     @Override
     public String name() {
-        return "tpa";
+        return "tpahere";
     }
 
     @Override
@@ -42,10 +42,10 @@ public class CMDTPA implements MixTabExecutor {
                     Player p2 = findPlayer(p, args[0]);
                     if (p2 != null) {
                         TpaManager tpaManager = MixTools.miscFeatureManager.getTpaManager();
-                        MixToolsTeleportRequest request = new MixToolsTeleportRequest(p,p2);
+                        MixToolsTeleportRequest request = new MixToolsTeleportRequest(p2,p);
                         tpaManager.setCooldown(request,tpaManager.DEFAULT_COOLDOWN);
                         sendMessage(p,"TPA.Sent");
-                        tpaManager.buildRequest(request,false);
+                        tpaManager.buildRequest(request,true);
                         new BukkitRunnable() {
                             @Override
                             public void run() {

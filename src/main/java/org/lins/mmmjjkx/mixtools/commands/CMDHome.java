@@ -52,7 +52,7 @@ public class CMDHome implements MixTabExecutor {
                     return false;
                 }
             }else {
-                sendMessage(p,"Command.NoEnoughOrTooManyArgs");
+                sendMessage(p,"Command.ArgError");
                 return false;
             }
         }

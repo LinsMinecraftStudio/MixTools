@@ -43,6 +43,21 @@ public class MessageHandler {
         } catch (IllegalFormatException e) {return colorize(get(node));}
     }
 
+    public String getColoredReplaceToOtherMessages(String node, boolean color, String... keys){
+        try {return colorize(String.format(get(node), getStrMessagesObj(color,keys)));
+        } catch (IllegalFormatException e) {return colorize(get(node));}
+    }
+
+    public Object[] getStrMessagesObj(boolean color, String... keys){
+        Object[] s = new Object[keys.length];
+        int i = 0;
+        for (String key:keys) {
+            if (color) {s[i] = getColored(key);}
+            else {s[i] = get(key);}
+            i++;
+        }
+        return s;
+    }
     public void sendMessage(CommandSender cs,String node,Object... args){
         cs.sendMessage(getColored(node,args));
     }

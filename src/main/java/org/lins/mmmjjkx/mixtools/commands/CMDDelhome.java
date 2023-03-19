@@ -42,7 +42,7 @@ public class CMDDelhome implements MixTabExecutor {
                     MixTools.dataManager.removeHome(p, args[0]);
                     return true;
                 }else {
-                    sendMessage(p, "Command.NoEnoughOrTooManyArgs");
+                    sendMessage(p, "Command.ArgError");
                     return false;
                 }
             }

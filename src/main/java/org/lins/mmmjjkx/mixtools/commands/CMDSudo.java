@@ -60,7 +60,7 @@ public class CMDSudo implements MixTabExecutor {
                     return true;
                 }
             }else {
-                sendMessage(sender,"Command.NoEnoughOrTooManyArgs");
+                sendMessage(sender,"Command.ArgError");
                 return false;
             }
         }

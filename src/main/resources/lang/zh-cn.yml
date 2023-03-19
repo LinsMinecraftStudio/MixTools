@@ -6,7 +6,7 @@ Check-Update:
 Command:
   NoPermission: "&4你没有权限去这样做！"
   RunAsConsole: "&4请不要用控制台执行此指令！"
-  NoEnoughOrTooManyArgs: "&4参数不足或过多！"
+  ArgError: "&4有可能为参数不足或者可能为参数过多，或指令参数输入不正确！"
   KillAll: "&c%s&6杀死了所有玩家。"
   Kill: "&6已杀死&c%s&6。"
   Suicide: "&6再见了，残酷的世界。"
@@ -55,6 +55,8 @@ TPA:
   Timeout: "&e%s &6发给你的传送请求已失效。"
   Teleported: "&e%s &a传送到了你这里。"
   Denied: "&e%s &c拒绝了你的传送请求。"
+  HereRequest:
+    Line1: "&e%s &a想要你传送到他那里。"
   Request:
     Line1: "&e%s &a想要传送到你这里。"
     Accept: "&2&l[接受]"
@@ -62,5 +64,11 @@ TPA:
     Hover:
       Accept: "&a点击接受"
       Refuse: "&c点击拒绝"
+GameMode:
+  Change: "&a你的游戏模式已切换至 &e%s&a。"
+  spectator: "旁观"
+  survival: "生存"
+  creative: "创造"
+  adventure: "冒险"
 String:
   NoMatchRegex: "&4参数%d不匹配正则表达式。"

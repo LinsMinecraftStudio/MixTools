@@ -6,7 +6,7 @@ Check-Update:
 Command:
   NoPermission: "&4You don't have permission to do that!"
   RunAsConsole: "&4Please don't use the console to execute this command!"
-  NoEnoughOrTooManyArgs: "&4Insufficient or too many arguments."
+  ArgError: "&4There may be insufficient arguments or too many arguments, or incorrect input of command arguments!"
   KillAll: "&c%s &6killed all players."
   Kill: "&6Killed &c%s&6."
   Suicide: "&6Goodbye, a cruel world."
@@ -56,6 +56,8 @@ TPA:
   Timeout: "&eThe teleport request you sent to %s has expired."
   Teleported: "&e%s &ahas been teleported to you."
   Denied: "&e%s &chas denied your teleport request."
+  HereRequest:
+    Line1: "&e%s &awants you to teleport to him."
   Request:
     Line1: "&e%s &awants to teleport to you."
     Accept: "&2&l[Accept]"
@@ -63,5 +65,11 @@ TPA:
     Hover:
       Accept: "&aClick to accept"
       Refuse: "&cClick to refuse"
+GameMode:
+  Change: "&aYour game mode was changed to &e%s&a."
+  spectator: "Spectator"
+  survival: "Survival"
+  creative: "Creative"
+  adventure: "Adventure"
 String:
   NoMatchRegex: "&4Argument %d does not conform to regular expression."

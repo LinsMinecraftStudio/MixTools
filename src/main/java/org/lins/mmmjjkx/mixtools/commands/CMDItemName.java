@@ -54,7 +54,7 @@ public class CMDItemName implements MixTabExecutor {
                         meta.setDisplayName(MixTools.messageHandler.colorize(args[0]));
                         return true;
                     }else {
-                        sendMessage(p, "Command.NoEnoughOrTooManyArgs");
+                        sendMessage(p, "Command.ArgError");
                         return false;
                     }
                 }else {

@@ -25,9 +25,10 @@ public class CMDEconomy implements MixTabExecutor {
             list.add("add");
             list.add("take");
             list.add("currency-symbol");
+            return list;
         }
         if (args.length==1) {
-            list = getPlayerNames();
+            return getPlayerNames();
         }
         return list;
     }
@@ -132,7 +133,7 @@ public class CMDEconomy implements MixTabExecutor {
                     }
             }
         }else {
-            sendMessage(p, "Command.NoEnoughArgs");
+            sendMessage(p, "Command.ArgError");
             return false;
         }
         return false;

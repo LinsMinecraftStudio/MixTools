@@ -53,8 +53,10 @@ commands:
     description: open ender chest
     aliases: [ec]
   tpa:
-    description: send teleport request to a player
+    description: let you teleport to a player
   tpaaccept:
     description: accept teleport request
   tparefuse:
     description: refuse teleport request
+  tpahere:
+    description: let a player teleport to you

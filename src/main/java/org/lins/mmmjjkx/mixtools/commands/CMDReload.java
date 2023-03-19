@@ -5,7 +5,6 @@ import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
-import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
 public class CMDReload implements MixCommandExecutor {
     @Override
@@ -22,7 +21,7 @@ public class CMDReload implements MixCommandExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)) {
             MixTools.INSTANCE.reloadConfig();
-            MixTools.INSTANCE.setDataSource(SettingsKey.getDataSource());
+            MixTools.INSTANCE.setDataSource();
             sendMessage(sender,"Command.ReloadSuccess");
             return true;
         }

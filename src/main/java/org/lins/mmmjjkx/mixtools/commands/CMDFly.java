@@ -56,6 +56,9 @@ public class CMDFly implements MixTabExecutor {
                         return true;
                     }
                 }
+            }else {
+                sendMessage(sender,"Command.ArgError");
+                return false;
             }
         }
         return false;

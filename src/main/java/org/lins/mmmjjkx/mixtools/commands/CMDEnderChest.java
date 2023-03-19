@@ -47,6 +47,9 @@ public class CMDEnderChest implements MixTabExecutor {
                     return true;
                 }
                 return false;
+            }else {
+                sendMessage(sender,"Command.ArgError");
+                return false;
             }
         }
         return false;

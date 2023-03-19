@@ -39,7 +39,7 @@ public class TpaManager {
         return null;
     }
 
-    public void buildRequest(MixToolsTeleportRequest request){
+    public void buildRequest(MixToolsTeleportRequest request,boolean here){
         Player to = request.to();
         TextComponent component = LegacyComponentSerializer.legacyAmpersand().deserialize(
                 MixTools.messageHandler.getColored("TPA.Request.Accept"));
@@ -52,7 +52,11 @@ public class TpaManager {
         component2 = component2.hoverEvent(LegacyComponentSerializer.legacyAmpersand().deserialize(
                 MixTools.messageHandler.getColored("TPA.Request.Hover.Refuse")));
         TextComponent component3 = component.append(Component.space()).append(component2);
-        MixTools.messageHandler.sendMessage(to,"TPA.Request.Line1",to.getName());
+        if (here){
+            MixTools.messageHandler.sendMessage(to,"TPA.HereRequest.Line1",to.getName());
+        }else {
+            MixTools.messageHandler.sendMessage(to, "TPA.Request.Line1", to.getName());
+        }
         MixTools.adventure.player(to).sendMessage(component3);
     }
 }

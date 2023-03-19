@@ -76,6 +76,8 @@ public final class MixTools extends JavaPlugin {
         new CMDTPAAccept().register();
         new CMDTPARefuse().register();
         new CMDReload().register();
+        new CMDEnderChest().register();
+        new CMDTPAHere().register();
     }
     private void saveResources() {
         saveDefaultConfig();
@@ -84,8 +86,12 @@ public final class MixTools extends JavaPlugin {
         saveResource("lang/zh-cn.yml",false);
     }
 
-    public void setDataSource(HikariDataSource dataSource){
-        this.dataSource = dataSource;
+    public void setDataSource(){
+        if (settingsManager.getBoolean(MYSQL_ENABLED)) {
+            dataSource = SettingsKey.getDataSource();
+        }
+        messageHandler = new MessageHandler();
+        settingsManager = new SettingsManager(getConfig());
         try {MixTools.dataManager = new DataManager(dataSource);
         } catch (SQLException e) {throw new RuntimeException(e);}
     }

@@ -24,10 +24,12 @@ public class CMDCommandGroup implements MixTabExecutor {
             argsList.add("add");
             argsList.add("run");
             argsList.add("remove");
+            return argsList;
         } else if (args.length==1) {
             argsList.addAll(commandGroupManager.getAllGroupsName());
+            return argsList;
         }
-        if (args.length==2&&args[1].equals("run")) {
+        if (args.length==2&&args[0].equals("run")) {
             return getPlayerNames();
         }
         return argsList;
@@ -47,12 +49,12 @@ public class CMDCommandGroup implements MixTabExecutor {
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)){
             if (args.length==0||args.length==1) {
-                sendMessage(sender, "Command.NoEnoughOrTooManyArgs");
+                sendMessage(sender, "Command.ArgError");
                 return false;
             } else if (args.length>2&&args[0].equals("add")) {
                 List<String> cmds = new ArrayList<>();
                 for (int i=2;i<args.length-2;i++) {
-                    String cmd = args[i].replaceAll(":sp:"," ");
+                    String cmd = args[i].replaceAll("<sp>"," ");
                     cmds.add(cmd);
                 }
                 commandGroupManager.addGroup(new MixToolsCommandGroup(args[1],cmds));

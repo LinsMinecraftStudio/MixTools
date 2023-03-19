@@ -47,6 +47,9 @@ public class CMDKill implements MixTabExecutor {
                     sendMessage(sender,"Command.Kill",p2.getName());
                     return true;
                 }
+            }else {
+                sendMessage(sender,"Command.ArgError");
+                return false;
             }
             return false;
         }
