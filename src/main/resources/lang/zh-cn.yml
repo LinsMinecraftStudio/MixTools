@@ -6,7 +6,7 @@ Check-Update:
 Command:
   NoPermission: "&4你没有权限去这样做！"
   RunAsConsole: "&4请不要用控制台执行此指令！"
-  ArgError: "&4有可能为参数不足或者可能为参数过多，或指令参数输入不正确！"
+  ArgError: "&4参数不足或者可能为参数过多，或指令参数输入不正确！"
   KillAll: "&c%s&6杀死了所有玩家。"
   Kill: "&6已杀死&c%s&6。"
   Suicide: "&6再见了，残酷的世界。"

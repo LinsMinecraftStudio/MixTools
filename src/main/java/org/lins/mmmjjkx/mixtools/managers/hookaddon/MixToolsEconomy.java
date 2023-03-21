@@ -223,9 +223,10 @@ public class MixToolsEconomy implements Economy {
                 return true;
             }
         }else {
+            data.checkPlayerInData(playerName);
             if (data.getBooleanData(HAS_ECONOMY_ACCOUNT, playerName)) {
                 return false;
-            }else {
+            } else {
                 data.setData(HAS_ECONOMY_ACCOUNT, playerName, true);
                 data.setData(ECONOMY_MONEY, playerName, 0);
                 return true;

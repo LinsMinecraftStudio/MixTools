@@ -115,4 +115,8 @@ public class DataManager {
         try {mysqlDataManager.checkPlayerInData(name);
         } catch (SQLException e) {throw new RuntimeException(e);}
     }
+
+    public void checkPlayerInData(String name){
+        dataManager.checkPlayerInData(name);
+    }
 }

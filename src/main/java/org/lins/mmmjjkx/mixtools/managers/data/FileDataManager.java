@@ -102,7 +102,7 @@ public class FileDataManager {
     }
     public String getStringData(String key, String playerName){
         FileConfiguration cs = checkPlayerInData(playerName);
-        return cs.getString(key);
+        return cs.getString(key,"");
     }
     public boolean getBooleanData(String key, String playerName){
         FileConfiguration cs = checkPlayerInData(playerName);
@@ -116,17 +116,18 @@ public class FileDataManager {
         FileConfiguration cs = checkPlayerInData(playerName);
         return cs.getDouble(key);
     }
-    private FileConfiguration checkPlayerInData(String playerName){
-        File f = new File(MixTools.INSTANCE.getDataFolder(),"data/"+playerName+".yml");
-        if (!f.exists()) {
-            try {
-                if (!f.getParentFile().exists()){
-                    f.mkdirs();
-                }
-                f.createNewFile();
+    public FileConfiguration checkPlayerInData(String playerName){
+        File f = new File(MixTools.INSTANCE.getDataFolder(),"data");
+        if (!f.exists()){
+            f.mkdirs();
+        }
+        File f2 = new File(f,playerName+".yml");
+        if (!f2.exists()) {
+            try {f2.createNewFile();
             } catch (IOException e) {
                 throw new RuntimeException(e);}
         }
-        return YamlConfiguration.loadConfiguration(f);
+        f2 = new File(f,playerName+".yml");
+        return YamlConfiguration.loadConfiguration(f2);
     }
 }

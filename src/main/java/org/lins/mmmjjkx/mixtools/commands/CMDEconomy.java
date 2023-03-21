@@ -18,8 +18,8 @@ import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.CURRENCY_SYMBOL
 public class CMDEconomy implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
-        List<String> list = new ArrayList<>();
         if (args.length==0){
+            List<String> list = new ArrayList<>();
             list.add("balance");
             list.add("clear");
             list.add("add");
@@ -30,7 +30,7 @@ public class CMDEconomy implements MixTabExecutor {
         if (args.length==1) {
             return getPlayerNames();
         }
-        return list;
+        return null;
     }
 
     @Override

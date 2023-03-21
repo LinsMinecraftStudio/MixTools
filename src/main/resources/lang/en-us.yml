@@ -6,7 +6,7 @@ Check-Update:
 Command:
   NoPermission: "&4You don't have permission to do that!"
   RunAsConsole: "&4Please don't use the console to execute this command!"
-  ArgError: "&4There may be insufficient arguments or too many arguments, or incorrect input of command arguments!"
+  ArgError: "&4Insufficient arguments or too many arguments, or incorrect input of command arguments!"
   KillAll: "&c%s &6killed all players."
   Kill: "&6Killed &c%s&6."
   Suicide: "&6Goodbye, a cruel world."
