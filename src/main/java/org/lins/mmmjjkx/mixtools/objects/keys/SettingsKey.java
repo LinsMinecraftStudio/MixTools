@@ -9,10 +9,12 @@ public class SettingsKey {
     public static String CURRENCY_SYMBOL = "economy.currencySymbol";
     public static String MAXIMUM_MONEY = "economy.maximum";
     public static String INITIAL_CURRENCY = "economy.initial-currency";
-    public static String PLAYER_JOIN_MESSAGE = "message.join";
-    public static String PLAYER_QUIT_MESSAGE = "message.quit";
-    public static String PLAYER_WELCOME_MESSAGE = "message.welcome";
-    public static String STRING_REGEX = "strRegex";
+    public static String PLAYER_JOIN_MESSAGE = "messages.join";
+    public static String PLAYER_QUIT_MESSAGE = "messages.quit";
+    public static String PLAYER_WELCOME_MESSAGE = "messages.welcome";
+    public static String STRING_REGEX = "regex.string";
+    public static String NAME_REGEX = "regex.name";
+    public static String NAME_CHECK = "nameCheck";
     public static String TPA_COOLDOWN = "tpaCooldown";
     public static String MYSQL_ENABLED = "mysql.enabled";
     public static String TRASH_PUT_THING_SLOTS = "trash.putThingSlots";

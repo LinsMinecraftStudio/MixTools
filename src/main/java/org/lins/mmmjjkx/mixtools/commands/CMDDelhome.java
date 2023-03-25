@@ -16,7 +16,7 @@ public class CMDDelhome implements MixTabExecutor {
         List<String> l = new ArrayList<>();
         if (sender instanceof Player p) {
             if (args.length == 0) {
-                Set<String> names = MixTools.dataManager.getPlayerOwnedHomesName(p);
+                Set<String> names = MixTools.getDataManager().getPlayerOwnedHomesName(p);
                 l.addAll(names);
             }
         }
@@ -39,7 +39,7 @@ public class CMDDelhome implements MixTabExecutor {
             Player p = toPlayer(sender);
             if (p != null){
                 if (args.length == 1) {
-                    MixTools.dataManager.removeHome(p, args[0]);
+                    MixTools.getDataManager().removeHome(p, args[0]);
                     return true;
                 }else {
                     sendMessage(p, "Command.ArgError");

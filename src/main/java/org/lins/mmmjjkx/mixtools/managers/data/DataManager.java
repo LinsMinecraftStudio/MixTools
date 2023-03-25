@@ -1,10 +1,11 @@
 package org.lins.mmmjjkx.mixtools.managers.data;
 
-import com.zaxxer.hikari.HikariDataSource;
 import org.bukkit.Location;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.MixToolsHome;
+import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
 import java.sql.SQLException;
 import java.util.Set;
@@ -13,12 +14,12 @@ import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
 public class DataManager {
     private final boolean isMYSQLEnabled = MixTools.settingsManager.getBoolean(MYSQL_ENABLED);
-    private final FileDataManager dataManager;
-    private final MySQLDataManager mysqlDataManager;
+    private final FileDataManager dataManager = new FileDataManager();
+    private MySQLDataManager mysqlDataManager;
 
-    public DataManager(HikariDataSource dataSource) throws SQLException {
-        dataManager = new FileDataManager();
-        mysqlDataManager = isMYSQLEnabled ? new MySQLDataManager(dataSource) : null;
+    public DataManager() {
+        try {mysqlDataManager = isMYSQLEnabled ? new MySQLDataManager(SettingsKey.getDataSource()) : null;
+        }catch (Exception ignored){}
     }
 
     public void addHome(MixToolsHome home){
@@ -116,7 +117,7 @@ public class DataManager {
         } catch (SQLException e) {throw new RuntimeException(e);}
     }
 
-    public void checkPlayerInData(String name){
-        dataManager.checkPlayerInData(name);
+    public FileConfiguration checkPlayerInData(String name){
+        return dataManager.checkPlayerInData(name);
     }
 }

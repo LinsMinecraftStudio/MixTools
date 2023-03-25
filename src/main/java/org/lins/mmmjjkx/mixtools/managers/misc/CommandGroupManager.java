@@ -51,23 +51,22 @@ public class CommandGroupManager {
         return cmdgroup.getKeys(false);
     }
 
-    public void runCommandGroup(CommandSender from,Player p, String name){
+    public boolean runCommandGroup(Player p, String name){
         List<String> commands = cmdgroup.getStringList(name);
         if (commands.isEmpty()) {
-            MixTools.messageHandler.sendMessage(from, "Command.CommandGroupNotFound");
-            return;
+            return false;
         }
         for (String cmd:commands){
             cmd = parseVariable(p,cmd);
             p.performCommand(cmd);
         }
+        return true;
     }
 
     private String parseVariable(Player p,String cmd) {
-        if (MixTools.hookManager.checkPAPIInstalled()){
-            return PlaceholderAPI.setPlaceholders(p,cmd);
-        }else {
-            return cmd.replaceAll("<player>",p.getName());
+        if (MixTools.hookManager.checkPAPIInstalled()) {
+            cmd = PlaceholderAPI.setPlaceholders(p, cmd);
         }
+        return cmd.replaceAll("%player%",p.getName());
     }
 }

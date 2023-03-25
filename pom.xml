@@ -6,14 +6,14 @@
 
     <groupId>org.lins.mmmjjkx</groupId>
     <artifactId>MixTools</artifactId>
-    <version>1.0-Alpha</version>
+    <version>1.0-Beta</version>
     <packaging>jar</packaging>
 
     <name>MixTools</name>
 
     <description>An essential plugin like Essentials or CMI</description>
     <properties>
-        <java.version>16</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
@@ -24,34 +24,14 @@
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.8.1</version>
                 <configuration>
-                    <source>16</source>
-                    <target>16</target>
+                    <source>17</source>
+                    <target>17</target>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>3.4.1</version>
-                <configuration>
-                    <relocations>
-                        <relocation>
-                            <pattern>org.bstats</pattern>
-                            <shadedPattern>org.lins.mmmjjkx.mixtools.libs.bstats</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>com.zaxxer.hikari</pattern>
-                            <shadedPattern>org.lins.mmmjjkx.mixtools.libs.hikaricp</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>org.slf4j</pattern>
-                            <shadedPattern>org.lins.mmmjjkx.mixtools.libs.slf4j</shadedPattern>
-                        </relocation>
-                        <relocation>
-                            <pattern>net.kyori.adventure</pattern>
-                            <shadedPattern>org.lins.mmmjjkx.mixtools.libs.adventure</shadedPattern>
-                        </relocation>
-                    </relocations>
-                </configuration>
                 <executions>
                     <execution>
                         <phase>package</phase>
@@ -59,7 +39,36 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <createDependencyReducedPom>false</createDependencyReducedPom>
+                            <createDependencyReducedPom>true</createDependencyReducedPom>
+                            <artifactSet>
+                                <excludes>
+                                    <exclude>net.kyori:adventure-platform-facet:4.3.0</exclude>
+                                    <exclude>net.kyori:adventure-platform-viaversion:4.3.0</exclude>
+                                    <exclude>net.kyori:adventure-text-serializer-bungeecord:4.3.0</exclude>
+                                    <exclude>net.kyori:examination-api:1.3.0</exclude>
+                                    <exclude>net.kyori:examination-string:1.3.0</exclude>
+                                    <exclude>org.slf4j:slf4j-api:2.0.0-alpha1</exclude>
+                                </excludes>
+                            </artifactSet>
+                            <relocations>
+                                <relocation>
+                                    <pattern>org.bstats</pattern>
+                                    <shadedPattern>org.lins.mmmjjkx.mixtools.libs.bstats</shadedPattern>
+                                </relocation>
+                                <relocation>
+                                    <pattern>com.zaxxer.hikari</pattern>
+                                    <shadedPattern>org.lins.mmmjjkx.mixtools.libs.hikaricp</shadedPattern>
+                                </relocation>
+                                <!--relocation>
+                                    <pattern>org.slf4j</pattern>
+                                    <shadedPattern>org.lins.mmmjjkx.mixtools.libs.slf4j</shadedPattern>
+                                </relocation>-->
+                                <relocation>
+                                    <pattern>net.kyori.adventure</pattern>
+                                    <shadedPattern>org.lins.mmmjjkx.mixtools.libs.adventure</shadedPattern>
+                                </relocation>
+                            </relocations>
+                            <minimizeJar>true</minimizeJar>
                         </configuration>
                     </execution>
                 </executions>

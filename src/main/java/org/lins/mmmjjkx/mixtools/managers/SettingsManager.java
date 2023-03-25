@@ -19,16 +19,18 @@ public class SettingsManager {
         return config.getInt(key);
     }
     public String getString(String key){
-        return config.getString(key);
+        return config.getString(key,"");
     }
     public boolean getBoolean(String key){
         return config.getBoolean(key);
     }
     public long getLong(String key) {
-        return config.getLong(key);
+        return config.getLong(key,0L);
     }
     public ItemStack getItemStack(String key){
-        Material m = Material.valueOf(config.getString(key,"STONE").toUpperCase());
+        Material m;
+        try {m = Material.valueOf(config.getString(key,"").toUpperCase());
+        }catch (IllegalArgumentException e) {m = Material.STONE;}
         return new ItemStack(m);
     }
     public List<Integer> getIntList(String key){return config.getIntegerList(key);}

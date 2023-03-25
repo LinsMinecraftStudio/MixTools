@@ -15,7 +15,7 @@ import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
 import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.HAS_ECONOMY_ACCOUNT;
 
 public class MixToolsEconomy implements Economy {
-    private final DataManager data = MixTools.dataManager;
+    public final DataManager data = MixTools.getDataManager();
     @Override
     public boolean isEnabled() {
         return true;

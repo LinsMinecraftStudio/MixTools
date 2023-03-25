@@ -16,6 +16,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.NAME_REGEX;
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.STRING_REGEX;
 
 public class MixStringUtil {
@@ -62,8 +63,13 @@ public class MixStringUtil {
         return builder.toString();
     }
 
-    public static boolean matchRegex(String str){
+    public static boolean matchStringRegex(String str){
         String regex = MixTools.settingsManager.getString(STRING_REGEX);
+        return str.matches(regex);
+    }
+
+    public static boolean matchNameRegex(String str){
+        String regex = MixTools.settingsManager.getString(NAME_REGEX);
         return str.matches(regex);
     }
 
@@ -95,8 +101,7 @@ public class MixStringUtil {
     public static String openFile(String filePath) {
         int HttpResult;
         String ee = "";
-        try {
-            URL url = new URL(filePath);
+        try {URL url = new URL(filePath);
             URLConnection urlconn = url.openConnection();
             urlconn.connect();
             HttpURLConnection httpconn =(HttpURLConnection)urlconn;
@@ -105,17 +110,14 @@ public class MixStringUtil {
                 InputStreamReader isReader = new InputStreamReader(urlconn.getInputStream(), StandardCharsets.UTF_8);
                 BufferedReader reader = new BufferedReader(isReader);
                 StringBuilder buffer = new StringBuilder();
-                String line;
-                line = reader.readLine();
+                String line = reader.readLine();
                 while (line != null) {
                     buffer.append(line);
                     line = reader.readLine();
                 }
                 ee = buffer.toString();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return  ee;
+        } catch (IOException ignored) {}
+        return ee;
     }
 }

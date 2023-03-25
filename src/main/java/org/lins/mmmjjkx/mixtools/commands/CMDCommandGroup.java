@@ -3,6 +3,7 @@ package org.lins.mmmjjkx.mixtools.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
@@ -20,17 +21,14 @@ public class CMDCommandGroup implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         List<String> argsList = new ArrayList<>();
-        if (args.length==0){
+        if (args.length==1){
             argsList.add("add");
             argsList.add("run");
             argsList.add("remove");
-            return argsList;
-        } else if (args.length==1) {
+        } else if (args.length==2) {
             argsList.addAll(commandGroupManager.getAllGroupsName());
-            return argsList;
-        }
-        if (args.length==2&&args[0].equals("run")) {
-            return getPlayerNames();
+        } else if (args.length==3&&args[0].equals("run")) {
+            argsList.addAll(getPlayerNames());
         }
         return argsList;
     }
@@ -54,6 +52,7 @@ public class CMDCommandGroup implements MixTabExecutor {
             } else if (args.length>2&&args[0].equals("add")) {
                 List<String> cmds = new ArrayList<>();
                 for (int i=2;i<args.length-2;i++) {
+                    if (args[i].length()<1) continue;
                     String cmd = args[i].replaceAll("<sp>"," ");
                     cmds.add(cmd);
                 }
@@ -78,7 +77,10 @@ public class CMDCommandGroup implements MixTabExecutor {
                 Player p = findPlayer(sender, args[1]);
                 String groupName = args[2];
                 if (p!=null) {
-                    commandGroupManager.runCommandGroup(sender, p, groupName);
+                    if (!commandGroupManager.runCommandGroup(p, groupName)){
+                        MixTools.messageHandler.sendMessage(sender, "CommandGroup.NotFound");
+                        return false;
+                    }
                     sendMessage(sender, "CommandGroup.Executed");
                     return true;
                 }

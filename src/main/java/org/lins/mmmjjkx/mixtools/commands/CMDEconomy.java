@@ -49,12 +49,12 @@ public class CMDEconomy implements MixTabExecutor {
         if (p != null) {
             if (args.length == 0) {
                 sendMessage(p, "Economy.Balance",
-                        MixTools.dataManager.getDoubleData(ECONOMY_MONEY, p.getName()),
+                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getName()),
                         MixTools.settingsManager.getString(CURRENCY_SYMBOL));
                 return true;
             } else if (args.length == 1 && args[0].equals("balance")) {
                 sendMessage(p, "Economy.Balance",
-                        MixTools.dataManager.getDoubleData(ECONOMY_MONEY, p.getName()),
+                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getName()),
                         MixTools.settingsManager.getString(CURRENCY_SYMBOL));
                 return true;
             }
@@ -66,9 +66,9 @@ public class CMDEconomy implements MixTabExecutor {
             String name = args[1];
             switch (args[0]) {
                 case "balance" -> {
-                    if (MixTools.dataManager.getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
+                    if (MixTools.getDataManager().getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
                         sendMessage(sender, "Economy.Balance", MixTools.settingsManager.getString(CURRENCY_SYMBOL), name,
-                                MixTools.dataManager.getDoubleData(ECONOMY_MONEY, name));
+                                MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, name));
                         return true;
                     } else {
                         sendMessage(p, "Economy.AccountNotFound");
@@ -77,8 +77,8 @@ public class CMDEconomy implements MixTabExecutor {
                 }
                 case "clear" -> {
                     if (hasSubPermission(sender, "clear")) {
-                        if (MixTools.dataManager.getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
-                            MixTools.dataManager.setData(ECONOMY_MONEY, name, 0);
+                        if (MixTools.getDataManager().getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
+                            MixTools.getDataManager().setData(ECONOMY_MONEY, name, 0);
                             sendMessage(sender, "Economy.ClearSuccess");
                             return true;
                         } else {
@@ -102,11 +102,12 @@ public class CMDEconomy implements MixTabExecutor {
             switch (args[0]){
                 case "add":
                     if (hasSubPermission(sender,"add")) {
-                        if (MixTools.dataManager.getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
+                        if (MixTools.getDataManager().getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
                             String str = MixTools.settingsManager.getString(SettingsKey.MAXIMUM_MONEY);
                             double max = Double.parseDouble(new BigDecimal(str).toPlainString());
-                            if (MixTools.dataManager.getDoubleData(ECONOMY_MONEY, name)<max) {
-                                MixTools.dataManager.setData(ECONOMY_MONEY, name, MixTools.dataManager.getDoubleData(ECONOMY_MONEY, name) + amount);
+                            if (MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, name)<max) {
+                                MixTools.getDataManager().setData(ECONOMY_MONEY, name,
+                                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, name) + amount);
                                 sendMessage(p, "Economy.AddSuccess", name,
                                         MixTools.settingsManager.getString(CURRENCY_SYMBOL), amount);
                                 return true;
@@ -121,8 +122,9 @@ public class CMDEconomy implements MixTabExecutor {
                     }
                 case "take":
                     if (hasSubPermission(sender,"take")) {
-                        if (MixTools.dataManager.getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
-                            MixTools.dataManager.setData(ECONOMY_MONEY, name, MixTools.dataManager.getDoubleData(ECONOMY_MONEY, name) - amount);
+                        if (MixTools.getDataManager().getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
+                            MixTools.getDataManager().setData(ECONOMY_MONEY, name,
+                                    MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, name) - amount);
                             sendMessage(p, "Economy.TakeSuccess", name,
                                     MixTools.settingsManager.getString(CURRENCY_SYMBOL), amount);
                             return true;

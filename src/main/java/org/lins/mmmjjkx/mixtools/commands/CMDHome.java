@@ -20,7 +20,7 @@ public class CMDHome implements MixTabExecutor {
         if (sender instanceof Player p) {
             List<String> arg = new ArrayList<>();
             if (args.length == 0) {
-                arg.addAll(MixTools.dataManager.getPlayerOwnedHomesName(p));
+                arg.addAll(MixTools.getDataManager().getPlayerOwnedHomesName(p));
             }
             return arg;
         }
@@ -42,7 +42,7 @@ public class CMDHome implements MixTabExecutor {
         Player p = toPlayer(sender);
         if (p != null){
             if (args.length==1){
-                Location home = MixTools.dataManager.getHomeLocation(p.getName(),args[0]);
+                Location home = MixTools.getDataManager().getHomeLocation(p.getName(),args[0]);
                 if (home != null){
                     p.teleport(home);
                     sendMessage(p,"Home.Teleported",args[0]);

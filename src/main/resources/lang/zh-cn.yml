@@ -13,6 +13,7 @@ Command:
   Suicide2: "&c%s&6结束了自己的生命。"
   SpecifyPlayer: "&4请指定玩家。"
   Back: "&a返回到上一个位置。"
+  NoBackLocation: "&4你并没有已保存的上一个位置。"
   Reload: "&a重载成功。"
 CommandGroup:
   Executed: "&a指令组已执行。"
@@ -72,3 +73,4 @@ GameMode:
   adventure: "冒险"
 String:
   NoMatchRegex: "&4参数%d不匹配正则表达式。"
+  NoMatchNameRegex: "&4你的Minecraft名称不符合要求。"

@@ -1,6 +1,6 @@
 Check-Update:
   Line1: "&cMixTools has detected the latest version!"
-  Line2: "&aVersion you are using: &c%1$s&a,latest version: &b%2$s&a."
+  Line2: "&aVersion you are using: &c%1$s&a, latest version: &b%2$s&a."
   Failed: "&cFailed to get the latest version."
   Line3: "&dIf you don't want to see this message, please set 'check-update' to false in config.yml."
 Command:
@@ -12,8 +12,10 @@ Command:
   Suicide: "&6Goodbye, a cruel world."
   Suicide2: "&c%s &6ended his life."
   SpecifyPlayer: "Please specify a player."
-  Back: "&aReturn to the previous position."
+  Back: "&aReturn to the previous location."
+  NoBackLocation: "&4You don't have saved previous location."
   ReloadSuccess: "&aReload success."
+  PlayerNotFound: "&4That player is not found."
 CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
@@ -73,3 +75,4 @@ GameMode:
   adventure: "Adventure"
 String:
   NoMatchRegex: "&4Argument %d does not conform to regular expression."
+  NoMatchNameRegex: "&4Your Minecraft name does not meet the requirements."

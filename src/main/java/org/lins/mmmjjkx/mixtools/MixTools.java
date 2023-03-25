@@ -3,8 +3,10 @@ package org.lins.mmmjjkx.mixtools;
 import com.zaxxer.hikari.HikariDataSource;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
+import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
@@ -20,7 +22,7 @@ public final class MixTools extends JavaPlugin {
     public static MixTools INSTANCE;
     public static MessageHandler messageHandler;
     public static HookManager hookManager;
-    public static DataManager dataManager;
+    private static DataManager dataManager;
     public static SettingsManager settingsManager;
     public static MiscFeatureManager miscFeatureManager;
     public static BukkitAudiences adventure;
@@ -36,12 +38,12 @@ public final class MixTools extends JavaPlugin {
             dataSource = SettingsKey.getDataSource();
         }
         messageHandler = new MessageHandler();
+        dataManager = new DataManager();
         hookManager = new HookManager();
         miscFeatureManager = new MiscFeatureManager();
         adventure = BukkitAudiences.create(this);
-        try {dataManager = new DataManager(dataSource);
-        } catch (SQLException e) {throw new RuntimeException(e);}
         registerCommands();
+        Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
         Metrics m = new Metrics(this,17788);
         getLogger().info("MixTools enabled!");
     }
@@ -86,13 +88,16 @@ public final class MixTools extends JavaPlugin {
         saveResource("lang/zh-cn.yml",false);
     }
 
-    public void setDataSource(){
+    public void Reload(){
         if (settingsManager.getBoolean(MYSQL_ENABLED)) {
             dataSource = SettingsKey.getDataSource();
         }
         messageHandler = new MessageHandler();
         settingsManager = new SettingsManager(getConfig());
-        try {MixTools.dataManager = new DataManager(dataSource);
-        } catch (SQLException e) {throw new RuntimeException(e);}
+        dataManager = new DataManager();
+    }
+
+    public static DataManager getDataManager(){
+        return dataManager;
     }
 }

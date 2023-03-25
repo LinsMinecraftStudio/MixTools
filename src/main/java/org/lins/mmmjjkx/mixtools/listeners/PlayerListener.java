@@ -21,6 +21,13 @@ public class PlayerListener implements MixToolsListener {
     @EventHandler
     public void onJoin(PlayerJoinEvent e){
         Player p = e.getPlayer();
+        if (MixTools.settingsManager.getBoolean(NAME_CHECK)){
+            String name = p.getName();
+            if (!MixStringUtil.matchNameRegex(name)) {
+                p.kickPlayer(getMessageHandler().getColored("String.NoMatchNameRegex"));
+                return;
+            }
+        }
         MixToolsEconomy economy = MixTools.hookManager.getEconomy();
         economy.createPlayerAccount(p);
         e.setJoinMessage(getPlayerMessage(p, PLAYER_JOIN_MESSAGE));
@@ -47,25 +54,21 @@ public class PlayerListener implements MixToolsListener {
 
     @EventHandler
     public void onDeath(PlayerDeathEvent e){
-        MixTools.miscFeatureManager.addBackPlayer(e.getEntity(), e.getEntity().getLocation());
+        MixTools.miscFeatureManager.addBackPlayer(e.getEntity(),e.getEntity().getLocation());
     }
 
     @EventHandler
     public void onTeleport(PlayerTeleportEvent e){
         Location from = e.getFrom();
-        if (MixTools.miscFeatureManager.containsBackPlayer(e.getPlayer())){
-            MixTools.miscFeatureManager.removeBackPlayer(e.getPlayer());
-            MixTools.miscFeatureManager.addBackPlayer(e.getPlayer(),from);
-        }
+        MixTools.miscFeatureManager.addBackPlayer(e.getPlayer(),from);
     }
 
     private String getPlayerMessage(Player p,String key){
         String str = getSettingString(key);
         if (MixTools.hookManager.checkPAPIInstalled()) {
             str = PlaceholderAPI.setPlaceholders(p, str);
-        }else {
-            str = str.replaceAll("<player>",p.getName());
         }
+        str = str.replaceAll("%player%",p.getName());
         return MixTools.messageHandler.colorize(str);
     }
 
@@ -73,11 +76,13 @@ public class PlayerListener implements MixToolsListener {
         if (MixTools.settingsManager.getBoolean(CHECK_UPDATE)) {
             String latest = MixStringUtil.openFile("https://raw.githubusercontent.com/LinsPMStudio/MixTools/main/version.txt");
             String ver = MixTools.INSTANCE.getDescription().getVersion();
-            if (!ver.equals(latest)) {
+            if (latest.equals("")){
+                getMessageHandler().sendMessage(p, "Check-Update.Failed");
+            } else if (!ver.equals(latest)) {
                 getMessageHandler().sendMessage(p, "Check-Update.Line1");
                 getMessageHandler().sendMessage(p, "Check-Update.Line2", ver, latest);
-                getMessageHandler().sendMessage(p, "Check-Update.Line3");
             }
+            getMessageHandler().sendMessage(p, "Check-Update.Line3");
         }
     }
 }

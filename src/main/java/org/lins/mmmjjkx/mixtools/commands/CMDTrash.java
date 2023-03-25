@@ -31,7 +31,7 @@ public class CMDTrash implements MixCommandExecutor {
             Player p = toPlayer(sender);
             if (p != null){
                 p.closeInventory();
-                int size = (MixTools.settingsManager.getInt(TRASH_LINE)*9);
+                int size = MixTools.settingsManager.getInt(TRASH_LINE)*9;
                 Inventory inv = Bukkit.createInventory(null, size, getMessage("GUI.Trash"));
                 List<Integer> slots = MixTools.settingsManager.getIntList(TRASH_PUT_THING_SLOTS);
                 if (!slots.isEmpty()) {

@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -23,9 +24,15 @@ public class CMDBack implements MixCommandExecutor {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (p != null){
-                p.teleport(MixTools.miscFeatureManager.getBackPlayerLocation(p));
-                sendMessage(p,"Command.Back");
-                return true;
+                Location loc = MixTools.miscFeatureManager.getBackPlayerLocation(p);
+                if (loc != null) {
+                    p.teleport(MixTools.miscFeatureManager.getBackPlayerLocation(p));
+                    sendMessage(p, "Command.Back");
+                    return true;
+                } else {
+                    sendMessage(p, "Command.NoBackLocation");
+                    return false;
+                }
             }
         }
         return false;
