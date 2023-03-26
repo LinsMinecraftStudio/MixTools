@@ -42,7 +42,7 @@ public class CMDHome implements MixTabExecutor {
         Player p = toPlayer(sender);
         if (p != null){
             if (args.length==1){
-                Location home = MixTools.getDataManager().getHomeLocation(p.getName(),args[0]);
+                Location home = MixTools.getDataManager().getHomeLocation(p.getUniqueId(),args[0]);
                 if (home != null){
                     p.teleport(home);
                     sendMessage(p,"Home.Teleported",args[0]);

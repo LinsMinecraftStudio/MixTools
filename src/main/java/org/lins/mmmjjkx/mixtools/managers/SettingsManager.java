@@ -7,13 +7,14 @@ import org.bukkit.World;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.util.List;
 
 public class SettingsManager {
     private final FileConfiguration config;
-    public SettingsManager(FileConfiguration config){
-        this.config = config;
+    public SettingsManager(){
+        this.config = MixTools.INSTANCE.getConfig();
     }
     public int getInt(String key){
         return config.getInt(key);
@@ -25,7 +26,7 @@ public class SettingsManager {
         return config.getBoolean(key);
     }
     public long getLong(String key) {
-        return config.getLong(key,0L);
+        return config.getLong(key);
     }
     public ItemStack getItemStack(String key){
         Material m;
@@ -56,10 +57,11 @@ public class SettingsManager {
             double x = cs.getDouble("x");
             double y = cs.getDouble("y");
             double z = cs.getDouble("z");
+            float p = Float.parseFloat(cs.getString("pitch", "0.000"));
+            float y2 = Float.parseFloat(cs.getString("yaw", "0.000"));
             World w = Bukkit.getWorld(cs.getString("world",""));
             if (w != null) {
-                return new Location(w, x, y, z,
-                        Float.parseFloat(cs.getString("pitch", "0.000")), Float.parseFloat(cs.getString("yaw", "0.000")));
+                return new Location(w, x, y, z, p, y2);
             }
             return null;
         }

@@ -6,7 +6,9 @@ import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
+import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -14,6 +16,8 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
 import org.lins.mmmjjkx.mixtools.objects.listener.MixToolsListener;
 import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
+
+import java.util.List;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.*;
 
@@ -45,10 +49,29 @@ public class PlayerListener implements MixToolsListener {
     }
 
     @EventHandler
+    public void openTrashBin(InventoryOpenEvent e){
+        String title = getMessageHandler().getColored("GUI.TrashBin");
+        if (e.getView().getTitle().equals(title)){
+            getMessageHandler().sendMessage(e.getPlayer(),"GUI.OpenTrashBin");
+        }
+    }
+
+    @EventHandler
     public void closeTrashBin(InventoryCloseEvent e){
         String title = getMessageHandler().getColored("GUI.TrashBin");
         if (e.getView().getTitle().equals(title)){
-            e.getPlayer().sendMessage(getMessageHandler().getColored("GUI.CloseTrashBin"));
+            getMessageHandler().sendMessage(e.getPlayer(),"GUI.CloseTrashBin");
+        }
+    }
+
+    @EventHandler
+    public void clickTrashBin(InventoryClickEvent e){
+        String title = getMessageHandler().getColored("GUI.TrashBin");
+        if (e.getView().getTitle().equals(title)) {
+            List<Integer> slots = MixTools.settingsManager.getIntList(TRASH_PUT_THING_SLOTS);
+            if (slots.contains(e.getRawSlot())){
+                e.setCancelled(true);
+            }
         }
     }
 

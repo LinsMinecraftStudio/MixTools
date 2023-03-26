@@ -9,6 +9,7 @@ import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
 import java.sql.SQLException;
 import java.util.Set;
+import java.util.UUID;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
@@ -30,7 +31,7 @@ public class DataManager {
             dataManager.addHome(home);
         }
     }
-    public Location getHomeLocation(String owner, String name){
+    public Location getHomeLocation(UUID owner, String name){
         if (isMYSQLEnabled){
             try {return mysqlDataManager.getHomeLocation(owner, name);
             } catch (SQLException e) {throw new RuntimeException(e);}
@@ -71,53 +72,44 @@ public class DataManager {
         }
     }
     /////////////////////////////////////////////////////////////////
-    public void setData(String key, String playerName, Object o) {
+    public void setData(String key, UUID playerUUID, Object o) {
         if (isMYSQLEnabled){
-            try {mysqlDataManager.setData(key, playerName, o);
+            try {mysqlDataManager.setData(key, playerUUID, o);
             } catch (SQLException e) {throw new RuntimeException(e);}
         }else {
-           dataManager.setData(key, playerName, o);
+           dataManager.setData(key, playerUUID, o);
         }
     }
-    public String getStringData(String key, String playerName){
+    public String getStringData(String key, UUID playerUUID){
         if (isMYSQLEnabled){
-            try {return mysqlDataManager.getStringData(key, playerName);
+            try {return mysqlDataManager.getStringData(key, playerUUID);
             } catch (SQLException e) {throw new RuntimeException(e);}
         }else {
-            return dataManager.getStringData(key, playerName);
+            return dataManager.getStringData(key, playerUUID);
         }
     }
-    public boolean getBooleanData(String key, String playerName){
+    public boolean getBooleanData(String key, UUID playerUUID){
         if (isMYSQLEnabled){
-            try {return mysqlDataManager.getBooleanData(key, playerName);
+            try {return mysqlDataManager.getBooleanData(key, playerUUID);
             } catch (SQLException e) {throw new RuntimeException(e);}
         }else {
-            return dataManager.getBooleanData(key, playerName);
+            return dataManager.getBooleanData(key, playerUUID);
         }
     }
-    public int getIntegerData(String key, String playerName){
+    public int getIntegerData(String key, UUID playerUUID){
         if (isMYSQLEnabled){
-            try {return mysqlDataManager.getIntegerData(key, playerName);
+            try {return mysqlDataManager.getIntegerData(key, playerUUID);
             } catch (SQLException e) {throw new RuntimeException(e);}
         }else {
-            return dataManager.getIntegerData(key, playerName);
+            return dataManager.getIntegerData(key, playerUUID);
         }
     }
-    public double getDoubleData(String key, String playerName){
+    public double getDoubleData(String key, UUID playerUUID){
         if (isMYSQLEnabled){
-            try {return mysqlDataManager.getDoubleData(key, playerName);
+            try {return mysqlDataManager.getDoubleData(key, playerUUID);
             } catch (SQLException e) {throw new RuntimeException(e);}
         }else {
-            return dataManager.getDoubleData(key, playerName);
+            return dataManager.getDoubleData(key, playerUUID);
         }
-    }
-
-    public void checkPlayerInMysqlData(String name){
-        try {mysqlDataManager.checkPlayerInData(name);
-        } catch (SQLException e) {throw new RuntimeException(e);}
-    }
-
-    public FileConfiguration checkPlayerInData(String name){
-        return dataManager.checkPlayerInData(name);
     }
 }

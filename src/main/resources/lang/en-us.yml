@@ -2,7 +2,7 @@ Check-Update:
   Line1: "&cMixTools has detected the latest version!"
   Line2: "&aVersion you are using: &c%1$s&a, latest version: &b%2$s&a."
   Failed: "&cFailed to get the latest version."
-  Line3: "&dIf you don't want to see this message, please set 'check-update' to false in config.yml."
+  Line3: "&dIf you don't want to see this message, please set 'checkUpdate' to false in config.yml."
 Command:
   NoPermission: "&4You don't have permission to do that!"
   RunAsConsole: "&4Please don't use the console to execute this command!"
@@ -39,7 +39,7 @@ Fly:
   OthersEnabled: "&aYou enable &c%s &ato fly."
 GUI:
   Workbench: "Workbench"
-  Trash: "Trash bin"
+  TrashBin: "Trash bin"
   OpenTrashBin: ""
   CloseTrashBin: ""
 Item:

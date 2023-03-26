@@ -6,19 +6,17 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
-import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.*;
+import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.CURRENCY_SYMBOL;
 
 public class CMDEconomy implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
-        if (args.length==0){
+        if (args.length==1){
             List<String> list = new ArrayList<>();
             list.add("balance");
             list.add("clear");
@@ -27,7 +25,7 @@ public class CMDEconomy implements MixTabExecutor {
             list.add("currency-symbol");
             return list;
         }
-        if (args.length==1) {
+        if (args.length==2) {
             return getPlayerNames();
         }
         return null;
@@ -49,12 +47,12 @@ public class CMDEconomy implements MixTabExecutor {
         if (p != null) {
             if (args.length == 0) {
                 sendMessage(p, "Economy.Balance",
-                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getName()),
+                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()),
                         MixTools.settingsManager.getString(CURRENCY_SYMBOL));
                 return true;
             } else if (args.length == 1 && args[0].equals("balance")) {
                 sendMessage(p, "Economy.Balance",
-                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getName()),
+                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()),
                         MixTools.settingsManager.getString(CURRENCY_SYMBOL));
                 return true;
             }
@@ -64,80 +62,63 @@ public class CMDEconomy implements MixTabExecutor {
         }
         if (args.length == 2) {
             String name = args[1];
-            switch (args[0]) {
-                case "balance" -> {
-                    if (MixTools.getDataManager().getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
+            Player p2 = findPlayer(sender,name);
+            if (p2 != null) {
+                switch (args[0]) {
+                    case "balance" -> {
                         sendMessage(sender, "Economy.Balance", MixTools.settingsManager.getString(CURRENCY_SYMBOL), name,
-                                MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, name));
+                                MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p2.getUniqueId()));
                         return true;
-                    } else {
-                        sendMessage(p, "Economy.AccountNotFound");
-                        return false;
                     }
-                }
-                case "clear" -> {
-                    if (hasSubPermission(sender, "clear")) {
-                        if (MixTools.getDataManager().getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
-                            MixTools.getDataManager().setData(ECONOMY_MONEY, name, 0);
+                    case "clear" -> {
+                        if (hasSubPermission(sender, "clear")) {
+                            MixTools.getDataManager().setData(ECONOMY_MONEY, p.getUniqueId(), 0);
                             sendMessage(sender, "Economy.ClearSuccess");
                             return true;
-                        } else {
-                            sendMessage(p, "Economy.AccountNotFound");
-                            return false;
                         }
+                        return false;
                     }
-                    return false;
-                }
-                case "currency-symbol" -> {
-                    if (hasSubPermission(sender, "currency-symbol")) {
-                        MixTools.settingsManager.set(CURRENCY_SYMBOL, args[1]);
-                        sendMessage(sender, "Economy.ChangeCurrencySymbol", args[1]);
+                    case "currency-symbol" -> {
+                        if (hasSubPermission(sender, "currency-symbol")) {
+                            MixTools.settingsManager.set(CURRENCY_SYMBOL, args[1]);
+                            sendMessage(sender, "Economy.ChangeCurrencySymbol", args[1]);
+                        }
                     }
                 }
             }
-            return true;
+            return false;
         }else if (args.length == 3) {
             String name = args[1];
+            Player p3 = findPlayer(sender,name);
             double amount = Double.parseDouble(args[2]);
-            switch (args[0]){
-                case "add":
-                    if (hasSubPermission(sender,"add")) {
-                        if (MixTools.getDataManager().getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
-                            String str = MixTools.settingsManager.getString(SettingsKey.MAXIMUM_MONEY);
-                            double max = Double.parseDouble(new BigDecimal(str).toPlainString());
-                            if (MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, name)<max) {
-                                MixTools.getDataManager().setData(ECONOMY_MONEY, name,
-                                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, name) + amount);
-                                sendMessage(p, "Economy.AddSuccess", name,
-                                        MixTools.settingsManager.getString(CURRENCY_SYMBOL), amount);
-                                return true;
-                            }else {
-                                sendMessage(p, "Economy.Max");
-                                return false;
-                            }
-                        } else {
-                            sendMessage(p, "Economy.AccountNotFound");
-                            return false;
+            if (p3 != null) {
+                switch (args[0]) {
+                    case "add" -> {
+                        if (hasSubPermission(sender, "add")) {
+                            MixTools.getDataManager().setData(ECONOMY_MONEY, p3.getUniqueId(),
+                                    MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p3.getUniqueId()) + amount);
+                            sendMessage(p, "Economy.AddSuccess", name,
+                                    MixTools.settingsManager.getString(CURRENCY_SYMBOL), amount);
+                            return true;
                         }
+                        return false;
                     }
-                case "take":
-                    if (hasSubPermission(sender,"take")) {
-                        if (MixTools.getDataManager().getBooleanData(HAS_ECONOMY_ACCOUNT, name)) {
-                            MixTools.getDataManager().setData(ECONOMY_MONEY, name,
-                                    MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, name) - amount);
+                    case "take" -> {
+                        if (hasSubPermission(sender, "take")) {
+                            MixTools.getDataManager().setData(ECONOMY_MONEY, p3.getUniqueId(),
+                                    MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p3.getUniqueId()) - amount);
                             sendMessage(p, "Economy.TakeSuccess", name,
                                     MixTools.settingsManager.getString(CURRENCY_SYMBOL), amount);
                             return true;
-                        } else {
-                            sendMessage(p, "Economy.AccountNotFound");
-                            return false;
                         }
+                        return false;
                     }
+                }
             }
+            return false;
         }else {
             sendMessage(p, "Command.ArgError");
             return false;
         }
-        return false;
     }
 }

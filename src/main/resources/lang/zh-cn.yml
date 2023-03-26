@@ -2,7 +2,7 @@ Check-Update:
   Line1: "&cMixTools检测到了最新版本！"
   Line2: "&a你正在使用的版本：&c%1$s&a，最新版本：&b%2$s&a。"
   Failed: "&c无法获取最新版本！"
-  Line3: "&d如果你不想看到此消息，请在config.yml中把check-update设为false。"
+  Line3: "&d如果你不想看到此消息，请在config.yml中把checkUpdate设为false。"
 Command:
   NoPermission: "&4你没有权限去这样做！"
   RunAsConsole: "&4请不要用控制台执行此指令！"
@@ -38,7 +38,7 @@ Fly:
   OthersEnabled: "&a你允许&e%s&a飞行。"
 GUI:
   Workbench: "工作台"
-  Trash: "垃圾箱"
+  TrashBin: "垃圾箱"
   OpenTrashBin: ""
   CloseTrashBin: ""
 Item:

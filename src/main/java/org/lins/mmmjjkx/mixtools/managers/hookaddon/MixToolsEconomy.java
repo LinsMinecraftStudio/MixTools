@@ -2,6 +2,7 @@ package org.lins.mmmjjkx.mixtools.managers.hookaddon;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
@@ -12,7 +13,6 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
-import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.HAS_ECONOMY_ACCOUNT;
 
 public class MixToolsEconomy implements Economy {
     public final DataManager data = MixTools.getDataManager();
@@ -53,12 +53,12 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public boolean hasAccount(String playerName) {
-        return data.getBooleanData(HAS_ECONOMY_ACCOUNT, playerName);
+        return true;
     }
 
     @Override
     public boolean hasAccount(OfflinePlayer player) {
-        return hasAccount(player.getName());
+        return true;
     }
 
     @Override
@@ -73,12 +73,12 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public double getBalance(String playerName) {
-        return data.getDoubleData(ECONOMY_MONEY,playerName);
+        return getBalance(Bukkit.getOfflinePlayer(playerName));
     }
 
     @Override
     public double getBalance(OfflinePlayer player) {
-        return getBalance(player.getName());
+        return data.getDoubleData(ECONOMY_MONEY,player.getUniqueId());
     }
 
     @Override
@@ -113,13 +113,13 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public EconomyResponse withdrawPlayer(String playerName, double amount) {
-        data.setData(ECONOMY_MONEY,playerName,getBalance(playerName)-amount);
-        return new EconomyResponse(amount,getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, null);
+        return withdrawPlayer(Bukkit.getOfflinePlayer(playerName), amount);
     }
 
     @Override
     public EconomyResponse withdrawPlayer(OfflinePlayer player, double amount) {
-        return withdrawPlayer(player.getName(),amount);
+        data.setData(ECONOMY_MONEY,player.getUniqueId(),getBalance(player)-amount);
+        return new EconomyResponse(amount,getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
     @Override
@@ -134,13 +134,13 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public EconomyResponse depositPlayer(String playerName, double amount) {
-        data.setData(ECONOMY_MONEY,playerName,getBalance(playerName)+amount);
-        return new EconomyResponse(amount,getBalance(playerName), EconomyResponse.ResponseType.SUCCESS, null);
+        return depositPlayer(Bukkit.getOfflinePlayer(playerName), amount);
     }
 
     @Override
     public EconomyResponse depositPlayer(OfflinePlayer player, double amount) {
-        return depositPlayer(player.getName(), amount);
+        data.setData(ECONOMY_MONEY,player.getUniqueId(),getBalance(player)+amount);
+        return new EconomyResponse(amount,getBalance(player), EconomyResponse.ResponseType.SUCCESS, null);
     }
 
     @Override
@@ -215,23 +215,7 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public boolean createPlayerAccount(String playerName) {
-        if (MixTools.settingsManager.getBoolean(SettingsKey.MYSQL_ENABLED)) {
-            if (data.getBooleanData(HAS_ECONOMY_ACCOUNT, playerName)) {
-                return false;
-            } else {
-                data.checkPlayerInMysqlData(playerName);
-                return true;
-            }
-        }else {
-            data.checkPlayerInData(playerName);
-            if (data.getBooleanData(HAS_ECONOMY_ACCOUNT, playerName)) {
-                return false;
-            } else {
-                data.setData(HAS_ECONOMY_ACCOUNT, playerName, true);
-                data.setData(ECONOMY_MONEY, playerName, 0);
-                return true;
-            }
-        }
+        return false;
     }
 
     @Override

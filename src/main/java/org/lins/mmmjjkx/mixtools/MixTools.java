@@ -33,7 +33,7 @@ public final class MixTools extends JavaPlugin {
         // Plugin startup logic
         INSTANCE = this;
         saveResources();
-        settingsManager = new SettingsManager(getConfig());
+        settingsManager = new SettingsManager();
         if (settingsManager.getBoolean(MYSQL_ENABLED)){
             dataSource = SettingsKey.getDataSource();
         }
@@ -86,6 +86,7 @@ public final class MixTools extends JavaPlugin {
         saveResource("commandGroup.yml",false);
         saveResource("lang/en-us.yml",false);
         saveResource("lang/zh-cn.yml",false);
+        saveConfig();
     }
 
     public void Reload(){
@@ -93,7 +94,7 @@ public final class MixTools extends JavaPlugin {
             dataSource = SettingsKey.getDataSource();
         }
         messageHandler = new MessageHandler();
-        settingsManager = new SettingsManager(getConfig());
+        settingsManager = new SettingsManager();
         dataManager = new DataManager();
     }
 

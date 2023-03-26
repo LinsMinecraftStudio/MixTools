@@ -51,8 +51,10 @@ public class CMDTPA implements MixTabExecutor {
                             public void run() {
                                 int timeLeft = tpaManager.getCooldown(request);
                                 tpaManager.setCooldown(request, --timeLeft);
-                                if(timeLeft == 0){
+                                if  (timeLeft == 1){
                                     sendMessage(sender,"TPA.Timeout",p2.getName());
+                                }
+                                if (timeLeft == 0){
                                     this.cancel();
                                 }
                             }

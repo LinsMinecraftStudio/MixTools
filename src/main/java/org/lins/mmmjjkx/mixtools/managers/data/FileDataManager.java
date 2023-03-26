@@ -13,10 +13,11 @@ import org.lins.mmmjjkx.mixtools.objects.MixToolsHome;
 import java.io.File;
 import java.io.IOException;
 import java.util.Set;
+import java.util.UUID;
 
 public class FileDataManager {
     public void addHome(MixToolsHome home){
-        FileConfiguration cs = checkPlayerInData(home.owner().getName());
+        FileConfiguration cs = checkPlayerInData(home.owner().getUniqueId());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section == null){
             section = cs.createSection("homes");
@@ -38,7 +39,7 @@ public class FileDataManager {
             section2.set("yaw", loc.getYaw());
         }
     }
-    public Location getHomeLocation(String owner, String name){
+    public Location getHomeLocation(UUID owner, String name){
         FileConfiguration cs = checkPlayerInData(owner);
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section == null){return null;}
@@ -49,7 +50,7 @@ public class FileDataManager {
                 Float.parseFloat(section2.getString("pitch","0")), Float.parseFloat(section2.getString("yaw","0")));
     }
     public int getPlayerOwnedHomesAmount(Player p){
-        FileConfiguration cs = checkPlayerInData(p.getName());
+        FileConfiguration cs = checkPlayerInData(p.getUniqueId());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section!=null){
             return section.getKeys(false).size();
@@ -57,7 +58,7 @@ public class FileDataManager {
         return 0;
     }
     public Set<String> getPlayerOwnedHomesName(Player p){
-        FileConfiguration cs = checkPlayerInData(p.getName());
+        FileConfiguration cs = checkPlayerInData(p.getUniqueId());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section!=null){
             return section.getKeys(false);
@@ -82,7 +83,7 @@ public class FileDataManager {
         return i>getPlayerOwnedHomesAmount(p);
     }
     public void removeHome(Player p,String name){
-        FileConfiguration cs = checkPlayerInData(p.getName());
+        FileConfiguration cs = checkPlayerInData(p.getUniqueId());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section == null){
             MixTools.messageHandler.sendMessage(p,"Home.NoAnyHomes");
@@ -96,38 +97,39 @@ public class FileDataManager {
         section.set(name,null);
     }
     /////////////////////////////////////////////////////////////////
-    public void setData(String key, String playerName, Object o) {
-        FileConfiguration cs = checkPlayerInData(playerName);
+    public void setData(String key, UUID playerUUID, Object o) {
+        FileConfiguration cs = checkPlayerInData(playerUUID);
         cs.set(key,o);
     }
-    public String getStringData(String key, String playerName){
-        FileConfiguration cs = checkPlayerInData(playerName);
+    public String getStringData(String key, UUID playerUUID){
+        FileConfiguration cs = checkPlayerInData(playerUUID);
         return cs.getString(key,"");
     }
-    public boolean getBooleanData(String key, String playerName){
-        FileConfiguration cs = checkPlayerInData(playerName);
+    public boolean getBooleanData(String key, UUID playerUUID){
+        FileConfiguration cs = checkPlayerInData(playerUUID);
         return cs.getBoolean(key);
     }
-    public int getIntegerData(String key, String playerName){
-        FileConfiguration cs = checkPlayerInData(playerName);
+    public int getIntegerData(String key, UUID playerUUID){
+        FileConfiguration cs = checkPlayerInData(playerUUID);
         return cs.getInt(key);
     }
-    public double getDoubleData(String key, String playerName){
-        FileConfiguration cs = checkPlayerInData(playerName);
+    public double getDoubleData(String key, UUID playerUUID){
+        FileConfiguration cs = checkPlayerInData(playerUUID);
         return cs.getDouble(key);
     }
-    public FileConfiguration checkPlayerInData(String playerName){
-        File f = new File(MixTools.INSTANCE.getDataFolder(),"data");
-        if (!f.exists()){
-            f.mkdirs();
-        }
-        File f2 = new File(f,playerName+".yml");
+    public FileConfiguration checkPlayerInData(UUID playerUUID) {
+        File f2 = new File(MixTools.INSTANCE.getDataFolder()+File.separator+
+                "data", playerUUID + ".yml");
         if (!f2.exists()) {
-            try {f2.createNewFile();
+            try {
+                f2.getParentFile().mkdirs();
+                f2.createNewFile();
             } catch (IOException e) {
-                throw new RuntimeException(e);}
+                throw new RuntimeException(e);
+            }
         }
-        f2 = new File(f,playerName+".yml");
-        return YamlConfiguration.loadConfiguration(f2);
+        f2 = new File(MixTools.INSTANCE.getDataFolder(), "data/" + playerUUID.toString() + ".yml");
+        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(f2);
+        return configuration;
     }
 }

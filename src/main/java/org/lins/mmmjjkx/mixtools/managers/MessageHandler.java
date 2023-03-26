@@ -59,11 +59,15 @@ public class MessageHandler {
         return s;
     }
     public void sendMessage(CommandSender cs,String node,Object... args){
-        cs.sendMessage(getColored(node,args));
+        if (!getColored(node,args).isBlank()) {
+            cs.sendMessage(getColored(node, args));
+        }
     }
 
     public void broadcastMessage(String node,Object... args){
-        Bukkit.broadcastMessage(getColored(node,args));
+        if (!getColored(node,args).isBlank()) {
+            Bukkit.broadcastMessage(getColored(node, args));
+        }
     }
 
     public String colorize(String string) {

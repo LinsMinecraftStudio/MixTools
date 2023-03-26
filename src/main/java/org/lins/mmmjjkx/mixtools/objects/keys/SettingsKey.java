@@ -19,7 +19,7 @@ public class SettingsKey {
     public static String MYSQL_ENABLED = "mysql.enabled";
     public static String TRASH_PUT_THING_SLOTS = "trash.putThingSlots";
     public static String TRASH_PUT_THING = "trash.putThing";
-    public static String TRASH_LINE = "trash.line";
+    public static String TRASH_SIZE = "trash.size";
     public static HikariDataSource getDataSource() {
         SettingsManager sm = MixTools.settingsManager;
         HikariDataSource dataSource = new HikariDataSource();
