@@ -14,8 +14,6 @@ import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
-import java.sql.SQLException;
-
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
 public final class MixTools extends JavaPlugin {
@@ -44,7 +42,7 @@ public final class MixTools extends JavaPlugin {
         adventure = BukkitAudiences.create(this);
         registerCommands();
         Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
-        Metrics m = new Metrics(this,17788);
+        new Metrics(this,17788);
         getLogger().info("MixTools enabled!");
     }
 
@@ -80,6 +78,8 @@ public final class MixTools extends JavaPlugin {
         new CMDReload().register();
         new CMDEnderChest().register();
         new CMDTPAHere().register();
+        new CMDTeleport().register();
+        new CMDServerInfo().register();
     }
     private void saveResources() {
         saveDefaultConfig();

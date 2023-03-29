@@ -34,7 +34,7 @@ public class MySQLDataManager {
         ps2.execute();
     }
 
-    public void checkPlayerInData(UUID playerUUID) throws SQLException {
+    private void checkPlayerInData(UUID playerUUID) throws SQLException {
         ResultSet rs = conn.prepareStatement("select * from mixtools_data where uuid = "+playerUUID).executeQuery();
         if (rs.getRow()==0){
             conn.prepareStatement("INSERT INTO mixtools_data (playerUUID, economy_money) VALUES ("+playerUUID
@@ -49,7 +49,7 @@ public class MySQLDataManager {
             return;
         }
         conn.prepareStatement("INSERT INTO mixtools_homes (name, owner, world, x, y, z, pitch, yaw) VALUES ("+
-                home.name()+", "+home.owner().getName()+", "+w.getName()+", "+location.getX() + ", "+location.getY() + ", "+location.getZ() + ", "+
+                home.name()+", "+home.owner().getUniqueId()+", "+w.getName()+", "+location.getX() + ", "+location.getY() + ", "+location.getZ() + ", "+
                 location.getPitch() + ", "+location.getYaw() + ")").execute();
     }
     public Location getHomeLocation(UUID owner, String name) throws SQLException {
@@ -77,8 +77,7 @@ public class MySQLDataManager {
             String permstr = perm.getPermission();
             if (permstr.startsWith("mixtools.sethome.")&&perm.getValue()){
                 String amount;
-                try {
-                    amount = permstr.split("\\.")[3];
+                try {amount = permstr.split("\\.")[2];
                 }catch (ArrayIndexOutOfBoundsException e) {
                     amount = "0";
                 }

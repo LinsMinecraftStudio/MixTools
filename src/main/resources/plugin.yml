@@ -60,3 +60,8 @@ commands:
     description: refuse teleport request
   tpahere:
     description: let a player teleport to you
+  teleport:
+    description: teleport to some place
+    aliases: [tp]
+  serverinfo:
+    description: get server info

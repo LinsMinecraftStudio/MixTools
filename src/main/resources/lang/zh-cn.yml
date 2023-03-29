@@ -19,6 +19,9 @@ CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"
   Created: "&a指令组&e%s&a已创建。"
+Location:
+  WorldNoFound: "&4那个世界不存在。。。"
+  Teleported: "&a已传送。"
 Spawn:
   Set: "&a主城位置已设置至 x: &b%1$.3f &ay: &b%2$.3f &az: &b%3$.3f &apitch: &b%4$.3f &ayaw: &b%5$.3f."
   SpawnLocationNotFound: "&4主城位置未找到，请寻找操作员或服务器所有者请求帮助。"
@@ -74,3 +77,12 @@ GameMode:
 String:
   NoMatchRegex: "&4参数%d不匹配正则表达式。"
   NoMatchNameRegex: "&4你的Minecraft名称不符合要求。"
+Info:
+  Server:
+    - "&a服务器名称: &e%s"
+    - "&a服务器端口: &e%d"
+    - "&a玩家数: &e%s"
+    - "&a服务器MC版本: &e%s"
+    - "&a内存: &e%s"
+    - "&d获取更多信息，请这样使用指令："
+    - "&d/serverinfo oplist|..."

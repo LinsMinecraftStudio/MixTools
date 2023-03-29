@@ -20,6 +20,9 @@ CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
   Created: "&aCommand group &e%s &acreated."
+Location:
+  WorldNoFound: "&4That world is not found..."
+  Teleported: "&aTeleported."
 Spawn:
   Set: "&aSpawn location is set to x: &b%1$.3f &ay: &b%2$.3f &az: &b%3$.3f &apitch: &b%4$.3f &ayaw: &b%5$.3f&a."
   NotFound: "&4Spawn location is not found. Please ask operators or server owner for help."
@@ -76,3 +79,12 @@ GameMode:
 String:
   NoMatchRegex: "&4Argument %d does not conform to regular expression."
   NoMatchNameRegex: "&4Your Minecraft name does not meet the requirements."
+Info:
+  Server:
+    - "&aServer name: &e%s"
+    - "&aServer port: &e%d"
+    - "&aPlayers: &e%s"
+    - "&aServer minecraft version: &e%s"
+    - "&aRam: &e%s"
+    - "&dFor more information, use the instructions as follows: "
+    - "&d/serverinfo oplist|..."

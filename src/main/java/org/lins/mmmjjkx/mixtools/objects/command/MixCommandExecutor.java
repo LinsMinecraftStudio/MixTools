@@ -56,6 +56,10 @@ public interface MixCommandExecutor extends CommandExecutor {
         return p;
     }
 
+    default Player findPlayerNoMessage(String name){
+        return Bukkit.getPlayer(name);
+    }
+
     default void sendMessage(CommandSender cs,String node,Object... args){
         MixTools.messageHandler.sendMessage(cs,node,args);
     }

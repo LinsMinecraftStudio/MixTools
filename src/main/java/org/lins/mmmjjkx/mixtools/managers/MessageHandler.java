@@ -9,7 +9,10 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.io.File;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.IllegalFormatException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -38,6 +41,10 @@ public class MessageHandler {
         return message.getString(node,"§4Get message '"+node+"' failed, maybe it's not exists.");
     }
 
+    public List<String> getMessages(String node){
+        return message.getStringList(node);
+    }
+
     public String getColored(String node, Object... args){
         try {return colorize(String.format(get(node),args));
         } catch (IllegalFormatException e) {return colorize(get(node));}
@@ -58,9 +65,31 @@ public class MessageHandler {
         }
         return s;
     }
+
+    public List<String> getColoredMessagesParseVarPerLine(String node, Object... args){
+        List<String> s = message.getStringList(node);
+        List<String> new_s = new ArrayList<>();
+        for (int j = 0; j < args.length; j++) {
+            String st = s.get(j);
+            Object arg = args[j];
+            st = String.format(st, arg);
+            st = colorize(st);
+            new_s.add(st);
+        }
+        return new_s;
+    }
+
     public void sendMessage(CommandSender cs,String node,Object... args){
-        if (!getColored(node,args).isBlank()) {
+        if (!get(node).isBlank()) {
             cs.sendMessage(getColored(node, args));
+        }
+    }
+
+    public void sendMessages(CommandSender cs,List<String> list){
+        if (!list.isEmpty()){
+            for (String msg : list){
+                cs.sendMessage(msg);
+            }
         }
     }
 
@@ -69,6 +98,7 @@ public class MessageHandler {
             Bukkit.broadcastMessage(getColored(node, args));
         }
     }
+
 
     public String colorize(String string) {
         Pattern pattern = Pattern.compile("&#[a-fA-F0-9]{6}");

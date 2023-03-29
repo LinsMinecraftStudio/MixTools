@@ -71,11 +71,8 @@ public class FileDataManager {
             String permstr = perm.getPermission();
             if (permstr.startsWith("mixtools.sethome.")&&perm.getValue()){
                 String amount;
-                try {
-                    amount = permstr.split("\\.")[3];
-                }catch (ArrayIndexOutOfBoundsException e) {
-                    amount = "0";
-                }
+                try {amount = permstr.split("\\.")[2];
+                }catch (ArrayIndexOutOfBoundsException e) {amount = "0";}
                 if (amount.equals("unlimited")) return true;
                 i = Integer.parseInt(amount);
             }
@@ -117,8 +114,8 @@ public class FileDataManager {
         FileConfiguration cs = checkPlayerInData(playerUUID);
         return cs.getDouble(key);
     }
-    public FileConfiguration checkPlayerInData(UUID playerUUID) {
-        File f2 = new File(MixTools.INSTANCE.getDataFolder()+File.separator+
+    private FileConfiguration checkPlayerInData(UUID playerUUID) {
+        File f2 = new File(MixTools.INSTANCE.getDataFolder().getAbsolutePath()+File.separator+
                 "data", playerUUID + ".yml");
         if (!f2.exists()) {
             try {
@@ -128,8 +125,6 @@ public class FileDataManager {
                 throw new RuntimeException(e);
             }
         }
-        f2 = new File(MixTools.INSTANCE.getDataFolder(), "data/" + playerUUID.toString() + ".yml");
-        YamlConfiguration configuration = YamlConfiguration.loadConfiguration(f2);
-        return configuration;
+        return YamlConfiguration.loadConfiguration(f2);
     }
 }
