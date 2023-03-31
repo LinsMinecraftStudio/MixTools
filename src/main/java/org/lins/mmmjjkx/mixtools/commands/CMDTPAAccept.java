@@ -37,7 +37,7 @@ public class CMDTPAAccept implements MixCommandExecutor {
                     return false;
                 }
                 from.teleport(p);
-                tpaManager.setCooldown(request,0);
+                tpaManager.setExpireTime(request,0);
                 sendMessage(sender,"TPA.Teleported",from.getName());
                 return true;
             }

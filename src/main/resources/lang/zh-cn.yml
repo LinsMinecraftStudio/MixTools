@@ -22,6 +22,7 @@ CommandGroup:
 Location:
   WorldNoFound: "&4那个世界不存在。。。"
   Teleported: "&a已传送。"
+  TeleportAll: "&e%s &a把所有人传送到了他那里。"
 Spawn:
   Set: "&a主城位置已设置至 x: &b%1$.3f &ay: &b%2$.3f &az: &b%3$.3f &apitch: &b%4$.3f &ayaw: &b%5$.3f."
   SpawnLocationNotFound: "&4主城位置未找到，请寻找操作员或服务器所有者请求帮助。"
@@ -86,3 +87,6 @@ Info:
     - "&a内存: &e%s"
     - "&d获取更多信息，请这样使用指令："
     - "&d/serverinfo oplist|..."
+  Player:
+    - "&a玩家名: &e%s"
+    - ""

@@ -8,7 +8,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 import java.util.Locale;
@@ -65,11 +64,13 @@ public class MixStringUtil {
 
     public static boolean matchStringRegex(String str){
         String regex = MixTools.settingsManager.getString(STRING_REGEX);
+        if (regex.isBlank()) return true;
         return str.matches(regex);
     }
 
     public static boolean matchNameRegex(String str){
         String regex = MixTools.settingsManager.getString(NAME_REGEX);
+        if (regex.isBlank()) return true;
         return str.matches(regex);
     }
 
@@ -99,25 +100,24 @@ public class MixStringUtil {
     }
 
     public static String openFile(String filePath) {
-        int HttpResult;
         String ee = "";
-        try {URL url = new URL(filePath);
-            URLConnection urlconn = url.openConnection();
-            urlconn.connect();
-            HttpURLConnection httpconn =(HttpURLConnection)urlconn;
-            HttpResult = httpconn.getResponseCode();
+        try {URL url =new URL(filePath);
+            HttpURLConnection httpconn =(HttpURLConnection)url.openConnection();
+            int HttpResult = httpconn.getResponseCode();
             if(HttpResult == HttpURLConnection.HTTP_OK) {
-                InputStreamReader isReader = new InputStreamReader(urlconn.getInputStream(), StandardCharsets.UTF_8);
+                InputStreamReader isReader = new InputStreamReader(httpconn.getInputStream(), StandardCharsets.UTF_8);
                 BufferedReader reader = new BufferedReader(isReader);
                 StringBuilder buffer = new StringBuilder();
-                String line = reader.readLine();
+                String line;
+                line = reader.readLine();
                 while (line != null) {
                     buffer.append(line);
+                    buffer.append("\n");
                     line = reader.readLine();
                 }
                 ee = buffer.toString();
             }
         } catch (IOException ignored) {}
-        return ee;
+        return  ee;
     }
 }

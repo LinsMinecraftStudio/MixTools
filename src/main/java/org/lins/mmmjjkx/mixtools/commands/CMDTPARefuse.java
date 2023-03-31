@@ -31,7 +31,7 @@ public class CMDTPARefuse implements MixCommandExecutor {
                     sendMessage(sender,"TPA.NoRequest");
                     return false;
                 }
-                tpaManager.setCooldown(request,0);
+                tpaManager.setExpireTime(request,0);
                 Player from = request.from();
                 if (from == null){return false;}
                 sendMessage(from,"TPA.Denied",p.getName());

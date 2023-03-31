@@ -43,14 +43,14 @@ public class CMDTPAHere implements MixTabExecutor {
                     if (p2 != null) {
                         TpaManager tpaManager = MixTools.miscFeatureManager.getTpaManager();
                         MixToolsTeleportRequest request = new MixToolsTeleportRequest(p2,p);
-                        tpaManager.setCooldown(request,tpaManager.DEFAULT_COOLDOWN);
+                        tpaManager.setExpireTime(request,tpaManager.DEFAULT_EXPIRE_TIME);
                         sendMessage(p,"TPA.Sent");
                         tpaManager.buildRequest(request,true);
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                int timeLeft = tpaManager.getCooldown(request);
-                                tpaManager.setCooldown(request, --timeLeft);
+                                int timeLeft = tpaManager.getExpireTime(request);
+                                tpaManager.setExpireTime(request, --timeLeft);
                                 if (timeLeft == 1){
                                     sendMessage(sender,"TPA.Timeout",p2.getName());
                                 }

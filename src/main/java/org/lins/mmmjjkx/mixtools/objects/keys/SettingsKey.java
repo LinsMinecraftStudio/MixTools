@@ -7,7 +7,6 @@ import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 public class SettingsKey {
     public static String CHECK_UPDATE = "checkUpdate";
     public static String CURRENCY_SYMBOL = "economy.currencySymbol";
-    public static String MAXIMUM_MONEY = "economy.maximum";
     public static String INITIAL_CURRENCY = "economy.initial-currency";
     public static String PLAYER_JOIN_MESSAGE = "messages.join";
     public static String PLAYER_QUIT_MESSAGE = "messages.quit";
@@ -15,7 +14,7 @@ public class SettingsKey {
     public static String STRING_REGEX = "regex.string";
     public static String NAME_REGEX = "regex.name";
     public static String NAME_CHECK = "nameCheck";
-    public static String TPA_COOLDOWN = "tpaCooldown";
+    public static String TPA_EXPIRE_TIME = "tpaExpireTime";
     public static String MYSQL_ENABLED = "mysql.enabled";
     public static String TRASH_PUT_THING_SLOTS = "trash.putThingSlots";
     public static String TRASH_PUT_THING = "trash.putThing";

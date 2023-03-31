@@ -4,7 +4,6 @@ package org.lins.mmmjjkx.mixtools.managers.misc;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.event.HoverEventSource;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
@@ -13,12 +12,12 @@ import org.lins.mmmjjkx.mixtools.objects.MixToolsTeleportRequest;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.TPA_COOLDOWN;
+import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.TPA_EXPIRE_TIME;
 
 public class TpaManager {
     private final Map<MixToolsTeleportRequest,Integer> requestMap = new HashMap<>();
-    public final int DEFAULT_COOLDOWN = MixTools.settingsManager.getInt(TPA_COOLDOWN);
-    public void setCooldown(MixToolsTeleportRequest request, int time){
+    public final int DEFAULT_EXPIRE_TIME = MixTools.settingsManager.getInt(TPA_EXPIRE_TIME);
+    public void setExpireTime(MixToolsTeleportRequest request, int time){
         if(time < 1) {
             requestMap.remove(request);
         } else {
@@ -26,7 +25,7 @@ public class TpaManager {
         }
     }
 
-    public int getCooldown(MixToolsTeleportRequest request){
+    public int getExpireTime(MixToolsTeleportRequest request){
         return requestMap.getOrDefault(request, 0);
     }
 

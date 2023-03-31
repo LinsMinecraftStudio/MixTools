@@ -23,6 +23,7 @@ CommandGroup:
 Location:
   WorldNoFound: "&4That world is not found..."
   Teleported: "&aTeleported."
+  TeleportAll: "&e%s &ateleported everyone to him."
 Spawn:
   Set: "&aSpawn location is set to x: &b%1$.3f &ay: &b%2$.3f &az: &b%3$.3f &apitch: &b%4$.3f &ayaw: &b%5$.3f&a."
   NotFound: "&4Spawn location is not found. Please ask operators or server owner for help."
@@ -88,3 +89,5 @@ Info:
     - "&aRam: &e%s"
     - "&dFor more information, use the instructions as follows: "
     - "&d/serverinfo oplist|..."
+  Player:
+    - "&aPlayer name: &e%s"

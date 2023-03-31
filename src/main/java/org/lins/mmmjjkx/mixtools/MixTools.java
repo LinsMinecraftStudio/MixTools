@@ -80,6 +80,7 @@ public final class MixTools extends JavaPlugin {
         new CMDTPAHere().register();
         new CMDTeleport().register();
         new CMDServerInfo().register();
+        new CMDTPAll().register();
     }
     private void saveResources() {
         saveDefaultConfig();
