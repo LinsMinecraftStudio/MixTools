@@ -17,7 +17,7 @@ import java.util.UUID;
 
 public class FileDataManager {
     public void addHome(MixToolsHome home){
-        FileConfiguration cs = checkPlayerInData(home.owner().getUniqueId());
+        YamlConfiguration cs = checkPlayerInData(home.owner().getUniqueId());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section == null){
             section = cs.createSection("homes");
@@ -40,7 +40,7 @@ public class FileDataManager {
         }
     }
     public Location getHomeLocation(UUID owner, String name){
-        FileConfiguration cs = checkPlayerInData(owner);
+        YamlConfiguration cs = checkPlayerInData(owner);
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section == null){return null;}
         ConfigurationSection section2 = section.getConfigurationSection(name);
@@ -50,7 +50,7 @@ public class FileDataManager {
                 Float.parseFloat(section2.getString("pitch","0")), Float.parseFloat(section2.getString("yaw","0")));
     }
     public int getPlayerOwnedHomesAmount(Player p){
-        FileConfiguration cs = checkPlayerInData(p.getUniqueId());
+        YamlConfiguration cs = checkPlayerInData(p.getUniqueId());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section!=null){
             return section.getKeys(false).size();
@@ -58,7 +58,7 @@ public class FileDataManager {
         return 0;
     }
     public Set<String> getPlayerOwnedHomesName(Player p){
-        FileConfiguration cs = checkPlayerInData(p.getUniqueId());
+        YamlConfiguration cs = checkPlayerInData(p.getUniqueId());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section!=null){
             return section.getKeys(false);
@@ -80,7 +80,7 @@ public class FileDataManager {
         return i>getPlayerOwnedHomesAmount(p);
     }
     public void removeHome(Player p,String name){
-        FileConfiguration cs = checkPlayerInData(p.getUniqueId());
+        YamlConfiguration cs = checkPlayerInData(p.getUniqueId());
         ConfigurationSection section = cs.getConfigurationSection("homes");
         if (section == null){
             MixTools.messageHandler.sendMessage(p,"Home.NoAnyHomes");
@@ -95,36 +95,39 @@ public class FileDataManager {
     }
     /////////////////////////////////////////////////////////////////
     public void setData(String key, UUID playerUUID, Object o) {
-        FileConfiguration cs = checkPlayerInData(playerUUID);
+        YamlConfiguration cs = checkPlayerInData(playerUUID);
         cs.set(key,o);
     }
     public String getStringData(String key, UUID playerUUID){
-        FileConfiguration cs = checkPlayerInData(playerUUID);
+        YamlConfiguration cs = checkPlayerInData(playerUUID);
         return cs.getString(key,"");
     }
     public boolean getBooleanData(String key, UUID playerUUID){
-        FileConfiguration cs = checkPlayerInData(playerUUID);
+        YamlConfiguration cs = checkPlayerInData(playerUUID);
         return cs.getBoolean(key);
     }
     public int getIntegerData(String key, UUID playerUUID){
-        FileConfiguration cs = checkPlayerInData(playerUUID);
+        YamlConfiguration cs = checkPlayerInData(playerUUID);
         return cs.getInt(key);
     }
     public double getDoubleData(String key, UUID playerUUID){
-        FileConfiguration cs = checkPlayerInData(playerUUID);
+        YamlConfiguration cs = checkPlayerInData(playerUUID);
         return cs.getDouble(key);
     }
-    private FileConfiguration checkPlayerInData(UUID playerUUID) {
-        File f2 = new File(MixTools.INSTANCE.getDataFolder().getAbsolutePath()+File.separator+
+    private YamlConfiguration checkPlayerInData(UUID playerUUID) {
+        File f = new File(MixTools.INSTANCE.getDataFolder().getAbsolutePath()+File.separator+
                 "data", playerUUID + ".yml");
-        if (!f2.exists()) {
+        if (!f.exists()) {
             try {
-                f2.getParentFile().mkdirs();
-                f2.createNewFile();
+                f.getParentFile().mkdirs();
+                f.createNewFile();
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }
         }
-        return YamlConfiguration.loadConfiguration(f2);
+        YamlConfiguration yamlConfiguration = new YamlConfiguration();
+        try {yamlConfiguration.load(f);
+        }catch (Exception e) {e.printStackTrace();}
+        return yamlConfiguration;
     }
 }

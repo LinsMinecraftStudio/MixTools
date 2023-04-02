@@ -4,11 +4,11 @@ economy:
   currencySymbol: "$"
   initialCurrency: 100
 messages:
-  join: "&6%player% joined the server."
-  quit: "&6%player% left the server."
+  join: "&7[&a+&7] %player%"
+  quit: "&7[&c-&7] %player%"
   welcome: "&dWelcome %player%, this is your first access to this server!"
 regex:
-  string: "^[a-zA-Z0-9_\u4e00-\u9fa5]+$"
+  string: "^[a-zA-Z0-9_]+$"
   name: "^[a-zA-Z0-9_]+$"
 nameCheck: true
 tpaExpireTime: 60
@@ -25,6 +25,34 @@ mysql:
     max-lifetime: 12000
     connection-timeout: 3000
 trash:
-  putThingSlots: [0,1,2,3,4,5,6,7,8,9,17,18,26,27,28,29,30,31,32,33,34,35]
-  putThing: "LIME_STAINED_GLASS_PANE"
+  putItemSlots:
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+    - 6
+    - 7
+    - 8
+    - 9
+    - 17
+    - 18
+    - 26
+    - 27
+    - 28
+    - 29
+    - 30
+    - 31
+    - 32
+    - 33
+    - 34
+    - 35
+  item: "LIME_STAINED_GLASS_PANE"
   size: 36
+  itemName: "&a"
+  closeButton:
+    enabled: false
+    slot: 8
+    item: "RED_STAINED_GLASS_PANE"
+    name: "&cClose"

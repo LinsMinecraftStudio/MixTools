@@ -68,7 +68,12 @@ public class PlayerListener implements MixToolsListener {
     public void clickTrashBin(InventoryClickEvent e){
         String title = getMessageHandler().getColored("GUI.TrashBin");
         if (e.getView().getTitle().equals(title)) {
-            List<Integer> slots = MixTools.settingsManager.getIntList(TRASH_PUT_THING_SLOTS);
+            List<Integer> slots = MixTools.settingsManager.getIntList(TRASH_PUT_ITEM_SLOTS);
+            if (MixTools.settingsManager.getBoolean(TRASH_CLOSE_BUTTON_ENABLED)) {
+                if (e.getRawSlot() == MixTools.settingsManager.getInt(TRASH_CLOSE_BUTTON_SLOT)) {
+                    e.getWhoClicked().closeInventory();
+                }
+            }
             if (slots.contains(e.getRawSlot())){
                 e.setCancelled(true);
             }
@@ -104,6 +109,8 @@ public class PlayerListener implements MixToolsListener {
             } else if (!ver.equals(latest)) {
                 getMessageHandler().sendMessage(p, "Check-Update.Line1");
                 getMessageHandler().sendMessage(p, "Check-Update.Line2", ver, latest);
+            } else {
+                getMessageHandler().sendMessage(p, "Check-Update.UsingLatestVersion");
             }
             getMessageHandler().sendMessage(p, "Check-Update.Line3");
         }

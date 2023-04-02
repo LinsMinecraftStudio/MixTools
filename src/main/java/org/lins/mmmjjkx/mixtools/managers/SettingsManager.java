@@ -22,6 +22,7 @@ public class SettingsManager {
     public String getString(String key){
         return config.getString(key,"");
     }
+    public String getColoredString(String key){return MixTools.messageHandler.colorize(getString(key));}
     public boolean getBoolean(String key){
         return config.getBoolean(key);
     }

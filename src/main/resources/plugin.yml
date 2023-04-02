@@ -65,3 +65,5 @@ commands:
     aliases: [tp]
   serverinfo:
     description: get server info
+  tpall:
+    description: teleport all players to you

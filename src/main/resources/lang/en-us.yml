@@ -2,6 +2,7 @@ Check-Update:
   Line1: "&cMixTools has detected the latest version!"
   Line2: "&aVersion you are using: &c%1$s&a, latest version: &b%2$s&a."
   Failed: "&cFailed to get the latest version."
+  UsingLatestVersion: "&aYou are using the latest version."
   Line3: "&dIf you don't want to see this message, please set 'checkUpdate' to false in config.yml."
 Command:
   NoPermission: "&4You don't have permission to do that!"
@@ -82,12 +83,10 @@ String:
   NoMatchNameRegex: "&4Your Minecraft name does not meet the requirements."
 Info:
   Server:
-    - "&aServer name: &e%s"
+    - "&aServer: &e%s"
     - "&aServer port: &e%d"
     - "&aPlayers: &e%s"
     - "&aServer minecraft version: &e%s"
     - "&aRam: &e%s"
-    - "&dFor more information, use the instructions as follows: "
-    - "&d/serverinfo oplist|..."
   Player:
     - "&aPlayer name: &e%s"

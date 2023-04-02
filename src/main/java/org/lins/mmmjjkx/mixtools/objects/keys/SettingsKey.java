@@ -16,9 +16,14 @@ public class SettingsKey {
     public static String NAME_CHECK = "nameCheck";
     public static String TPA_EXPIRE_TIME = "tpaExpireTime";
     public static String MYSQL_ENABLED = "mysql.enabled";
-    public static String TRASH_PUT_THING_SLOTS = "trash.putThingSlots";
-    public static String TRASH_PUT_THING = "trash.putThing";
+    public static String TRASH_PUT_ITEM_SLOTS = "trash.putItemSlots";
+    public static String TRASH_ITEM = "trash.item";
     public static String TRASH_SIZE = "trash.size";
+    public static String TRASH_ITEM_NAME = "trash.itemName";
+    public static String TRASH_CLOSE_BUTTON_ENABLED = "trash.closeButton.enabled";
+    public static String TRASH_CLOSE_BUTTON_SLOT = "trash.closeButton.slot";
+    public static String TRASH_CLOSE_BUTTON_ITEM = "trash.closeButton.item";
+    public static String TRASH_CLOSE_BUTTON_NAME = "trash.closeButton.name";
     public static HikariDataSource getDataSource() {
         SettingsManager sm = MixTools.settingsManager;
         HikariDataSource dataSource = new HikariDataSource();

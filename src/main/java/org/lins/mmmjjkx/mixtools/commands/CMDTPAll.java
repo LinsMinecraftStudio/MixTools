@@ -38,8 +38,8 @@ public class CMDTPAll implements MixTabExecutor {
                 if (p != null) {
                     for (Player ps: Bukkit.getOnlinePlayers()) {
                         ps.teleport(p);
-                        sendMessage(ps,"Location.TeleportAll",p.getName());
                     }
+                    broadcastMessage("Location.TeleportAll",p.getName());
                     return true;
                 }
             }else if (args.length==1) {
@@ -47,8 +47,9 @@ public class CMDTPAll implements MixTabExecutor {
                 if (p != null) {
                     for (Player ps: Bukkit.getOnlinePlayers()) {
                         ps.teleport(p);
-                        sendMessage(ps,"Location.TeleportAll",p.getName());
                     }
+                    broadcastMessage("Location.TeleportAll",p.getName());
+                    return true;
                 }
             }else {
                 sendMessage(sender,"Command.ArgError");
