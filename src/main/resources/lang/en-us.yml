@@ -16,11 +16,14 @@ Command:
   Back: "&aReturn to the previous location."
   NoBackLocation: "&4You don't have saved previous location."
   ReloadSuccess: "&aReload success."
-  PlayerNotFound: "&4That player is not found."
+  PlayerNotFound: "&4That player is not found..."
+  FlyingSpeedSet: "&aFlying speed was set to &e%d&a."
+  WalkSpeedSet: "&aWalk speed was set to &e%d&a."
 CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
   Created: "&aCommand group &e%s &acreated."
+  Removed: "&aRemoved command group &e%s."
 Location:
   WorldNoFound: "&4That world is not found..."
   Teleported: "&aTeleported."
@@ -55,6 +58,7 @@ Home:
   NoAnyHomes: "&4You don't have any homes."
   NotExists: "&4That home is not exists."
   Teleported: "&aTeleported you to home &e%s&a."
+  Full: "&4You can't create more homes anymore!"
 TPA:
   Sent: "&aTeleport request sent."
   NoRequest: "&4You don't have any teleport request."
@@ -78,9 +82,16 @@ GameMode:
   survival: "Survival"
   creative: "Creative"
   adventure: "Adventure"
-String:
+  NotFound: "&4The game mode was not found."
+Value:
   NoMatchRegex: "&4Argument %d does not conform to regular expression."
   NoMatchNameRegex: "&4Your Minecraft name does not meet the requirements."
+  NotDouble: "&4Argument %d is not a double."
+  NotFloat: "&4Argument %d is not a float."
+  NotBool: "&4Argument %d is not a boolean."
+  NotInt: "&4Argument %d is not an integer."
+  TooHigh: "&4The value of parameter 5 is too high."
+  TooLow: "&4The value of parameter 5 is too low."
 Info:
   Server:
     - "&aServer: &e%s"
@@ -90,3 +101,4 @@ Info:
     - "&aRam: &e%s"
   Player:
     - "&aPlayer name: &e%s"
+    - ""

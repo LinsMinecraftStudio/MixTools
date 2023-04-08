@@ -3,7 +3,6 @@ package org.lins.mmmjjkx.mixtools.managers.data;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
@@ -17,27 +16,34 @@ import java.util.UUID;
 
 public class FileDataManager {
     public void addHome(MixToolsHome home){
-        YamlConfiguration cs = checkPlayerInData(home.owner().getUniqueId());
-        ConfigurationSection section = cs.getConfigurationSection("homes");
-        if (section == null){
-            section = cs.createSection("homes");
-        }
-        Location loc = home.loc();
-        ConfigurationSection section2 = section.getConfigurationSection(home.name());
-        if (section2 == null){
-            section2 = section.createSection(home.name());
-        }else {
-            MixTools.messageHandler.sendMessage(home.owner(),"Home.Exists");
-            return;
-        }
-        if (loc.getWorld() != null) {
-            section2.set("world", loc.getWorld().getName());
-            section2.set("x", loc.getX());
-            section2.set("y", loc.getY());
-            section2.set("z", loc.getZ());
-            section2.set("pitch", loc.getPitch());
-            section2.set("yaw", loc.getYaw());
-        }
+        new Thread(() -> {
+            YamlConfiguration cs = checkPlayerInData(home.owner().getUniqueId());
+            ConfigurationSection section = cs.getConfigurationSection("homes");
+            if (section == null) {
+                section = cs.createSection("homes");
+            }
+            Location loc = home.loc();
+            ConfigurationSection section2 = section.getConfigurationSection(home.name());
+            if (section2 == null) {
+                section2 = section.createSection(home.name());
+            } else {
+                MixTools.messageHandler.sendMessage(home.owner(), "Home.Exists");
+                return;
+            }
+            if (loc.getWorld() != null) {
+                section2.set("world", loc.getWorld().getName());
+                section2.set("x", loc.getX());
+                section2.set("y", loc.getY());
+                section2.set("z", loc.getZ());
+                section2.set("pitch", loc.getPitch());
+                section2.set("yaw", loc.getYaw());
+            } else {
+                return;
+            }
+            try {cs.save(new File(MixTools.INSTANCE.getDataFolder() + File.separator +
+                        "data", home.owner().getUniqueId() + ".yml"));
+            } catch (IOException e) {throw new RuntimeException(e);}
+        }).start();
     }
     public Location getHomeLocation(UUID owner, String name){
         YamlConfiguration cs = checkPlayerInData(owner);
@@ -67,6 +73,7 @@ public class FileDataManager {
     }
     public boolean canCreateHomes(Player p){
         int i = 0;
+        if (p.isOp()){return true;}
         for (PermissionAttachmentInfo perm : p.getEffectivePermissions()){
             String permstr = perm.getPermission();
             if (permstr.startsWith("mixtools.sethome.")&&perm.getValue()){
@@ -92,11 +99,17 @@ public class FileDataManager {
             return;
         }
         section.set(name,null);
+        try {cs.save(new File(MixTools.INSTANCE.getDataFolder()+File.separator+
+                "data", p.getUniqueId() + ".yml"));
+        } catch (IOException e) {throw new RuntimeException(e);}
     }
     /////////////////////////////////////////////////////////////////
     public void setData(String key, UUID playerUUID, Object o) {
         YamlConfiguration cs = checkPlayerInData(playerUUID);
         cs.set(key,o);
+        try {cs.save(new File(MixTools.INSTANCE.getDataFolder()+File.separator+
+                    "data", playerUUID + ".yml"));
+        } catch (IOException e) {throw new RuntimeException(e);}
     }
     public String getStringData(String key, UUID playerUUID){
         YamlConfiguration cs = checkPlayerInData(playerUUID);
@@ -115,17 +128,17 @@ public class FileDataManager {
         return cs.getDouble(key);
     }
     private YamlConfiguration checkPlayerInData(UUID playerUUID) {
-        File f = new File(MixTools.INSTANCE.getDataFolder().getAbsolutePath()+File.separator+
+        File f = new File(MixTools.INSTANCE.getDataFolder()+File.separator+
                 "data", playerUUID + ".yml");
+        YamlConfiguration yamlConfiguration = new YamlConfiguration();
         if (!f.exists()) {
             try {
                 f.getParentFile().mkdirs();
                 f.createNewFile();
-            } catch (IOException e) {
+            } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
-        YamlConfiguration yamlConfiguration = new YamlConfiguration();
         try {yamlConfiguration.load(f);
         }catch (Exception e) {e.printStackTrace();}
         return yamlConfiguration;

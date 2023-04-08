@@ -1,7 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.misc;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
@@ -14,7 +13,8 @@ import java.util.List;
 import java.util.Set;
 
 public class CommandGroupManager {
-    private FileConfiguration cmdgroup;
+    private YamlConfiguration cmdgroup;
+    private File cfgFile;
 
     public CommandGroupManager() {
         setup();
@@ -23,10 +23,16 @@ public class CommandGroupManager {
     private void setup() {
         File f = new File(MixTools.INSTANCE.getDataFolder(), "commandGroup.yml");
         if (!f.exists()) {
-            try {f.createNewFile();
-            } catch (IOException e) {throw new RuntimeException(e);}
+            MixTools.INSTANCE.saveResource("commandGroup.yml",false);
         }
-        cmdgroup = YamlConfiguration.loadConfiguration(f);
+        cfgFile = f;
+        try {
+            YamlConfiguration configuration = new YamlConfiguration();
+            configuration.load(f);
+            cmdgroup = configuration;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public List<MixToolsCommandGroup> getAllGroups(){
@@ -44,6 +50,8 @@ public class CommandGroupManager {
 
     public void addGroup(MixToolsCommandGroup group){
         cmdgroup.set(group.name(), group.commands());
+        try {cmdgroup.save(cfgFile);
+        } catch (IOException e) {throw new RuntimeException(e);}
     }
 
     public Set<String> getAllGroupsName(){
@@ -67,5 +75,13 @@ public class CommandGroupManager {
             cmd = PlaceholderAPI.setPlaceholders(p, cmd);
         }
         return cmd.replaceAll("%player%",p.getName());
+    }
+
+    public boolean removeGroup(String name) {
+        if (cmdgroup.contains(name)){
+            cmdgroup.set(name,null);
+            return true;
+        }
+        return false;
     }
 }

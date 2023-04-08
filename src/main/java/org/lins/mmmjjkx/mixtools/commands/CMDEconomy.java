@@ -3,6 +3,7 @@ package org.lins.mmmjjkx.mixtools.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
@@ -23,10 +24,10 @@ public class CMDEconomy implements MixTabExecutor {
             list.add("add");
             list.add("take");
             list.add("currency-symbol");
-            return list;
+            return StringUtil.copyPartialMatches(args[0],list,new ArrayList<>());
         }
         if (args.length==2) {
-            return getPlayerNames();
+            return StringUtil.copyPartialMatches(args[1],getPlayerNames(),new ArrayList<>());
         }
         return null;
     }
@@ -46,15 +47,21 @@ public class CMDEconomy implements MixTabExecutor {
         Player p = toPlayer(sender);
         if (p != null) {
             if (args.length == 0) {
-                sendMessage(p, "Economy.Balance",
-                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()),
-                        MixTools.settingsManager.getString(CURRENCY_SYMBOL));
-                return true;
+                if (hasCustomPermission(p,"economy.balance")) {
+                    sendMessage(p, "Economy.Balance",
+                            MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()),
+                            MixTools.settingsManager.getString(CURRENCY_SYMBOL));
+                    return true;
+                }
+                return false;
             } else if (args.length == 1 && args[0].equals("balance")) {
-                sendMessage(p, "Economy.Balance",
-                        MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()),
-                        MixTools.settingsManager.getString(CURRENCY_SYMBOL));
-                return true;
+                if (hasCustomPermission(p,"economy.balance")) {
+                    sendMessage(p, "Economy.Balance",
+                            MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()),
+                            MixTools.settingsManager.getString(CURRENCY_SYMBOL));
+                    return true;
+                }
+                return false;
             }
         }else {
             sendMessage(sender,"Command.RunAsConsole");
@@ -66,12 +73,14 @@ public class CMDEconomy implements MixTabExecutor {
             if (p2 != null) {
                 switch (args[0]) {
                     case "balance" -> {
-                        sendMessage(sender, "Economy.Balance", MixTools.settingsManager.getString(CURRENCY_SYMBOL), name,
-                                MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p2.getUniqueId()));
-                        return true;
+                        if (hasCustomPermission(p,"economy.balance.others")) {
+                            sendMessage(sender, "Economy.Balance", MixTools.settingsManager.getString(CURRENCY_SYMBOL), name,
+                                    MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p2.getUniqueId()));
+                            return true;
+                        }
                     }
                     case "clear" -> {
-                        if (hasSubPermission(sender, "clear")) {
+                        if (hasCustomPermission(sender, "economy.clear")) {
                             MixTools.getDataManager().setData(ECONOMY_MONEY, p.getUniqueId(), 0);
                             sendMessage(sender, "Economy.ClearSuccess");
                             return true;
@@ -79,7 +88,7 @@ public class CMDEconomy implements MixTabExecutor {
                         return false;
                     }
                     case "currency-symbol" -> {
-                        if (hasSubPermission(sender, "currency-symbol")) {
+                        if (hasCustomPermission(sender, "economy.currency-symbol")) {
                             MixTools.settingsManager.set(CURRENCY_SYMBOL, args[1]);
                             sendMessage(sender, "Economy.ChangeCurrencySymbol", args[1]);
                         }
@@ -94,7 +103,7 @@ public class CMDEconomy implements MixTabExecutor {
             if (p3 != null) {
                 switch (args[0]) {
                     case "add" -> {
-                        if (hasSubPermission(sender, "add")) {
+                        if (hasCustomPermission(sender, "economy.add")) {
                             MixTools.getDataManager().setData(ECONOMY_MONEY, p3.getUniqueId(),
                                     MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p3.getUniqueId()) + amount);
                             sendMessage(p, "Economy.AddSuccess", name,
@@ -104,7 +113,7 @@ public class CMDEconomy implements MixTabExecutor {
                         return false;
                     }
                     case "take" -> {
-                        if (hasSubPermission(sender, "take")) {
+                        if (hasCustomPermission(sender, "economy.take")) {
                             MixTools.getDataManager().setData(ECONOMY_MONEY, p3.getUniqueId(),
                                     MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p3.getUniqueId()) - amount);
                             sendMessage(p, "Economy.TakeSuccess", name,

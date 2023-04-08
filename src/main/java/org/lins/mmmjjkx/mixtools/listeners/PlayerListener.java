@@ -28,7 +28,7 @@ public class PlayerListener implements MixToolsListener {
         if (MixTools.settingsManager.getBoolean(NAME_CHECK)){
             String name = p.getName();
             if (!MixStringUtil.matchNameRegex(name)) {
-                p.kickPlayer(getMessageHandler().getColored("String.NoMatchNameRegex"));
+                p.kickPlayer(getMessageHandler().getColored("Value.NoMatchNameRegex"));
                 return;
             }
         }

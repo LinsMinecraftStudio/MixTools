@@ -25,12 +25,13 @@ public class CMDCommandGroup implements MixTabExecutor {
             argsList.add("add");
             argsList.add("run");
             argsList.add("remove");
-        } else if (args.length==2) {
-            argsList.addAll(commandGroupManager.getAllGroupsName());
-        } else if (args.length==3&&args[0].equals("run")) {
-            argsList.addAll(getPlayerNames());
+            return StringUtil.copyPartialMatches(args[0],argsList,new ArrayList<>());
+        } else if (args.length==2&!args[1].equals("add")) {
+            return StringUtil.copyPartialMatches(args[1],commandGroupManager.getAllGroupsName(),new ArrayList<>());
+        } else if (args.length==3&args[1].equals("run")) {
+            return StringUtil.copyPartialMatches(args[2],getPlayerNames(),new ArrayList<>());
         }
-        return argsList;
+        return null;
     }
 
     @Override
@@ -45,14 +46,14 @@ public class CMDCommandGroup implements MixTabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (hasPermission(sender)){
+        if (hasCustomPermission(sender,"commandgroup")){
             if (args.length==0||args.length==1) {
                 sendMessage(sender, "Command.ArgError");
                 return false;
-            } else if (args.length>2&&args[0].equals("add")) {
+            } else if (args.length>2&args[0].equals("add")) {
                 List<String> cmds = new ArrayList<>();
                 for (int i=2;i<args.length-2;i++) {
-                    if (args[i].length()<1) continue;
+                    if (args[i].isBlank()) continue;
                     String cmd = args[i].replaceAll("<sp>"," ");
                     cmds.add(cmd);
                 }
@@ -67,18 +68,26 @@ public class CMDCommandGroup implements MixTabExecutor {
                         return true;
                     }
                     case "remove" -> {
-                        commandGroupManager.addGroup(new MixToolsCommandGroup(args[1],null));
-                        sendMessage(sender,"CommandGroup.Removed",args[1]);
-                        return true;
+                        if (commandGroupManager.removeGroup(args[1])) {
+                            sendMessage(sender, "CommandGroup.Removed", args[1]);
+                            return true;
+                        }else {
+                            sendMessage(sender, "CommandGroup.NotFound");
+                            return false;
+                        }
+                    }
+                    case "run" -> {
+                        sendMessage(sender,"Command.ArgError");
+                        return false;
                     }
                 }
                 return false;
             } else if (args.length==3&&args[0].equals("run")){
-                Player p = findPlayer(sender, args[1]);
-                String groupName = args[2];
+                Player p = findPlayer(sender, args[2]);
+                String groupName = args[1];
                 if (p!=null) {
                     if (!commandGroupManager.runCommandGroup(p, groupName)){
-                        MixTools.messageHandler.sendMessage(sender, "CommandGroup.NotFound");
+                        sendMessage(sender, "CommandGroup.NotFound");
                         return false;
                     }
                     sendMessage(sender, "CommandGroup.Executed");

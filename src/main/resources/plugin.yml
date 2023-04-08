@@ -67,3 +67,129 @@ commands:
     description: get server info
   tpall:
     description: teleport all players to you
+  flyspeed:
+    description: set flying speed
+  walkspeed:
+    description: set walk speed
+permissions:
+  mixtools.command.back:
+    description: back permission
+    default: op
+  mixtools.commandgroup:
+    description: command group permission
+    default: op
+  mixtools.command.delhome:
+    description: delete home permission
+    default: op
+  mixtools.command.home:
+    description: back home permission
+    default: op
+  mixtools.command.fly:
+    description: fly permission
+    default: op
+  mixtools.command.fly.others:
+    default: op
+    description: let others fly permission
+  mixtools.command.itemlore:
+    description: set item lore permission
+    default: op
+  mixtools.command.itemname:
+    description: set item name permission
+    default: op
+  mixtools.command.sethome:
+    description: set home permission
+    default: op
+  mixtools.command.setspawn:
+    description: set spawn permission
+    default: op
+  mixtools.economy.*:
+    description: economy permission
+    default: op
+    children:
+      mixtools.economy.add: true
+      mixtools.economy.clear: true
+      mixtools.economy.take: true
+      mixtools.economy.currency-symbol: true
+      mixtools.economy.balance: true
+      mixtools.economy.balance.others: true
+  mixtools.economy.balance:
+    description: get balance permission
+    default: true
+  mixtools.economy.balance.others:
+    description: get others balance permission
+    default: true
+  mixtools.economy.add:
+    default: op
+    description: add money permission
+  mixtools.economy.clear:
+    default: op
+    description: clear money permission
+  mixtools.economy.take:
+    default: op
+    description: take money permission
+  mixtools.economy.currency-symbol:
+    default: op
+    description: set currency symbol permission
+  mixtools.command.enderchest:
+    default: op
+    description: open enderchest permission
+  mixtools.command.enderchest.others:
+    default: op
+    description: open others enderchest permission
+  mixtools.command.flyspeed:
+    default: op
+    description: set flying speed permission
+  mixtools.command.walkspeed:
+    default: op
+    description: set walk speed permission
+  mixtools.command.workbench:
+    default: op
+    description: open workbench permission
+  mixtools.command.tpall:
+    default: op
+    description: teleport all player to you permission
+  mixtools.command.tpaccept:
+    default: true
+    description: accept teleport request permission
+  mixtools.command.tparefuse:
+    default: true
+    description: refuse teleport request permission
+  mixtools.command.trash:
+    default: true
+    description: open trash bin permission
+  mixtools.command.tpahere:
+    description: let player teleport to you permission
+    default: op
+  mixtools.command.tpa:
+    description: teleport to a another player permission
+    default: op
+  mixtools.command.teleport:
+    description: teleport permission
+    default: op
+  mixtools.command.suicide:
+    description: suicide permission
+    default: op
+  mixtools.command.sudo:
+    description: let a player execute actions permission
+    default: op
+  mixtools.command.spawn:
+    description: go to spawn permission
+    default: true
+  mixtools.command.serverinfo:
+    description: get server info permission
+    default: op
+  mixtools.command.mixtoolsreload:
+    description: reload plugin permission
+    default: op
+  mixtools.command.killall:
+    description: kill all players permission
+    default: op
+  mixtools.command.kill:
+    description: kill player permission
+    default: op
+  mixtools.command.gamemode:
+    default: op
+    description: switch gamemode permission
+  mixtools.command.economy:
+    description: economy permission
+    default: op

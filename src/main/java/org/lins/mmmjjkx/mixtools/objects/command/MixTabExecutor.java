@@ -2,14 +2,14 @@ package org.lins.mmmjjkx.mixtools.objects.command;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
-import org.bukkit.command.TabExecutor;
+import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public interface MixTabExecutor extends MixCommandExecutor, TabExecutor {
+public interface MixTabExecutor extends MixCommandExecutor, TabCompleter {
     @Override
     default void register() {
         String require = requirePlugin();

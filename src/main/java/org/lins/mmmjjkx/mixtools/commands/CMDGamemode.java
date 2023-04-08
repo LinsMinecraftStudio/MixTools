@@ -4,6 +4,7 @@ import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
@@ -14,15 +15,15 @@ import java.util.List;
 public class CMDGamemode implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
-        List<String> result = new ArrayList<>();
-        if (args.length==0){
-            for (GameMode mode: GameMode.values()) {
-                result.add(mode.name());
-            }
-            return result;
-        }
+        List<String> modes = new ArrayList<>();
         if (args.length==1){
-            return getPlayerNames();
+            for (GameMode mode: GameMode.values()) {
+                modes.add(mode.name());
+            }
+            return StringUtil.copyPartialMatches(args[0],modes,new ArrayList<>());
+        }
+        if (args.length==2){
+            return StringUtil.copyPartialMatches(args[1],getPlayerNames(),new ArrayList<>());
         }
         return null;
     }
@@ -48,7 +49,7 @@ public class CMDGamemode implements MixTabExecutor {
                         int in = Integer.parseInt(args[0]);
                         mode = intToGameMode(in);
                     }catch (NumberFormatException e) {
-                        mode = GameMode.valueOf(args[0].toUpperCase());
+                        mode = stringToGameMode(args[0]);
                     }
                     if (mode != null) {
                         String s = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change",false,"GameMode."+
@@ -68,7 +69,7 @@ public class CMDGamemode implements MixTabExecutor {
                             int in = Integer.parseInt(args[0]);
                             mode2 = intToGameMode(in);
                         }catch (NumberFormatException e) {
-                            mode2 = GameMode.valueOf(args[0].toUpperCase());
+                            mode2 = stringToGameMode(args[0]);
                         }
                         Player p2 = findPlayer(p, args[1]);
                         if (mode2 != null) {
@@ -109,5 +110,12 @@ public class CMDGamemode implements MixTabExecutor {
             }
         }
         return null;
+    }
+
+    private GameMode stringToGameMode(String s) {
+        GameMode mode;
+        try {mode = GameMode.valueOf(s.toUpperCase());
+        }catch (Exception e){return null;}
+        return mode;
     }
 }

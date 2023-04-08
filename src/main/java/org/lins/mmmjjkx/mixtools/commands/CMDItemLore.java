@@ -24,7 +24,7 @@ public class CMDItemLore implements MixTabExecutor {
                 String lore = "";
                 try {lore = m.getLore().get(args.length);
                 }catch (Exception ignored){}
-                if (lore != null) {
+                if (!lore.isBlank()) {
                     return List.of(MixStringUtil.unformatString(lore));
                 }
             }

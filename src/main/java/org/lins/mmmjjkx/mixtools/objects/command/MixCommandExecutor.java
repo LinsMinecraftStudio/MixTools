@@ -11,14 +11,13 @@ public interface MixCommandExecutor extends CommandExecutor {
     String name();
     String requirePlugin();
     default boolean hasPermission(CommandSender cs){
-        boolean b = cs.hasPermission("mixtools.command."+name());
-        if (!b){
-            sendMessage(cs,"Command.NoPermission");
-        }
-        return b;
+        return hasCustomPermission(cs,"command."+name());
     }
     default boolean hasSubPermission(CommandSender cs,String sub){
-        boolean b = cs.hasPermission("mixtools.command."+name()+"."+sub);
+        return hasCustomPermission(cs,"command."+name()+"."+sub);
+    }
+    default boolean hasCustomPermission(CommandSender cs,String perm){
+        boolean b = cs.hasPermission("mixtools."+perm);
         if (!b){
             sendMessage(cs,"Command.NoPermission");
         }

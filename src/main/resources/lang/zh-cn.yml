@@ -16,16 +16,20 @@ Command:
   Back: "&a返回到上一个位置。"
   NoBackLocation: "&4你并没有已保存的上一个位置。"
   Reload: "&a重载成功。"
+  PlayerNotFound: "&4那个玩家未找到。。。"
+  FlyingSpeedSet: "&a飞行速度已设置为 &e%d&a。"
+  WalkSpeedSet: "&a行走速度已设置为 &e%d&a。"
 CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"
   Created: "&a指令组&e%s&a已创建。"
+  Removed: "&a已移除指令组&e%s。"
 Location:
   WorldNoFound: "&4那个世界不存在。。。"
   Teleported: "&a已传送。"
   TeleportAll: "&e%s &a把所有人传送到了他那里。"
 Spawn:
-  Set: "&a主城位置已设置至 x: &b%1$.3f &ay: &b%2$.3f &az: &b%3$.3f &apitch: &b%4$.3f &ayaw: &b%5$.3f."
+  Set: "&a主城位置已设置至 x: &b%1$.3f &ay: &b%2$.3f &az: &b%3$.3f &apitch: &b%4$.3f &ayaw: &b%5$.3f&a。"
   SpawnLocationNotFound: "&4主城位置未找到，请寻找操作员或服务器所有者请求帮助。"
   Teleported: "&a你传送到了主城。"
 Economy:
@@ -53,6 +57,8 @@ Home:
   Exists: "&4那个家已经存在了。"
   NoAnyHomes: "&4你没有任何一个家。"
   NotExists: "&4那个家不存在。"
+  Teleported: "&a将你传送到家 &e%s&a."
+  Full: "&4你不能再创建更多的家了！"
 TPA:
   Sent: "&a传送请求已发送。"
   NoRequest: "&4你没有任何的传送请求。"
@@ -76,9 +82,16 @@ GameMode:
   survival: "生存"
   creative: "创造"
   adventure: "冒险"
-String:
+  NotFound: "&4此游戏模式未找到。"
+Value:
   NoMatchRegex: "&4参数%d不匹配正则表达式。"
   NoMatchNameRegex: "&4你的Minecraft名称不符合要求。"
+  NotDouble: "&4参数%d不是一个双精度浮点数。"
+  NotFloat: "&4参数%d不是一个浮点数。"
+  NotBool: "&4参数%d不是一个布尔值。"
+  NotInt: "&4参数%d不是一个整数。"
+  TooHigh: "&4参数%d的值太高。"
+  TooLow: "&4参数%d的值太低。"
 Info:
   Server:
     - "&a服务器核心: &e%s"

@@ -81,13 +81,14 @@ public final class MixTools extends JavaPlugin {
         new CMDTeleport().register();
         new CMDServerInfo().register();
         new CMDTPAll().register();
+        new CMDFlySpeed().register();
+        new CMDWalkSpeed().register();
     }
     private void saveResources() {
         saveDefaultConfig();
         saveResource("commandGroup.yml",false);
         saveResource("lang/en-us.yml",false);
         saveResource("lang/zh-cn.yml",false);
-        saveConfig();
     }
 
     public void Reload(){

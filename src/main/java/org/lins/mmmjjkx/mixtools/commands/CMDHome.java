@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
@@ -19,10 +20,10 @@ public class CMDHome implements MixTabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (sender instanceof Player p) {
             List<String> arg = new ArrayList<>();
-            if (args.length == 0) {
+            if (args.length == 1) {
                 arg.addAll(MixTools.getDataManager().getPlayerOwnedHomesName(p));
             }
-            return arg;
+            return StringUtil.copyPartialMatches(args[0],arg,new ArrayList<>());
         }
         return null;
     }
