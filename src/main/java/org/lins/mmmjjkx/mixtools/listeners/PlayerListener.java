@@ -102,7 +102,9 @@ public class PlayerListener implements MixToolsListener {
 
     private void checkVersion(Player p){
         if (MixTools.settingsManager.getBoolean(CHECK_UPDATE)) {
-            String latest = MixStringUtil.openFile("https://raw.githubusercontent.com/LinsPMStudio/MixTools/main/version.txt");
+            String latest = "";
+            try {latest = MixStringUtil.openFile("https://raw.githubusercontent.com/LinsPMStudio/MixTools/main/version.txt");
+            }catch (Exception ignored){}
             String ver = MixTools.INSTANCE.getDescription().getVersion();
             if (latest.equals("")){
                 getMessageHandler().sendMessage(p, "Check-Update.Failed");

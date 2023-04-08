@@ -17,13 +17,14 @@ Command:
   NoBackLocation: "&4You don't have saved previous location."
   ReloadSuccess: "&aReload success."
   PlayerNotFound: "&4That player is not found..."
-  FlyingSpeedSet: "&aFlying speed was set to &e%d&a."
-  WalkSpeedSet: "&aWalk speed was set to &e%d&a."
+  FlyingSpeedSet: "&aFlying speed was set to &e%.2f&a."
+  WalkSpeedSet: "&aWalk speed was set to &e%.2f&a."
 CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
   Created: "&aCommand group &e%s &acreated."
   Removed: "&aRemoved command group &e%s."
+  AddCommandsSuccess: "&aSuccessfully added command(s) to command group &e%s&a."
 Location:
   WorldNoFound: "&4That world is not found..."
   Teleported: "&aTeleported."
@@ -33,7 +34,7 @@ Spawn:
   NotFound: "&4Spawn location is not found. Please ask operators or server owner for help."
   Teleported: "&aYou teleported to the spawn."
 Economy:
-  Balance: "&aYour money: &e%1s %2$s"
+  Balance: "&aYour money: &e%1$s %2$s"
   OtherBalance: "&a%1$s's money: &e%2$s %3$s"
   AddSuccess: "&aYou gave &c%1$s &e%2$s %3$s"
   AccountNotFound: "&4That account does not exist."
@@ -90,8 +91,8 @@ Value:
   NotFloat: "&4Argument %d is not a float."
   NotBool: "&4Argument %d is not a boolean."
   NotInt: "&4Argument %d is not an integer."
-  TooHigh: "&4The value of parameter 5 is too high."
-  TooLow: "&4The value of parameter 5 is too low."
+  TooHigh: "&4The value of parameter %d is too high."
+  TooLow: "&4The value of parameter %d is too low."
 Info:
   Server:
     - "&aServer: &e%s"

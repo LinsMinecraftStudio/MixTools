@@ -23,7 +23,8 @@ CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"
   Created: "&a指令组&e%s&a已创建。"
-  Removed: "&a已移除指令组&e%s。"
+  Removed: "&a已移除指令组&e%s&a。"
+  AddCommandsSuccess: "&a成功向指令组&e%s&a添加指令。"
 Location:
   WorldNoFound: "&4那个世界不存在。。。"
   Teleported: "&a已传送。"

@@ -52,13 +52,18 @@ public class CMDCommandGroup implements MixTabExecutor {
                 return false;
             } else if (args.length>2&args[0].equals("add")) {
                 List<String> cmds = new ArrayList<>();
-                for (int i=2;i<args.length-2;i++) {
+                for (int i=2;i<args.length;i++) {
                     if (args[i].isBlank()) continue;
                     String cmd = args[i].replaceAll("<sp>"," ");
                     cmds.add(cmd);
                 }
-                commandGroupManager.addGroup(new MixToolsCommandGroup(args[1],cmds));
-                sendMessage(sender,"CommandGroup.Created",args[1]);
+                if (commandGroupManager.containsGroup(args[1])) {
+                    commandGroupManager.addCommands(args[1], cmds);
+                    sendMessage(sender, "CommandGroup.AddCommandsSuccess", args[1]);
+                }else {
+                    commandGroupManager.addGroup(new MixToolsCommandGroup(args[1],cmds));
+                    sendMessage(sender, "CommandGroup.Created", args[1]);
+                }
                 return true;
             } else if (args.length==2){
                 switch (args[0]){

@@ -54,6 +54,12 @@ public class CommandGroupManager {
         } catch (IOException e) {throw new RuntimeException(e);}
     }
 
+    public void addCommands(String name, List<String> commands){
+        List<String> cmds = cmdgroup.getStringList(name);
+        cmds.addAll(commands);
+        cmdgroup.set(name, cmds);
+    }
+
     public Set<String> getAllGroupsName(){
         return cmdgroup.getKeys(false);
     }
@@ -83,5 +89,9 @@ public class CommandGroupManager {
             return true;
         }
         return false;
+    }
+
+    public boolean containsGroup(String name) {
+        return cmdgroup.contains(name);
     }
 }

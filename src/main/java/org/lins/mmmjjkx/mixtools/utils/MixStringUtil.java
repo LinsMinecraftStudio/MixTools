@@ -4,13 +4,16 @@ import org.bukkit.ChatColor;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.EnumSet;
 import java.util.Locale;
+import java.util.Scanner;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -100,24 +103,13 @@ public class MixStringUtil {
     }
 
     public static String openFile(String filePath) {
-        String ee = "";
-        try {URL url =new URL(filePath);
-            HttpURLConnection httpconn =(HttpURLConnection)url.openConnection();
-            int HttpResult = httpconn.getResponseCode();
-            if(HttpResult == HttpURLConnection.HTTP_OK) {
-                InputStreamReader isReader = new InputStreamReader(httpconn.getInputStream(), StandardCharsets.UTF_8);
-                BufferedReader reader = new BufferedReader(isReader);
-                StringBuilder buffer = new StringBuilder();
-                String line;
-                line = reader.readLine();
-                while (line != null) {
-                    buffer.append(line);
-                    buffer.append("\n");
-                    line = reader.readLine();
-                }
-                ee = buffer.toString();
+        try (InputStream stream = new URL(filePath).openStream(); Scanner scanner = new Scanner(stream)){
+            StringBuilder builder = new StringBuilder();
+            while (scanner.hasNextLine()){
+                builder.append(scanner.nextLine()).append("\n");
             }
-        } catch (IOException ignored) {}
-        return  ee;
+            return builder.toString();
+        }catch (Exception ignored){}
+        return "";
     }
 }

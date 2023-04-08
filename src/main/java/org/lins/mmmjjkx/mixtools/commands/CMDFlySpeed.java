@@ -46,23 +46,23 @@ public class CMDFlySpeed implements MixTabExecutor {
                     float speed;
                     try {speed = Float.parseFloat(args[0]);
                     }catch (NumberFormatException e){
-                        sendMessage(sender,"Value.NotFloat");
+                        sendMessage(sender,"Value.NotFloat",1);
                         return false;
                     }
-                    if (speed < 0){
+                    if (speed <= 0){
                         sendMessage(sender,"Value.TooLow");
                         return false;
-                    }
-                    float speed2 = speed / 5;
-                    try {p.setFlySpeed(speed2);
-                    }catch (IllegalArgumentException e) {
-                        sendMessage(sender, "Value.TooHigh");
+                    }else if (speed > 5){
+                        sendMessage(sender,"Value.TooHigh");
                         return false;
+                    }else {
+                        float speed2 = speed / 5;
+                        p.setFlySpeed(speed2);
+                        sendMessage(p, "Command.FlyingSpeedSet", speed);
+                        return true;
                     }
-                    sendMessage(p,"Command.FlyingSpeedSet",speed);
-                    return true;
                 }else {
-                    sendMessage(p,"Comamnd.ArgError");
+                    sendMessage(p,"Command.ArgError");
                     return false;
                 }
             }
