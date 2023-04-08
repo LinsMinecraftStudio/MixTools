@@ -37,9 +37,7 @@ Economy:
   Balance: "&a你的金钱：&e%1$s %2$s。"
   OtherBalance: "&a%1的金钱：&e%2$s %3$s。"
   AddSuccess: "&a你给了&c%1 &e%2$s %3$s。"
-  AccountNotFound: "&4那个账号不存在！"
   TakeSuccess: "&a你拿走了&c%1 &e%2$.2f %3$s"
-  Max: "&a余额已达最高上限。"
   ChangeCurrencySymbol: "&a货币符号已更改为&e%s&a。"
 Fly:
   Disabled: "&a飞行已开启。"

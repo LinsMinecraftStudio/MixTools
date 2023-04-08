@@ -1,7 +1,7 @@
 name: MixTools
 version: '${project.version}'
 main: org.lins.mmmjjkx.mixtools.MixTools
-api-version: 1.18
+api-version: 1.19
 authors: [ mmmjjkx ]
 description: An essential plugin like Essentials or CMI
 softdepend: [PlaceholderAPI, Vault]
@@ -71,6 +71,8 @@ commands:
     description: set flying speed
   walkspeed:
     description: set walk speed
+  balance:
+    description: see balance
 permissions:
   mixtools.command.back:
     description: back permission

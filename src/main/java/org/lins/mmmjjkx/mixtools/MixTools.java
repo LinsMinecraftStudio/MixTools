@@ -83,6 +83,7 @@ public final class MixTools extends JavaPlugin {
         new CMDTPAll().register();
         new CMDFlySpeed().register();
         new CMDWalkSpeed().register();
+        new CMDBalance().register();
     }
     private void saveResources() {
         saveDefaultConfig();

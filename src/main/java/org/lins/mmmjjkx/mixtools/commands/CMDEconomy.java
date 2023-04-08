@@ -47,25 +47,21 @@ public class CMDEconomy implements MixTabExecutor {
         Player p = toPlayer(sender);
         if (p != null) {
             if (args.length == 0) {
-                if (hasCustomPermission(p,"economy.balance")) {
+                if (hasCustomPermission(p, "economy.balance")) {
                     sendMessage(p, "Economy.Balance",
-                            MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()),
-                            MixTools.settingsManager.getString(CURRENCY_SYMBOL));
+                            MixTools.settingsManager.getString(CURRENCY_SYMBOL),
+                            MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()));
                     return true;
                 }
                 return false;
             } else if (args.length == 1 && args[0].equals("balance")) {
-                if (hasCustomPermission(p,"economy.balance")) {
-                    sendMessage(p, "Economy.Balance",
-                            MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()),
-                            MixTools.settingsManager.getString(CURRENCY_SYMBOL));
+                if (hasCustomPermission(p, "economy.balance")) {
+                    sendMessage(p, "Economy.Balance", MixTools.settingsManager.getString(CURRENCY_SYMBOL),
+                            MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()));
                     return true;
                 }
                 return false;
             }
-        }else {
-            sendMessage(sender,"Command.RunAsConsole");
-            return false;
         }
         if (args.length == 2) {
             String name = args[1];
@@ -73,15 +69,15 @@ public class CMDEconomy implements MixTabExecutor {
             if (p2 != null) {
                 switch (args[0]) {
                     case "balance" -> {
-                        if (hasCustomPermission(p,"economy.balance.others")) {
-                            sendMessage(sender, "Economy.Balance", MixTools.settingsManager.getString(CURRENCY_SYMBOL), name,
+                        if (hasCustomPermission(sender,"economy.balance.others")) {
+                            sendMessage(sender, "Economy.OtherBalance", name, MixTools.settingsManager.getString(CURRENCY_SYMBOL),
                                     MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p2.getUniqueId()));
                             return true;
                         }
                     }
                     case "clear" -> {
                         if (hasCustomPermission(sender, "economy.clear")) {
-                            MixTools.getDataManager().setData(ECONOMY_MONEY, p.getUniqueId(), 0);
+                            MixTools.getDataManager().setData(ECONOMY_MONEY, p2.getUniqueId(), 0);
                             sendMessage(sender, "Economy.ClearSuccess");
                             return true;
                         }

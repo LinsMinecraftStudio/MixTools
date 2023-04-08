@@ -37,9 +37,7 @@ Economy:
   Balance: "&aYour money: &e%1$s %2$s"
   OtherBalance: "&a%1$s's money: &e%2$s %3$s"
   AddSuccess: "&aYou gave &c%1$s &e%2$s %3$s"
-  AccountNotFound: "&4That account does not exist."
   TakeSuccess: "&aYou take &c%1$s &e%2$s %3$s"
-  Max: "&4The balance has reached the maximum limit."
   ChangeCurrencySymbol: "&aCurrency symbol is changed to &e%s&a."
 Fly:
   Disabled: "&aFly disabled."
