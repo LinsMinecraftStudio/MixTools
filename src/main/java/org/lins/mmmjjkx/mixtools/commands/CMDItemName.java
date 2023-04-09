@@ -6,12 +6,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class CMDItemName implements MixTabExecutor {
@@ -22,9 +24,9 @@ public class CMDItemName implements MixTabExecutor {
             ItemStack hand = p.getInventory().getItemInMainHand();
             if (!hand.getType().equals(Material.AIR) && hand.hasItemMeta()) {
                 ItemMeta meta = hand.getItemMeta();
-                if (meta != null && meta.hasDisplayName()) {
-                    if (args.length==0) {
-                        s.add(MixStringUtil.unformatString(meta.getDisplayName()));
+                if (meta != null) {
+                    if (args.length==1 & meta.hasDisplayName()) {
+                        return Collections.singletonList(MixStringUtil.unformatString(meta.getDisplayName()));
                     }
                 }
             }
@@ -48,10 +50,11 @@ public class CMDItemName implements MixTabExecutor {
             Player p = toPlayer(sender);
             if (p != null){
                 ItemStack hand = p.getInventory().getItemInMainHand();
-                if (!hand.getType().equals(Material.AIR) && hand.getItemMeta() != null) {
+                if (!hand.getType().equals(Material.AIR)) {
                     if (args.length==1) {
                         ItemMeta meta = hand.getItemMeta();
                         meta.setDisplayName(MixTools.messageHandler.colorize(args[0]));
+                        hand.setItemMeta(meta);
                         return true;
                     }else {
                         sendMessage(p, "Command.ArgError");

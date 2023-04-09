@@ -19,13 +19,15 @@ public class CMDItemLore implements MixTabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
         if (sender instanceof Player p) {
             ItemStack i = p.getInventory().getItemInMainHand();
-            if (!i.getType().equals(Material.AIR) && i.getItemMeta() != null) {
+            if (!i.getType().equals(Material.AIR)) {
                 ItemMeta m = i.getItemMeta();
                 String lore = "";
-                try {lore = m.getLore().get(args.length);
-                }catch (Exception ignored){}
-                if (!lore.isBlank()) {
-                    return List.of(MixStringUtil.unformatString(lore));
+                if (m.getLore()!=null) {
+                    try {lore = m.getLore().get(args.length-1);
+                    } catch (Exception ignored) {}
+                    if (!lore.isBlank()) {
+                        return List.of(MixStringUtil.unformatString(lore));
+                    }
                 }
             }
         }
@@ -47,7 +49,7 @@ public class CMDItemLore implements MixTabExecutor {
             Player p = toPlayer(sender);
             if (p != null) {
                 ItemStack i = p.getInventory().getItemInMainHand();
-                if (!i.getType().equals(Material.AIR) && i.getItemMeta() != null){
+                if (!i.getType().equals(Material.AIR)){
                     ItemMeta m = i.getItemMeta();
                     List<String> lines = new ArrayList<>();
                     if (args.length>0){
@@ -56,6 +58,7 @@ public class CMDItemLore implements MixTabExecutor {
                             lines.add(str);
                         }
                         m.setLore(lines);
+                        i.setItemMeta(m);
                         return true;
                     }
                 }

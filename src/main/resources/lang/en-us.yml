@@ -101,3 +101,10 @@ Info:
   Player:
     - "&aPlayer name: &e%s"
     - ""
+  List:
+    Head: "&a------------------&ePage %d&a------------------"
+    OP: "&a%1$d.&e%2$s"
+    OPListEmpty: "&4There aren't any operators."
+    Banned: "&a%1$d.&e%2$s &a—— &e%3$s"
+    BanListEmpty: "&4There aren't any banned players."
+    Tail: "&a------------------------------------------"

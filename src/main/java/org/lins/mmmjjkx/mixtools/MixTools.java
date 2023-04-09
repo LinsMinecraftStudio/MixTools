@@ -13,6 +13,7 @@ import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
+import org.lins.mmmjjkx.mixtools.utils.FilesCompletion;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
@@ -84,18 +85,21 @@ public final class MixTools extends JavaPlugin {
         new CMDFlySpeed().register();
         new CMDWalkSpeed().register();
         new CMDBalance().register();
+        new CMDOPList().register();
+        new CMDBanList().register();
     }
     private void saveResources() {
-        saveDefaultConfig();
-        saveResource("commandGroup.yml",false);
-        saveResource("lang/en-us.yml",false);
-        saveResource("lang/zh-cn.yml",false);
+        FilesCompletion.completingFile("config.yml", false);
+        FilesCompletion.completingFile("commandGroup.yml", true);
+        FilesCompletion.completingFile("lang/en-us.yml", false);
+        FilesCompletion.completingFile("lang/zh-cn.yml", false);
     }
 
     public void Reload(){
         if (settingsManager.getBoolean(MYSQL_ENABLED)) {
             dataSource = SettingsKey.getDataSource();
         }
+        saveResources();
         messageHandler = new MessageHandler();
         settingsManager = new SettingsManager();
         dataManager = new DataManager();

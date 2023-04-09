@@ -73,6 +73,10 @@ commands:
     description: set walk speed
   balance:
     description: see balance
+  oplist:
+    description: see ops
+  banlist:
+    description: see banned players
 permissions:
   mixtools.command.back:
     description: back permission
@@ -195,3 +199,9 @@ permissions:
   mixtools.command.economy:
     description: economy permission
     default: op
+  mixtools.command.oplist:
+    description: see ops permission
+    default: op
+  mixtools.command.banlist:
+    default: op
+    description: see banned players permission

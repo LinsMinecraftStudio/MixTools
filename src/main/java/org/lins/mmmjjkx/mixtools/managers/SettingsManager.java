@@ -35,7 +35,8 @@ public class SettingsManager {
         }catch (IllegalArgumentException e) {m = Material.STONE;}
         return new ItemStack(m);
     }
-    public List<Integer> getIntList(String key){return config.getIntegerList(key);}
+    public List<Integer> getIntList(String key) {return config.getIntegerList(key);}
+    public List<String> getStrList(String key) {return config.getStringList(key);}
     public void set(String key, Object value){
         config.set(key, value);
     }

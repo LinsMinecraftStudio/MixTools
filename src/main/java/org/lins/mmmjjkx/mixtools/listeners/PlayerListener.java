@@ -103,16 +103,16 @@ public class PlayerListener implements MixToolsListener {
     private void checkVersion(Player p){
         if (MixTools.settingsManager.getBoolean(CHECK_UPDATE)) {
             String latest = "";
-            try {latest = MixStringUtil.openFile("https://raw.githubusercontent.com/LinsPMStudio/MixTools/main/version.txt");
+            try {latest = MixStringUtil.openFile("https://api.spigotmc.org/legacy/update.php?resource=109130");
             }catch (Exception ignored){}
             String ver = MixTools.INSTANCE.getDescription().getVersion();
             if (latest.equals("")){
                 getMessageHandler().sendMessage(p, "Check-Update.Failed");
-            } else if (!ver.equals(latest)) {
+            } else if (ver.equals(latest)) {
+                getMessageHandler().sendMessage(p, "Check-Update.UsingLatestVersion");
+            } else {
                 getMessageHandler().sendMessage(p, "Check-Update.Line1");
                 getMessageHandler().sendMessage(p, "Check-Update.Line2", ver, latest);
-            } else {
-                getMessageHandler().sendMessage(p, "Check-Update.UsingLatestVersion");
             }
             getMessageHandler().sendMessage(p, "Check-Update.Line3");
         }
