@@ -87,6 +87,8 @@ public final class MixTools extends JavaPlugin {
         new CMDBalance().register();
         new CMDOPList().register();
         new CMDBanList().register();
+        new CMDLightning().register();
+        new CMDTNT().register();
     }
     private void saveResources() {
         FilesCompletion.completingFile("config.yml", false);

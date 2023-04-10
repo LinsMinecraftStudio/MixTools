@@ -20,7 +20,7 @@ public class CMDLightning implements MixTabExecutor {
         if (args.length==1){
             return StringUtil.copyPartialMatches(args[0],getPlayerNames(),new ArrayList<>());
         } else if (args.length==2) {
-            return StringUtil.copyPartialMatches(args[0],
+            return StringUtil.copyPartialMatches(args[1],
                     List.of("1","2","3","4","5"),new ArrayList<>());
         }
         return null;
@@ -47,17 +47,28 @@ public class CMDLightning implements MixTabExecutor {
                     return true;
                 }
             }else if (args.length==1) {
-                Player p = findPlayer(sender, args[0]);
+                Player p = findPlayerNoMessage(args[0]);
                 if (p != null) {
                     World world = p.getWorld();
                     world.spawnEntity(p.getLocation(), EntityType.LIGHTNING);
                     return true;
+                } else {
+                    Player self = toPlayer(sender);
+                    if (self != null) {
+                        int amount = toInteger(sender, args[0], 1);
+                        if (amount != -100) {
+                            for (int i = 0; i < amount; i++) {
+                                self.getWorld().spawnEntity(self.getLocation(), EntityType.LIGHTNING);
+                            }
+                            return true;
+                        }
+                    }
                 }
             } else if (args.length==2) {
                 Player p = findPlayer(sender,args[0]);
                 if (p != null) {
                     World world = p.getWorld();
-                    int amount = toInteger(sender, args[1]);
+                    int amount = toInteger(sender, args[1], 2);
                     if (amount != -100) {
                         for (int i = 0; i < amount; i++) {
                             world.spawnEntity(p.getLocation(), EntityType.LIGHTNING);

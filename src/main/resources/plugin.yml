@@ -77,6 +77,10 @@ commands:
     description: see ops
   banlist:
     description: see banned players
+  lightning:
+    description: spawn lightning(s)
+  tnt:
+    description: spawn primed tnt(s)
 permissions:
   mixtools.command.back:
     description: back permission
@@ -205,3 +209,9 @@ permissions:
   mixtools.command.banlist:
     default: op
     description: see banned players permission
+  mixtools.command.lightning:
+    description: spawn lightning(s) permission
+    default: op
+  mixtools.command.tnt:
+    description: spawn tnt(s) permission
+    default: op

@@ -46,7 +46,7 @@ public class CMDOPList implements MixTabExecutor {
                 sendMessages(sender,1);
                 return true;
             }else if (args.length==1){
-                sendMessages(sender, toInteger(sender, args[0]));
+                sendMessages(sender, toInteger(sender, args[0], 1));
                 return true;
             }else {
                 sendMessage(sender,"Command.ArgError");
