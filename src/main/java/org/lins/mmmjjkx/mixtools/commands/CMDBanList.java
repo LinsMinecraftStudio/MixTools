@@ -49,7 +49,7 @@ public class CMDBanList implements MixTabExecutor {
                 sendMessages(sender,1);
                 return true;
             }else if (args.length==1){
-                sendMessages(sender, Integer.parseInt(args[0]));
+                sendMessages(sender, toInteger(sender, args[0]));
                 return true;
             }else {
                 sendMessage(sender,"Command.ArgError");
@@ -62,8 +62,7 @@ public class CMDBanList implements MixTabExecutor {
     private void sendMessages(CommandSender sender,int page){
         List<BanEntry> bannedPlayers = new ArrayList<>(Bukkit.getBanList(BanList.Type.NAME).getBanEntries());
         List<List<BanEntry>> partition = Lists.partition(bannedPlayers, 10);
-        if (page<1){
-            sendMessage(sender,"Value.TooLow",1);
+        if (page==-100){
             return;
         } else if (bannedPlayers.isEmpty() & page==1) {
             sendMessage(sender,"Info.List.BannedListEmpty");

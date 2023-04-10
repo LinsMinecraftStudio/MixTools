@@ -46,7 +46,7 @@ public class CMDOPList implements MixTabExecutor {
                 sendMessages(sender,1);
                 return true;
             }else if (args.length==1){
-                sendMessages(sender, Integer.parseInt(args[0]));
+                sendMessages(sender, toInteger(sender, args[0]));
                 return true;
             }else {
                 sendMessage(sender,"Command.ArgError");
@@ -59,8 +59,7 @@ public class CMDOPList implements MixTabExecutor {
     private void sendMessages(CommandSender sender,int page){
         List<OfflinePlayer> operators = new ArrayList<>(Bukkit.getOperators());
         List<List<OfflinePlayer>> partition = Lists.partition(operators, 10);
-        if (page<1) {
-            sendMessage(sender, "Value.TooLow", 1);
+        if (page==-100) {
             return;
         }else if (operators.isEmpty() & page==1) {
             sendMessage(sender,"Info.List.OPListEmpty");

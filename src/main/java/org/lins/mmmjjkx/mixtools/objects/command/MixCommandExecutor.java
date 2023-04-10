@@ -25,9 +25,6 @@ public interface MixCommandExecutor extends CommandExecutor {
     }
     default void register(){
         String require = requirePlugin();
-        if (require == null){
-            require = "";
-        }
         if (!require.isBlank()){
             if (Bukkit.getPluginManager().isPluginEnabled(require)){
                 PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
@@ -68,4 +65,18 @@ public interface MixCommandExecutor extends CommandExecutor {
     }
 
     default String getMessage(String node,Object... args){return MixTools.messageHandler.getColored(node,args);}
+
+    default int toInteger(CommandSender cs,String s){
+        try {
+            int i = Integer.parseInt(s);
+            if (i < 1){
+                sendMessage(cs,"Value.TooLow");
+                return -100;
+            }
+            return i;
+        }catch (NumberFormatException e){
+            sendMessage(cs,"Value.NotInt");
+            return -100;
+        }
+    }
 }

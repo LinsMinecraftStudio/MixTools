@@ -29,10 +29,7 @@ public class MiscFeatureManager {
     }
 
     public void addBackPlayer(Player p, Location from) {
-        if (from==null||back_map.containsKey(p)) {
-            back_map.remove(p);
-            return;
-        }
+        back_map.remove(p);
         back_map.put(p, from);
     }
 }
