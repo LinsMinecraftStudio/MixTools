@@ -6,6 +6,7 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
+import org.lins.mmmjjkx.mixtools.listeners.SignListener;
 import org.lins.mmmjjkx.mixtools.listeners.WorldListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
@@ -95,6 +96,7 @@ public final class MixTools extends JavaPlugin {
     private void registerListeners() {
         new PlayerListener().register();
         new WorldListener().register();
+        new SignListener().register();
     }
 
     private void saveResources() {
