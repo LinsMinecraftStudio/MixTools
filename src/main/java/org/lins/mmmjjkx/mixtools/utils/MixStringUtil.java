@@ -96,11 +96,11 @@ public class MixStringUtil {
         return total;
     }
 
-    public static String openFile(String filePath) {
-        try (InputStream stream = new URL(filePath).openStream(); Scanner scanner = new Scanner(stream)){
+    public static String getPluginLatestVersion() {
+        try (InputStream stream = new URL("https://api.spigotmc.org/legacy/update.php?resource=109130").openStream(); Scanner scanner = new Scanner(stream)){
             StringBuilder builder = new StringBuilder();
             while (scanner.hasNextLine()){
-                builder.append(scanner.nextLine()).append("\n");
+                builder.append(scanner.nextLine());
             }
             return builder.toString();
         }catch (Exception ignored){}

@@ -1,6 +1,7 @@
 Check-Update:
   Line1: "&cMixTools has detected the latest version!"
   Line2: "&aVersion you are using: &c%1$s&a, latest version: &b%2$s&a."
+  GetVer: "&aClick here to get the latest version!"
   Failed: "&cFailed to get the latest version."
   UsingLatestVersion: "&aYou are using the latest version."
   Line3: "&dIf you don't want to see this message, please set 'checkUpdate' to false in config.yml."

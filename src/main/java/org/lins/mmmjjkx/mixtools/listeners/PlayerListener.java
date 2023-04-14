@@ -1,19 +1,17 @@
 package org.lins.mmmjjkx.mixtools.listeners;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.event.ClickEvent;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Tag;
-import org.bukkit.block.Block;
-import org.bukkit.block.Sign;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
@@ -108,7 +106,7 @@ public class PlayerListener implements MixToolsListener {
     private void checkVersion(Player p){
         if (MixTools.settingsManager.getBoolean(CHECK_UPDATE)) {
             String latest = "";
-            try {latest = MixStringUtil.openFile("https://api.spigotmc.org/legacy/update.php?resource=109130");
+            try {latest = MixStringUtil.getPluginLatestVersion();
             }catch (Exception ignored){}
             String ver = MixTools.INSTANCE.getDescription().getVersion();
             if (latest.equals("")){
@@ -118,6 +116,10 @@ public class PlayerListener implements MixToolsListener {
             } else {
                 getMessageHandler().sendMessage(p, "Check-Update.Line1");
                 getMessageHandler().sendMessage(p, "Check-Update.Line2", ver, latest);
+                TextComponent component = LegacyComponentSerializer.legacyAmpersand().
+                        deserialize(getMessageHandler().getColored("Check-Update.GetVer"));
+                component = component.clickEvent(ClickEvent.openUrl("https://www.spigotmc.org/resources/mixtools-an-essentials-plugin.109130/"));
+                MixTools.adventure.player(p).sendMessage(component);
             }
             getMessageHandler().sendMessage(p, "Check-Update.Line3");
         }
