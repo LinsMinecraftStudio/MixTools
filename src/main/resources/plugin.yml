@@ -81,6 +81,8 @@ commands:
     description: spawn lightning(s)
   tnt:
     description: spawn primed tnt(s)
+  world:
+    description: world system
 permissions:
   mixtools.command.back:
     description: back permission
@@ -214,4 +216,7 @@ permissions:
     default: op
   mixtools.command.tnt:
     description: spawn tnt(s) permission
+    default: op
+  mixtools.world:
+    description: world permission
     default: op

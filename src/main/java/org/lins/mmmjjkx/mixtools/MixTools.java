@@ -42,6 +42,7 @@ public final class MixTools extends JavaPlugin {
         miscFeatureManager = new MiscFeatureManager();
         adventure = BukkitAudiences.create(this);
         registerCommands();
+        registerListeners();
         new Metrics(this,17788);
         getLogger().info("MixTools enabled!");
     }
@@ -88,6 +89,7 @@ public final class MixTools extends JavaPlugin {
         new CMDBanList().register();
         new CMDLightning().register();
         new CMDTNT().register();
+        new CMDWorld().register();
     }
 
     private void registerListeners() {
