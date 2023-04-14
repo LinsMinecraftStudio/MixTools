@@ -98,6 +98,8 @@ World:
   Reset: "&a世界 '&e%s&a' 已重置。"
   ResetNewSeed: "&a已使用新种子重置世界 '&e%s&a' 。"
   Exists: "&4世界 '%s' 已存在！"
+  GameRuleNotFound: "&4那个游戏规则不存在。。。"
+  GameRuleSet: "&a已更改世界&e%1$s&a的游戏规则&e%2$s&a为&e%3$s&a。"
   Info:
     - "&a世界 &e%s&a:"
     - "&a世界类型: &e%s"

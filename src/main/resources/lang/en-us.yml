@@ -98,6 +98,8 @@ World:
   Reset: "&aWorld '%s' was reset."
   ResetNewSeed: "&aWorld '%s' was reset with new seed."
   Exists: "&4World '%s' is exists!"
+  GameRuleNotFound: "&4That game rule does not exist..."
+  GameRuleSet: "The game rule &e%1$s of world &e%2$s&a has been changed to &e%3$s&a."
   Info:
     - "&aWorld &e%s&a:"
     - "&aWorld type: &e%s"

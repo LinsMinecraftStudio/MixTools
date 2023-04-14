@@ -1,9 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.Bukkit;
-import org.bukkit.World;
-import org.bukkit.WorldCreator;
-import org.bukkit.WorldType;
+import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
@@ -56,26 +53,49 @@ public class CMDWorld implements MixTabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (hasCustomPermission(sender,"world")){
-            if (args.length==4 & args[0].equals("create")) {
-                String worldName = args[1];
-                WorldType wt = stringToWorldType(args[2].toUpperCase());
-                World.Environment environment = stringToWorldEnvironment(args[3].toUpperCase());
-                if (wt == null) {
-                    sendMessage(sender, "World.TypeInvalid");
-                    return false;
+            if (args.length==4) {
+                switch (args[0]) {
+                    case "create" -> {
+                        String worldName = args[1];
+                        WorldType wt = stringToWorldType(args[2].toUpperCase());
+                        World.Environment environment = stringToWorldEnvironment(args[3].toUpperCase());
+                        if (wt == null) {
+                            sendMessage(sender, "World.TypeInvalid");
+                            return false;
+                        }
+                        if (environment == null) {
+                            sendMessage(sender, "World.EnvironmentTypeInvalid");
+                            return false;
+                        }
+                        if (Bukkit.getWorld(worldName) != null) {
+                            sendMessage(sender, "World.Exists", worldName);
+                            return false;
+                        }
+                        WorldCreator worldCreator = new WorldCreator(worldName);
+                        worldCreator = worldCreator.type(wt);
+                        Bukkit.createWorld(worldCreator);
+                        sendMessage(sender, "Created", worldName);
+                        return true;
+                    }
+                    case "gamerule" -> {
+                        World w = Bukkit.getWorld(args[1]);
+                        if (w == null) {
+                            sendMessage(sender, "Location.WorldNotFound");
+                            return false;
+                        }
+                        GameRule rule = GameRule.getByName(args[2]);
+                        if (rule == null) {
+                            sendMessage(sender, "World.GameRuleNotFound");
+                            return false;
+                        }
+                        Object obj = args[3];
+                        w.setGameRule(rule, obj);
+                        sendMessage(sender, "World.GameRuleSet",
+                                w.getName(),
+                                rule.getName(), args[3]);
+                        return true;
+                    }
                 }
-                if (environment == null) {
-                    sendMessage(sender, "World.EnvironmentTypeInvalid");
-                    return false;
-                }
-                if (Bukkit.getWorld(worldName) != null){
-                    sendMessage(sender, "World.Exists", worldName);
-                    return false;
-                }
-                WorldCreator worldCreator = new WorldCreator(worldName);
-                worldCreator = worldCreator.type(wt);
-                Bukkit.createWorld(worldCreator);
-                sendMessage(sender, "Created", worldName);
             } else if (args.length==2) {
                 World w = Bukkit.getWorld(args[1]);
                 WorldManager worldManager = MixTools.miscFeatureManager.getWorldManager();
