@@ -45,7 +45,6 @@ Fly:
   OthersDisabled: "&aYou disable &c%s &ato fly."
   OthersEnabled: "&aYou enable &c%s &ato fly."
 GUI:
-  Workbench: "Workbench"
   TrashBin: "Trash bin"
   OpenTrashBin: ""
   CloseTrashBin: ""
@@ -91,6 +90,20 @@ Value:
   NotInt: "&4Argument %d is not an integer."
   TooHigh: "&4The value of parameter %d is too high."
   TooLow: "&4The value of parameter %d is too low."
+World:
+  EnvironmentTypeInvalid: "&4The world environment type is invalid. Available types are &eNORMAL / NETHER / THE_END / CUSTOM"
+  TypeInvalid: "&4The world type is invalid. Available types are &eFLAT / NORMAL / AMPLIFIED / LARGE_BIOMES"
+  CreateSuccess: "&aWorld '%s' created successfully."
+  Removed: "&aWorld '%s' was removed."
+  Reset: "&aWorld '%s' was reset."
+  ResetNewSeed: "&aWorld '%s' was reset with new seed."
+  Exists: "&4World '%s' is exists!"
+  Info:
+    - "&aWorld &e%s&a:"
+    - "&aWorld type: &e%s"
+    - "&aWorld alias: &e%s"
+    - "&aWorld environment: &e%s"
+    - "&aPVP: &e%b"
 Info:
   Server:
     - "&aServer: &e%s"

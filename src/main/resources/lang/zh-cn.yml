@@ -45,7 +45,6 @@ Fly:
   OthersDisabled: "&a你禁止&e%s飞行。"
   OthersEnabled: "&a你允许&e%s&a飞行。"
 GUI:
-  Workbench: "工作台"
   TrashBin: "垃圾箱"
   OpenTrashBin: ""
   CloseTrashBin: ""
@@ -91,6 +90,20 @@ Value:
   NotInt: "&4参数%d不是一个整数。"
   TooHigh: "&4参数%d的值太高。"
   TooLow: "&4参数%d的值太低。"
+World:
+  EnvironmentTypeInvalid: "&4世界环境类型不是有效的。可用类型有 &eNORMAL / NETHER / THE_END / CUSTOM"
+  TypeInvalid: "&4世界类型不是有效的。可用类型有 &eFLAT / NORMAL / AMPLIFIED / LARGE_BIOMES"
+  CreateSuccess: "&a已成功创建世界 '&e%s&a' 。"
+  Removed: "&a世界 '&e%s&a' 已移除。"
+  Reset: "&a世界 '&e%s&a' 已重置。"
+  ResetNewSeed: "&a已使用新种子重置世界 '&e%s&a' 。"
+  Exists: "&4世界 '%s' 已存在！"
+  Info:
+    - "&a世界 &e%s&a:"
+    - "&a世界类型: &e%s"
+    - "&a世界别名: &e%s"
+    - "&a世界环境: &e%s"
+    - "&aPVP: &e%b"
 Info:
   Server:
     - "&a服务器核心: &e%s"
@@ -104,5 +117,7 @@ Info:
   List:
     Head: "&a------------------&e第%d页&a-------------------"
     OP: "&a%1$d.&e%2$s"
+    OPListEmpty: "&4这没有任何操作员。"
     Banned: "&a%1$d.&e%2$s &a-------- &e%3$s"
+    BanListEmpty: "&4这没有任何封禁玩家。"
     Tail: "&a------------------------------------------"

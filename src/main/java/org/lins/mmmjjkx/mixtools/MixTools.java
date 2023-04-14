@@ -3,10 +3,10 @@ package org.lins.mmmjjkx.mixtools;
 import com.zaxxer.hikari.HikariDataSource;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
+import org.lins.mmmjjkx.mixtools.listeners.WorldListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
@@ -42,7 +42,6 @@ public final class MixTools extends JavaPlugin {
         miscFeatureManager = new MiscFeatureManager();
         adventure = BukkitAudiences.create(this);
         registerCommands();
-        Bukkit.getPluginManager().registerEvents(new PlayerListener(),this);
         new Metrics(this,17788);
         getLogger().info("MixTools enabled!");
     }
@@ -90,6 +89,12 @@ public final class MixTools extends JavaPlugin {
         new CMDLightning().register();
         new CMDTNT().register();
     }
+
+    private void registerListeners() {
+        new PlayerListener().register();
+        new WorldListener().register();
+    }
+
     private void saveResources() {
         FilesCompletion.completingFile("config.yml", false);
         FilesCompletion.completingFile("commandGroup.yml", true);

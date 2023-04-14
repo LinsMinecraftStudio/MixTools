@@ -10,10 +10,12 @@ public class MiscFeatureManager {
     private final Map<Player, Location> back_map = new HashMap<>();
     private final CommandGroupManager commandGroupManager;
     private final TpaManager tpaManager;
+    private final WorldManager worldManager;
 
     public MiscFeatureManager(){
         commandGroupManager = new CommandGroupManager();
         tpaManager = new TpaManager();
+        worldManager = new WorldManager();
     }
 
     public CommandGroupManager getCommandGroupManager() {
@@ -23,6 +25,8 @@ public class MiscFeatureManager {
     public TpaManager getTpaManager() {
         return tpaManager;
     }
+
+    public WorldManager getWorldManager() {return worldManager;}
 
     public Location getBackPlayerLocation(Player player){
         return back_map.get(player);
