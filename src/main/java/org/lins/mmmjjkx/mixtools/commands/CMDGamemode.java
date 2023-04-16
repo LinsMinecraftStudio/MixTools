@@ -18,7 +18,7 @@ public class CMDGamemode implements MixTabExecutor {
         List<String> modes = new ArrayList<>();
         if (args.length==1){
             for (GameMode mode: GameMode.values()) {
-                modes.add(mode.name());
+                modes.add(mode.toString().toLowerCase());
             }
             return StringUtil.copyPartialMatches(args[0],modes,new ArrayList<>());
         }

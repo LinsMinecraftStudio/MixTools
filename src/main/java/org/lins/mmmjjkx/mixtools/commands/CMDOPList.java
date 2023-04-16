@@ -73,7 +73,7 @@ public class CMDOPList implements MixTabExecutor {
         sendMessage(sender, "Info.List.Head",page);
         int head = page==1 ? 1 : (10*real_page)+1;
         for (OfflinePlayer offlinePlayer : operators_parted) {
-            sendMessage(sender, "Info.List.OP", head, offlinePlayer.getName());
+            sendMessage(sender, "Info.List.Default", head, offlinePlayer.getName());
             head++;
         }
         sendMessage(sender, "Info.List.Tail");

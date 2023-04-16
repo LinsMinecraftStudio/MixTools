@@ -7,7 +7,7 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
-import java.util.List;
+import java.util.Set;
 
 public class FilesCompletion {
     public static void completingFile(String resourceFile,boolean justCreate){
@@ -35,13 +35,16 @@ public class FilesCompletion {
             Files.copy(stream, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
             YamlConfiguration configuration = new YamlConfiguration();
             configuration.load(temp);
-            List<String> keys = configuration.getKeys(true).stream().toList();
+            YamlConfiguration configuration2 = new YamlConfiguration();
+            configuration2.load(file);
+            Set<String> keys = configuration.getKeys(true);
             for (String key : keys) {
                 Object value = configuration.get(key);
-                if (!configuration.contains(key)) {
-                    configuration.set(key, value);
+                if (!configuration2.contains(key)) {
+                    configuration2.set(key, value);
                 }
             }
+            configuration2.save(file);
         } catch (Exception e) {
             e.printStackTrace();
             MixTools.INSTANCE.getLogger().warning("File completion of '"+resourceFile+"' is failed.");

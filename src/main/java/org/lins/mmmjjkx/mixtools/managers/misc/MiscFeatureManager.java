@@ -8,11 +8,17 @@ import java.util.Map;
 
 public class MiscFeatureManager {
     private final Map<Player, Location> back_map = new HashMap<>();
-    private final CommandGroupManager commandGroupManager;
-    private final TpaManager tpaManager;
-    private final WorldManager worldManager;
+    private CommandGroupManager commandGroupManager;
+    private TpaManager tpaManager;
+    private WorldManager worldManager;
 
     public MiscFeatureManager(){
+        commandGroupManager = new CommandGroupManager();
+        tpaManager = new TpaManager();
+        worldManager = new WorldManager();
+    }
+
+    public void reload(){
         commandGroupManager = new CommandGroupManager();
         tpaManager = new TpaManager();
         worldManager = new WorldManager();

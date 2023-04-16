@@ -20,6 +20,8 @@ Command:
   PlayerNotFound: "&4That player is not found..."
   FlyingSpeedSet: "&aFlying speed was set to &e%.2f&a."
   WalkSpeedSet: "&aWalk speed was set to &e%.2f&a."
+  Broadcast: "&2[&eBroadcast&2] &b%s"
+  Healed: "&aHealed &e%s."
 CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
@@ -89,6 +91,7 @@ Value:
   NotFloat: "&4Argument %d is not a float."
   NotBool: "&4Argument %d is not a boolean."
   NotInt: "&4Argument %d is not an integer."
+  NotLong: "&4Argument %d is not a long."
   TooHigh: "&4The value of parameter %d is too high."
   TooLow: "&4The value of parameter %d is too low."
 World:
@@ -100,12 +103,15 @@ World:
   ResetNewSeed: "&aWorld '%s' was reset with new seed."
   Exists: "&4World '%s' is exists!"
   GameRuleNotFound: "&4That game rule does not exist..."
-  GameRuleSet: "The game rule &e%1$s of world &e%2$s&a has been changed to &e%3$s&a."
+  GameRuleSet: "&aThe game rule &e%1$s &aof world &e%2$s&a has been changed to &e%3$s&a."
+  LoadFailed: "&4Failed to load the world. Maybe the folder is not exists or it isn't a world."
+  LoadSuccess: "&aWorld loaded successfully."
   Info:
     - "&aWorld &e%s&a:"
     - "&aWorld type: &e%s"
     - "&aWorld alias: &e%s"
     - "&aWorld environment: &e%s"
+    - "&aWorld seed: &e%d"
     - "&aPVP: &e%b"
 Info:
   Server:
@@ -119,8 +125,9 @@ Info:
     - ""
   List:
     Head: "&a------------------&ePage %d&a------------------"
-    OP: "&a%1$d.&e%2$s"
+    Default: "&a%1$d.&e%2$s"
     OPListEmpty: "&4There aren't any operators."
     Banned: "&a%1$d.&e%2$s &a—— &e%3$s"
     BanListEmpty: "&4There aren't any banned players."
+    CommandGroupListEmpty: "&4There aren't any command groups."
     Tail: "&a------------------------------------------"

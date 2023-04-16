@@ -24,15 +24,9 @@ public class MixToolsPAPIAddon extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
-        String[] split = params.split("_");
-        if (params.equals("world_alias")){
+        if (params.equalsIgnoreCase("world_alias")){
             return MixTools.miscFeatureManager.getWorldManager().getWorldAlias(
                     player.getWorld().getName());
-        }
-        if (split.length == 3){
-            if (split[0].equals("world") & split[1].equals("alias")){
-                return MixTools.miscFeatureManager.getWorldManager().getWorldAlias(split[2]);
-            }
         }
         return null;
     }

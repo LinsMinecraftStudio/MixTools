@@ -1,5 +1,8 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import com.google.common.collect.Lists;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -25,6 +28,7 @@ public class CMDCommandGroup implements MixTabExecutor {
             argsList.add("add");
             argsList.add("run");
             argsList.add("remove");
+            argsList.add("list");
             return StringUtil.copyPartialMatches(args[0],argsList,new ArrayList<>());
         } else if (args.length==2&!args[1].equals("add")) {
             return StringUtil.copyPartialMatches(args[1],commandGroupManager.getAllGroupsName(),new ArrayList<>());
@@ -47,9 +51,12 @@ public class CMDCommandGroup implements MixTabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (hasCustomPermission(sender,"commandgroup")){
-            if (args.length==0||args.length==1) {
+            if (args.length==0) {
                 sendMessage(sender, "Command.ArgError");
                 return false;
+            } else if (args.length==1 & args[0].equals("list")) {
+                sendMessages(sender,1);
+                return true;
             } else if (args.length>2&args[0].equals("add")) {
                 List<String> cmds = new ArrayList<>();
                 for (int i=2;i<args.length;i++) {
@@ -85,6 +92,10 @@ public class CMDCommandGroup implements MixTabExecutor {
                         sendMessage(sender,"Command.ArgError");
                         return false;
                     }
+                    case "list" -> {
+                        sendMessages(sender,toInteger(sender,args[1],2));
+                        return true;
+                    }
                 }
                 return false;
             } else if (args.length==3&&args[0].equals("run")){
@@ -101,5 +112,28 @@ public class CMDCommandGroup implements MixTabExecutor {
             }
         }
         return false;
+    }
+
+    private void sendMessages(CommandSender sender,int page){
+        List<MixToolsCommandGroup> operators = new ArrayList<>(commandGroupManager.getAllGroups());
+        List<List<MixToolsCommandGroup>> partition = Lists.partition(operators, 10);
+        if (page==-100) {
+            return;
+        }else if (operators.isEmpty() & page==1) {
+            sendMessage(sender,"Info.List.CommandGroupListEmpty");
+            return;
+        } else if (page>partition.size()) {
+            sendMessage(sender,"Value.TooHigh",1);
+            return;
+        }
+        int real_page = page-1;
+        List<MixToolsCommandGroup> groups_parted = partition.get(real_page);
+        sendMessage(sender, "Info.List.Head",page);
+        int head = page==1 ? 1 : (10*real_page)+1;
+        for (MixToolsCommandGroup group : groups_parted) {
+            sendMessage(sender, "Info.List.Default", head, group.name());
+            head++;
+        }
+        sendMessage(sender, "Info.List.Tail");
     }
 }

@@ -5,6 +5,7 @@ api-version: 1.19
 authors: [ mmmjjkx ]
 description: An essential plugin like Essentials or CMI
 softdepend: [PlaceholderAPI, Vault]
+load: STARTUP
 commands:
   mixtoolsreload:
     description: reload mixtools
@@ -83,6 +84,12 @@ commands:
     description: spawn primed tnt(s)
   world:
     description: world system
+  broadcast:
+    description: broadcast message
+  burn:
+    description: let player burn
+  heal:
+    description: heal player
 permissions:
   mixtools.command.back:
     description: back permission
@@ -219,4 +226,13 @@ permissions:
     default: op
   mixtools.world:
     description: world permission
+    default: op
+  mixtools.command.broadcast:
+    description: broadcast message permission
+    default: op
+  mixtools.command.burn:
+    description: let player burn permission
+    default: op
+  mixtools.command.heal:
+    description: heal player permission
     default: op

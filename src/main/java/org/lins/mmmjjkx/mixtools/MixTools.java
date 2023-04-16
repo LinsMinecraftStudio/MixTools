@@ -7,7 +7,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
 import org.lins.mmmjjkx.mixtools.listeners.SignListener;
-import org.lins.mmmjjkx.mixtools.listeners.WorldListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
@@ -90,20 +89,23 @@ public final class MixTools extends JavaPlugin {
         new CMDBanList().register();
         new CMDLightning().register();
         new CMDTNT().register();
-        new CMDWorld().register();
+        //new CMDWorld().register(); The feature is not finished yet
+        new CMDBroadcast().register();
+        new CMDBurn().register();
+        new CMDHeal().register();
     }
 
     private void registerListeners() {
         new PlayerListener().register();
-        new WorldListener().register();
         new SignListener().register();
     }
 
     private void saveResources() {
         FilesCompletion.completingFile("config.yml", false);
-        FilesCompletion.completingFile("commandGroup.yml", true);
         FilesCompletion.completingFile("lang/en-us.yml", false);
         FilesCompletion.completingFile("lang/zh-cn.yml", false);
+        FilesCompletion.completingFile("commandGroup.yml", true);
+        FilesCompletion.completingFile("world.yml", true);
     }
 
     public void Reload(){
@@ -114,6 +116,7 @@ public final class MixTools extends JavaPlugin {
         messageHandler = new MessageHandler();
         settingsManager = new SettingsManager();
         dataManager = new DataManager();
+        miscFeatureManager.reload();
     }
 
     public static DataManager getDataManager(){

@@ -3,6 +3,7 @@ package org.lins.mmmjjkx.mixtools.commands;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -13,23 +14,39 @@ import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CMDWorld implements MixTabExecutor {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length==1){
-            return StringUtil.copyPartialMatches(args[0],
-                    List.of("create","info","reset","reset-seed","remove"),new ArrayList<>());
+            List<String> list = List.of("create","info","reset","reset-seed","remove","gamerule","load");
+            return StringUtil.copyPartialMatches(args[0],list,new ArrayList<>());
         }
-        if (args.length==2) {
+        if (args.length==3) {
             if (args[0].equals("create")) {
                 List<String> typeNames = new ArrayList<>();
                 for (WorldType worldType : WorldType.values()) {
-                    typeNames.add(worldType.toString());
+                    typeNames.add(worldType.toString().toLowerCase());
                 }
-                return StringUtil.copyPartialMatches(args[1], typeNames, new ArrayList<>());
-            } else {
+                return StringUtil.copyPartialMatches(args[2], typeNames, new ArrayList<>());
+            }else if (args[0].equals("gamerule")){
+                List<String> ruleNames = new ArrayList<>();
+                for (GameRule<?> rule : GameRule.values()){
+                    ruleNames.add(rule.getName());
+                }
+                return StringUtil.copyPartialMatches(args[2],ruleNames,new ArrayList<>());
+            }
+        }else if (args.length==4 & args[0].equals("create")){
+            List<String> typeNames = new ArrayList<>();
+            for (World.Environment environmentType : World.Environment.values()) {
+                typeNames.add(environmentType.toString().toLowerCase());
+            }
+            return StringUtil.copyPartialMatches(args[3], typeNames, new ArrayList<>());
+        }
+        if (args.length==2) {
+            if (!args[0].equals("create") && !args[0].equals("load")) {
                 List<String> worldNames = new ArrayList<>();
                 for (World w : Bukkit.getWorlds()) {
                     worldNames.add(w.getName());
@@ -52,8 +69,10 @@ public class CMDWorld implements MixTabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (hasCustomPermission(sender,"world")){
-            if (args.length==4) {
+        sendMessage(sender,"The feature has not finished yet.");
+        /*
+        if (hasCustomPermission(sender,"world")) {
+            if (args.length == 4) {
                 switch (args[0]) {
                     case "create" -> {
                         String worldName = args[1];
@@ -74,7 +93,7 @@ public class CMDWorld implements MixTabExecutor {
                         WorldCreator worldCreator = new WorldCreator(worldName);
                         worldCreator = worldCreator.type(wt);
                         Bukkit.createWorld(worldCreator);
-                        sendMessage(sender, "Created", worldName);
+                        sendMessage(sender, "World.CreateSuccess", worldName);
                         return true;
                     }
                     case "gamerule" -> {
@@ -96,44 +115,90 @@ public class CMDWorld implements MixTabExecutor {
                         return true;
                     }
                 }
+            } else if (args.length==5) {
+                if (args[0].equals("create")) {
+                    String worldName = args[1];
+                    WorldType wt = stringToWorldType(args[2].toUpperCase());
+                    World.Environment environment = stringToWorldEnvironment(args[3].toUpperCase());
+                    long seed;
+                    try {
+                        seed = Long.parseLong(args[4]);
+                    } catch (Exception e) {
+                        sendMessage(sender, "Value.NotLong");
+                        return false;
+                    }
+                    if (wt == null) {
+                        sendMessage(sender, "World.TypeInvalid");
+                        return false;
+                    }
+                    if (environment == null) {
+                        sendMessage(sender, "World.EnvironmentTypeInvalid");
+                        return false;
+                    }
+                    if (Bukkit.getWorld(worldName) != null) {
+                        sendMessage(sender, "World.Exists", worldName);
+                        return false;
+                    }
+                    WorldCreator worldCreator = new WorldCreator(worldName);
+                    worldCreator = worldCreator.type(wt);
+                    worldCreator = worldCreator.seed(seed);
+                    Bukkit.createWorld(worldCreator);
+                    sendMessage(sender, "Created", worldName);
+                    return true;
+                }
             } else if (args.length==2) {
                 World w = Bukkit.getWorld(args[1]);
                 WorldManager worldManager = MixTools.miscFeatureManager.getWorldManager();
-                if (w == null) {
-                    sendMessage(sender, "Location.WorldNotFound");
-                    return false;
-                }
                 switch (args[0]) {
                     case "info" -> {
+                        if (w == null) {
+                            sendMessage(sender, "Location.WorldNotFound");
+                            return false;
+                        }
                         List<String> messages = MixTools.messageHandler.
                                 getColoredMessagesParseVarPerLine("World.Info",
                                         w.getName(),worldManager.getWorldType(w.getName()),
                                         worldManager.getWorldAlias(w.getName()),
                                         worldManager.getWorldEnvironment(w.getName()),
-                                        w.getPVP());
+                                        w.getSeed(), w.getPVP());
                         MixTools.messageHandler.sendMessages(sender, messages);
                         return true;
                     }
                     case "reset" -> {
+                        if (w == null) {
+                            sendMessage(sender, "Location.WorldNotFound");
+                            return false;
+                        }
                         String name = w.getName();
                         long seed = w.getSeed();
                         File wf = w.getWorldFolder();
-                        Bukkit.unloadWorld(w, false);
-                        wf.delete();
+                        teleportPlayersToSpawn();
+                        Bukkit.unloadWorld(w, true);
+                        delete(wf);
                         WorldType type = worldManager.getWorldType(name);
                         WorldCreator worldCreator = new WorldCreator(name).seed(seed);
                         if (type != null) {
                             worldCreator = worldCreator.type(type);
+                        }
+                        for (Player player : Bukkit.getOnlinePlayers()){
+                            if (player.getWorld().getName().equals(name)){
+                                player.teleport(MixTools.settingsManager.getSpawnLocation());
+                            }
                         }
                         Bukkit.createWorld(worldCreator);
                         sendMessage(sender, "World.Reset", w.getName());
                         return true;
                     }
                     case "reset-seed" -> {
+                        if (w == null) {
+                            sendMessage(sender, "Location.WorldNotFound");
+                            return false;
+                        }
                         String name2 = w.getName();
                         File wf2 = w.getWorldFolder();
-                        Bukkit.unloadWorld(w, false);
-                        wf2.delete();
+                        teleportPlayersToSpawn();
+                        Bukkit.unloadWorld(w, true);
+                        delete(wf2);
                         WorldType type2 = worldManager.getWorldType(name2);
                         WorldCreator worldCreator2 = new WorldCreator(name2);
                         if (type2 != null) {
@@ -144,22 +209,41 @@ public class CMDWorld implements MixTabExecutor {
                         return true;
                     }
                     case "remove" -> {
+                        if (w == null) {
+                            sendMessage(sender, "Location.WorldNotFound");
+                            return false;
+                        }
                         File wf3 = w.getWorldFolder();
-                        Bukkit.unloadWorld(w, false);
-                        wf3.delete();
+                        teleportPlayersToSpawn();
+                        if(Bukkit.unloadWorld(w, true)) {
+                            delete(wf3);
+                        }
                         worldManager.removeWorld(w.getName());
                         sendMessage(sender, "World.Removed", w.getName());
                         return true;
                     }
+                    case "load" -> {
+                        boolean result = worldManager.loadWorld(args[1]);
+                        if (!result){
+                            sendMessage(sender,"World.LoadFailed");
+                            return false;
+                        }
+                        sendMessage(sender,"World.LoadSuccess");
+                        return true;
+                    }
+                    default -> {
+                        sendMessage(sender,"Command.ArgError");
+                        return false;
+                    }
                 }
-            }else {
+            } else {
                 sendMessage(sender,"Command.ArgError");
                 return false;
             }
-        }
+         */
         return false;
     }
-
+    /*
     private WorldType stringToWorldType(String s){
         WorldType wt;
         try {
@@ -179,4 +263,22 @@ public class CMDWorld implements MixTabExecutor {
         }
         return environment;
     }
+
+    private void teleportPlayersToSpawn(){
+        for (Player p : Bukkit.getOnlinePlayers()){
+            Location spawn = MixTools.settingsManager.getSpawnLocation();
+            p.teleport(Objects.requireNonNullElseGet(spawn, () -> Bukkit.getWorld("world").getSpawnLocation()));
+        }
+    }
+
+    private void delete(File file) {
+        for (File f : Objects.requireNonNull(file.listFiles())) {
+            if (f.isDirectory())
+                delete(f);
+            else
+                f.delete();
+        }
+        file.delete();
+    }
+         */
 }
