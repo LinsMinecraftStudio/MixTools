@@ -267,7 +267,9 @@ public class CMDWorld implements MixTabExecutor {
     private void teleportPlayersToSpawn(String worldName){
         for (Player p : Bukkit.getOnlinePlayers()){
             Location spawn = MixTools.settingsManager.getSpawnLocation();
-            p.teleport(Objects.requireNonNullElseGet(spawn, () -> Bukkit.getWorld("world").getSpawnLocation()));
+            if (worldName.equals(p.getWorld().getName())){
+                p.teleport(Objects.requireNonNullElse(spawn, Bukkit.getWorld("world").getSpawnLocation()));
+            }
         }
     }
 }
