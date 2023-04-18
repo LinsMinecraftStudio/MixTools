@@ -13,7 +13,7 @@ import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
-import org.lins.mmmjjkx.mixtools.utils.FilesCompletion;
+import org.lins.mmmjjkx.mixtools.utils.FileUtils;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
@@ -101,11 +101,11 @@ public final class MixTools extends JavaPlugin {
     }
 
     private void saveResources() {
-        FilesCompletion.completingFile("config.yml", false);
-        FilesCompletion.completingFile("lang/en-us.yml", false);
-        FilesCompletion.completingFile("lang/zh-cn.yml", false);
-        FilesCompletion.completingFile("commandGroup.yml", true);
-        FilesCompletion.completingFile("world.yml", true);
+        FileUtils.completingFile("config.yml", false);
+        FileUtils.completingFile("lang/en-us.yml", false);
+        FileUtils.completingFile("lang/zh-cn.yml", false);
+        FileUtils.completingFile("commandGroup.yml", true);
+        FileUtils.completingFile("world.yml", true);
     }
 
     public void Reload(){

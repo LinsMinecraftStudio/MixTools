@@ -7,9 +7,10 @@ import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.Objects;
 import java.util.Set;
 
-public class FilesCompletion {
+public class FileUtils {
     public static void completingFile(String resourceFile,boolean justCreate){
         InputStream stream = MixTools.INSTANCE.getResource(resourceFile);
         File file = new File(MixTools.INSTANCE.getDataFolder(), resourceFile);
@@ -49,5 +50,61 @@ public class FilesCompletion {
             e.printStackTrace();
             MixTools.INSTANCE.getLogger().warning("File completion of '"+resourceFile+"' is failed.");
         }
+    }
+
+    public static boolean deleteDir(String sPath) {
+        if (!sPath.endsWith(File.separator)) {
+            sPath = sPath + File.separator;
+        }
+        File dirFile = new File(sPath);
+
+        if (!dirFile.exists() || !dirFile.isDirectory()) {
+            return false;
+        }
+        boolean flag = true;
+
+        File[] files = dirFile.listFiles();
+        for (int i = 0; i < Objects.requireNonNull(files).length; i++) {
+            if (files[i].isFile()) {
+                flag = deleteFile(files[i].getAbsolutePath());
+            } else {
+                flag = deleteDir(files[i].getAbsolutePath());
+            }
+            if (!flag) break;
+        }
+        if (!flag) return false;
+
+        return dirFile.delete();
+    }
+
+    public static boolean deleteDir(File dirFile) {
+        if (!dirFile.exists() || !dirFile.isDirectory()) {
+            return false;
+        }
+        boolean flag = true;
+
+        File[] files = dirFile.listFiles();
+        for (int i = 0; i < Objects.requireNonNull(files).length; i++) {
+            if (files[i].isFile()) {
+                flag = deleteFile(files[i].getAbsolutePath());
+            } else {
+                flag = deleteDir(files[i].getAbsolutePath());
+            }
+            if (!flag) break;
+        }
+        if (!flag) return false;
+
+        return dirFile.delete();
+    }
+
+    public static boolean deleteFile(String sPath) {
+        boolean flag = false;
+        File file = new File(sPath);
+
+        if (file.isFile() && file.exists()) {
+            file.delete();
+            flag = true;
+        }
+        return flag;
     }
 }
