@@ -22,6 +22,8 @@ Command:
   WalkSpeedSet: "&aWalk speed was set to &e%.2f&a."
   Broadcast: "&2[&eBroadcast&2] &b%s"
   Healed: "&aHealed &e%s."
+  TimeSet: "&aTime was set to &e%d&a."
+  TeleportToVoid: "&e%s was teleported to the void."
 CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
@@ -53,6 +55,7 @@ GUI:
   CloseTrashBin: ""
 Item:
   AIR: "&4The item should not be air!"
+  Unrepairable: "&4The item can't be repaired."
 Home:
   CreateSuccess: "&aYou created home &e%s&a."
   Exists: "&4That home is already exists."

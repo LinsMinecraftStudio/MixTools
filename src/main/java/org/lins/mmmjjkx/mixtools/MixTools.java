@@ -15,6 +15,8 @@ import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 import org.lins.mmmjjkx.mixtools.utils.FileUtils;
 
+import java.io.File;
+
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
 public final class MixTools extends JavaPlugin {
@@ -93,6 +95,9 @@ public final class MixTools extends JavaPlugin {
         new CMDBroadcast().register();
         new CMDBurn().register();
         new CMDHeal().register();
+        new CMDRepair().register();
+        new CMDTime().register();
+        new CMDVoid().register();
     }
 
     private void registerListeners() {
@@ -101,7 +106,19 @@ public final class MixTools extends JavaPlugin {
     }
 
     private void saveResources() {
-        FileUtils.completingFile("config.yml", false);
+        String configVer = getConfig().getString("config-version","UNDEFINED");
+        if (!configVer.equals("UNDEFINED")){//has no config version
+            FileUtils.completingFile("config.yml", false);
+            getConfig().set("config-version","2");
+            saveConfig();
+        }else {
+            File file = new File(getDataFolder(),"config.yml");
+            if (file.exists()){
+                getLogger().warning("Config version is not exists. The config.yml has rename to config-backup.yml!");
+                file.renameTo(new File(getDataFolder(),"config-backup.yml"));
+                saveConfig();
+            }
+        }
         FileUtils.completingFile("lang/en-us.yml", false);
         FileUtils.completingFile("lang/zh-cn.yml", false);
         FileUtils.completingFile("commandGroup.yml", true);

@@ -22,6 +22,8 @@ Command:
   WalkSpeedSet: "&a行走速度已设置为 &e%d&a。"
   Broadcast: "&2[&e公告&2] &b%s"
   Healed: "&a已治愈&e%s。"
+  TimeSet: "&a时间已设置为 &e%d&a。"
+  TeleportToVoid: "&e%s 已传送至虚空。"
 CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"
@@ -53,6 +55,7 @@ GUI:
   CloseTrashBin: ""
 Item:
   AIR: "&4物品不能为空气！"
+  Unrepairable: "&4此物品无法被修复。"
 Home:
   CreateSuccess: "&a你创建了家&e%s&a。"
   Exists: "&4那个家已经存在了。"

@@ -6,6 +6,7 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
@@ -18,22 +19,19 @@ public class CMDTeleport implements MixTabExecutor {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length==1){
-            return getPlayerNames();
-        }
-        if (args.length==2){
-            List<String> ws = new ArrayList<>();
-            for (World w: Bukkit.getWorlds()) {
-                ws.add(w.getName());
+        if (args.length>1) {
+            List<String> list = getPlayerNames();
+            for (World w : Bukkit.getWorlds()) {
+                list.add(w.getName());
             }
-            return ws;
+            return StringUtil.copyPartialMatches(args[args.length-1], list, new ArrayList<>());
         }
         return null;
     }
 
     @Override
     public String name() {
-        return "tp";
+        return "teleport";
     }
 
     @Override

@@ -90,6 +90,12 @@ commands:
     description: let player burn
   heal:
     description: heal player
+  repair:
+    description: repair item
+  time:
+    description: set or add time
+  void:
+    description: teleport player to void
 permissions:
   mixtools.command.back:
     description: back permission
@@ -235,4 +241,13 @@ permissions:
     default: op
   mixtools.command.heal:
     description: heal player permission
+    default: op
+  mixtools.command.repair:
+    description: repair item permission
+    default: op
+  mixtools.command.time:
+    default: op
+    description: set or add time
+  mixtools.command.void:
+    description: teleport player to void permission
     default: op

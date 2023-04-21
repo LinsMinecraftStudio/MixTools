@@ -1,3 +1,4 @@
+config-version: "2"
 language: "en-us"
 checkUpdate: true
 economy:
