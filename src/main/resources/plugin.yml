@@ -96,6 +96,8 @@ commands:
     description: set or add time
   void:
     description: teleport player to void
+  homes:
+    description: list homes
 permissions:
   mixtools.command.back:
     description: back permission
@@ -250,4 +252,7 @@ permissions:
     description: set or add time
   mixtools.command.void:
     description: teleport player to void permission
+    default: op
+  mixtools.command.homes:
+    description: list homes permission
     default: op

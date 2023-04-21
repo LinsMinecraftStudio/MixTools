@@ -98,6 +98,7 @@ public final class MixTools extends JavaPlugin {
         new CMDRepair().register();
         new CMDTime().register();
         new CMDVoid().register();
+        new CMDHomes().register();
     }
 
     private void registerListeners() {
