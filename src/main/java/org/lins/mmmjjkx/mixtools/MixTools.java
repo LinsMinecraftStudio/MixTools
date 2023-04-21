@@ -55,6 +55,7 @@ public final class MixTools extends JavaPlugin {
         if (dataSource != null) {
             dataSource.close();
         }
+        miscFeatureManager.getSchedulerManager().stopAllRunnable();
         getLogger().info("MixTools disabled!");
     }
     private void registerCommands() {
@@ -124,6 +125,7 @@ public final class MixTools extends JavaPlugin {
         FileUtils.completingFile("lang/zh-cn.yml", false);
         FileUtils.completingFile("commandGroup.yml", true);
         FileUtils.completingFile("world.yml", true);
+        FileUtils.completingFile("scheduler.yml", true);
     }
 
     public void Reload(){

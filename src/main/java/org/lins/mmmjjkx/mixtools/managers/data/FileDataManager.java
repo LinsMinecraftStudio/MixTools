@@ -7,7 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.MixToolsHome;
+import org.lins.mmmjjkx.mixtools.objects.records.MixToolsHome;
 
 import java.io.File;
 import java.io.IOException;

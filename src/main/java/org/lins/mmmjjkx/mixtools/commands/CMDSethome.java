@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.MixToolsHome;
+import org.lins.mmmjjkx.mixtools.objects.records.MixToolsHome;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
 import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
 

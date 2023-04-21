@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.misc.TpaManager;
-import org.lins.mmmjjkx.mixtools.objects.MixToolsTeleportRequest;
+import org.lins.mmmjjkx.mixtools.objects.records.MixToolsTeleportRequest;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
 
 public class CMDTPAAccept implements MixCommandExecutor {

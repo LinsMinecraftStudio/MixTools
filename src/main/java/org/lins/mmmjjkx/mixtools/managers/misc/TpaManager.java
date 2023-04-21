@@ -1,13 +1,12 @@
 package org.lins.mmmjjkx.mixtools.managers.misc;
 
-
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.MixToolsTeleportRequest;
+import org.lins.mmmjjkx.mixtools.objects.records.MixToolsTeleportRequest;
 
 import java.util.HashMap;
 import java.util.Map;

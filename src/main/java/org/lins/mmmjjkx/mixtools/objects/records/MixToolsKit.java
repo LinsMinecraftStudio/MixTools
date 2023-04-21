@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.objects;
+package org.lins.mmmjjkx.mixtools.objects.records;
 
 import org.bukkit.inventory.ItemStack;
 

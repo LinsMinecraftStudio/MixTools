@@ -99,6 +99,11 @@ public class MessageHandler {
         }
     }
 
+    public void broadcastMessage(String message){
+        if (!getColored(message).isBlank()) {
+            Bukkit.broadcastMessage(getColored(message));
+        }
+    }
 
     public String colorize(String string) {
         Pattern pattern = Pattern.compile("&#[a-fA-F0-9]{6}");

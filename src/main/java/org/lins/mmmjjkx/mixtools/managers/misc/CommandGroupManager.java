@@ -1,10 +1,11 @@
 package org.lins.mmmjjkx.mixtools.managers.misc;
 
 import me.clip.placeholderapi.PlaceholderAPI;
+import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.MixToolsCommandGroup;
+import org.lins.mmmjjkx.mixtools.objects.records.MixToolsCommandGroup;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,6 +73,17 @@ public class CommandGroupManager {
         for (String cmd:commands){
             cmd = parseVariable(p,cmd);
             p.performCommand(cmd);
+        }
+        return true;
+    }
+
+    public boolean runCommandGroupAsConsole(String name){
+        List<String> commands = cmdgroup.getStringList(name);
+        if (commands.isEmpty()) {
+            return false;
+        }
+        for (String cmd:commands){
+            Bukkit.dispatchCommand(Bukkit.getConsoleSender(),cmd);
         }
         return true;
     }
