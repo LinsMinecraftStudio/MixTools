@@ -72,10 +72,10 @@ public class MixStringUtil {
     }
 
     public static long deserializeTime(String str) {
-        if (str == null || str.isEmpty())
+        if (str == null || str.isBlank())
             return 0L;
         String copy = str.replaceAll("[^0-9smhdw:]", "");
-        if (copy.isEmpty())
+        if (copy.isBlank())
             return 0L;
         long total = 0;
         String[] values = copy.split(":");

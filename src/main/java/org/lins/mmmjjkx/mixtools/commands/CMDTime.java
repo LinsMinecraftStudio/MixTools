@@ -42,7 +42,7 @@ public class CMDTime implements MixTabExecutor {
                     World w = p.getWorld();
                     switch (args[0]) {
                         case "set" -> {
-                            long time = MixStringUtil.deserializeTime(args[0]);
+                            long time = MixStringUtil.deserializeTime(args[1]);
                             w.setTime(time);
                             sendMessage(sender, "Command.TimeSet", time);
                             return true;

@@ -111,7 +111,6 @@ World:
   LoadSuccess: "&a世界已成功加载。"
   Info:
     - "&a世界 &e%s&a:"
-    - "&a世界类型: &e%s"
     - "&a世界别名: &e%s"
     - "&a世界环境: &e%s"
     - "&a世界种子: &e%d"

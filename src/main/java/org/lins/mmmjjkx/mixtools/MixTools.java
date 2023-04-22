@@ -109,17 +109,17 @@ public final class MixTools extends JavaPlugin {
 
     private void saveResources() {
         String configVer = getConfig().getString("config-version","UNDEFINED");
-        if (!configVer.equals("UNDEFINED")){//has no config version
+        if (!configVer.equals("UNDEFINED")){
             FileUtils.completingFile("config.yml", false);
             getConfig().set("config-version","2");
-            saveConfig();
-        }else {
+            saveDefaultConfig();
+        }else {//has no config version
             File file = new File(getDataFolder(),"config.yml");
             if (file.exists()){
                 getLogger().warning("Config version is not exists. The config.yml has rename to config-backup.yml!");
                 file.renameTo(new File(getDataFolder(),"config-backup.yml"));
-                saveConfig();
             }
+            saveDefaultConfig();
         }
         FileUtils.completingFile("lang/en-us.yml", false);
         FileUtils.completingFile("lang/zh-cn.yml", false);
@@ -136,7 +136,7 @@ public final class MixTools extends JavaPlugin {
         messageHandler = new MessageHandler();
         settingsManager = new SettingsManager();
         dataManager = new DataManager();
-        miscFeatureManager.reload();
+        miscFeatureManager.setup();
     }
 
     public static DataManager getDataManager(){

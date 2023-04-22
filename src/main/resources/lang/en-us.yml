@@ -111,7 +111,6 @@ World:
   LoadSuccess: "&aWorld loaded successfully."
   Info:
     - "&aWorld &e%s&a:"
-    - "&aWorld type: &e%s"
     - "&aWorld alias: &e%s"
     - "&aWorld environment: &e%s"
     - "&aWorld seed: &e%d"

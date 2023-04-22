@@ -9,6 +9,9 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.Objects;
 import java.util.Set;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 public class FileUtils {
     public static void completingFile(String resourceFile,boolean justCreate){
@@ -52,54 +55,36 @@ public class FileUtils {
         }
     }
 
-    public static boolean deleteDir(String sPath) {
-        if (!sPath.endsWith(File.separator)) {
-            sPath = sPath + File.separator;
-        }
-        File dirFile = new File(sPath);
-
-        if (!dirFile.exists() || !dirFile.isDirectory()) {
-            return false;
-        }
-        boolean flag = true;
-
-        File[] files = dirFile.listFiles();
-        for (int i = 0; i < Objects.requireNonNull(files).length; i++) {
-            if (files[i].isFile()) {
-                flag = deleteFile(files[i].getAbsolutePath());
-            } else {
-                flag = deleteDir(files[i].getAbsolutePath());
-            }
-            if (!flag) break;
-        }
-        if (!flag) return false;
-
-        return dirFile.delete();
-    }
-
     public static boolean deleteDir(File dirFile) {
-        if (!dirFile.exists() || !dirFile.isDirectory()) {
-            return false;
-        }
-        boolean flag = true;
-
-        File[] files = dirFile.listFiles();
-        for (int i = 0; i < Objects.requireNonNull(files).length; i++) {
-            if (files[i].isFile()) {
-                flag = deleteFile(files[i].getAbsolutePath());
-            } else {
-                flag = deleteDir(files[i].getAbsolutePath());
+        Callable<Boolean> callable = () -> {
+            if (!dirFile.exists() || !dirFile.isDirectory()) {
+                return false;
             }
-            if (!flag) break;
-        }
-        if (!flag) return false;
+            boolean flag = true;
 
-        return dirFile.delete();
+            File[] files = dirFile.listFiles();
+            for (int i = 0; i < Objects.requireNonNull(files).length; i++) {
+                if (files[i].isFile()) {
+                    flag = deleteFile(files[i]);
+                } else {
+                    flag = deleteDir(files[i]);
+                }
+                if (!flag) break;
+            }
+            if (!flag) return false;
+
+            return dirFile.delete();
+        };
+        FutureTask<Boolean> future = new FutureTask<>(callable);
+        new Thread(future).start();
+        try {return future.get();
+        } catch (InterruptedException | ExecutionException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    public static boolean deleteFile(String sPath) {
+    public static boolean deleteFile(File file) {
         boolean flag = false;
-        File file = new File(sPath);
 
         if (file.isFile() && file.exists()) {
             file.delete();

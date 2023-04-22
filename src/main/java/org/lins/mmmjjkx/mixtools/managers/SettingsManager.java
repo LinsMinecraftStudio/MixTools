@@ -9,6 +9,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
+import javax.annotation.Nullable;
 import java.util.List;
 
 public class SettingsManager {
@@ -53,6 +54,7 @@ public class SettingsManager {
         cs.set("yaw", loc.getYaw());
     }
 
+    @Nullable
     public Location getSpawnLocation() {
         ConfigurationSection cs = config.getConfigurationSection("spawn");
         if (cs != null){

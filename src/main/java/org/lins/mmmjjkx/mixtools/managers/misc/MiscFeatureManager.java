@@ -11,17 +11,17 @@ public class MiscFeatureManager {
     private CommandGroupManager commandGroupManager;
     private TpaManager tpaManager;
     private WorldManager worldManager;
-    private SchedulerManager schedulerManager;
+    private final SchedulerManager schedulerManager = new SchedulerManager();
 
     public MiscFeatureManager(){
-        reload();
+        setup();
     }
 
-    public void reload(){
+    public void setup(){
         commandGroupManager = new CommandGroupManager();
         tpaManager = new TpaManager();
         worldManager = new WorldManager();
-        schedulerManager = new SchedulerManager();
+        schedulerManager.reload();
     }
 
     public CommandGroupManager getCommandGroupManager() {

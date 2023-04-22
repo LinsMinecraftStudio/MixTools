@@ -11,11 +11,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.events.SignEditEvent;
 import org.lins.mmmjjkx.mixtools.objects.listener.MixToolsListener;
+import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -30,7 +33,6 @@ public class SignListener implements MixToolsListener {
     private static Constructor<?> nmsPacketPlayOutOpenSignEditorConstructor;
     private static Class<?> craftWorldClass;
     private static Method craftWorldGetHandleMethod;
-    private static boolean post118GetBlockEntity;
     private static Method getTileEntityMethod;
     private static Class<?> nmsTileEntitySignClass;
     private static Class<?> nmsEntityHumanClass;
@@ -55,13 +57,7 @@ public class SignListener implements MixToolsListener {
                 nmsPacketPlayOutOpenSignEditorConstructor = nmsPacketPlayOutOpenSignEditorClass.getConstructor(nmsBlockPositionClass);
                 craftWorldClass = getNMSClass("org.bukkit.craftbukkit.%s.CraftWorld");
                 craftWorldGetHandleMethod = craftWorldClass.getMethod("getHandle");
-                post118GetBlockEntity = false;
-                try {
-                    getTileEntityMethod = craftWorldGetHandleMethod.getReturnType().getMethod("getTileEntity", nmsBlockPositionClass);
-                } catch (Exception e) {
-                    getTileEntityMethod = craftWorldGetHandleMethod.getReturnType().getMethod("getBlockEntity", nmsBlockPositionClass, boolean.class);
-                    post118GetBlockEntity = true;
-                }
+                getTileEntityMethod = craftWorldGetHandleMethod.getReturnType().getMethod("getTileEntity", nmsBlockPositionClass);
                 nmsTileEntitySignClass = getNMSClass("net.minecraft.server.%s.TileEntitySign", "net.minecraft.world.level.block.entity.TileEntitySign");
                 nmsEntityHumanClass = getNMSClass("net.minecraft.server.%s.EntityHuman", "net.minecraft.world.entity.player.EntityHuman");
                 tileEntitySignUsesModernMethods = false;
@@ -136,21 +132,13 @@ public class SignListener implements MixToolsListener {
                         sign.setEditable(true);
                         sign.update();
                         Bukkit.getScheduler().runTaskLater(MixTools.INSTANCE, () -> player.openSign(sign), 1);
-                        String[] lines = sign.getLines();
-                        for (int i = 0; i < lines.length; i++) {
-                            sign.setLine(i, MixTools.messageHandler.colorize(lines[i]));
-                        }
-                        sign.update();
+                        Bukkit.getPluginManager().callEvent(new SignEditEvent(sign));
                     } else {
                         try {
                             Object entityPlayer = craftPlayerGetHandleMethod.invoke(craftPlayerClass.cast(player));
                             Object blockPosition = nmsBlockPositionConstructor.newInstance(block.getX(), block.getY(), block.getZ());
                             Object tileEntity;
-                            if (post118GetBlockEntity) {
-                                tileEntity = getTileEntityMethod.invoke(craftWorldGetHandleMethod.invoke(craftWorldClass.cast(block.getWorld())), blockPosition, true);
-                            } else {
-                                tileEntity = getTileEntityMethod.invoke(craftWorldGetHandleMethod.invoke(craftWorldClass.cast(block.getWorld())), blockPosition);
-                            }
+                            tileEntity = getTileEntityMethod.invoke(craftWorldGetHandleMethod.invoke(craftWorldClass.cast(block.getWorld())), blockPosition, true);
                             Object nmsSign = nmsTileEntitySignClass.cast(tileEntity);
                             if (tileEntitySignUsesModernMethods) {
                                 nmsTileEntitySignSetEditableMethod.invoke(nmsSign, true);
@@ -163,11 +151,7 @@ public class SignListener implements MixToolsListener {
                             }
                             Object packet = nmsPacketPlayOutOpenSignEditorConstructor.newInstance(blockPosition);
                             sendPacketMethod.invoke(playerConnectionField.get(entityPlayer), packet);
-                            String[] lines = sign.getLines();
-                            for (int i = 0; i < lines.length; i++) {
-                                sign.setLine(i, MixTools.messageHandler.colorize(lines[i]));
-                            }
-                            sign.update();
+                            Bukkit.getPluginManager().callEvent(new SignEditEvent(sign));
                         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException |
                                  InvocationTargetException e) {
                             e.printStackTrace();
@@ -176,6 +160,26 @@ public class SignListener implements MixToolsListener {
                 }, 2);
             }
         }
+    }
+
+    @EventHandler
+    public void onSignChanged(SignChangeEvent e){
+        String[] lines = e.getLines();
+        Sign sign = (Sign) e.getBlock().getState();
+        for (int i = 0; i < lines.length; i++) {
+            sign.setLine(i, MixTools.messageHandler.colorize(lines[i]));
+        }
+        sign.update();
+    }
+
+    @EventHandler
+    public void onSignEdit(SignEditEvent e){
+        String[] lines = e.getSign().getLines();
+        Sign sign = e.getSign();
+        for (int i = 0; i < lines.length; i++) {
+            sign.setLine(i, MixStringUtil.unformatString(lines[i]));
+        }
+        sign.update();
     }
 
     private boolean isInteractingWithAir(Player player) {

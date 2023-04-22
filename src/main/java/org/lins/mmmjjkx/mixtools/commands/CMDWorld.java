@@ -156,7 +156,7 @@ public class CMDWorld implements MixTabExecutor {
                         }
                         List<String> messages = MixTools.messageHandler.
                                 getColoredMessagesParseVarPerLine("World.Info",
-                                        w.getName(), worldManager.getWorldType(w.getName()),
+                                        w.getName(),
                                         worldManager.getWorldAlias(w.getName()),
                                         worldManager.getWorldEnvironment(w.getName()),
                                         w.getSeed(), w.getPVP());
@@ -172,18 +172,10 @@ public class CMDWorld implements MixTabExecutor {
                         long seed = w.getSeed();
                         File wf = w.getWorldFolder();
                         teleportPlayersToSpawn(name);
-                        Bukkit.unloadWorld(w, true);
+                        Bukkit.unloadWorld(w, false);
                         FileUtils.deleteDir(wf);
-                        WorldType type = worldManager.getWorldType(name);
                         WorldCreator worldCreator = new WorldCreator(name).seed(seed);
-                        if (type != null) {
-                            worldCreator = worldCreator.type(type);
-                        }
-                        for (Player player : Bukkit.getOnlinePlayers()) {
-                            if (player.getWorld().getName().equals(name)) {
-                                player.teleport(MixTools.settingsManager.getSpawnLocation());
-                            }
-                        }
+                        teleportPlayersToSpawn(name);
                         Bukkit.createWorld(worldCreator);
                         sendMessage(sender, "World.Reset", w.getName());
                         return true;
@@ -196,13 +188,9 @@ public class CMDWorld implements MixTabExecutor {
                         String name2 = w.getName();
                         File wf2 = w.getWorldFolder();
                         teleportPlayersToSpawn(name2);
-                        Bukkit.unloadWorld(w, true);
+                        Bukkit.unloadWorld(w, false);
                         FileUtils.deleteDir(wf2);
-                        WorldType type2 = worldManager.getWorldType(name2);
                         WorldCreator worldCreator2 = new WorldCreator(name2);
-                        if (type2 != null) {
-                            worldCreator2 = worldCreator2.type(type2);
-                        }
                         Bukkit.createWorld(worldCreator2);
                         sendMessage(sender, "World.ResetNewSeed", w.getName());
                         return true;
@@ -214,7 +202,7 @@ public class CMDWorld implements MixTabExecutor {
                         }
                         File wf3 = w.getWorldFolder();
                         teleportPlayersToSpawn(w.getName());
-                        if (Bukkit.unloadWorld(w, true)) {
+                        if (Bukkit.unloadWorld(w, false)) {
                             FileUtils.deleteDir(wf3);
                         }
                         worldManager.removeWorld(w.getName());
@@ -268,7 +256,7 @@ public class CMDWorld implements MixTabExecutor {
         for (Player p : Bukkit.getOnlinePlayers()){
             Location spawn = MixTools.settingsManager.getSpawnLocation();
             if (worldName.equals(p.getWorld().getName())){
-                p.teleport(Objects.requireNonNullElse(spawn, Bukkit.getWorld("world").getSpawnLocation()));
+                p.teleport(Objects.requireNonNullElse(spawn, Bukkit.getWorlds().get(0).getSpawnLocation()));
             }
         }
     }

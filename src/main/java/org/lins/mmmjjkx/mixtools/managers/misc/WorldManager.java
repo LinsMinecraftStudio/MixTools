@@ -3,7 +3,6 @@ package org.lins.mmmjjkx.mixtools.managers.misc;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
-import org.bukkit.WorldType;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.lins.mmmjjkx.mixtools.MixTools;
@@ -23,6 +22,7 @@ public class WorldManager {
         for (World world : Bukkit.getWorlds()){
             addWorld(world);
         }
+        loadWorldsFromConfig();
         applyConfigToWorld();
     }
 
@@ -66,6 +66,17 @@ public class WorldManager {
         }
     }
 
+    public void loadWorldsFromConfig(){
+        for (String name : configuration.getKeys(false)){
+            if (Bukkit.getWorld(name)!=null) continue;//world is loaded
+            File folder = MixTools.INSTANCE.getDataFolder().getParentFile().getParentFile();
+            File world_folder = new File(folder,name);
+            if (world_folder.exists()) {
+                new WorldCreator(name).createWorld();
+            }
+        }
+    }
+
     public String getWorldAlias(String name){
         ConfigurationSection section = configuration.getConfigurationSection(name);
         if (section != null) {
@@ -91,24 +102,6 @@ public class WorldManager {
             try {configuration.save(cfgfile);
             } catch (IOException e) {throw new RuntimeException(e);}
         }
-    }
-
-    public boolean isWorldLoaded(String name){
-        return Bukkit.getWorld(name) != null;
-    }
-
-    public WorldType getWorldType(String name) {
-        ConfigurationSection section = configuration.getConfigurationSection(name);
-        if (section != null) {
-            WorldType type;
-            try {type = WorldType.valueOf(section.getString("type"));
-            }catch (Exception e) {
-                section.set("type","NORMAL");
-                return null;
-            }
-            return type;
-        }
-        return null;
     }
 
     public void applyConfigToWorld(){

@@ -14,6 +14,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
@@ -92,6 +93,13 @@ public class PlayerListener implements MixToolsListener {
     public void onTeleport(PlayerTeleportEvent e){
         Location from = e.getFrom();
         MixTools.miscFeatureManager.addBackPlayer(e.getPlayer(),from);
+    }
+
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent e){
+        if (MixTools.settingsManager.getSpawnLocation()!=null){
+            e.getPlayer().teleport(MixTools.settingsManager.getSpawnLocation());
+        }
     }
 
     private String getPlayerMessage(Player p,String key){

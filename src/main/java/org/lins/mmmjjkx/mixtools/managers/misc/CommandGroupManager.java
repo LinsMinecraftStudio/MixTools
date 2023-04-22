@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.Set;
 
 public class CommandGroupManager {
-    private YamlConfiguration cmdgroup;
+    private final YamlConfiguration cmdgroup = new YamlConfiguration();
     private File cfgFile;
 
     public CommandGroupManager() {
@@ -28,9 +28,7 @@ public class CommandGroupManager {
         }
         cfgFile = f;
         try {
-            YamlConfiguration configuration = new YamlConfiguration();
-            configuration.load(f);
-            cmdgroup = configuration;
+            cmdgroup.load(f);
         }catch (Exception e){
             e.printStackTrace();
         }

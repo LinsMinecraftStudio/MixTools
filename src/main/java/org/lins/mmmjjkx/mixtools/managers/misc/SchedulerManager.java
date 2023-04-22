@@ -2,6 +2,7 @@ package org.lins.mmmjjkx.mixtools.managers.misc;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -9,11 +10,12 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsScheduler;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class SchedulerManager {
-    private YamlConfiguration config;
+    private YamlConfiguration config = new YamlConfiguration();
     private final File cfgFile;
     private final List<MixToolsScheduler> schedulers = new ArrayList<>();
     private final List<BukkitTask> tasks = new ArrayList<>();
@@ -25,9 +27,7 @@ public class SchedulerManager {
         }
         cfgFile = f;
         try {
-            YamlConfiguration configuration = new YamlConfiguration();
-            configuration.load(f);
-            config = configuration;
+            config.load(f);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -35,18 +35,14 @@ public class SchedulerManager {
         startAllRunnable();
     }
 
-    public boolean createScheduler(String name, int delay,List<String> actions){
-        if (!config.contains(name)){
-            ConfigurationSection section = config.createSection(name);
-            section.set("delay",delay);
-            section.set("actions",actions);
-            try {
-                config.save(cfgFile);
-                schedulers.add(new MixToolsScheduler(name, delay * 20L, actions));
-            }
-            catch (Exception e) {e.printStackTrace();}
+    public void reload() {
+        stopAllRunnable();
+        try {
+            config.load(cfgFile);
+            startAllRunnable();
+        } catch (IOException | InvalidConfigurationException e) {
+            throw new RuntimeException(e);
         }
-        return false;
     }
 
     public void loadSchedulers(){
