@@ -92,7 +92,7 @@ public final class MixTools extends JavaPlugin {
         new CMDBanList().register();
         new CMDLightning().register();
         new CMDTNT().register();
-        //new CMDWorld().register(); The feature is not finished yet
+        new CMDWorld().register();
         new CMDBroadcast().register();
         new CMDBurn().register();
         new CMDHeal().register();
