@@ -24,7 +24,8 @@ public class SettingsKey {
     public static String TRASH_CLOSE_BUTTON_SLOT = "trash.closeButton.slot";
     public static String TRASH_CLOSE_BUTTON_ITEM = "trash.closeButton.item";
     public static String TRASH_CLOSE_BUTTON_NAME = "trash.closeButton.name";
-    public static String NON_KIT_ITEM = "kit.nonKitItem";
+    public static String OPERATOR_LOCK_ENABLED = "operatorLock.enabled";
+    public static String FIXED_OPERATORS = "operatorLock.fixedOperators";
     public static HikariDataSource getDataSource() {
         SettingsManager sm = MixTools.settingsManager;
         HikariDataSource dataSource = new HikariDataSource();

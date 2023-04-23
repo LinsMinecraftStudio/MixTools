@@ -57,3 +57,8 @@ trash:
     slot: 8
     item: "RED_STAINED_GLASS_PANE"
     name: "&cClose"
+operatorLock:
+  enabled: false
+  fixedOperators:
+    - "Someone-A"
+    - "Someone-B"

@@ -24,6 +24,8 @@ Command:
   Healed: "&aHealed &e%s."
   TimeSet: "&aTime was set to &e%d&a."
   TeleportToVoid: "&e%s was teleported to the void."
+  UnableToGetOp: "&aUnable to obtain operator permissions. The operator lock is enabled and he or she is in fixed operators list."
+  UnableToDeOp: "&aUnable to remove the operator status. The operator lock is enabled and he or she is in fixed operators list."
 CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
