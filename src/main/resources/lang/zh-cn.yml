@@ -24,6 +24,8 @@ Command:
   Healed: "&a已治愈&e%s。"
   TimeSet: "&a时间已设置为 &e%d&a。"
   TeleportToVoid: "&e%s 已传送至虚空。"
+  UnableToGetOp: "&4无法获取op权限。op锁已开启。"
+  UnableToDeOp: "&4无法移除op身份。op锁已开启以及他或她已在固定管理员列表里。"
 CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"
