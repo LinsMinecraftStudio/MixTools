@@ -1,6 +1,5 @@
 package org.lins.mmmjjkx.mixtools;
 
-import com.zaxxer.hikari.HikariDataSource;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,12 +11,9 @@ import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
-import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 import org.lins.mmmjjkx.mixtools.utils.FileUtils;
 
 import java.io.File;
-
-import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MYSQL_ENABLED;
 
 public final class MixTools extends JavaPlugin {
     public static MixTools INSTANCE;
@@ -27,7 +23,6 @@ public final class MixTools extends JavaPlugin {
     public static SettingsManager settingsManager;
     public static MiscFeatureManager miscFeatureManager;
     public static BukkitAudiences adventure;
-    private HikariDataSource dataSource;
 
     @Override
     public void onEnable() {
@@ -35,9 +30,6 @@ public final class MixTools extends JavaPlugin {
         INSTANCE = this;
         saveResources();
         settingsManager = new SettingsManager();
-        if (settingsManager.getBoolean(MYSQL_ENABLED)){
-            dataSource = SettingsKey.getDataSource();
-        }
         messageHandler = new MessageHandler();
         dataManager = new DataManager();
         hookManager = new HookManager();
@@ -52,9 +44,6 @@ public final class MixTools extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        if (dataSource != null) {
-            dataSource.close();
-        }
         miscFeatureManager.getSchedulerManager().stopAllRunnable();
         getLogger().info("MixTools disabled!");
     }
@@ -100,6 +89,7 @@ public final class MixTools extends JavaPlugin {
         new CMDTime().register();
         new CMDVoid().register();
         new CMDHomes().register();
+        new CMDScheduler().register();
     }
 
     private void registerListeners() {
@@ -129,9 +119,6 @@ public final class MixTools extends JavaPlugin {
     }
 
     public void Reload(){
-        if (settingsManager.getBoolean(MYSQL_ENABLED)) {
-            dataSource = SettingsKey.getDataSource();
-        }
         saveResources();
         messageHandler = new MessageHandler();
         settingsManager = new SettingsManager();

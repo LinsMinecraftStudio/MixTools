@@ -42,7 +42,6 @@
                             <createDependencyReducedPom>true</createDependencyReducedPom>
                             <artifactSet>
                                 <excludes>
-                                    <exclude>net.kyori:adventure-platform-facet:4.3.0</exclude>
                                     <exclude>net.kyori:adventure-platform-viaversion:4.3.0</exclude>
                                     <exclude>net.kyori:adventure-text-serializer-bungeecord:4.3.0</exclude>
                                     <exclude>org.slf4j:slf4j-api:2.0.0-alpha1</exclude>
