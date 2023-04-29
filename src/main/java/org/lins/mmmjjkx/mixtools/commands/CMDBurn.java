@@ -4,8 +4,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 public class CMDBurn implements MixTabExecutor {
     @Nullable
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (args.length==1){
             return StringUtil.copyPartialMatches(args[0],getPlayerNames(),new ArrayList<>());
         }else if (args.length==2){
@@ -34,7 +35,7 @@ public class CMDBurn implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (hasPermission(sender)){
             if (args.length==2) {
                 Player p = findPlayer(sender,args[0]);

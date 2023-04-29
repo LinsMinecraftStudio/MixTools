@@ -2,11 +2,13 @@ package org.lins.mmmjjkx.mixtools.utils;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
 import java.io.File;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.concurrent.Callable;
@@ -44,8 +46,55 @@ public class FileUtils {
             Set<String> keys = configuration.getKeys(true);
             for (String key : keys) {
                 Object value = configuration.get(key);
+                if (value instanceof List<?>) {
+                    List<?> list2 = configuration2.getList(key);
+                    if (list2 == null) {
+                        configuration2.set(key, value);
+                        continue;
+                    }
+                }
                 if (!configuration2.contains(key)) {
                     configuration2.set(key, value);
+                }
+            }
+            configuration2.save(file);
+        } catch (Exception e) {
+            e.printStackTrace();
+            MixTools.INSTANCE.getLogger().warning("File completion of '"+resourceFile+"' is failed.");
+        }
+    }
+
+    public static void completingLangFile(String resourceFile){
+        InputStream stream = MixTools.INSTANCE.getResource(resourceFile);
+        File file = new File(MixTools.INSTANCE.getDataFolder(), resourceFile);
+        if (!file.exists()){
+            if (stream!=null) {
+                MixTools.INSTANCE.saveResource(resourceFile,false);
+                return;
+            }
+        }
+        if (stream==null) {
+            MixTools.INSTANCE.getLogger().warning("File completion of '"+resourceFile+"' is failed.");
+            return;
+        }
+        try {File temp = File.createTempFile(resourceFile+"_temp","yml");
+            Files.copy(stream, temp.toPath(), StandardCopyOption.REPLACE_EXISTING);
+            YamlConfiguration configuration = new YamlConfiguration();
+            configuration.load(temp);
+            YamlConfiguration configuration2 = new YamlConfiguration();
+            configuration2.load(file);
+            Set<String> keys = configuration.getKeys(true);
+            for (String key : keys) {
+                Object value = configuration.get(key);
+                if (value instanceof List<?> list) {
+                    List<?> list2 = configuration2.getList(key);
+                    if (list2 == null || !(list.size() == list2.size())) {
+                        configuration2.set(key, value);
+                        continue;
+                    }
+                    if (!configuration2.contains(key)) {
+                        configuration2.set(key, value);
+                    }
                 }
             }
             configuration2.save(file);

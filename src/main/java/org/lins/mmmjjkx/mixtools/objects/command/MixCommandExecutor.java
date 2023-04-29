@@ -30,12 +30,20 @@ public interface MixCommandExecutor extends CommandExecutor {
         }
         if (!require.isBlank()){
             if (Bukkit.getPluginManager().isPluginEnabled(require)){
-                PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
-                cmd.setExecutor(this);
+                try {
+                    PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
+                    cmd.setExecutor(this);
+                }catch (Exception e) {
+                    MixTools.INSTANCE.getLogger().warning("Failed to register command '"+name()+"' : "+e.getMessage());
+                }
             }
         }else {
-            PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
-            cmd.setExecutor(this);
+            try {
+                PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
+                cmd.setExecutor(this);
+            }catch (Exception e) {
+                MixTools.INSTANCE.getLogger().warning("Failed to register command '"+name()+"' : "+e.getMessage());
+            }
         }
     }
     default Player toPlayer(CommandSender cs){

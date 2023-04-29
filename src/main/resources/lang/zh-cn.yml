@@ -25,7 +25,7 @@ Command:
   TimeSet: "&a时间已设置为 &e%d&a。"
   TeleportToVoid: "&e%s 已传送至虚空。"
   UnableToGetOp: "&4无法获取op权限。op锁已开启。"
-  UnableToDeOp: "&4无法移除op身份。op锁已开启以及他或她已在固定管理员列表里。"
+  UnableToDeOp: "&4无法移除op身份。op锁已开启。"
 CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"
@@ -36,6 +36,7 @@ Location:
   WorldNoFound: "&4那个世界不存在。。。"
   Teleported: "&a已传送。"
   TeleportAll: "&e%s &a把所有人传送到了他那里。"
+  SpecifyLocation: "&4请指定一个有效的位置。"
 Spawn:
   Set: "&a主城位置已设置至 x: &b%1$.3f &ay: &b%2$.3f &az: &b%3$.3f &apitch: &b%4$.3f &ayaw: &b%5$.3f&a。"
   SpawnLocationNotFound: "&4主城位置未找到，请寻找操作员或服务器所有者请求帮助。"
@@ -135,3 +136,9 @@ Info:
     BanListEmpty: "&4这没有任何封禁玩家。"
     CommandGroupListEmpty: "&4这没有任何指令组。"
     Tail: "&a------------------------------------------"
+Scheduler:
+  start: "&aStarted scheduler &e%s&a."
+  startAll: "&aStarted all schedulers."
+  stop: "&aStopped scheduler &e%s&a."
+  stopAll: "&aStopped all schedulers."
+  schedulerNotFound: "&4The scheduler is not found."

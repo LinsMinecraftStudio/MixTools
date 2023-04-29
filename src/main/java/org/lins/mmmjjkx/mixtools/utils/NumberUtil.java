@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.Locale;
 
-public class MixNumberUtil {
+public class NumberUtil {
     private static final NumberFormat PRETTY_FORMAT = NumberFormat.getInstance(Locale.getDefault());
 
     public static String formatAsPrettyCurrency(final BigDecimal value) {

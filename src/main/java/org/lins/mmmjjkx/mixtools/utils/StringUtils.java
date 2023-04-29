@@ -8,14 +8,13 @@ import java.net.URL;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Scanner;
-import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.NAME_REGEX;
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.STRING_REGEX;
 
-public class MixStringUtil {
+public class StringUtils {
     private static final Pattern STRIP_ALL_PATTERN = Pattern.compile(ChatColor.COLOR_CHAR + "+([0-9a-fk-orA-FK-OR])");
     private static final Pattern STRIP_RGB_PATTERN = Pattern.compile(ChatColor.COLOR_CHAR + "x((?:" + ChatColor.COLOR_CHAR + "[0-9a-fA-F]){6})");
     public static String unformatString(final String message) {
@@ -69,31 +68,6 @@ public class MixStringUtil {
         String regex = MixTools.settingsManager.getString(NAME_REGEX);
         if (regex.isBlank()) return true;
         return str.matches(regex);
-    }
-
-    public static long deserializeTime(String str) {
-        if (str == null || str.isBlank())
-            return 0L;
-        String copy = str.replaceAll("[^0-9smhdw:]", "");
-        if (copy.isBlank())
-            return 0L;
-        long total = 0;
-        String[] values = copy.split(":");
-        for (String string : values) {
-            if (string.isEmpty())
-                continue;
-            if (string.contains("w")) {
-                string = string.replaceAll("[^0-9]", "");
-                total += TimeUnit.DAYS.toSeconds(Long.parseLong(string) * 7);
-                continue;
-            }
-            TimeUnit unit = string.contains("d") ? TimeUnit.DAYS
-                    : string.contains("h") ? TimeUnit.HOURS
-                    : string.contains("m") ? TimeUnit.MINUTES : TimeUnit.SECONDS;
-            string = string.replaceAll("[^0-9]", "");
-            total += unit.toSeconds(Long.parseLong(string));
-        }
-        return total;
     }
 
     public static String getPluginLatestVersion() {

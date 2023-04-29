@@ -7,6 +7,8 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 
@@ -19,9 +21,6 @@ public class WorldManager {
         cfgfile = new File(MixTools.INSTANCE.getDataFolder(), "world.yml");
         try {configuration.load(cfgfile);
         }catch (Exception ignored){}
-        for (World world : Bukkit.getWorlds()){
-            addWorld(world);
-        }
         loadWorldsFromConfig();
         applyConfigToWorld();
     }
@@ -77,6 +76,7 @@ public class WorldManager {
         }
     }
 
+    @Nonnull
     public String getWorldAlias(String name){
         ConfigurationSection section = configuration.getConfigurationSection(name);
         if (section != null) {
@@ -86,15 +86,21 @@ public class WorldManager {
         }
     }
 
+    @Nullable
     public World.Environment getWorldEnvironment(String name){
         ConfigurationSection section = configuration.getConfigurationSection(name);
         if (section != null) {
-            return World.Environment.valueOf(section.getString("environment", ""));
+            try {
+                return World.Environment.valueOf(section.getString("environment", ""));
+            }catch (Exception e) {
+                return null;
+            }
         }else {
             return null;
         }
     }
 
+    @SuppressWarnings("unused")
     public void setWorldAlias(String name, String alias){
         ConfigurationSection section = configuration.getConfigurationSection(name);
         if (section != null & alias != null) {

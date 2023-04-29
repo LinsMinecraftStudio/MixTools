@@ -7,7 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsHome;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
-import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
+import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 public class CMDSethome implements MixCommandExecutor {
     @Override
@@ -28,7 +28,7 @@ public class CMDSethome implements MixCommandExecutor {
                 if (MixTools.getDataManager().canCreateHomes(p)) {
                     if (args.length == 1) {
                         String name = args[0];
-                        if (MixStringUtil.matchStringRegex(name)) {
+                        if (StringUtils.matchStringRegex(name)) {
                             MixTools.getDataManager().addHome(new MixToolsHome(args[0], p, p.getLocation()));
                             sendMessage(p, "Home.CreateSuccess", args[0]);
                             return true;

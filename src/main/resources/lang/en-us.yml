@@ -25,7 +25,7 @@ Command:
   TimeSet: "&aTime was set to &e%d&a."
   TeleportToVoid: "&e%s was teleported to the void."
   UnableToGetOp: "&aUnable to obtain operator permissions. The operator lock is enabled."
-  UnableToDeOp: "&aUnable to remove the operator status. The operator lock is enabled and he or she is in fixed operators list."
+  UnableToDeOp: "&aUnable to remove the operator status. The operator lock is enabled."
 CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
@@ -36,6 +36,7 @@ Location:
   WorldNoFound: "&4That world is not found..."
   Teleported: "&aTeleported."
   TeleportAll: "&e%s &ateleported everyone to him."
+  SpecifyLocation: "&4Specify a valid location."
 Spawn:
   Set: "&aSpawn location is set to x: &b%1$.3f &ay: &b%2$.3f &az: &b%3$.3f &apitch: &b%4$.3f &ayaw: &b%5$.3f&a."
   NotFound: "&4Spawn location is not found. Please ask operators or server owner for help."
@@ -135,3 +136,9 @@ Info:
     BanListEmpty: "&4There aren't any banned players."
     CommandGroupListEmpty: "&4There aren't any command groups."
     Tail: "&a------------------------------------------"
+Scheduler:
+  start: "&aStarted scheduler &e%s&a."
+  startAll: "&aStarted all schedulers."
+  stop: "&aStopped scheduler &e%s&a."
+  stopAll: "&aStopped all schedulers."
+  schedulerNotFound: "&4The scheduler is not found."

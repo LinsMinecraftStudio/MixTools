@@ -2,9 +2,10 @@ package org.lins.mmmjjkx.mixtools.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
+
+import javax.annotation.Nonnull;
 
 public class CMDBroadcast implements MixCommandExecutor {
     @Override
@@ -18,7 +19,7 @@ public class CMDBroadcast implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (hasPermission(sender)){
             if (args.length==1){
                 broadcastMessage("Command.Broadcast",

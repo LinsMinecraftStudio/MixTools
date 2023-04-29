@@ -4,11 +4,10 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
-import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
+import org.lins.mmmjjkx.mixtools.utils.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +17,7 @@ public class CMDTime implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length==1){
-            return StringUtil.copyPartialMatches(args[0],List.of("set","add"),new ArrayList<>());
+            return org.bukkit.util.StringUtil.copyPartialMatches(args[0],List.of("set","add"),new ArrayList<>());
         }
         return null;
     }
@@ -42,13 +41,13 @@ public class CMDTime implements MixTabExecutor {
                     World w = p.getWorld();
                     switch (args[0]) {
                         case "set" -> {
-                            long time = MixStringUtil.deserializeTime(args[1]);
+                            long time = DateUtil.parseDateDiff(args[1],true);
                             w.setTime(time);
                             sendMessage(sender, "Command.TimeSet", time);
                             return true;
                         } case "add" -> {
                             long time = w.getTime();
-                            time += MixStringUtil.deserializeTime(args[1]);
+                            time += DateUtil.parseDateDiff(args[1],true);
                             w.setTime(time);
                             sendMessage(sender, "Command.TimeSet", time);
                             return true;

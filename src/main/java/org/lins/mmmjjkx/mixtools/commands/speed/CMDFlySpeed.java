@@ -1,5 +1,6 @@
-package org.lins.mmmjjkx.mixtools.commands;
+package org.lins.mmmjjkx.mixtools.commands.speed;
 
+import org.bukkit.attribute.Attribute;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -11,7 +12,7 @@ import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CMDWalkSpeed implements MixTabExecutor {
+public class CMDFlySpeed implements MixTabExecutor {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -23,15 +24,13 @@ public class CMDWalkSpeed implements MixTabExecutor {
             speedList.add("4");
             speedList.add("5");
             return StringUtil.copyPartialMatches(args[0],speedList,new ArrayList<>());
-        } else if (args.length==2) {
-            return StringUtil.copyPartialMatches(args[1],getPlayerNames(),new ArrayList<>());
         }
         return null;
     }
 
     @Override
     public String name() {
-        return "walkspeed";
+        return "flyspeed";
     }
 
     @Override
@@ -76,7 +75,7 @@ public class CMDWalkSpeed implements MixTabExecutor {
             return false;
         }else {
             float speed2 = speed / 5;
-            p.setWalkSpeed(speed2);
+            p.setFlySpeed(speed2);
             sendMessage(p, "Command.WalkSpeedSet", speed);
             return true;
         }

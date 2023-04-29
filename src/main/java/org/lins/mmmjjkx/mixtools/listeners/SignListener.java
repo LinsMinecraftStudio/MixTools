@@ -18,7 +18,7 @@ import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.events.SignEditEvent;
 import org.lins.mmmjjkx.mixtools.objects.listener.MixToolsListener;
-import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
+import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -63,7 +63,7 @@ public class SignListener implements MixToolsListener {
                 tileEntitySignUsesModernMethods = false;
                 try {
                     nmsTileEntitySignIsEditableField = nmsTileEntitySignClass.getDeclaredField("isEditable");
-                    nmsTileEntitySignEntityHumanField = Arrays.stream(nmsTileEntitySignClass.getDeclaredFields()).filter(each -> each.getType().equals(nmsEntityHumanClass)).findFirst().get();
+                    nmsTileEntitySignEntityHumanField = Arrays.stream(nmsTileEntitySignClass.getDeclaredFields()).filter(each -> each.getType().equals(nmsEntityHumanClass)).findFirst().orElse(null);
                 } catch (NoSuchFieldException e) {
                     nmsTileEntitySignSetEditableMethod = nmsTileEntitySignClass.getMethod("a", boolean.class);
                     nmsTileEntitySignSetUUIDMethod = nmsTileEntitySignClass.getMethod("a", UUID.class);
@@ -127,12 +127,12 @@ public class SignListener implements MixToolsListener {
             Bukkit.getPluginManager().callEvent(placeEvent);
             if (!placeEvent.isCancelled()) {
                 Sign sign = (Sign) block.getState();
+                Bukkit.getPluginManager().callEvent(new SignEditEvent(sign));
                 Bukkit.getScheduler().runTaskLater(MixTools.INSTANCE, () -> {
                     if (useBukkitOpenSign) {
                         sign.setEditable(true);
                         sign.update();
                         Bukkit.getScheduler().runTaskLater(MixTools.INSTANCE, () -> player.openSign(sign), 1);
-                        Bukkit.getPluginManager().callEvent(new SignEditEvent(sign));
                     } else {
                         try {
                             Object entityPlayer = craftPlayerGetHandleMethod.invoke(craftPlayerClass.cast(player));
@@ -151,7 +151,6 @@ public class SignListener implements MixToolsListener {
                             }
                             Object packet = nmsPacketPlayOutOpenSignEditorConstructor.newInstance(blockPosition);
                             sendPacketMethod.invoke(playerConnectionField.get(entityPlayer), packet);
-                            Bukkit.getPluginManager().callEvent(new SignEditEvent(sign));
                         } catch (InstantiationException | IllegalAccessException | IllegalArgumentException |
                                  InvocationTargetException e) {
                             e.printStackTrace();
@@ -169,7 +168,7 @@ public class SignListener implements MixToolsListener {
         for (int i = 0; i < lines.length; i++) {
             sign.setLine(i, MixTools.messageHandler.colorize(lines[i]));
         }
-        sign.update();
+        sign.update(true);
     }
 
     @EventHandler
@@ -177,7 +176,7 @@ public class SignListener implements MixToolsListener {
         String[] lines = e.getSign().getLines();
         Sign sign = e.getSign();
         for (int i = 0; i < lines.length; i++) {
-            sign.setLine(i, MixStringUtil.unformatString(lines[i]));
+            sign.setLine(i, StringUtils.unformatString(lines[i]));
         }
         sign.update();
     }

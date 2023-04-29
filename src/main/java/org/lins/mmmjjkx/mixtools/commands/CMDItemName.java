@@ -6,11 +6,10 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
-import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
+import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -26,7 +25,7 @@ public class CMDItemName implements MixTabExecutor {
                 ItemMeta meta = hand.getItemMeta();
                 if (meta != null) {
                     if (args.length==1 & meta.hasDisplayName()) {
-                        return Collections.singletonList(MixStringUtil.unformatString(meta.getDisplayName()));
+                        return Collections.singletonList(StringUtils.unformatString(meta.getDisplayName()));
                     }
                 }
             }

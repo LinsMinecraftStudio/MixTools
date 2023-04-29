@@ -11,7 +11,6 @@ import java.io.File;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.IllegalFormatException;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -39,10 +38,6 @@ public class MessageHandler {
 
     public String get(String node){
         return message.getString(node,"§4Get message '"+node+"' failed, maybe it's not exists.");
-    }
-
-    public List<String> getMessages(String node){
-        return message.getStringList(node);
     }
 
     public String getColored(String node, Object... args){
@@ -99,9 +94,9 @@ public class MessageHandler {
         }
     }
 
-    public void broadcastMessage(String message){
-        if (!getColored(message).isBlank()) {
-            Bukkit.broadcastMessage(getColored(message));
+    public void broadcastCustomMessage(String message){
+        if (!colorize(message).isBlank()) {
+            Bukkit.broadcastMessage(colorize(message));
         }
     }
 

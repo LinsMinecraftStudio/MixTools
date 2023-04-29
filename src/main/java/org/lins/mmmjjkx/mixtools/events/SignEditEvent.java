@@ -3,12 +3,17 @@ package org.lins.mmmjjkx.mixtools.events;
 import org.bukkit.block.Sign;
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
+
+import javax.annotation.Nonnull;
 
 public class SignEditEvent extends Event {
-    @NotNull
+    @Nonnull
     @Override
     public HandlerList getHandlers() {
+        return new HandlerList();
+    }
+
+    public static HandlerList getHandlerList() {
         return new HandlerList();
     }
 

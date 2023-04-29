@@ -9,7 +9,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
-import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
+import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +26,7 @@ public class CMDItemLore implements MixTabExecutor {
                     try {lore = m.getLore().get(args.length-1);
                     } catch (Exception ignored) {}
                     if (!lore.isBlank()) {
-                        return List.of(MixStringUtil.unformatString(lore));
+                        return List.of(StringUtils.unformatString(lore));
                     }
                 }
             }

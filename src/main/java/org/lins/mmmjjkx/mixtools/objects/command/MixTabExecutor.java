@@ -18,14 +18,23 @@ public interface MixTabExecutor extends MixCommandExecutor, TabCompleter {
         }
         if (!require.isBlank()){
             if (Bukkit.getPluginManager().isPluginEnabled(require)){
+                try {
+                    PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
+                    cmd.setExecutor(this);
+                    cmd.setTabCompleter(this);
+                }catch (Exception e) {
+                    MixTools.INSTANCE.getLogger().warning("Failed to register command '"+name()+"' : "+e.getMessage());
+                }
+
+            }
+        }else {
+            try {
                 PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
                 cmd.setExecutor(this);
                 cmd.setTabCompleter(this);
+            }catch (Exception e) {
+                MixTools.INSTANCE.getLogger().warning("Failed to register command '"+name()+"' : "+e.getMessage());
             }
-        }else {
-            PluginCommand cmd = MixTools.INSTANCE.getCommand(name());
-            cmd.setExecutor(this);
-            cmd.setTabCompleter(this);
         }
     }
 

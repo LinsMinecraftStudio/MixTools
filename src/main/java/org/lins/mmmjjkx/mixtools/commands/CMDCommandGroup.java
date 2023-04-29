@@ -5,13 +5,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.misc.CommandGroupManager;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsCommandGroup;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class CMDCommandGroup implements MixTabExecutor {
 
     @Nullable
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         List<String> argsList = new ArrayList<>();
         if (args.length==1){
             argsList.add("add");
@@ -31,7 +31,9 @@ public class CMDCommandGroup implements MixTabExecutor {
         } else if (args.length==2&!args[1].equals("add")) {
             return StringUtil.copyPartialMatches(args[1],commandGroupManager.getAllGroupsName(),new ArrayList<>());
         } else if (args.length==3&args[1].equals("run")) {
-            return StringUtil.copyPartialMatches(args[2],getPlayerNames(),new ArrayList<>());
+            List<String> playerList = getPlayerNames();
+            playerList.add("CONSOLE-RUN");//run command group on console
+            return StringUtil.copyPartialMatches(args[2],playerList,new ArrayList<>());
         }
         return null;
     }
@@ -47,7 +49,7 @@ public class CMDCommandGroup implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (hasCustomPermission(sender,"commandgroup")){
             if (args.length==0) {
                 sendMessage(sender, "Command.ArgError");
@@ -101,6 +103,13 @@ public class CMDCommandGroup implements MixTabExecutor {
                 String groupName = args[1];
                 if (p!=null) {
                     if (!commandGroupManager.runCommandGroup(p, groupName)){
+                        sendMessage(sender, "CommandGroup.NotFound");
+                        return false;
+                    }
+                    sendMessage(sender, "CommandGroup.Executed");
+                    return true;
+                } else if (args[2].equals("CONSOLE-RUN")) {
+                    if (commandGroupManager.runCommandGroupAsConsole(groupName)){
                         sendMessage(sender, "CommandGroup.NotFound");
                         return false;
                     }

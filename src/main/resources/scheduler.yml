@@ -1,1 +1,16 @@
-#This feature is not implemented
+example:
+  manuallyStart: true
+  delay: 10
+  action:
+    - "broadcast:&2Run this scheduler by using the command: /scheduler start example"
+    - "broadcast:&2Example broadcast per 10 sec."
+example2:
+  delay: 10
+  action:
+    - "broadcast:&2Auto run this scheduler."
+    - "broadcast:&2Stop this scheduler by using the command: /scheduler stop example2"
+    - "broadcast:&2Example broadcast per 10 seconds."
+    - "cmd:ExampleCommand"
+    - "cmdgroup:ExampleCommandGroup"
+    - "wait:2" # wait for 2 seconds
+    - "broadcast:&dExample broadcast after 2 seconds."

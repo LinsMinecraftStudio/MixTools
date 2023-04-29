@@ -4,6 +4,8 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
+import org.lins.mmmjjkx.mixtools.commands.speed.CMDFlySpeed;
+import org.lins.mmmjjkx.mixtools.commands.speed.CMDWalkSpeed;
 import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
 import org.lins.mmmjjkx.mixtools.listeners.SignListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
@@ -111,11 +113,11 @@ public final class MixTools extends JavaPlugin {
             }
             saveDefaultConfig();
         }
-        FileUtils.completingFile("lang/en-us.yml", false);
-        FileUtils.completingFile("lang/zh-cn.yml", false);
-        FileUtils.completingFile("commandGroup.yml", true);
+        FileUtils.completingLangFile("lang/en-us.yml");
+        FileUtils.completingLangFile("lang/zh-cn.yml");
+        FileUtils.completingFile("commandGroup.yml", false);
         FileUtils.completingFile("world.yml", true);
-        FileUtils.completingFile("scheduler.yml", true);
+        FileUtils.completingFile("scheduler.yml", false);
     }
 
     public void Reload(){

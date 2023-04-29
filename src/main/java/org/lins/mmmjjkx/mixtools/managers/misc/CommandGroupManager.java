@@ -22,13 +22,12 @@ public class CommandGroupManager {
     }
 
     private void setup() {
-        File f = new File(MixTools.INSTANCE.getDataFolder(), "commandGroup.yml");
-        if (!f.exists()) {
+        cfgFile = new File(MixTools.INSTANCE.getDataFolder(), "commandGroup.yml");
+        if (!cfgFile.exists()) {
             MixTools.INSTANCE.saveResource("commandGroup.yml",false);
         }
-        cfgFile = f;
         try {
-            cmdgroup.load(f);
+            cmdgroup.load(cfgFile);
         }catch (Exception e){
             e.printStackTrace();
         }
@@ -57,6 +56,8 @@ public class CommandGroupManager {
         List<String> cmds = cmdgroup.getStringList(name);
         cmds.addAll(commands);
         cmdgroup.set(name, cmds);
+        try {cmdgroup.save(cfgFile);
+        } catch (IOException e) {throw new RuntimeException(e);}
     }
 
     public Set<String> getAllGroupsName(){
@@ -96,7 +97,10 @@ public class CommandGroupManager {
     public boolean removeGroup(String name) {
         if (cmdgroup.contains(name)){
             cmdgroup.set(name,null);
-            return true;
+            try {
+                cmdgroup.save(cfgFile);
+                return true;
+            } catch (IOException e) {throw new RuntimeException(e);}
         }
         return false;
     }

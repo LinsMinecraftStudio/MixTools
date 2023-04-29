@@ -16,7 +16,7 @@ import org.bukkit.event.player.*;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
 import org.lins.mmmjjkx.mixtools.objects.listener.MixToolsListener;
-import org.lins.mmmjjkx.mixtools.utils.MixStringUtil;
+import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.util.List;
 
@@ -28,7 +28,7 @@ public class PlayerListener implements MixToolsListener {
         Player p = e.getPlayer();
         if (MixTools.settingsManager.getBoolean(NAME_CHECK)){
             String name = p.getName();
-            if (!MixStringUtil.matchNameRegex(name)) {
+            if (!StringUtils.matchNameRegex(name)) {
                 p.kickPlayer(getMessageHandler().getColored("Value.NoMatchNameRegex"));
                 return;
             }
@@ -40,14 +40,7 @@ public class PlayerListener implements MixToolsListener {
             economy.depositPlayer(e.getPlayer(), MixTools.settingsManager.getInt(INITIAL_CURRENCY));
             Bukkit.broadcastMessage(getPlayerMessage(p, PLAYER_WELCOME_MESSAGE));
         }
-        if (!p.isOp()){
-            List<String> fixedOps = MixTools.settingsManager.getStrList(FIXED_OPERATORS);
-            if (!fixedOps.isEmpty()){
-                if (fixedOps.contains(p.getName())) {
-                    p.setOp(true);
-                }
-            }
-        }
+
         checkVersion(p);
     }
 
@@ -107,44 +100,6 @@ public class PlayerListener implements MixToolsListener {
         }
     }
 
-    @EventHandler
-    public void onOp(PlayerCommandPreprocessEvent e){
-        if (MixTools.settingsManager.getBoolean(OPERATOR_LOCK_ENABLED)) {
-            String[] cmdSplit = e.getMessage().split(" ");
-            String prefix = cmdSplit[0].replace("/", "");
-            if (cmdSplit.length != 2) return;
-            String player = cmdSplit[1];
-            if (prefix.equalsIgnoreCase("op") & !player.isBlank()) {
-                List<String> fixedOps = MixTools.settingsManager.getStrList(FIXED_OPERATORS);
-                if (!fixedOps.isEmpty()){
-                    if (!fixedOps.contains(player)) {
-                        getMessageHandler().sendMessage(e.getPlayer(), "Command.UnableToGetOp");
-                        e.setCancelled(true);
-                    }
-                }
-            }
-        }
-    }
-
-    @EventHandler
-    public void onDeOp(PlayerCommandPreprocessEvent e){
-        if (MixTools.settingsManager.getBoolean(OPERATOR_LOCK_ENABLED)) {
-            String[] cmdSplit = e.getMessage().split(" ");
-            String prefix = cmdSplit[0].replace("/", "");
-            if (cmdSplit.length != 2) return;
-            String player = cmdSplit[1];
-            if (prefix.equalsIgnoreCase("deop") & !player.isBlank()) {
-                List<String> fixedOps = MixTools.settingsManager.getStrList(FIXED_OPERATORS);
-                if (!fixedOps.isEmpty()){
-                    if (!fixedOps.contains(player)) {
-                        getMessageHandler().sendMessage(e.getPlayer(), "Command.UnableToDeOp");
-                        e.setCancelled(true);
-                    }
-                }
-            }
-        }
-    }
-
     private String getPlayerMessage(Player p,String key){
         String str = getSettingString(key);
         if (MixTools.hookManager.checkPAPIInstalled()) {
@@ -157,7 +112,7 @@ public class PlayerListener implements MixToolsListener {
     private void checkVersion(Player p){
         if (MixTools.settingsManager.getBoolean(CHECK_UPDATE) & p.isOp()) {
             String latest = "";
-            try {latest = MixStringUtil.getPluginLatestVersion();
+            try {latest = StringUtils.getPluginLatestVersion();
             }catch (Exception ignored){}
             String ver = MixTools.INSTANCE.getDescription().getVersion();
             if (latest.equals("")){
