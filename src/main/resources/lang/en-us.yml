@@ -33,7 +33,7 @@ CommandGroup:
   Removed: "&aRemoved command group &e%s."
   AddCommandsSuccess: "&aSuccessfully added command(s) to command group &e%s&a."
 Location:
-  WorldNoFound: "&4That world is not found..."
+  WorldNotFound: "&4That world is not found..."
   Teleported: "&aTeleported."
   TeleportAll: "&e%s &ateleported everyone to him."
   SpecifyLocation: "&4Specify a valid location."
@@ -114,6 +114,7 @@ World:
   LoadSuccess: "&aWorld loaded successfully."
   Info:
     - "&aWorld &e%s&a:"
+    - "&aWorld type: &e%s"
     - "&aWorld alias: &e%s"
     - "&aWorld environment: &e%s"
     - "&aWorld seed: &e%d"

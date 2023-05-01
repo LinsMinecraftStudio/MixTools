@@ -18,6 +18,8 @@ import java.util.List;
 import java.util.Objects;
 
 public class CMDWorld implements MixTabExecutor {
+    private final WorldManager worldManager = MixTools.miscFeatureManager.getWorldManager();
+
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -91,7 +93,8 @@ public class CMDWorld implements MixTabExecutor {
                         }
                         WorldCreator worldCreator = new WorldCreator(worldName);
                         worldCreator = worldCreator.type(wt);
-                        Bukkit.createWorld(worldCreator);
+                        World w = Bukkit.createWorld(worldCreator);
+                        worldManager.addWorld(w, wt);
                         sendMessage(sender, "World.CreateSuccess", worldName);
                         return true;
                     }
@@ -141,13 +144,13 @@ public class CMDWorld implements MixTabExecutor {
                     WorldCreator worldCreator = new WorldCreator(worldName);
                     worldCreator = worldCreator.type(wt);
                     worldCreator = worldCreator.seed(seed);
-                    Bukkit.createWorld(worldCreator);
+                    World w = Bukkit.createWorld(worldCreator);
+                    worldManager.addWorld(w, wt);
                     sendMessage(sender, "Created", worldName);
                     return true;
                 }
             } else if (args.length == 2) {
                 World w = Bukkit.getWorld(args[1]);
-                WorldManager worldManager = MixTools.miscFeatureManager.getWorldManager();
                 switch (args[0]) {
                     case "info" -> {
                         if (w == null) {
@@ -156,7 +159,7 @@ public class CMDWorld implements MixTabExecutor {
                         }
                         List<String> messages = MixTools.messageHandler.
                                 getColoredMessagesParseVarPerLine("World.Info",
-                                        w.getName(),
+                                        w.getName(), worldManager.getWorldType(w.getName()),
                                         worldManager.getWorldAlias(w.getName()),
                                         worldManager.getWorldEnvironment(w.getName()),
                                         w.getSeed(), w.getPVP());
@@ -191,6 +194,7 @@ public class CMDWorld implements MixTabExecutor {
                         Bukkit.unloadWorld(w, false);
                         FileUtils.deleteDir(wf2);
                         WorldCreator worldCreator2 = new WorldCreator(name2);
+                        worldCreator2 = worldCreator2.type(Objects.requireNonNull(worldManager.getWorldType(name2)));
                         Bukkit.createWorld(worldCreator2);
                         sendMessage(sender, "World.ResetNewSeed", w.getName());
                         return true;

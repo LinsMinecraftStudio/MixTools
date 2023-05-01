@@ -3,6 +3,7 @@ package org.lins.mmmjjkx.mixtools.managers.misc;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
+import org.bukkit.WorldType;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.lins.mmmjjkx.mixtools.MixTools;
@@ -27,17 +28,19 @@ public class WorldManager {
         loadWorldsFromConfig();
         applyConfigToWorld();
     }
+    public void addWorld(World world){addWorld(world, WorldType.NORMAL);}
 
-    public void addWorld(World world){
-        addWorld(world, "");
+    public void addWorld(World world, WorldType type){
+        addWorld(world, "", type);
     }
 
-    public void addWorld(World world, String alias){
+    public void addWorld(World world, String alias, WorldType type){
         ConfigurationSection section = configuration.getConfigurationSection(world.getName());
         if (section == null) section = configuration.createSection(world.getName());
         section.set("environment", world.getEnvironment().toString());
         section.set("alias", alias);
         section.set("pvp", world.getPVP());
+        section.set("type", type.getName());
         try {configuration.save(cfgfile);
         } catch (IOException e) {throw new RuntimeException(e);}
     }
@@ -93,7 +96,21 @@ public class WorldManager {
         ConfigurationSection section = configuration.getConfigurationSection(name);
         if (section != null) {
             try {
-                return World.Environment.valueOf(section.getString("environment", ""));
+                return World.Environment.valueOf(section.getString("environment"));
+            }catch (Exception e) {
+                return null;
+            }
+        }else {
+            return null;
+        }
+    }
+
+    @Nullable
+    public WorldType getWorldType(String name){
+        ConfigurationSection section = configuration.getConfigurationSection(name);
+        if (section != null) {
+            try {
+                return WorldType.valueOf(section.getString("type"));
             }catch (Exception e) {
                 return null;
             }

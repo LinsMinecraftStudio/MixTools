@@ -55,7 +55,7 @@ public class CMDTeleport implements MixTabExecutor {
                                 sendMessage(sender,"Location.Teleported");
                                 return true;
                             }else {
-                                sendMessage(sender,"Location.WorldNoFound");
+                                sendMessage(sender,"Location.WorldNotFound");
                                 return false;
                             }
                         }
@@ -80,7 +80,7 @@ public class CMDTeleport implements MixTabExecutor {
                                 sendMessage(sender,"Location.Teleported");
                                 return true;
                             }else {
-                                sendMessage(sender,"Location.WorldNoFound");
+                                sendMessage(sender,"Location.WorldNotFound");
                                 return false;
                             }
                         }
@@ -217,7 +217,7 @@ public class CMDTeleport implements MixTabExecutor {
                                 return false;
                             }
                             if (w == null) {
-                                sendMessage(sender,"Location.WorldNoFound");
+                                sendMessage(sender,"Location.WorldNotFound");
                                 return false;
                             }
                             Location l = new Location(w, x, y, z, pitch,yaw);

@@ -33,7 +33,7 @@ CommandGroup:
   Removed: "&a已移除指令组&e%s&a。"
   AddCommandsSuccess: "&a成功向指令组&e%s&a添加指令。"
 Location:
-  WorldNoFound: "&4那个世界不存在。。。"
+  WorldNotFound: "&4那个世界不存在。。。"
   Teleported: "&a已传送。"
   TeleportAll: "&e%s &a把所有人传送到了他那里。"
   SpecifyLocation: "&4请指定一个有效的位置。"
@@ -114,6 +114,7 @@ World:
   LoadSuccess: "&a世界已成功加载。"
   Info:
     - "&a世界 &e%s&a:"
+    - "&a世界类型: &e%s"
     - "&a世界别名: &e%s"
     - "&a世界环境: &e%s"
     - "&a世界种子: &e%d"
