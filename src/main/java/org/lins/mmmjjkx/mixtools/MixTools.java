@@ -10,6 +10,7 @@ import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
 import org.lins.mmmjjkx.mixtools.listeners.SignListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
+import org.lins.mmmjjkx.mixtools.managers.SchedulerManager;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
@@ -24,6 +25,7 @@ public final class MixTools extends JavaPlugin {
     private static DataManager dataManager;
     public static SettingsManager settingsManager;
     public static MiscFeatureManager miscFeatureManager;
+    public static SchedulerManager schedulerManager;
     public static BukkitAudiences adventure;
 
     @Override
@@ -35,8 +37,9 @@ public final class MixTools extends JavaPlugin {
         messageHandler = new MessageHandler();
         dataManager = new DataManager();
         hookManager = new HookManager();
-        miscFeatureManager = new MiscFeatureManager();
         adventure = BukkitAudiences.create(this);
+        miscFeatureManager = new MiscFeatureManager();
+        schedulerManager = new SchedulerManager();
         registerCommands();
         registerListeners();
         new Metrics(this,17788);
@@ -46,7 +49,7 @@ public final class MixTools extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        miscFeatureManager.getSchedulerManager().stopAllRunnable();
+        schedulerManager.stopAllRunnable();
         getLogger().info("MixTools disabled!");
     }
     private void registerCommands() {
@@ -88,7 +91,6 @@ public final class MixTools extends JavaPlugin {
         new CMDBurn().register();
         new CMDHeal().register();
         new CMDRepair().register();
-        new CMDTime().register();
         new CMDVoid().register();
         new CMDHomes().register();
         new CMDScheduler().register();
@@ -115,9 +117,9 @@ public final class MixTools extends JavaPlugin {
         }
         FileUtils.completingLangFile("lang/en-us.yml");
         FileUtils.completingLangFile("lang/zh-cn.yml");
-        FileUtils.completingFile("commandGroup.yml", false);
+        FileUtils.completingFile("commandGroup.yml", true);
         FileUtils.completingFile("world.yml", true);
-        FileUtils.completingFile("scheduler.yml", false);
+        FileUtils.completingFile("scheduler.yml", true);
     }
 
     public void Reload(){
@@ -125,10 +127,15 @@ public final class MixTools extends JavaPlugin {
         messageHandler = new MessageHandler();
         settingsManager = new SettingsManager();
         dataManager = new DataManager();
-        miscFeatureManager.setup();
+        schedulerManager.reload();
+        miscFeatureManager.reload();
     }
 
     public static DataManager getDataManager(){
         return dataManager;
     }
+
+    public static void log(String message){INSTANCE.getLogger().info(message);}
+
+    public static void warn(String message){INSTANCE.getLogger().warning(message);}
 }

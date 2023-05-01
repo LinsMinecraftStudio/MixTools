@@ -205,7 +205,7 @@ public class CMDWorld implements MixTabExecutor {
                         if (Bukkit.unloadWorld(w, false)) {
                             FileUtils.deleteDir(wf3);
                         }
-                        worldManager.removeWorld(w.getName());
+                        worldManager.removeWorldFromConfig(w.getName());
                         sendMessage(sender, "World.Removed", w.getName());
                         return true;
                     }

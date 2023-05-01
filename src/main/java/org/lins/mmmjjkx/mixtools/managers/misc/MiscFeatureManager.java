@@ -11,17 +11,17 @@ public class MiscFeatureManager {
     private CommandGroupManager commandGroupManager;
     private TpaManager tpaManager;
     private WorldManager worldManager;
-    private final SchedulerManager schedulerManager = new SchedulerManager();
 
     public MiscFeatureManager(){
-        setup();
-    }
-
-    public void setup(){
         commandGroupManager = new CommandGroupManager();
         tpaManager = new TpaManager();
         worldManager = new WorldManager();
-        schedulerManager.reload();
+    }
+
+    public void reload(){
+        commandGroupManager = new CommandGroupManager();
+        tpaManager = new TpaManager();
+        worldManager = new WorldManager();
     }
 
     public CommandGroupManager getCommandGroupManager() {
@@ -33,8 +33,6 @@ public class MiscFeatureManager {
     }
 
     public WorldManager getWorldManager() {return worldManager;}
-
-    public SchedulerManager getSchedulerManager() {return schedulerManager;}
 
     public Location getBackPlayerLocation(Player player){
         return back_map.get(player);

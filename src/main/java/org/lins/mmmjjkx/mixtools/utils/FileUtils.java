@@ -2,7 +2,6 @@ package org.lins.mmmjjkx.mixtools.utils;
 
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
 
 import java.io.File;
 import java.io.InputStream;
@@ -25,13 +24,16 @@ public class FileUtils {
                     MixTools.INSTANCE.saveResource(resourceFile,false);
                     return;
                 }
+                return;
             }
+            return;
         }
         if (!file.exists()){
             if (stream!=null) {
                 MixTools.INSTANCE.saveResource(resourceFile,false);
                 return;
             }
+            return;
         }
         if (stream==null) {
             MixTools.INSTANCE.getLogger().warning("File completion of '"+resourceFile+"' is failed.");
@@ -72,6 +74,7 @@ public class FileUtils {
                 MixTools.INSTANCE.saveResource(resourceFile,false);
                 return;
             }
+            return;
         }
         if (stream==null) {
             MixTools.INSTANCE.getLogger().warning("File completion of '"+resourceFile+"' is failed.");

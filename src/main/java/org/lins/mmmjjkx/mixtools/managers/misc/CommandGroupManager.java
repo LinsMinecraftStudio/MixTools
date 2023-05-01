@@ -67,6 +67,7 @@ public class CommandGroupManager {
     public boolean runCommandGroup(Player p, String name){
         List<String> commands = cmdgroup.getStringList(name);
         if (commands.isEmpty()) {
+            MixTools.warn("Command group "+name+" has not commands or it is not exists.");
             return false;
         }
         for (String cmd:commands){
@@ -79,6 +80,7 @@ public class CommandGroupManager {
     public boolean runCommandGroupAsConsole(String name){
         List<String> commands = cmdgroup.getStringList(name);
         if (commands.isEmpty()) {
+            MixTools.warn("Command group "+name+" has not commands or it is not exists.");
             return false;
         }
         for (String cmd:commands){

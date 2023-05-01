@@ -6,7 +6,7 @@ import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.managers.misc.SchedulerManager;
+import org.lins.mmmjjkx.mixtools.managers.SchedulerManager;
 import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsScheduler;
 
@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CMDScheduler implements MixTabExecutor {
-    private final SchedulerManager schedulerManager = MixTools.miscFeatureManager.getSchedulerManager();
+    private final SchedulerManager schedulerManager = MixTools.schedulerManager;
 
     @Nullable
     @Override
@@ -27,7 +27,7 @@ public class CMDScheduler implements MixTabExecutor {
             switch (args[0]) {
                 case "stop", "start" -> {
                     List<String> schedulerNames = new ArrayList<>();
-                    for (MixToolsScheduler scheduler : MixTools.miscFeatureManager.getSchedulerManager().getSchedulers()) {
+                    for (MixToolsScheduler scheduler : MixTools.schedulerManager.getSchedulers()) {
                         schedulerNames.add(scheduler.name());
                     }
                     return StringUtil.copyPartialMatches(args[1], schedulerNames, new ArrayList<>());

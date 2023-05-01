@@ -21,6 +21,9 @@ public class WorldManager {
         cfgfile = new File(MixTools.INSTANCE.getDataFolder(), "world.yml");
         try {configuration.load(cfgfile);
         }catch (Exception ignored){}
+        for (World w:Bukkit.getWorlds()){
+            addWorld(w);
+        }
         loadWorldsFromConfig();
         applyConfigToWorld();
     }
@@ -39,14 +42,13 @@ public class WorldManager {
         } catch (IOException e) {throw new RuntimeException(e);}
     }
 
-    public boolean removeWorld(String name){
+    public void removeWorldFromConfig(String name){
         if (configuration.contains(name)){
             configuration.set(name, null);
             try {configuration.save(cfgfile);
             } catch (IOException e) {throw new RuntimeException(e);}
-            return true;
         }else {
-            return false;
+            MixTools.warn("Cannot remove the world '"+name+"' folder.");
         }
     }
 
