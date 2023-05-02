@@ -12,7 +12,10 @@ import org.bukkit.event.entity.PlayerDeathEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.player.*;
+import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
+import org.bukkit.event.player.PlayerTeleportEvent;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
 import org.lins.mmmjjkx.mixtools.objects.listener.MixToolsListener;
@@ -40,7 +43,6 @@ public class PlayerListener implements MixToolsListener {
             economy.depositPlayer(e.getPlayer(), MixTools.settingsManager.getInt(INITIAL_CURRENCY));
             Bukkit.broadcastMessage(getPlayerMessage(p, PLAYER_WELCOME_MESSAGE));
         }
-
         checkVersion(p);
     }
 

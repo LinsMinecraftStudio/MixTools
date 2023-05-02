@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Map;
 
 public class SchedulerManager {
-    private final YamlConfiguration config = new YamlConfiguration();
+    private YamlConfiguration config = new YamlConfiguration();
     private final File cfgFile;
     private final List<MixToolsScheduler> schedulers = new ArrayList<>();
     private final Map<BukkitTask,String> tasks = new HashMap<>();
@@ -40,6 +40,7 @@ public class SchedulerManager {
     public void reload() {
         stopAllRunnable();
         try {
+            config = new YamlConfiguration();
             config.load(cfgFile);
             startAllRunnable();
         } catch (IOException | InvalidConfigurationException e) {
@@ -93,7 +94,7 @@ public class SchedulerManager {
                         runAction(action);
                     }
                 }
-            }.runTaskTimer(MixTools.INSTANCE, 0L, scheduler.delay());
+            }.runTaskTimer(MixTools.INSTANCE, scheduler.delay(), scheduler.delay());
             tasks.put(task, scheduler.name());
         }
     }

@@ -22,8 +22,10 @@ public class WorldManager {
         cfgfile = new File(MixTools.INSTANCE.getDataFolder(), "world.yml");
         try {configuration.load(cfgfile);
         }catch (Exception ignored){}
-        for (World w:Bukkit.getWorlds()){
-            addWorld(w);
+        for (World world: Bukkit.getWorlds()){
+            if (!configuration.contains(world.getName())){
+                addWorld(world);
+            }
         }
         loadWorldsFromConfig();
         applyConfigToWorld();
@@ -55,7 +57,7 @@ public class WorldManager {
         }
     }
 
-    public boolean loadWorld(String folderName){
+    public boolean loadWorld(String folderName, WorldType type){
         File server_root = MixTools.INSTANCE.getDataFolder().getParentFile().getParentFile();
         File folder = new File(server_root,folderName);
         if (folder.exists()) {
@@ -63,7 +65,7 @@ public class WorldManager {
             if (w==null){
                 return false;
             }
-            addWorld(w);
+            addWorld(w, type);
             return true;
         }else {
             return false;

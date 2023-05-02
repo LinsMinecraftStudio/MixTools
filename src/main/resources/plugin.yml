@@ -85,6 +85,7 @@ commands:
     description: world system
   broadcast:
     description: broadcast message
+    aliases: [bc]
   burn:
     description: let player burn
   heal:

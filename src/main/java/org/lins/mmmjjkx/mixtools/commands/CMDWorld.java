@@ -214,18 +214,24 @@ public class CMDWorld implements MixTabExecutor {
                         return true;
                     }
                     case "load" -> {
-                        boolean result = worldManager.loadWorld(args[1]);
-                        if (!result) {
-                            sendMessage(sender, "World.LoadFailed");
-                            return false;
-                        }
-                        sendMessage(sender, "World.LoadSuccess");
-                        return true;
+
                     }
                     default -> {
                         sendMessage(sender, "Command.ArgError");
                         return false;
                     }
+                }
+            } else if (args.length==3) {
+                if (args[0].equals("load")){
+                    WorldType type = stringToWorldType(args[2]);
+                    if (type==null) sendMessage(sender,"World.TypeInvalid");
+                    boolean result = worldManager.loadWorld(args[1],type);
+                    if (!result) {
+                        sendMessage(sender, "World.LoadFailed");
+                        return false;
+                    }
+                    sendMessage(sender, "World.LoadSuccess");
+                    return true;
                 }
             } else {
                 sendMessage(sender, "Command.ArgError");
