@@ -45,7 +45,7 @@ public class CMDTPAHere implements MixTabExecutor {
                         MixToolsTeleportRequest request = new MixToolsTeleportRequest(p2,p);
                         tpaManager.setExpireTime(request,tpaManager.DEFAULT_EXPIRE_TIME);
                         sendMessage(p,"TPA.Sent");
-                        tpaManager.buildRequest(request,true);
+                        tpaManager.buildRequestMessage(request,true);
                         new BukkitRunnable() {
                             @Override
                             public void run() {

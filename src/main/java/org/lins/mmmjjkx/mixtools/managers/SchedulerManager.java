@@ -144,9 +144,7 @@ public class SchedulerManager {
                 try {Thread.sleep(Integer.parseInt(split[1])*1000L);
                 } catch (InterruptedException e) {throw new RuntimeException(e);}
             }
-            case "broadcast" -> {
-                MixTools.messageHandler.broadcastCustomMessage(split[1]);
-            }
+            case "broadcast" -> MixTools.messageHandler.broadcastCustomMessage(split[1]);
         }
     }
 }

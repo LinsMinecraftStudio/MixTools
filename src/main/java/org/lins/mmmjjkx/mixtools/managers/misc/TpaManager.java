@@ -37,7 +37,7 @@ public class TpaManager {
         return null;
     }
 
-    public void buildRequest(MixToolsTeleportRequest request,boolean here){
+    public void buildRequestMessage(MixToolsTeleportRequest request,boolean here){
         Player to = request.to();
         TextComponent component = LegacyComponentSerializer.legacyAmpersand().deserialize(
                 MixTools.messageHandler.getColored("TPA.Request.Accept"));

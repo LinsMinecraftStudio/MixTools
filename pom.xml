@@ -6,7 +6,7 @@
 
     <groupId>org.lins.mmmjjkx</groupId>
     <artifactId>MixTools</artifactId>
-    <version>1.0.4-Ready</version>
+    <version>1.0.4</version>
     <packaging>jar</packaging>
 
     <name>MixTools</name>
