@@ -3,7 +3,6 @@ package org.lins.mmmjjkx.mixtools;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDFlySpeed;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDWalkSpeed;
@@ -44,14 +43,14 @@ public final class MixTools extends JavaPlugin {
         registerCommands();
         registerListeners();
         new Metrics(this,17788);
-        getLogger().info("MixTools enabled!");
+        log("MixTools enabled!");
     }
 
     @Override
     public void onDisable() {
         // Plugin shutdown logic
         schedulerManager.stopAllRunnable();
-        getLogger().info("MixTools disabled!");
+        log("MixTools disabled!");
     }
 
     private void registerCommands() {

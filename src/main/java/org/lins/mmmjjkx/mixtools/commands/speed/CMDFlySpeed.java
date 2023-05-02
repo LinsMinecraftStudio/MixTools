@@ -21,6 +21,7 @@ public class CMDFlySpeed implements MixTabExecutor {
             speedList.add("2");
             speedList.add("3");
             speedList.add("4");
+            speedList.add("5");
             return StringUtil.copyPartialMatches(args[0],speedList,new ArrayList<>());
         }
         return null;

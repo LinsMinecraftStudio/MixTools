@@ -6,7 +6,7 @@
 
     <groupId>org.lins.mmmjjkx</groupId>
     <artifactId>MixTools</artifactId>
-    <version>1.0.4-SNAPSHOT</version>
+    <version>1.0.4-Ready</version>
     <packaging>jar</packaging>
 
     <name>MixTools</name>
@@ -52,18 +52,6 @@
                                     <pattern>org.bstats</pattern>
                                     <shadedPattern>org.lins.mmmjjkx.mixtools.libs.bstats</shadedPattern>
                                 </relocation>
-                                <relocation>
-                                    <pattern>com.zaxxer.hikari</pattern>
-                                    <shadedPattern>org.lins.mmmjjkx.mixtools.libs.hikaricp</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>org.slf4j</pattern>
-                                    <shadedPattern>org.lins.mmmjjkx.mixtools.libs.slf4j</shadedPattern>
-                                </relocation>
-                                <relocation>
-                                    <pattern>net.kyori.adventure</pattern>
-                                    <shadedPattern>org.lins.mmmjjkx.mixtools.libs.adventure</shadedPattern>
-                                </relocation>
                             </relocations>
                             <minimizeJar>true</minimizeJar>
                         </configuration>
@@ -81,8 +69,8 @@
 
     <repositories>
         <repository>
-            <id>paper-repo</id>
-            <url>https://repo.papermc.io/repository/maven-public/</url>
+        <id>spigotmc-repo</id>
+        <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>jitpack.io</id>
@@ -91,10 +79,6 @@
         <repository>
             <id>placeholderapi</id>
             <url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-        </repository>
-        <repository>
-            <id>spigotmc-repo</id>
-            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
         <repository>
             <id>sonatype</id>
@@ -107,11 +91,13 @@
             <groupId>net.kyori</groupId>
             <artifactId>adventure-platform-bukkit</artifactId>
             <version>4.3.0</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
             <artifactId>HikariCP</artifactId>
             <version>5.0.1</version>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.github.MilkBowl</groupId>
