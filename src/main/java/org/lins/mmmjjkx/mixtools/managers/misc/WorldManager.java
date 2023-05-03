@@ -6,6 +6,7 @@ import org.bukkit.WorldCreator;
 import org.bukkit.WorldType;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.generator.ChunkGenerator;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
 import javax.annotation.Nonnull;
@@ -43,6 +44,7 @@ public class WorldManager {
         section.set("alias", alias);
         section.set("pvp", world.getPVP());
         section.set("type", type.getName());
+        section.set("generator", world.getGenerator().getClass().getSimpleName());
         try {configuration.save(cfgfile);
         } catch (IOException e) {throw new RuntimeException(e);}
     }
@@ -108,6 +110,19 @@ public class WorldManager {
     }
 
     @Nullable
+    public ChunkGenerator getWorldGenerator(String name){
+        ConfigurationSection section = configuration.getConfigurationSection(name);
+        if (section != null) {
+            String generator = section.getString("generator");
+            try {
+                Class<?> c = Class.forName(generator);
+                return (ChunkGenerator) c.getDeclaredConstructor().newInstance();
+            }catch (Exception e) {return null;}
+        }
+        return null;
+    }
+
+    @Nullable
     public WorldType getWorldType(String name){
         ConfigurationSection section = configuration.getConfigurationSection(name);
         if (section != null) {
@@ -116,9 +131,8 @@ public class WorldManager {
             }catch (Exception e) {
                 return null;
             }
-        }else {
-            return null;
         }
+        return null;
     }
 
     @SuppressWarnings("unused")
