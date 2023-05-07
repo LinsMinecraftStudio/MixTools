@@ -5,7 +5,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.util.StringUtil;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
 import java.util.ArrayList;
 import java.util.List;

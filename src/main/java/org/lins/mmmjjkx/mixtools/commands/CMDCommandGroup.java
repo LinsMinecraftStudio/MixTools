@@ -8,7 +8,7 @@ import org.bukkit.util.StringUtil;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.misc.CommandGroupManager;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsCommandGroup;
-import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;

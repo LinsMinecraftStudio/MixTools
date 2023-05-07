@@ -3,7 +3,7 @@ package org.lins.mmmjjkx.mixtools.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
 import javax.annotation.Nonnull;
 

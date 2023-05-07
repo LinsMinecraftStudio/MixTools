@@ -8,7 +8,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.util.ArrayList;

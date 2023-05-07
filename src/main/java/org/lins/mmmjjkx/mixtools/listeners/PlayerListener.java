@@ -18,7 +18,7 @@ import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
-import org.lins.mmmjjkx.mixtools.objects.listener.MixToolsListener;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixToolsListener;
 import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.util.List;

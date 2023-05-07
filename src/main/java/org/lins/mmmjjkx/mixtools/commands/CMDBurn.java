@@ -7,7 +7,7 @@ import org.bukkit.util.StringUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
 import java.util.ArrayList;
 import java.util.List;

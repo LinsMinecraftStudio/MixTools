@@ -9,7 +9,7 @@ import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.misc.TpaManager;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsTeleportRequest;
-import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
 import java.util.List;
 

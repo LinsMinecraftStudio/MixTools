@@ -258,4 +258,4 @@ permissions:
     default: op
   mixtools.scheduler:
     default: op
-    description: manager schedulers permission
+    description: manage schedulers permission

@@ -17,7 +17,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.events.SignEditEvent;
-import org.lins.mmmjjkx.mixtools.objects.listener.MixToolsListener;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixToolsListener;
 import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.lang.reflect.Constructor;

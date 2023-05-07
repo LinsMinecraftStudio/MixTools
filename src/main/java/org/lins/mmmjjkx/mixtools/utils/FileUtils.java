@@ -95,9 +95,14 @@ public class FileUtils {
                         configuration2.set(key, value);
                         continue;
                     }
-                    if (!configuration2.contains(key)) {
-                        configuration2.set(key, value);
-                    }
+                }
+                if (!configuration2.contains(key)) {
+                    configuration2.set(key, value);
+                }
+            }
+            for (String key : configuration2.getKeys(true)) {
+                if (configuration2.contains(key) & !configuration.contains(key)) {
+                    configuration2.set(key,null);
                 }
             }
             configuration2.save(file);

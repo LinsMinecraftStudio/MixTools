@@ -1,10 +1,11 @@
-package org.lins.mmmjjkx.mixtools.objects.command;
+package org.lins.mmmjjkx.mixtools.objects.interfaces;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
 import java.util.ArrayList;
 import java.util.List;

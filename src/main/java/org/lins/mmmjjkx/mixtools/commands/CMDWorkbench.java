@@ -4,7 +4,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
 public class CMDWorkbench implements MixCommandExecutor {
     @Override

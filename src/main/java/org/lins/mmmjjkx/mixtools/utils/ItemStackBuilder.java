@@ -7,6 +7,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.HashMap;
 import java.util.Map;
 //for kit
 public class ItemStackBuilder {
@@ -46,30 +47,29 @@ public class ItemStackBuilder {
         return item;
     }
 
-    public static ConfigurationSection asSection(ConfigurationSection section, ItemStack item){
+    public static Map<?,?> asMap(ItemStack item){
         ItemMeta meta = item.getItemMeta();
-        section.set("material", item.getType().toString());
-        section.set("amount", item.getAmount());
+        Map<String,Object> map = new HashMap<>();
+        map.put("material", item.getType().toString());
+        map.put("amount", item.getAmount());
         if(meta != null){
             if(meta.hasDisplayName()){
-                section.set("displayname", meta.getDisplayName());
+                map.put("displayname", meta.getDisplayName());
             }
             if(meta.hasLore()){
-                section.set("lore", meta.getLore());
+                map.put("lore", meta.getLore());
             }
             if(meta.hasEnchants()){
-                ConfigurationSection section2 = section.createSection("enchants");
+                Map<String,Integer> enchantsMap = new HashMap<>();
                 Map<Enchantment, Integer> enchants = meta.getEnchants();
-                int i = 1;
                 for (Enchantment enchantment : enchants.keySet()) {
                     NamespacedKey key = enchantment.getKey();
-                    ConfigurationSection section3 = section2.createSection(String.valueOf(i));
-                    section3.set("key", key.toString());
-                    section3.set("lvl", enchants.get(enchantment));
+                    enchantsMap.put(key.toString(), enchants.get(enchantment));
                 }
+                map.put("enchants", enchantsMap);
             }
-            section.set("unbreakable", meta.isUnbreakable());
+            map.put("unbreakable", meta.isUnbreakable());
         }
-        return section;
+        return map;
     }
 }

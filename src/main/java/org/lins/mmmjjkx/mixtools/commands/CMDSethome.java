@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsHome;
-import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 public class CMDSethome implements MixCommandExecutor {

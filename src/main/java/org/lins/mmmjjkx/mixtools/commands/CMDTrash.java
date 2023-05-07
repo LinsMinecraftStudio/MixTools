@@ -9,7 +9,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.command.MixCommandExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
 import java.util.List;
 

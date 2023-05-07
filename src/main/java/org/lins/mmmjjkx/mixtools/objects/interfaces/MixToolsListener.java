@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.objects.listener;
+package org.lins.mmmjjkx.mixtools.objects.interfaces;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;

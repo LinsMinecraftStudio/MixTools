@@ -3,9 +3,8 @@ package org.lins.mmmjjkx.mixtools.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.lins.mmmjjkx.mixtools.objects.command.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CMDFly implements MixTabExecutor {
