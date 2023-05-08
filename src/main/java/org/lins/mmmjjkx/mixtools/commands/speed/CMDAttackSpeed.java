@@ -1,11 +1,13 @@
 package org.lins.mmmjjkx.mixtools.commands.speed;
 
+import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
-public class CMDFlySpeed extends SpeedCMD {
+public class CMDAttackSpeed extends SpeedCMD{
+
     @Override
     public String name() {
-        return "flyspeed";
+        return "attackSpeed";
     }
 
     @Override
@@ -25,7 +27,6 @@ public class CMDFlySpeed extends SpeedCMD {
 
     @Override
     void changePlayerSpeed(Player p, double speed) {
-        p.setFlySpeed((float) (speed / 5));
-        sendMessage(p, "Speed.FlyingSpeedSet", speed);
+        p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(speed * 4d);
     }
 }

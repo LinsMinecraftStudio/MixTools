@@ -4,6 +4,7 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
+import org.lins.mmmjjkx.mixtools.commands.speed.CMDAttackSpeed;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDFlySpeed;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDWalkSpeed;
 import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
@@ -85,6 +86,7 @@ public final class MixTools extends JavaPlugin {
         new CMDTPAll().register();
         new CMDFlySpeed().register();
         new CMDWalkSpeed().register();
+        new CMDAttackSpeed().register();
         new CMDBalance().register();
         new CMDOPList().register();
         new CMDBanList().register();

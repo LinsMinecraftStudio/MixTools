@@ -18,14 +18,16 @@ Command:
   NoBackLocation: "&4你并没有已保存的上一个位置。"
   Reload: "&a重载成功。"
   PlayerNotFound: "&4那个玩家未找到。。。"
-  FlyingSpeedSet: "&a飞行速度已设置为 &e%d&a。"
-  WalkSpeedSet: "&a行走速度已设置为 &e%d&a。"
   Broadcast: "&2[&e公告&2] &b%s"
   Healed: "&a已治愈&e%s。"
   TimeSet: "&a时间已设置为 &e%d&a。"
   TeleportToVoid: "&e%s 已传送至虚空。"
   UnableToGetOp: "&4无法获取op权限。op锁已开启。"
   UnableToDeOp: "&4无法移除op身份。op锁已开启。"
+Speed:
+  FlyingSpeedSet: "&a飞行速度已设置为 &e%.2f&a。"
+  WalkSpeedSet: "&a行走速度已设置为 &e%.2f&a。"
+  AttackSpeedSet: "&a攻击速度已设置为 &e%.2f&a."
 CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"
