@@ -23,7 +23,9 @@ public class SettingsManager {
     public String getString(String key){
         return config.getString(key,"");
     }
-    public String getColoredString(String key){return MixTools.messageHandler.colorize(getString(key));}
+    public String getString(String key, boolean colorize){
+        return colorize ? MixTools.messageHandler.colorize(config.getString(key,"")) : getString(key);
+    }
     public boolean getBoolean(String key){
         return config.getBoolean(key);
     }
@@ -42,6 +44,10 @@ public class SettingsManager {
         config.set(key, value);
     }
     public void setSpawn(Location loc){
+        if (loc == null){
+            MixTools.warn("Can't set spawn location, because the location is null.'");
+            return;
+        }
         ConfigurationSection cs = config.getConfigurationSection("spawn");
         if (cs == null){
             cs = config.createSection("spawn");

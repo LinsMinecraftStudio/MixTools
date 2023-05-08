@@ -38,13 +38,13 @@ public class CMDTrash implements MixCommandExecutor {
                 if (!slots.isEmpty()) {
                     ItemStack stack = MixTools.settingsManager.getItemStack(TRASH_ITEM);
                     ItemMeta meta = stack.getItemMeta();
-                    meta.setDisplayName(MixTools.settingsManager.getColoredString(TRASH_ITEM_NAME));
+                    meta.setDisplayName(MixTools.settingsManager.getString(TRASH_ITEM_NAME,true));
                     stack.setItemMeta(meta);
                     ItemStack closeButton = MixTools.settingsManager.getBoolean(TRASH_CLOSE_BUTTON_ENABLED) ?
                             MixTools.settingsManager.getItemStack(TRASH_CLOSE_BUTTON_ITEM) : null;
                     if (closeButton != null){
                         ItemMeta meta2 = closeButton.getItemMeta();
-                        meta2.setDisplayName(MixTools.settingsManager.getColoredString(TRASH_CLOSE_BUTTON_NAME));
+                        meta2.setDisplayName(MixTools.settingsManager.getString(TRASH_CLOSE_BUTTON_NAME,true));
                     }
                     int closeButtonSlot = MixTools.settingsManager.getInt(TRASH_CLOSE_BUTTON_SLOT);
                     if (MixTools.settingsManager.getBoolean(TRASH_CLOSE_BUTTON_ENABLED)) {

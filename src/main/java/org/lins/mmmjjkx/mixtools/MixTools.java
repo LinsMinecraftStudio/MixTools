@@ -13,6 +13,7 @@ import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 import org.lins.mmmjjkx.mixtools.managers.SchedulerManager;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
+import org.lins.mmmjjkx.mixtools.managers.kit.KitManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 import org.lins.mmmjjkx.mixtools.utils.FileUtils;
 
@@ -26,6 +27,7 @@ public final class MixTools extends JavaPlugin {
     public static SettingsManager settingsManager;
     public static MiscFeatureManager miscFeatureManager;
     public static SchedulerManager schedulerManager;
+    public static KitManager kitManager;
     public static BukkitAudiences adventure;
 
     @Override
@@ -39,6 +41,7 @@ public final class MixTools extends JavaPlugin {
         hookManager = new HookManager();
         adventure = BukkitAudiences.create(this);
         miscFeatureManager = new MiscFeatureManager();
+        kitManager = new KitManager();
         schedulerManager = new SchedulerManager();
         registerCommands();
         registerListeners();
@@ -125,6 +128,7 @@ public final class MixTools extends JavaPlugin {
         messageHandler = new MessageHandler();
         settingsManager = new SettingsManager();
         dataManager = new DataManager();
+        kitManager = new KitManager();
         schedulerManager.reload();
         miscFeatureManager.reload();
     }

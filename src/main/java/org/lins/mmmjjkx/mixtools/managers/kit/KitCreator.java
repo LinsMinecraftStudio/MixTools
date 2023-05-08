@@ -1,10 +1,9 @@
 package org.lins.mmmjjkx.mixtools.managers.kit;
 
-import com.google.common.primitives.Booleans;
+import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -13,17 +12,19 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.utils.ItemStackBuilder;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
+
+import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.*;
 
 public class KitCreator implements Listener {
     private final Player player;
     private final String kitName;
-    private final List<Integer> unusableSlot = List.of(4,9,10,11,12,13,14,15,16,17);
+    private final List<Integer> unusableSlot = Lists.newArrayList(4,6,7,8,9,10,11,12,13,14,15,16,17);
 
     public KitCreator(Player p, String kitName) {
         this.player = p;
@@ -34,7 +35,15 @@ public class KitCreator implements Listener {
     public void openInventory(){
         Inventory inventory = Bukkit.createInventory(null, 54,
                 MixTools.messageHandler.getColored("Kit.Title",kitName));
-        ItemStack glassPane = new ItemStack(Material.BLACK_STAINED_GLASS_PANE);
+        ItemStack glassPane = MixTools.settingsManager.getItemStack(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_TYPE);
+        ItemMeta glassPaneMeta = glassPane.getItemMeta();
+        glassPaneMeta.setDisplayName(MixTools.settingsManager.getString(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_NAME,true));
+        glassPane.setItemMeta(glassPaneMeta);
+        if (MixTools.settingsManager.getBoolean(KIT_EDITOR_CLOSE_BUTTON_ENABLED)) {
+            unusableSlot.remove(3);
+            ItemStack close = new ItemStack(Material.BARRIER);
+            inventory.setItem(8,close);
+        }
         for (int i: unusableSlot){
             inventory.setItem(i,glassPane);
         }
@@ -53,6 +62,9 @@ public class KitCreator implements Listener {
     public void onClick(InventoryClickEvent e){
         if (e.getView().getTitle().contains(kitName)) {
             if (unusableSlot.contains(e.getRawSlot())){
+                if (MixTools.settingsManager.getBoolean(KIT_EDITOR_CLOSE_BUTTON_ENABLED) & e.getRawSlot() == 8) {
+                    e.getWhoClicked().closeInventory();
+                }
                 e.setCancelled(true);
             }
         }
@@ -70,11 +82,21 @@ public class KitCreator implements Listener {
             }
             YamlConfiguration yamlConfiguration = new YamlConfiguration();
             for (int i = 0; i < 54;i++){
-                if (unusableSlot.contains(i)) continue;
                 ItemStack stack = inv.getItem(i);
                 if (stack == null) continue;
+                ConfigurationSection equipment = yamlConfiguration.createSection("equipment");
                 ConfigurationSection section = yamlConfiguration.createSection("slot");
-                section.createSection(String.valueOf(i), ItemStackBuilder.asMap(stack));
+                switch (i) {
+                    case 0 -> equipment.set("head", ItemStackBuilder.asMap(stack));
+                    case 1 -> equipment.set("chest", ItemStackBuilder.asMap(stack));
+                    case 2 -> equipment.set("legs", ItemStackBuilder.asMap(stack));
+                    case 3 -> equipment.set("feet", ItemStackBuilder.asMap(stack));
+                    case 5 -> equipment.set("offHand", ItemStackBuilder.asMap(stack));
+                    default -> {
+                        if (unusableSlot.contains(i)) continue;
+                        section.set(String.valueOf(i), ItemStackBuilder.asMap(stack));
+                    }
+                }
             }
             yamlConfiguration.save(kitFile);
         }catch (Exception e){

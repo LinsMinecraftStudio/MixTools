@@ -47,7 +47,7 @@ public class ItemStackBuilder {
         return item;
     }
 
-    public static Map<?,?> asMap(ItemStack item){
+    public static Map<String,Object> asMap(ItemStack item){
         ItemMeta meta = item.getItemMeta();
         Map<String,Object> map = new HashMap<>();
         map.put("material", item.getType().toString());
