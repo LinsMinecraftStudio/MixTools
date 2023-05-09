@@ -1,8 +1,6 @@
-package org.lins.mmmjjkx.mixtools.commands;
+package org.lins.mmmjjkx.mixtools.commands.list;
 
 import com.google.common.collect.Lists;
-import org.bukkit.Bukkit;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
@@ -13,13 +11,17 @@ import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CMDOPList implements MixTabExecutor {
+public interface ListCMD<T> extends MixTabExecutor {
+    List<T> list();
+    String getObjectName(T object);
+    @NotNull Object[] args(T object);
+
+    @Nullable
     @Override
-    public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    default List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args){
         if (args.length==1) {
             List<String> argList = new ArrayList<>();
-            List<OfflinePlayer> operators = new ArrayList<>(Bukkit.getOperators());
-            List<List<OfflinePlayer>> partition = Lists.partition(operators, 10);
+            List<List<T>> partition = Lists.partition(list(), 10);
             for (int i = 0; i < partition.size(); i++) {
                 int ri = i+1;
                 argList.add(String.valueOf(ri));
@@ -30,17 +32,7 @@ public class CMDOPList implements MixTabExecutor {
     }
 
     @Override
-    public String name() {
-        return "oplist";
-    }
-
-    @Override
-    public String requirePlugin() {
-        return null;
-    }
-
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    default boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args){
         if (hasPermission(sender)){
             if (args.length==0){
                 sendMessages(sender,1);
@@ -57,23 +49,22 @@ public class CMDOPList implements MixTabExecutor {
     }
 
     private void sendMessages(CommandSender sender,int page){
-        List<OfflinePlayer> operators = new ArrayList<>(Bukkit.getOperators());
-        List<List<OfflinePlayer>> partition = Lists.partition(operators, 10);
-        if (page==-100) {
+        List<List<T>> partition = Lists.partition(list(), 10);
+        if (page==-100){
             return;
-        }else if (operators.isEmpty() & page==1) {
-            sendMessage(sender,"Info.List.OPListEmpty");
+        } else if (list().isEmpty() & page==1) {
+            sendMessage(sender,"Info.List.ListEmpty");
             return;
         } else if (page>partition.size()) {
             sendMessage(sender,"Value.TooHigh",1);
             return;
         }
         int real_page = page-1;
-        List<OfflinePlayer> operators_parted = partition.get(real_page);
+        List<T> parted = partition.get(real_page);
         sendMessage(sender, "Info.List.Head",page);
         int head = page==1 ? 1 : (10*real_page)+1;
-        for (OfflinePlayer offlinePlayer : operators_parted) {
-            sendMessage(sender, "Info.List.Default", head, offlinePlayer.getName());
+        for (T obj : parted) {
+            sendMessage(sender, "Info.List.Banned", head, getObjectName(obj), args(obj));
             head++;
         }
         sendMessage(sender, "Info.List.Tail");

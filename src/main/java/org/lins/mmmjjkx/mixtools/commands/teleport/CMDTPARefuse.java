@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.commands;
+package org.lins.mmmjjkx.mixtools.commands.teleport;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -9,10 +9,10 @@ import org.lins.mmmjjkx.mixtools.managers.misc.TpaManager;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsTeleportRequest;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
-public class CMDTPAAccept implements MixCommandExecutor {
+public class CMDTPARefuse implements MixCommandExecutor {
     @Override
     public String name() {
-        return "tpaaccept";
+        return "tparefuse";
     }
 
     @Override
@@ -31,14 +31,10 @@ public class CMDTPAAccept implements MixCommandExecutor {
                     sendMessage(sender,"TPA.NoRequest");
                     return false;
                 }
-                Player from = request.from();
-                if (from == null){
-                    sendMessage(sender,"TPA.PlayerLeft");
-                    return false;
-                }
-                from.teleport(p);
                 tpaManager.setExpireTime(request,0);
-                sendMessage(sender,"TPA.Teleported",from.getName());
+                Player from = request.from();
+                if (from == null){return false;}
+                sendMessage(from,"TPA.Denied",p.getName());
                 return true;
             }
         }

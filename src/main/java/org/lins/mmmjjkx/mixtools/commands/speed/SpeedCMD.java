@@ -49,10 +49,6 @@ public abstract class SpeedCMD implements MixTabExecutor {
         return false;
     }
 
-    @Override public abstract String name();
-
-    @Override public abstract String requirePlugin();
-
     abstract int maxSpeed();
 
     abstract int minSpeed();

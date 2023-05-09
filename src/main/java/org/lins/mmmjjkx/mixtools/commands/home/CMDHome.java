@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.commands;
+package org.lins.mmmjjkx.mixtools.commands.home;
 
 import org.bukkit.Location;
 import org.bukkit.command.Command;

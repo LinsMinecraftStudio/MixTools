@@ -7,7 +7,7 @@ public class CMDAttackSpeed extends SpeedCMD{
 
     @Override
     public String name() {
-        return "attackSpeed";
+        return "attackspeed";
     }
 
     @Override

@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.commands;
+package org.lins.mmmjjkx.mixtools.commands.economy;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

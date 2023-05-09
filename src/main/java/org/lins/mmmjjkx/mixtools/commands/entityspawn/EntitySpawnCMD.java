@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.commands;
+package org.lins.mmmjjkx.mixtools.commands.entityspawn;
 
 import org.bukkit.World;
 import org.bukkit.command.Command;
@@ -13,44 +13,35 @@ import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CMDLightning implements MixTabExecutor {
+public interface EntitySpawnCMD extends MixTabExecutor {
     @Nullable
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    default List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (args.length==1){
             return StringUtil.copyPartialMatches(args[0],getPlayerNames(),new ArrayList<>());
         } else if (args.length==2) {
-            return StringUtil.copyPartialMatches(args[1],
-                    List.of("1","2","3","4","5"),new ArrayList<>());
+            return StringUtil.copyPartialMatches(args[1], List.of("1","2","3","4","5"),new ArrayList<>());
         }
         return null;
     }
 
-    @Override
-    public String name() {
-        return "lightning";
-    }
+    EntityType entityType();
 
     @Override
-    public String requirePlugin() {
-        return null;
-    }
-
-    @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    default boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (hasPermission(sender)){
             if (args.length==0) {
                 Player p = toPlayer(sender);
                 if (p != null) {
                     World world = p.getWorld();
-                    world.spawnEntity(p.getLocation(), EntityType.LIGHTNING);
+                    world.spawnEntity(p.getLocation(), entityType());
                     return true;
                 }
             }else if (args.length==1) {
                 Player p = findPlayerNoMessage(args[0]);
                 if (p != null) {
                     World world = p.getWorld();
-                    world.spawnEntity(p.getLocation(), EntityType.LIGHTNING);
+                    world.spawnEntity(p.getLocation(), entityType());
                     return true;
                 } else {
                     Player self = toPlayer(sender);
@@ -58,7 +49,7 @@ public class CMDLightning implements MixTabExecutor {
                         int amount = toInteger(sender, args[0], 1);
                         if (amount != -100) {
                             for (int i = 0; i < amount; i++) {
-                                self.getWorld().spawnEntity(self.getLocation(), EntityType.LIGHTNING);
+                                self.getWorld().spawnEntity(self.getLocation(), entityType());
                             }
                             return true;
                         }
@@ -71,7 +62,7 @@ public class CMDLightning implements MixTabExecutor {
                     int amount = toInteger(sender, args[1], 2);
                     if (amount != -100) {
                         for (int i = 0; i < amount; i++) {
-                            world.spawnEntity(p.getLocation(), EntityType.LIGHTNING);
+                            world.spawnEntity(p.getLocation(), entityType());
                         }
                         return true;
                     }

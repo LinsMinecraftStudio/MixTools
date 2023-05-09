@@ -101,6 +101,10 @@ commands:
     description: list homes
   scheduler:
     description: manager schedulers
+  attackspeed:
+    description: set attack speed
+  tpaall:
+    description: let all players teleport to you(not force)
 permissions:
   mixtools.command.back:
     description: back permission
@@ -259,3 +263,9 @@ permissions:
   mixtools.scheduler:
     default: op
     description: manage schedulers permission
+  mixtools.command.attackspeed:
+    description: set attack speed permission
+    default: op
+  mixtools.command.tpaall:
+    description: let all players teleport to you(not force) permission
+    default: op

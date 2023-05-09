@@ -4,15 +4,21 @@ import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
+import org.lins.mmmjjkx.mixtools.commands.economy.CMDBalance;
+import org.lins.mmmjjkx.mixtools.commands.entityspawn.CMDLightning;
+import org.lins.mmmjjkx.mixtools.commands.entityspawn.CMDTNT;
+import org.lins.mmmjjkx.mixtools.commands.home.CMDDelhome;
+import org.lins.mmmjjkx.mixtools.commands.home.CMDHome;
+import org.lins.mmmjjkx.mixtools.commands.home.CMDHomes;
+import org.lins.mmmjjkx.mixtools.commands.home.CMDSethome;
+import org.lins.mmmjjkx.mixtools.commands.list.CMDBanList;
+import org.lins.mmmjjkx.mixtools.commands.list.CMDOPList;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDAttackSpeed;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDFlySpeed;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDWalkSpeed;
-import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
-import org.lins.mmmjjkx.mixtools.listeners.SignListener;
-import org.lins.mmmjjkx.mixtools.managers.HookManager;
-import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
-import org.lins.mmmjjkx.mixtools.managers.SchedulerManager;
-import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
+import org.lins.mmmjjkx.mixtools.commands.teleport.*;
+import org.lins.mmmjjkx.mixtools.listeners.*;
+import org.lins.mmmjjkx.mixtools.managers.*;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.kit.KitManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
@@ -100,6 +106,7 @@ public final class MixTools extends JavaPlugin {
         new CMDVoid().register();
         new CMDHomes().register();
         new CMDScheduler().register();
+        new CMDTPAAll().register();
     }
 
     private void registerListeners() {

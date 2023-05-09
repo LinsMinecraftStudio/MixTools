@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.commands;
+package org.lins.mmmjjkx.mixtools.commands.teleport;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Location;

@@ -4,7 +4,7 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.commands.CMDEconomy;
+import org.lins.mmmjjkx.mixtools.commands.economy.CMDEconomy;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsPAPIAddon;
 
