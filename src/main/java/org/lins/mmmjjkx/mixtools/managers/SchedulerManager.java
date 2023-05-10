@@ -94,7 +94,7 @@ public class SchedulerManager {
                         runAction(action);
                     }
                 }
-            }.runTaskTimer(MixTools.INSTANCE, scheduler.delay(), scheduler.delay());
+            }.runTaskTimerAsynchronously(MixTools.INSTANCE, scheduler.delay(), scheduler.delay());
             tasks.put(task, scheduler.name());
         }
     }
@@ -137,9 +137,18 @@ public class SchedulerManager {
     private void runAction(String action){
         String[] split = action.split("::");
         switch (split[0]) {
-            case "cmd" -> Bukkit.dispatchCommand(Bukkit.getConsoleSender(), split[1]);
-            case "cmdgroup" -> MixTools.miscFeatureManager.getCommandGroupManager().
-                    runCommandGroupAsConsole(split[1]);
+            case "cmd" -> new BukkitRunnable() {
+                @Override
+                public void run() {
+                    Bukkit.dispatchCommand(Bukkit.getConsoleSender(), split[1]);
+                }
+            }.runTask(MixTools.INSTANCE);
+            case "cmdgroup" -> new BukkitRunnable() {
+                @Override
+                public void run() {
+                    MixTools.miscFeatureManager.getCommandGroupManager().runCommandGroupAsConsole(split[1]);
+                }
+            }.runTask(MixTools.INSTANCE);
             case "wait" -> {
                 try {Thread.sleep(Integer.parseInt(split[1])*1000L);
                 } catch (InterruptedException e) {throw new RuntimeException(e);}

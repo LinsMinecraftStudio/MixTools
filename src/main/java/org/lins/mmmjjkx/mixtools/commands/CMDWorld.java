@@ -11,13 +11,11 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.misc.WorldManager;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.utils.FileUtils;
-import org.reflections.Reflections;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 public class CMDWorld implements MixTabExecutor {
     private final WorldManager worldManager = MixTools.miscFeatureManager.getWorldManager();
