@@ -20,7 +20,6 @@ public class CMDReload implements MixCommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)) {
-            MixTools.INSTANCE.reloadConfig();
             MixTools.INSTANCE.Reload();
             sendMessage(sender,"Command.ReloadSuccess");
             return true;

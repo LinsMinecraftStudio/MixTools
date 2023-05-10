@@ -3,13 +3,11 @@ package org.lins.mmmjjkx.mixtools.commands.economy;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
@@ -20,7 +18,7 @@ public class CMDBalance implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length==1){
-            return StringUtil.copyPartialMatches(args[0],getPlayerNames(),new ArrayList<>());
+            return copyPartialMatches(args[0],getPlayerNames());
         }
         return null;
     }

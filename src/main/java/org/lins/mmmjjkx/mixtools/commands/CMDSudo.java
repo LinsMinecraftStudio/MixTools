@@ -13,15 +13,12 @@ import java.util.List;
 public class CMDSudo implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
-        List<String> s = new ArrayList<>();
         if (args.length==1){
-            s.addAll(getPlayerNames());
+            return copyPartialMatches(args[0], getPlayerNames());
         } else if (args.length > 1) {
-            s.add("cmd:");
-            s.add("chat:");
-            s.add("cmdgroup:");
+            return List.of("cmd:","chat:","cmdgroup:");
         }
-        return s;
+        return null;
     }
 
     @Override

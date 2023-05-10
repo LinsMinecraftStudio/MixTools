@@ -5,12 +5,10 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public interface EntitySpawnCMD extends MixTabExecutor {
@@ -18,9 +16,9 @@ public interface EntitySpawnCMD extends MixTabExecutor {
     @Override
     default List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (args.length==1){
-            return StringUtil.copyPartialMatches(args[0],getPlayerNames(),new ArrayList<>());
+            return copyPartialMatches(args[0],getPlayerNames());
         } else if (args.length==2) {
-            return StringUtil.copyPartialMatches(args[1], List.of("1","2","3","4","5"),new ArrayList<>());
+            return copyPartialMatches(args[1], List.of("1","2","3","4","5"));
         }
         return null;
     }

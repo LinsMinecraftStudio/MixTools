@@ -17,7 +17,7 @@ public class CMDVoid implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length==1){
-            return StringUtil.copyPartialMatches(args[0],getPlayerNames(),new ArrayList<>());
+            return copyPartialMatches(args[0],getPlayerNames());
         }
         return null;
     }

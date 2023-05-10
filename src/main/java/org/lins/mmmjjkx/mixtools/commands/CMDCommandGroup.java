@@ -4,11 +4,10 @@ import com.google.common.collect.Lists;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.misc.CommandGroupManager;
-import org.lins.mmmjjkx.mixtools.objects.records.MixToolsCommandGroup;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.objects.records.MixToolsCommandGroup;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -27,13 +26,13 @@ public class CMDCommandGroup implements MixTabExecutor {
             argsList.add("run");
             argsList.add("remove");
             argsList.add("list");
-            return StringUtil.copyPartialMatches(args[0],argsList,new ArrayList<>());
+            return copyPartialMatches(args[0],argsList);
         } else if (args.length==2&!args[1].equals("add")) {
-            return StringUtil.copyPartialMatches(args[1],commandGroupManager.getAllGroupsName(),new ArrayList<>());
+            return copyPartialMatches(args[1],commandGroupManager.getAllGroupsName());
         } else if (args.length==3&args[1].equals("run")) {
             List<String> playerList = getPlayerNames();
             playerList.add("CONSOLE-RUN");//run command group on console
-            return StringUtil.copyPartialMatches(args[2],playerList,new ArrayList<>());
+            return copyPartialMatches(args[2],playerList);
         }
         return null;
     }

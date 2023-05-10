@@ -4,7 +4,6 @@ import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
@@ -20,10 +19,10 @@ public class CMDGamemode implements MixTabExecutor {
             for (GameMode mode: GameMode.values()) {
                 modes.add(mode.toString().toLowerCase());
             }
-            return StringUtil.copyPartialMatches(args[0],modes,new ArrayList<>());
+            return copyPartialMatches(args[0],modes);
         }
         if (args.length==2){
-            return StringUtil.copyPartialMatches(args[1],getPlayerNames(),new ArrayList<>());
+            return copyPartialMatches(args[1],getPlayerNames());
         }
         return null;
     }

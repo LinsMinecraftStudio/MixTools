@@ -5,7 +5,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
@@ -28,7 +27,7 @@ public class CMDWorld implements MixTabExecutor {
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length==1){
             List<String> list = List.of("create","info","reset","reset-seed","remove","gamerule","load");
-            return StringUtil.copyPartialMatches(args[0],list,new ArrayList<>());
+            return copyPartialMatches(args[0],list);
         }
         if (args.length==3) {
             switch (args[0]) {
@@ -37,14 +36,14 @@ public class CMDWorld implements MixTabExecutor {
                     for (WorldType worldType : WorldType.values()) {
                         typeNames.add(worldType.toString().toLowerCase());
                     }
-                    return StringUtil.copyPartialMatches(args[2], typeNames, new ArrayList<>());
+                    return copyPartialMatches(args[2], typeNames);
                 }
                 case "gamerule" -> {
                     List<String> ruleNames = new ArrayList<>();
                     for (GameRule<?> rule : GameRule.values()) {
                         ruleNames.add(rule.getName());
                     }
-                    return StringUtil.copyPartialMatches(args[2], ruleNames, new ArrayList<>());
+                    return copyPartialMatches(args[2], ruleNames);
                 }
             }
         }else if (args.length==4 & args[0].equals("create")){
@@ -52,15 +51,7 @@ public class CMDWorld implements MixTabExecutor {
             for (World.Environment environmentType : World.Environment.values()) {
                 typeNames.add(environmentType.toString().toLowerCase());
             }
-            return StringUtil.copyPartialMatches(args[3], typeNames, new ArrayList<>());
-        }else if (args.length == 6 & args[0].equals("create")){
-            Reflections reflections = new Reflections("");
-            Set<Class<? extends ChunkGenerator>> customGenerators = reflections.getSubTypesOf(ChunkGenerator.class);
-            List<String> generatorNames = new ArrayList<>();
-            for (Class<? extends ChunkGenerator> clazz : customGenerators) {
-                generatorNames.add(clazz.getSimpleName());
-            }
-            return StringUtil.copyPartialMatches(args[5], generatorNames, new ArrayList<>());
+            return copyPartialMatches(args[3], typeNames);
         }
         if (args.length==2) {
             if (!args[0].equals("create") && !args[0].equals("load")) {
@@ -68,7 +59,7 @@ public class CMDWorld implements MixTabExecutor {
                 for (World w : Bukkit.getWorlds()) {
                     worldNames.add(w.getName());
                 }
-                return StringUtil.copyPartialMatches(args[1], worldNames, new ArrayList<>());
+                return copyPartialMatches(args[1], worldNames);
             }
         }
         return null;

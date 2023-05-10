@@ -6,12 +6,10 @@ import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CMDTeleport implements MixTabExecutor {
@@ -24,7 +22,7 @@ public class CMDTeleport implements MixTabExecutor {
             for (World w : Bukkit.getWorlds()) {
                 list.add(w.getName());
             }
-            return StringUtil.copyPartialMatches(args[args.length-1], list, new ArrayList<>());
+            return copyPartialMatches(args[args.length-1], list);
         }
         return null;
     }

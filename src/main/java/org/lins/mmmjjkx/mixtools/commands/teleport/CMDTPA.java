@@ -17,8 +17,8 @@ public class CMDTPA implements MixTabExecutor {
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length==0){
-            return getPlayerNames();
+        if (args.length==1){
+            return copyPartialMatches(args[0],getPlayerNames());
         }
         return null;
     }

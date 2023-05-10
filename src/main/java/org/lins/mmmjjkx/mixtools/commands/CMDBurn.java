@@ -3,13 +3,10 @@ package org.lins.mmmjjkx.mixtools.commands;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
+import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
-
-import java.util.ArrayList;
 import java.util.List;
 
 public class CMDBurn implements MixTabExecutor {
@@ -17,9 +14,9 @@ public class CMDBurn implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
         if (args.length==1){
-            return StringUtil.copyPartialMatches(args[0],getPlayerNames(),new ArrayList<>());
+            return copyPartialMatches(args[0],getPlayerNames());
         }else if (args.length==2){
-            return StringUtil.copyPartialMatches(args[1],List.of("1","5","10"),new ArrayList<>());
+            return copyPartialMatches(args[1],List.of("1","5","10","20","40","60"));
         }
         return null;
     }

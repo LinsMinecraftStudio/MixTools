@@ -4,6 +4,7 @@ import org.bukkit.BanEntry;
 import org.bukkit.BanList;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -11,7 +12,7 @@ import java.util.Objects;
 
 public class CMDBanList implements ListCMD<OfflinePlayer> {
     @Override
-    public List<OfflinePlayer> list() {
+    public List<OfflinePlayer> list(CommandSender sender) {
         return Bukkit.getBannedPlayers().stream().toList();
     }
 

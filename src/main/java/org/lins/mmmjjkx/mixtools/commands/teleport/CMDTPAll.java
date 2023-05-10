@@ -15,7 +15,7 @@ public class CMDTPAll implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length==1){
-            return getPlayerNames();
+            return copyPartialMatches(args[0],getPlayerNames());
         }
         return null;
     }

@@ -3,7 +3,6 @@ package org.lins.mmmjjkx.mixtools.commands.speed;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
@@ -24,9 +23,9 @@ public abstract class SpeedCMD implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (args.length==1){
-            return StringUtil.copyPartialMatches(args[0],speedList,new ArrayList<>());
+            return copyPartialMatches(args[0],speedList);
         } else if (args.length==2) {
-            return StringUtil.copyPartialMatches(args[1],getPlayerNames(),new ArrayList<>());
+            return copyPartialMatches(args[1],getPlayerNames());
         }
         return null;
     }

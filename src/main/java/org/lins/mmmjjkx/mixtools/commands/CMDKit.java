@@ -2,10 +2,12 @@ package org.lins.mmmjjkx.mixtools.commands;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CMDKit implements MixTabExecutor {
@@ -13,7 +15,10 @@ public class CMDKit implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (args.length==1){
-
+            return copyPartialMatches(args[0],List.of("list","remove","create","give"));
+        }
+        if (args.length==2 & args[0].equals("give")){
+            return copyPartialMatches(args[1],getPlayerNames());
         }
         return null;
     }
@@ -30,6 +35,9 @@ public class CMDKit implements MixTabExecutor {
 
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+        if (hasCustomPermission(sender,"kit")){
+
+        }
         return false;
     }
 }

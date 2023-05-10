@@ -5,7 +5,11 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.entity.Player;
+import org.bukkit.util.StringUtil;
 import org.lins.mmmjjkx.mixtools.MixTools;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public interface MixCommandExecutor extends CommandExecutor {
     String name();
@@ -89,5 +93,9 @@ public interface MixCommandExecutor extends CommandExecutor {
             sendMessage(cs,"Value.NotInt",position);
             return -100;
         }
+    }
+
+    default List<String> copyPartialMatches(String token,Iterable<String> original){
+        return StringUtil.copyPartialMatches(token,original,new ArrayList<>());
     }
 }

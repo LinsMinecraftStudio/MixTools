@@ -3,7 +3,6 @@ package org.lins.mmmjjkx.mixtools.commands.list;
 import com.google.common.collect.Lists;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface ListCMD<T> extends MixTabExecutor {
-    List<T> list();
+    List<T> list(CommandSender sender);
     String getObjectName(T object);
     @NotNull Object[] args(T object);
 
@@ -21,12 +20,12 @@ public interface ListCMD<T> extends MixTabExecutor {
     default List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args){
         if (args.length==1) {
             List<String> argList = new ArrayList<>();
-            List<List<T>> partition = Lists.partition(list(), 10);
+            List<List<T>> partition = Lists.partition(list(commandSender), 10);
             for (int i = 0; i < partition.size(); i++) {
                 int ri = i+1;
                 argList.add(String.valueOf(ri));
             }
-            return StringUtil.copyPartialMatches(args[0],argList,new ArrayList<>());
+            return copyPartialMatches(args[0],argList);
         }
         return null;
     }
@@ -49,10 +48,10 @@ public interface ListCMD<T> extends MixTabExecutor {
     }
 
     private void sendMessages(CommandSender sender,int page){
-        List<List<T>> partition = Lists.partition(list(), 10);
+        List<List<T>> partition = Lists.partition(list(sender), 10);
         if (page==-100){
             return;
-        } else if (list().isEmpty() & page==1) {
+        } else if (list(sender).isEmpty() & page==1) {
             sendMessage(sender,"Info.List.ListEmpty");
             return;
         } else if (page>partition.size()) {

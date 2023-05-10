@@ -10,8 +10,8 @@ import java.util.List;
 public class CMDFly implements MixTabExecutor {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length==0){
-            return getPlayerNames();
+        if (args.length==1){
+            return copyPartialMatches(args[0],getPlayerNames());
         }
         return null;
     }

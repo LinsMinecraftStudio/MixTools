@@ -3,7 +3,6 @@ package org.lins.mmmjjkx.mixtools.commands.economy;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
@@ -24,10 +23,10 @@ public class CMDEconomy implements MixTabExecutor {
             list.add("add");
             list.add("take");
             list.add("currency-symbol");
-            return StringUtil.copyPartialMatches(args[0],list,new ArrayList<>());
+            return copyPartialMatches(args[0],list);
         }
         if (args.length==2) {
-            return StringUtil.copyPartialMatches(args[1],getPlayerNames(),new ArrayList<>());
+            return copyPartialMatches(args[1],getPlayerNames());
         }
         return null;
     }
