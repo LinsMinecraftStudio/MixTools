@@ -95,6 +95,20 @@ public interface MixCommandExecutor extends CommandExecutor {
         }
     }
 
+    default double toDouble(CommandSender cs,String s,int position){
+        try {
+            double d = Double.parseDouble(s);
+            if (d < 0.01){
+                sendMessage(cs,"Value.TooLow",position);
+                return -100;
+            }
+            return d;
+        }catch (NumberFormatException e){
+            sendMessage(cs,"Value.NotDouble",position);
+            return -100;
+        }
+    }
+
     default List<String> copyPartialMatches(String token,Iterable<String> original){
         return StringUtil.copyPartialMatches(token,original,new ArrayList<>());
     }

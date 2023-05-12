@@ -49,6 +49,8 @@ Economy:
   AddSuccess: "&a你给了&c%1 &e%2$s %3$s。"
   TakeSuccess: "&a你拿走了&c%1 &e%2$.2f %3$s"
   ChangeCurrencySymbol: "&a货币符号已更改为&e%s&a。"
+  NotEnoughMoneyToPay: "&4你没有足够的钱付给别人。"
+  PaySuccess: "&a你付给了&c%1$s &e%2$s %3$.2f&a。"
 Fly:
   Disabled: "&a飞行已开启。"
   Enabled: "&a飞行已关闭。"
@@ -61,6 +63,7 @@ GUI:
 Item:
   AIR: "&4物品不能为空气！"
   Unrepairable: "&4此物品无法被修复。"
+  RepairAll: "&a已修复所有在背包里可修复的物品。"
 Home:
   CreateSuccess: "&a你创建了家&e%s&a。"
   Exists: "&4那个家已经存在了。"
@@ -134,9 +137,8 @@ Info:
   List:
     Head: "&a------------------&e第%d页&a-------------------"
     Default: "&a%1$d.&e%2$s"
-    OPListEmpty: "&4这没有任何操作员。"
+    ListEmpty: "&4列表里没有任何元素。"
     Banned: "&a%1$d.&e%2$s &a-------- &e%3$s"
-    BanListEmpty: "&4这没有任何封禁玩家。"
     CommandGroupListEmpty: "&4这没有任何指令组。"
     Tail: "&a------------------------------------------"
 Scheduler:

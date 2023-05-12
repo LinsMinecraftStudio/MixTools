@@ -49,6 +49,8 @@ Economy:
   AddSuccess: "&aYou gave &c%1$s &e%2$s %3$s"
   TakeSuccess: "&aYou take &c%1$s &e%2$s %3$s"
   ChangeCurrencySymbol: "&aCurrency symbol is changed to &e%s&a."
+  NotEnoughMoneyToPay: "&4You don't have enough money to pay someone else."
+  PaySuccess: "&aYou paid &c%1$s &e&2$s %3$.2f&a."
 Fly:
   Disabled: "&aFly disabled."
   Enabled: "&aFly enabled."
@@ -61,6 +63,7 @@ GUI:
 Item:
   AIR: "&4The item should not be air!"
   Unrepairable: "&4The item can't be repaired."
+  RepairAll: "&aRepaired all repairable items in inventory."
 Home:
   CreateSuccess: "&aYou created home &e%s&a."
   Exists: "&4That home is already exists."
@@ -120,6 +123,7 @@ World:
     - "&aWorld alias: &e%s"
     - "&aWorld environment: &e%s"
     - "&aWorld seed: &e%d"
+    - "&aWorld generator: &e%s"
     - "&aPVP: &e%b"
 Info:
   Server:
@@ -134,9 +138,8 @@ Info:
   List:
     Head: "&a------------------&ePage %d&a------------------"
     Default: "&a%1$d.&e%2$s"
-    OPListEmpty: "&4There aren't any operators."
+    ListEmpty: "&4There aren't elements in the list."
     Banned: "&a%1$d.&e%2$s &a—— &e%3$s"
-    BanListEmpty: "&4There aren't any banned players."
     CommandGroupListEmpty: "&4There aren't any command groups."
     Tail: "&a------------------------------------------"
 Scheduler:

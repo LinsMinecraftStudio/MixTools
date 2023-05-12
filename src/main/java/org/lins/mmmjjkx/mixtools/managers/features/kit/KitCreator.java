@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.managers.kit;
+package org.lins.mmmjjkx.mixtools.managers.features.kit;
 
 import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;

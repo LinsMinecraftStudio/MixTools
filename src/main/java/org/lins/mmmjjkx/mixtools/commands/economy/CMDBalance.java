@@ -30,7 +30,7 @@ public class CMDBalance implements MixTabExecutor {
 
     @Override
     public String requirePlugin() {
-        return null;
+        return "Vault";
     }
 
     @Override

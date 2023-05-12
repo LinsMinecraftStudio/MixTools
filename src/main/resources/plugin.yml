@@ -105,6 +105,10 @@ commands:
     description: set attack speed
   tpaall:
     description: let all players teleport to you(not force)
+  pay:
+    description: pay money to other player
+  repairall:
+    description: repair all repairable items in player inventory
 permissions:
   mixtools.command.back:
     description: back permission
@@ -268,4 +272,10 @@ permissions:
     default: op
   mixtools.command.tpaall:
     description: let all players teleport to you(not force) permission
+    default: op
+  mixtools.command.pay:
+    description: pay money to other player permission
+    default: op
+  mixtools.command.repairall:
+    description: repair all repairable items in player inventory permission
     default: op

@@ -5,12 +5,16 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.managers.features.kit.KitManager;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CMDKit implements MixTabExecutor {
+    private final KitManager kitManager = MixTools.kitManager;
+
     @Nullable
     @Override
     public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
@@ -36,7 +40,22 @@ public class CMDKit implements MixTabExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (hasCustomPermission(sender,"kit")){
+            if (args.length==2) {
+                switch (args[0]){
+                    case "remove":
+                        boolean result = kitManager.removeKit(args[1]);
+                        if (!result){
+                            sendMessage(sender,"Kit.");
+                            return false;
+                        }
+                        return true;
+                    case "create":
 
+                }
+            }else {
+                sendMessage(sender, "Command.ArgError");
+                return false;
+            }
         }
         return false;
     }

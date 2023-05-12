@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.managers;
+package org.lins.mmmjjkx.mixtools.managers.features;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;

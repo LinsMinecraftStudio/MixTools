@@ -5,6 +5,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.commands.list.ListCMD;
 import org.lins.mmmjjkx.mixtools.managers.misc.CommandGroupManager;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsCommandGroup;
@@ -121,11 +122,11 @@ public class CMDCommandGroup implements MixTabExecutor {
     }
 
     private void sendMessages(CommandSender sender,int page){
-        List<MixToolsCommandGroup> operators = new ArrayList<>(commandGroupManager.getAllGroups());
-        List<List<MixToolsCommandGroup>> partition = Lists.partition(operators, 10);
+        List<MixToolsCommandGroup> groups = new ArrayList<>(commandGroupManager.getAllGroups());
+        List<List<MixToolsCommandGroup>> partition = Lists.partition(groups, 10);
         if (page==-100) {
             return;
-        }else if (operators.isEmpty() & page==1) {
+        }else if (groups.isEmpty() & page==1) {
             sendMessage(sender,"Info.List.CommandGroupListEmpty");
             return;
         } else if (page>partition.size()) {

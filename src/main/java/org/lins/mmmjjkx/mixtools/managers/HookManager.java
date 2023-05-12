@@ -4,7 +4,6 @@ import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.ServicePriority;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.commands.economy.CMDEconomy;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsPAPIAddon;
 
@@ -27,7 +26,6 @@ public class HookManager {
         if (checkVaultInstalled()){
             economy = new MixToolsEconomy();
             Bukkit.getServicesManager().register(Economy.class,economy,MixTools.INSTANCE,ServicePriority.High);
-            new CMDEconomy().register();
             log.info("Hooked into Vault.");
         }else {
             log.warning("Vault is not installed. You can't use commands about economy!");

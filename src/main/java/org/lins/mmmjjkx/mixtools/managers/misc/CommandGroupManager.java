@@ -16,6 +16,7 @@ import java.util.Set;
 public class CommandGroupManager {
     private final YamlConfiguration cmdgroup = new YamlConfiguration();
     private File cfgFile;
+    private List<MixToolsCommandGroup> groups = new ArrayList<>();
 
     public CommandGroupManager() {
         setup();
@@ -31,6 +32,7 @@ public class CommandGroupManager {
         }catch (Exception e){
             e.printStackTrace();
         }
+        groups = getAllGroups();
     }
 
     public List<MixToolsCommandGroup> getAllGroups(){
@@ -97,12 +99,9 @@ public class CommandGroupManager {
     }
 
     public boolean removeGroup(String name) {
-        if (cmdgroup.contains(name)){
-            cmdgroup.set(name,null);
-            try {
-                cmdgroup.save(cfgFile);
-                return true;
-            } catch (IOException e) {throw new RuntimeException(e);}
+        if (groups.removeIf(cg -> cg.name().equals(name))){
+            cmdgroup.set(name, null);
+            return true;
         }
         return false;
     }

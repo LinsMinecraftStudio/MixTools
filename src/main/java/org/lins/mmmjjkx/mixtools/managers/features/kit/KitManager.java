@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.managers.kit;
+package org.lins.mmmjjkx.mixtools.managers.features.kit;
 
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -11,10 +11,7 @@ import org.lins.mmmjjkx.mixtools.utils.ItemStackBuilder;
 
 import javax.annotation.Nullable;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class KitManager {
     private final List<MixToolsKit> kits = new ArrayList<>();
@@ -48,6 +45,15 @@ public class KitManager {
         return null;
     }
 
+    public boolean removeKit(String name){
+        if (kits.removeIf(p -> p.kitName().equals(name))){
+            getKitFile(name).delete();
+            return true;
+        }
+        MixTools.warn("The kit "+ name + " is not found.");
+        return false;
+    }
+
     private void loadKits(){
         File file = new File(MixTools.INSTANCE.getDataFolder(), "kit");
         if (!file.exists()) {
@@ -74,6 +80,21 @@ public class KitManager {
             ConfigurationSection equipmentSection = yamlConfiguration.getConfigurationSection("equipment");
             kits.add(new MixToolsKit(kitFile.getName(), itemStacks, readEquipment(equipmentSection) ,offHand));
         }
+    }
+
+    private File getKitFile(String name){
+        File file = new File(MixTools.INSTANCE.getDataFolder(), "kit");
+        if (!file.exists()) {
+            file.mkdirs();
+            return null;
+        }
+        File[] files = file.listFiles();
+        if (files == null) return null;
+        File kitFile = new File(file, name+".yml");
+        if (kitFile.exists()){
+            return kitFile;
+        }
+        return null;
     }
 
     private Map<EquipmentSlot,ItemStack> readEquipment(ConfigurationSection section){

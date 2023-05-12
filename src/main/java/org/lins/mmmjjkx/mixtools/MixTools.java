@@ -5,6 +5,8 @@ import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDBalance;
+import org.lins.mmmjjkx.mixtools.commands.economy.CMDEconomy;
+import org.lins.mmmjjkx.mixtools.commands.economy.CMDPay;
 import org.lins.mmmjjkx.mixtools.commands.entityspawn.CMDLightning;
 import org.lins.mmmjjkx.mixtools.commands.entityspawn.CMDTNT;
 import org.lins.mmmjjkx.mixtools.commands.home.CMDDelhome;
@@ -20,7 +22,9 @@ import org.lins.mmmjjkx.mixtools.commands.teleport.*;
 import org.lins.mmmjjkx.mixtools.listeners.*;
 import org.lins.mmmjjkx.mixtools.managers.*;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
-import org.lins.mmmjjkx.mixtools.managers.kit.KitManager;
+import org.lins.mmmjjkx.mixtools.managers.features.SchedulerManager;
+import org.lins.mmmjjkx.mixtools.managers.features.WarpManager;
+import org.lins.mmmjjkx.mixtools.managers.features.kit.KitManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 import org.lins.mmmjjkx.mixtools.utils.FileUtils;
 
@@ -32,9 +36,12 @@ public final class MixTools extends JavaPlugin {
     public static HookManager hookManager;
     private static DataManager dataManager;
     public static SettingsManager settingsManager;
+    ///////////////features////////////
     public static MiscFeatureManager miscFeatureManager;
     public static SchedulerManager schedulerManager;
     public static KitManager kitManager;
+    public static WarpManager warpManager;
+    ///////////////////////////////////
     public static BukkitAudiences adventure;
 
     @Override
@@ -50,6 +57,7 @@ public final class MixTools extends JavaPlugin {
         miscFeatureManager = new MiscFeatureManager();
         kitManager = new KitManager();
         schedulerManager = new SchedulerManager();
+        warpManager = new WarpManager();
         registerCommands();
         registerListeners();
         new Metrics(this,17788);
@@ -107,6 +115,9 @@ public final class MixTools extends JavaPlugin {
         new CMDHomes().register();
         new CMDScheduler().register();
         new CMDTPAAll().register();
+        new CMDEconomy().register();
+        new CMDPay().register();
+        new CMDRepairAll().register();
     }
 
     private void registerListeners() {
@@ -138,6 +149,7 @@ public final class MixTools extends JavaPlugin {
         settingsManager = new SettingsManager();
         dataManager = new DataManager();
         kitManager = new KitManager();
+        warpManager = new WarpManager();
         schedulerManager.reload();
         miscFeatureManager.reload();
     }
