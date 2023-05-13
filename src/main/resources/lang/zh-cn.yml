@@ -152,3 +152,9 @@ Kit:
   Title: "&a正在创建物品包： &e%s"
   CreateSuccess: "&a已创建物品包 &e%s&a。"
   ReceivedKit: "&a收到物品包 &e%s&a。"
+Warp:
+  Exists: "&4这个传送点已存在！"
+  Added: "&a已添加传送点 &e%s&a。"
+  notFound: "&4未找到此传送点。"
+  Teleported: "&a已传送至传送点 &e%s&a。"
+  removed: "&a已移除此传送点 &e%s&a。"

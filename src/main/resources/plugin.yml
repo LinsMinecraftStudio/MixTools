@@ -113,6 +113,12 @@ commands:
     description: kit system
   kits:
     description: list kits
+  delwarp:
+    description: delete warps
+  setwarp:
+    description: set warps
+  warp:
+    description: teleport to a warp
 permissions:
   mixtools.command.back:
     description: back permission
@@ -288,4 +294,13 @@ permissions:
     default: op
   mixtools.command.kits:
     description: list kits permission
+    default: op
+  mixtools.command.delwarp:
+    description: delete warps permission
+    default: op
+  mixtools.command.setwarp:
+    description: set warps permission
+    default: op
+  mixtools.command.warp:
+    description: teleport to a warp permission
     default: op

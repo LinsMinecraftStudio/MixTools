@@ -41,8 +41,7 @@ public class KitManager {
 
     @Nullable
     public MixToolsKit getKitByName(String name){
-        Optional<MixToolsKit> kit = OtherUtil.listGetIf(kits, k -> k.kitName().equals(name));
-        return kit.orElse(null);
+        return OtherUtil.listGetIf(kits, k -> k.kitName().equals(name)).orElse(null);
     }
 
     public boolean removeKit(String name){
@@ -102,8 +101,9 @@ public class KitManager {
         return null;
     }
 
+    @Nullable
     private Map<EquipmentSlot,ItemStack> readEquipment(ConfigurationSection section){
-        if (section == null) return new HashMap<>();
+        if (section == null) return null;
         ConfigurationSection headSection = section.getConfigurationSection("head");
         ConfigurationSection chestSection = section.getConfigurationSection("chest");
         ConfigurationSection legsSection = section.getConfigurationSection("legs");

@@ -27,11 +27,8 @@ public class SchedulerManager {
             MixTools.INSTANCE.saveResource("scheduler.yml",false);
         }
         cfgFile = f;
-        try {
-            config.load(f);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        try {config.load(f);
+        }catch (Exception e){throw new RuntimeException(e);}
         loadSchedulers();
         startAllRunnable();
     }
@@ -108,8 +105,7 @@ public class SchedulerManager {
 
     @Nullable
     public MixToolsScheduler getScheduler(String name){
-        Optional<MixToolsScheduler> scheduler = OtherUtil.listGetIf(schedulers, sc -> sc.name().equals(name));
-        return scheduler.orElse(null);
+        return OtherUtil.listGetIf(schedulers, sc -> sc.name().equals(name)).orElse(null);
     }
 
     public void stopRunnable(String name){

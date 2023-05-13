@@ -12,7 +12,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 public class WarpManager {
     private final YamlConfiguration warpConfiguration = new YamlConfiguration();
@@ -49,12 +48,17 @@ public class WarpManager {
             } catch (IOException e) {throw new RuntimeException(e);}
             return true;
         }
-        MixTools.warn("The warp " + name + " is not found.");
         return false;
+    }
+    public List<String> getWarpNames() {
+        List<String> names = new ArrayList<>();
+        for (MixToolsWarp war : warps){
+            names.add(war.name());
+        }
+        return names;
     }
     @Nullable
     public MixToolsWarp getWarpByName(String name){
-        Optional<MixToolsWarp> warp = OtherUtil.listGetIf(warps, w -> w.name().equals(name));
-        return warp.orElse(null);
+        return OtherUtil.listGetIf(warps, w -> w.name().equals(name)).orElse(null);
     }
 }

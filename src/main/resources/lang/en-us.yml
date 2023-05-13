@@ -153,3 +153,9 @@ Kit:
   Title: "&aCreating kit: &e%s"
   CreateSuccess: "&aCreated kit &e%s&a."
   ReceivedKit: "&aReceived kit &e%s&a."
+Warp:
+  Exists: "&4The warp is already exists."
+  Added: "&aAdded warp &e%s&a."
+  notFound: "&4The warp is not found."
+  Teleported: "&aTeleported to the warp &e%s&a."
+  removed: "&aRemoved the warp &e%s&a."
