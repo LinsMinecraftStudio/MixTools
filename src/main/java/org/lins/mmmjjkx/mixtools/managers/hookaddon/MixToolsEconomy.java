@@ -7,7 +7,7 @@ import org.bukkit.OfflinePlayer;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
-import org.lins.mmmjjkx.mixtools.utils.NumberUtil;
+import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,7 +38,7 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public String format(double amount) {
-        return NumberUtil.ToStringCurrency(new BigDecimal(amount));
+        return OtherUtil.ToStringCurrency(new BigDecimal(amount));
     }
 
     @Override

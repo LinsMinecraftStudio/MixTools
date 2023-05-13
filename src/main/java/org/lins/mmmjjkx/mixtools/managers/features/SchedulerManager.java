@@ -8,13 +8,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsScheduler;
+import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SchedulerManager {
     private YamlConfiguration config = new YamlConfiguration();
@@ -75,8 +74,8 @@ public class SchedulerManager {
     }
 
     public void startRunnable(String name){
-        if (containsScheduler(name)) {
-            MixToolsScheduler scheduler = getScheduler(name);
+        MixToolsScheduler scheduler = getScheduler(name);
+        if (scheduler != null) {
             startTask(scheduler);
         }
     }
@@ -104,21 +103,13 @@ public class SchedulerManager {
     }
 
     public boolean containsScheduler(String name){
-        for (MixToolsScheduler scheduler: schedulers){
-            if (scheduler.name().equals(name)){
-                return true;
-            }
-        }
-        return false;
+        return OtherUtil.listGetIf(schedulers, scheduler -> scheduler.name().equals(name)).isPresent();
     }
 
+    @Nullable
     public MixToolsScheduler getScheduler(String name){
-        for (MixToolsScheduler scheduler: schedulers){
-            if (scheduler.name().equals(name)){
-                return scheduler;
-            }
-        }
-        return null;
+        Optional<MixToolsScheduler> scheduler = OtherUtil.listGetIf(schedulers, sc -> sc.name().equals(name));
+        return scheduler.orElse(null);
     }
 
     public void stopRunnable(String name){

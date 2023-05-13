@@ -30,7 +30,7 @@ public class CMDScheduler implements MixTabExecutor {
                     for (MixToolsScheduler scheduler : MixTools.schedulerManager.getSchedulers()) {
                         schedulerNames.add(scheduler.name());
                     }
-                    return StringUtil.copyPartialMatches(args[1], schedulerNames, new ArrayList<>());
+                    return copyPartialMatches(args[1], schedulerNames);
                 }
             }
         }
@@ -72,7 +72,7 @@ public class CMDScheduler implements MixTabExecutor {
                     case "start" -> {
                         String schedulerName = args[1];
                         if (!schedulerManager.containsScheduler(schedulerName)) {
-                            sendMessage(sender, "Scheduler.schedulerNotFound");
+                            sendMessage(sender, "Scheduler.notFound");
                             return false;
                         }
                         schedulerManager.startRunnable(schedulerName);
@@ -82,7 +82,7 @@ public class CMDScheduler implements MixTabExecutor {
                     case "stop" -> {
                         String schedulerName = args[1];
                         if (!schedulerManager.containsScheduler(schedulerName)) {
-                            sendMessage(sender, "Scheduler.schedulerNotFound");
+                            sendMessage(sender, "Scheduler.nFound");
                             return false;
                         }
                         schedulerManager.stopRunnable(schedulerName);

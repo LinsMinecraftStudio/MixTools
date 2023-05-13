@@ -109,6 +109,10 @@ commands:
     description: pay money to other player
   repairall:
     description: repair all repairable items in player inventory
+  kit:
+    description: kit system
+  kits:
+    description: list kits
 permissions:
   mixtools.command.back:
     description: back permission
@@ -278,4 +282,10 @@ permissions:
     default: op
   mixtools.command.repairall:
     description: repair all repairable items in player inventory permission
+    default: op
+  mixtools.kit:
+    description: kit system permission
+    default: op
+  mixtools.command.kits:
+    description: list kits permission
     default: op

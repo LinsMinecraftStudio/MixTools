@@ -12,8 +12,7 @@ import java.util.List;
 
 public interface ListCMD<T> extends MixTabExecutor {
     List<T> list(CommandSender sender);
-    String getObjectName(T object);
-    @NotNull Object[] args(T object);
+    void sendLineMessage(CommandSender sender, T object, int number);
 
     @Nullable
     @Override
@@ -63,7 +62,7 @@ public interface ListCMD<T> extends MixTabExecutor {
         sendMessage(sender, "Info.List.Head",page);
         int head = page==1 ? 1 : (10*real_page)+1;
         for (T obj : parted) {
-            sendMessage(sender, "Info.List.Banned", head, getObjectName(obj), args(obj));
+            sendLineMessage(sender, obj, head);
             head++;
         }
         sendMessage(sender, "Info.List.Tail");

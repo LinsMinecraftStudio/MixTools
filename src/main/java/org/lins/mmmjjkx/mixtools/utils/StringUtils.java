@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.EnumSet;
 import java.util.Locale;
 import java.util.Scanner;
+import java.util.concurrent.Callable;
+import java.util.concurrent.FutureTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -71,13 +73,20 @@ public class StringUtils {
     }
 
     public static String getPluginLatestVersion() {
-        try (InputStream stream = new URL("https://api.spigotmc.org/legacy/update.php?resource=109130").openStream(); Scanner scanner = new Scanner(stream)){
+        Callable<String> callable = () -> {
+            InputStream stream = new URL("https://api.spigotmc.org/legacy/update.php?resource=109130").openStream();
+            Scanner scanner = new Scanner(stream);
             StringBuilder builder = new StringBuilder();
             while (scanner.hasNextLine()){
                 builder.append(scanner.nextLine());
             }
             return builder.toString();
-        }catch (Exception ignored){}
-        return "";
+        };
+        FutureTask<String> task = new FutureTask<>(callable);
+        new Thread(task).start();
+        try {return task.get();
+        } catch (Exception e) {
+            return "";
+        }
     }
 }

@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.features.kit;
 
+import com.google.common.io.Files;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -8,26 +9,26 @@ import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsKit;
 import org.lins.mmmjjkx.mixtools.utils.ItemStackBuilder;
+import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
 import javax.annotation.Nullable;
 import java.io.File;
 import java.util.*;
 
 public class KitManager {
-    private final List<MixToolsKit> kits = new ArrayList<>();
+    private List<MixToolsKit> kits = new ArrayList<>();
     public KitManager(){
         loadKits();
     }
 
-    public void giveKit(Player player, String name){
-        MixToolsKit kit = getKitByName(name);
-        if (kit == null){
-            MixTools.warn("The kit "+ name + " is not found.");
-            return;
-        }
+    public List<MixToolsKit> getKits() {
+        return kits;
+    }
+
+    public void giveKit(Player player, MixToolsKit kit){
+        if (kit == null) return;
         List<ItemStack> stacks = kit.items();
         player.getInventory().addItem(stacks.toArray(ItemStack[]::new));
-        if (kit.hasOffHandStack()) player.getInventory().setItemInOffHand(kit.offHand());
         if (kit.hasEquipment()) {
             Map<EquipmentSlot, ItemStack> equipment = kit.equipment();
             for (EquipmentSlot slot : equipment.keySet()) {
@@ -35,14 +36,13 @@ public class KitManager {
                 player.getInventory().setItem(slot, stack);
             }
         }
+        MixTools.messageHandler.sendMessage(player, "Kit.ReceivedKit", kit);
     }
 
     @Nullable
     public MixToolsKit getKitByName(String name){
-        for(MixToolsKit kit : kits){
-            if (kit.kitName().equals(name)) return kit;
-        }
-        return null;
+        Optional<MixToolsKit> kit = OtherUtil.listGetIf(kits, k -> k.kitName().equals(name));
+        return kit.orElse(null);
     }
 
     public boolean removeKit(String name){
@@ -54,8 +54,9 @@ public class KitManager {
         return false;
     }
 
-    private void loadKits(){
-        File file = new File(MixTools.INSTANCE.getDataFolder(), "kit");
+    void loadKits(){
+        kits = new ArrayList<>();
+        File file = new File(MixTools.INSTANCE.getDataFolder(), "kits");
         if (!file.exists()) {
             file.mkdirs();
             return;
@@ -63,33 +64,37 @@ public class KitManager {
         File[] files = file.listFiles();
         if (files == null) return;
 
-        for (File kitFile: files) {
+        for (File kitFile : files) {
+            MixTools.log(kitFile.getAbsolutePath() + "/" + kitFile.getName());
             YamlConfiguration yamlConfiguration = new YamlConfiguration();
             try {yamlConfiguration.load(kitFile);
-            } catch (Exception e) {throw new RuntimeException(e);}
+            } catch (Exception e) {
+                MixTools.warn("Failed to load the kit file " + kitFile.getName() + ": " + e.getMessage());
+                continue;
+            }
             ConfigurationSection section = yamlConfiguration.getConfigurationSection("slot");
-            if (section == null) continue;
+            if (section == null) {
+                MixTools.warn("Kit " + kitFile.getName() + " cannot be loaded, because there were no slot configuration.");
+                continue;
+            }
             List<ItemStack> itemStacks = new ArrayList<>();
-            ItemStack offHand = null;
-            for (String key: section.getKeys(false)) {
+            for (String key : section.getKeys(false)) {
                 ConfigurationSection itemSection = section.getConfigurationSection(key);
                 if (itemSection == null) continue;
                 ItemStack stack = ItemStackBuilder.toItemStack(itemSection);
                 itemStacks.add(stack);
             }
             ConfigurationSection equipmentSection = yamlConfiguration.getConfigurationSection("equipment");
-            kits.add(new MixToolsKit(kitFile.getName(), itemStacks, readEquipment(equipmentSection) ,offHand));
+            kits.add(new MixToolsKit(Files.getNameWithoutExtension(kitFile.getName()), itemStacks, readEquipment(equipmentSection)));
         }
     }
 
     private File getKitFile(String name){
-        File file = new File(MixTools.INSTANCE.getDataFolder(), "kit");
+        File file = new File(MixTools.INSTANCE.getDataFolder(), "kits");
         if (!file.exists()) {
             file.mkdirs();
             return null;
         }
-        File[] files = file.listFiles();
-        if (files == null) return null;
         File kitFile = new File(file, name+".yml");
         if (kitFile.exists()){
             return kitFile;

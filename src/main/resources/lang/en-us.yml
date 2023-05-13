@@ -20,7 +20,6 @@ Command:
   PlayerNotFound: "&4That player is not found..."
   Broadcast: "&2[&eBroadcast&2] &b%s"
   Healed: "&aHealed &e%s."
-  TimeSet: "&aTime was set to &e%d&a."
   TeleportToVoid: "&e%s was teleported to the void."
   UnableToGetOp: "&aUnable to obtain operator permissions. The operator lock is enabled."
   UnableToDeOp: "&aUnable to remove the operator status. The operator lock is enabled."
@@ -137,9 +136,10 @@ Info:
     - ""
   List:
     Head: "&a------------------&ePage %d&a------------------"
-    Default: "&a%1$d.&e%2$s"
-    ListEmpty: "&4There aren't elements in the list."
-    Banned: "&a%1$d.&e%2$s &a—— &e%3$s"
+    ListEmpty: "&4There aren't any elements in the list."
+    Styles:
+      Default: "&a%1$d.&e%2$s"
+      Banned: "&a%1$d.&e%2$s &a—— &e%3$s"
     CommandGroupListEmpty: "&4There aren't any command groups."
     Tail: "&a------------------------------------------"
 Scheduler:
@@ -148,3 +148,8 @@ Scheduler:
   stop: "&aStopped scheduler &e%s&a."
   stopAll: "&aStopped all schedulers."
   schedulerNotFound: "&4The scheduler is not found."
+Kit:
+  notFound: "&4The kit is not found."
+  Title: "&aCreating kit: &e%s"
+  CreateSuccess: "&aCreated kit &e%s&a."
+  ReceivedKit: "&aReceived kit &e%s&a."

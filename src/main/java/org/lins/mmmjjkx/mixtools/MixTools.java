@@ -11,9 +11,10 @@ import org.lins.mmmjjkx.mixtools.commands.entityspawn.CMDLightning;
 import org.lins.mmmjjkx.mixtools.commands.entityspawn.CMDTNT;
 import org.lins.mmmjjkx.mixtools.commands.home.CMDDelhome;
 import org.lins.mmmjjkx.mixtools.commands.home.CMDHome;
-import org.lins.mmmjjkx.mixtools.commands.home.CMDHomes;
+import org.lins.mmmjjkx.mixtools.commands.list.CMDHomes;
 import org.lins.mmmjjkx.mixtools.commands.home.CMDSethome;
 import org.lins.mmmjjkx.mixtools.commands.list.CMDBanList;
+import org.lins.mmmjjkx.mixtools.commands.list.CMDKits;
 import org.lins.mmmjjkx.mixtools.commands.list.CMDOPList;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDAttackSpeed;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDFlySpeed;
@@ -55,9 +56,9 @@ public final class MixTools extends JavaPlugin {
         hookManager = new HookManager();
         adventure = BukkitAudiences.create(this);
         miscFeatureManager = new MiscFeatureManager();
-        kitManager = new KitManager();
         schedulerManager = new SchedulerManager();
         warpManager = new WarpManager();
+        kitManager = new KitManager();
         registerCommands();
         registerListeners();
         new Metrics(this,17788);
@@ -118,6 +119,8 @@ public final class MixTools extends JavaPlugin {
         new CMDEconomy().register();
         new CMDPay().register();
         new CMDRepairAll().register();
+        new CMDKit().register();
+        new CMDKits().register();
     }
 
     private void registerListeners() {

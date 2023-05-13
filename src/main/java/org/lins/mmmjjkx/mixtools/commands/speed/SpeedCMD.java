@@ -35,11 +35,11 @@ public abstract class SpeedCMD implements MixTabExecutor {
         if (hasPermission(sender)){
             if (args.length==1) {
                 Player p = toPlayer(sender);
-                if (p!=null) {return changeSpeed(p, args[0]);}
+                if (p!=null) {return changeSpeed(p, toDouble(sender,args[0],1));}
                 return false;
             } else if (args.length==2) {
                 Player p = findPlayer(sender,args[1]);
-                if (p!=null){return changeSpeed(p,args[0]);}
+                if (p!=null){return changeSpeed(p, toDouble(sender,args[0],1));}
             } else {
                 sendMessage(sender,"Command.ArgError");
                 return false;
@@ -54,18 +54,11 @@ public abstract class SpeedCMD implements MixTabExecutor {
 
     abstract void changePlayerSpeed(Player p, double speed);
 
-    private boolean changeSpeed(Player p, String s){
-        double speed;
-        try {speed = Double.parseDouble(s);
-        }catch (NumberFormatException e){
-            sendMessage(p,"Value.NotDouble",1);
-            return false;
-        }
+    private boolean changeSpeed(Player p, double speed){
         if (speed < minSpeed()){
-            sendMessage(p,"Value.TooLow");
             return false;
         }else if (speed > maxSpeed()){
-            sendMessage(p,"Value.TooHigh");
+            sendMessage(p,"Value.TooHigh",1);
             return false;
         }else {
             changePlayerSpeed(p, speed);

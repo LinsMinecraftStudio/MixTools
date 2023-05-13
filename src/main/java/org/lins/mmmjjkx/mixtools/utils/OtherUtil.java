@@ -2,9 +2,12 @@ package org.lins.mmmjjkx.mixtools.utils;
 
 import java.math.BigDecimal;
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
+import java.util.Optional;
+import java.util.function.Predicate;
 
-public class NumberUtil {
+public class OtherUtil {
     private static final NumberFormat PRETTY_FORMAT = NumberFormat.getInstance(Locale.getDefault());
 
     public static String formatAsPrettyCurrency(final BigDecimal value) {
@@ -21,5 +24,12 @@ public class NumberUtil {
             currency = currency.substring(1);
         }
         return currency;
+    }
+
+    public static <T> Optional<T> listGetIf(List<T> list, Predicate<? super T> filter){
+        for (T obj : list) {
+            if (filter.test(obj)) return Optional.of(obj);
+        }
+        return Optional.empty();
     }
 }

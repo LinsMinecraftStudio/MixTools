@@ -55,6 +55,7 @@ public class KitCreator implements Listener {
         Inventory inventory = e.getInventory();
         if (e.getView().getTitle().contains(kitName)) {
             saveToFile(inventory);
+            MixTools.messageHandler.sendMessage(e.getPlayer(),"Kit.CreateSuccess",kitName);
         }
     }
 
@@ -72,7 +73,7 @@ public class KitCreator implements Listener {
 
     public void saveToFile(Inventory inv) {
         try {
-            File file = new File(MixTools.INSTANCE.getDataFolder(), "kit");
+            File file = new File(MixTools.INSTANCE.getDataFolder(), "kits");
             if (!file.exists()) {
                 file.mkdirs();
             }
@@ -81,24 +82,26 @@ public class KitCreator implements Listener {
                 kitFile.createNewFile();
             }
             YamlConfiguration yamlConfiguration = new YamlConfiguration();
+            yamlConfiguration.load(kitFile);
+            ConfigurationSection equipment = yamlConfiguration.createSection("equipment");
+            ConfigurationSection section = yamlConfiguration.createSection("slot");
             for (int i = 0; i < 54;i++){
+                if (unusableSlot.contains(i)) continue;
                 ItemStack stack = inv.getItem(i);
                 if (stack == null) continue;
-                ConfigurationSection equipment = yamlConfiguration.createSection("equipment");
-                ConfigurationSection section = yamlConfiguration.createSection("slot");
+                MixTools.log(i + ": " + stack);
+                if (stack.getType().isAir()) continue;
                 switch (i) {
                     case 0 -> equipment.set("head", ItemStackBuilder.asMap(stack));
                     case 1 -> equipment.set("chest", ItemStackBuilder.asMap(stack));
                     case 2 -> equipment.set("legs", ItemStackBuilder.asMap(stack));
                     case 3 -> equipment.set("feet", ItemStackBuilder.asMap(stack));
                     case 5 -> equipment.set("offHand", ItemStackBuilder.asMap(stack));
-                    default -> {
-                        if (unusableSlot.contains(i)) continue;
-                        section.set(String.valueOf(i), ItemStackBuilder.asMap(stack));
-                    }
+                    default -> section.set(String.valueOf(i), ItemStackBuilder.asMap(stack));
                 }
             }
             yamlConfiguration.save(kitFile);
+            MixTools.kitManager.loadKits();
         }catch (Exception e){
             e.printStackTrace();
         }

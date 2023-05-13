@@ -28,5 +28,6 @@ public class CMDAttackSpeed extends SpeedCMD{
     @Override
     void changePlayerSpeed(Player p, double speed) {
         p.getAttribute(Attribute.GENERIC_ATTACK_SPEED).setBaseValue(speed * 4d);
+        sendMessage(p, "Speed.AttackSpeedSet", speed);
     }
 }

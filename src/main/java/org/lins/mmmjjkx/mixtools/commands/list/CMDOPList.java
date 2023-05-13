@@ -3,7 +3,6 @@ package org.lins.mmmjjkx.mixtools.commands.list;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.command.CommandSender;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -14,13 +13,8 @@ public class CMDOPList implements ListCMD<OfflinePlayer> {
     }
 
     @Override
-    public String getObjectName(OfflinePlayer object) {
-        return object.getName();
-    }
-
-    @Override
-    public @NotNull Object[] args(OfflinePlayer object) {
-        return new Object[0];
+    public void sendLineMessage(CommandSender sender, OfflinePlayer object, int number) {
+        sendMessage(sender, "Info.List.Styles.Default", number, object.getName());
     }
 
     @Override
