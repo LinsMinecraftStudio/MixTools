@@ -9,7 +9,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.HashMap;
 import java.util.Map;
-//for kit
 public class ItemStackBuilder {
     public static ItemStack toItemStack(ConfigurationSection section){
         String mat = section.getString("material","STONE");

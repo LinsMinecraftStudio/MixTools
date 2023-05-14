@@ -62,7 +62,6 @@ kit:
     type: "BLACK_STAINED_GLASS_PANE"
     name: "&a"
   editorCloseButton:
-    enabled: false
     item: "BARRIER"
     name: "&cClose"
 # NOT IMPLEMENTED

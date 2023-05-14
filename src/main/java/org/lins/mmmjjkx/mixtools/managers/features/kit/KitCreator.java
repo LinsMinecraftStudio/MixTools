@@ -39,14 +39,15 @@ public class KitCreator implements Listener {
         ItemMeta glassPaneMeta = glassPane.getItemMeta();
         glassPaneMeta.setDisplayName(MixTools.settingsManager.getString(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_NAME,true));
         glassPane.setItemMeta(glassPaneMeta);
-        if (MixTools.settingsManager.getBoolean(KIT_EDITOR_CLOSE_BUTTON_ENABLED)) {
-            unusableSlot.remove(3);
-            ItemStack close = new ItemStack(Material.BARRIER);
-            inventory.setItem(8,close);
-        }
         for (int i: unusableSlot){
+            if (i == 8) continue;
             inventory.setItem(i,glassPane);
         }
+        ItemStack close = MixTools.settingsManager.getItemStack(KIT_EDITOR_CLOSE_BUTTON_ITEM);
+        ItemMeta closeMeta = close.getItemMeta();
+        closeMeta.setDisplayName(MixTools.settingsManager.getString(KIT_EDITOR_CLOSE_BUTTON_NAME));
+        close.setItemMeta(closeMeta);
+        inventory.setItem(8,close);
         player.openInventory(inventory);
     }
 
@@ -63,7 +64,7 @@ public class KitCreator implements Listener {
     public void onClick(InventoryClickEvent e){
         if (e.getView().getTitle().contains(kitName)) {
             if (unusableSlot.contains(e.getRawSlot())){
-                if (MixTools.settingsManager.getBoolean(KIT_EDITOR_CLOSE_BUTTON_ENABLED) & e.getRawSlot() == 8) {
+                if (e.getRawSlot() == 8) {
                     e.getWhoClicked().closeInventory();
                 }
                 e.setCancelled(true);
