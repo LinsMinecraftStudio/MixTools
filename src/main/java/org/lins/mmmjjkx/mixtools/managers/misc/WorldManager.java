@@ -8,11 +8,13 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.generator.ChunkGenerator;
 import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.generators.VoidWorldGenerator;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
 public class WorldManager {
     private final YamlConfiguration configuration;
@@ -44,7 +46,8 @@ public class WorldManager {
         section.set("alias", alias);
         section.set("pvp", world.getPVP());
         section.set("type", type.getName());
-        section.set("generator", world.getGenerator().getClass().getSimpleName());
+        String simpleName = world.getGenerator() != null ? world.getGenerator().getClass().getSimpleName() : "";
+        section.set("generator", simpleName);
         try {configuration.save(cfgfile);
         } catch (IOException e) {throw new RuntimeException(e);}
     }
@@ -110,16 +113,32 @@ public class WorldManager {
     }
 
     @Nullable
-    public ChunkGenerator getWorldGenerator(String name){
+    public String getWorldGenerator(String name){
         ConfigurationSection section = configuration.getConfigurationSection(name);
         if (section != null) {
-            String generator = section.getString("generator");
-            try {
-                Class<?> c = Class.forName(generator);
-                return (ChunkGenerator) c.getDeclaredConstructor().newInstance();
-            }catch (Exception e) {return null;}
+            return section.getString("generator");
         }
         return null;
+    }
+
+    @Nullable
+    public ChunkGenerator getChunkGenerator(String name, String worldName){
+        switch (name) {
+            case "ChunkGenerator" -> {
+                try {
+                    return ChunkGenerator.class.getDeclaredConstructor().newInstance();
+                } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                         NoSuchMethodException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            case "VoidWorldGenerator" -> {
+                return new VoidWorldGenerator();
+            }
+            default -> {
+                return null;
+            }
+        }
     }
 
     @Nullable

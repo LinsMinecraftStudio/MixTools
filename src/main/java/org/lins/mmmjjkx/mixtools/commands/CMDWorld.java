@@ -125,12 +125,12 @@ public class CMDWorld implements MixTabExecutor {
                     String worldName = args[1];
                     WorldType wt = stringToWorldType(args[2].toUpperCase());
                     World.Environment environment = stringToWorldEnvironment(args[3].toUpperCase());
-                    long seed;
+                    long seed = 0;
+                    boolean notSeed = false;
                     try {
                         seed = Long.parseLong(args[4]);
-                    } catch (Exception e) {
-                        sendMessage(sender, "Value.NotLong");
-                        return false;
+                    } catch (NumberFormatException e) {
+                        notSeed = true;
                     }
                     if (wt == null) {
                         sendMessage(sender, "World.TypeInvalid");
@@ -146,7 +146,8 @@ public class CMDWorld implements MixTabExecutor {
                     }
                     WorldCreator worldCreator = new WorldCreator(worldName);
                     worldCreator = worldCreator.type(wt);
-                    worldCreator = worldCreator.seed(seed);
+                    if (!notSeed) {worldCreator = worldCreator.seed(seed);}
+                    else {worldCreator = worldCreator.generator(args[4]);}
                     World w = Bukkit.createWorld(worldCreator);
                     worldManager.addWorld(w, wt);
                     sendMessage(sender, "Created", worldName);
@@ -157,7 +158,6 @@ public class CMDWorld implements MixTabExecutor {
                     String worldName = args[1];
                     WorldType wt = stringToWorldType(args[2].toUpperCase());
                     World.Environment environment = stringToWorldEnvironment(args[3].toUpperCase());
-                    ChunkGenerator generator = stringToChunkGenerator(args[4]);
                     long seed;
                     try {
                         seed = Long.parseLong(args[4]);
@@ -173,10 +173,6 @@ public class CMDWorld implements MixTabExecutor {
                         sendMessage(sender, "World.EnvironmentTypeInvalid");
                         return false;
                     }
-                    if (generator == null) {
-                        sendMessage(sender, "World.InvalidGenerator");
-                        return false;
-                    }
                     if (Bukkit.getWorld(worldName) != null) {
                         sendMessage(sender, "World.Exists", worldName);
                         return false;
@@ -184,7 +180,7 @@ public class CMDWorld implements MixTabExecutor {
                     WorldCreator worldCreator = new WorldCreator(worldName);
                     worldCreator = worldCreator.type(wt);
                     worldCreator = worldCreator.seed(seed);
-                    worldCreator = worldCreator.generator(generator);
+                    worldCreator = worldCreator.generator(args[5]);
                     World w = Bukkit.createWorld(worldCreator);
                     worldManager.addWorld(w, wt);
                     sendMessage(sender, "Created", worldName);
@@ -283,7 +279,7 @@ public class CMDWorld implements MixTabExecutor {
     private WorldType stringToWorldType(String s){
         WorldType wt;
         try {
-            wt = WorldType.valueOf(s);
+            wt = WorldType.valueOf(s.toUpperCase());
         }catch (Exception e){
             return null;
         }
@@ -293,7 +289,7 @@ public class CMDWorld implements MixTabExecutor {
     private World.Environment stringToWorldEnvironment(String s){
         World.Environment environment;
         try {
-            environment = World.Environment.valueOf(s);
+            environment = World.Environment.valueOf(s.toUpperCase());
         }catch (Exception e){
             return null;
         }
@@ -306,18 +302,6 @@ public class CMDWorld implements MixTabExecutor {
             if (worldName.equals(p.getWorld().getName())){
                 p.teleport(Objects.requireNonNullElse(spawn, Bukkit.getWorlds().get(0).getSpawnLocation()));
             }
-        }
-    }
-
-    private ChunkGenerator stringToChunkGenerator(String s){
-        if (s == null) return null;
-        if (s.isBlank()) return null;
-        try{
-            Class<?> c = Class.forName(s);
-            if (!ChunkGenerator.class.isAssignableFrom(c))return null;
-            return (ChunkGenerator) c.getDeclaredConstructor().newInstance();
-        }catch (Exception e) {
-            return null;
         }
     }
 }

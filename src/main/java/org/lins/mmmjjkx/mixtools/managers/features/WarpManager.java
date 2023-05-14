@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.features;
 
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -24,19 +25,33 @@ public class WarpManager {
         }
         try {warpConfiguration.load(cfgFile);
         } catch (Exception e) {throw new RuntimeException(e);}
+        loadWarps();
+    }
+    public void loadWarps() {
+        for (String key : warpConfiguration.getKeys(false)){
+            ConfigurationSection section = warpConfiguration.getConfigurationSection(key);
+            if (section==null) continue;
+            ConfigurationSection locationSection = section.getConfigurationSection("location");
+            if (locationSection==null) continue;
+            Location location = new Location(Bukkit.getWorld(locationSection.getString("world","")), locationSection.getDouble("x"),
+                    locationSection.getDouble("y"), locationSection.getDouble("z"),
+                    (float) locationSection.getDouble("yaw"), (float) locationSection.getDouble("pitch"));
+            warps.add(new MixToolsWarp(key, location, section.getString("owner")));
+        }
     }
     public List<MixToolsWarp> getWarps() {
         return warps;
     }
     public void addWarp(String name, Location location, String owner){
         ConfigurationSection section = warpConfiguration.createSection(name);
-        section.set("name", name);
         section.set("owner", owner);
         ConfigurationSection locationSection = section.createSection("location");
         locationSection.set("world", location);
         locationSection.set("x", location.getX());
         locationSection.set("y", location.getY());
         locationSection.set("z", location.getZ());
+        locationSection.set("pitch", location.getPitch());
+        locationSection.set("yaw", location.getYaw());
         try {warpConfiguration.load(cfgFile);
         }catch (Exception e) {throw new RuntimeException(e);}
         warps.add(new MixToolsWarp(name, location, owner));

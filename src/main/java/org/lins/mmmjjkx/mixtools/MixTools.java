@@ -2,7 +2,11 @@ package org.lins.mmmjjkx.mixtools;
 
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
+import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.lins.mmmjjkx.mixtools.api.MixToolsAPI;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDBalance;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDEconomy;
@@ -20,6 +24,10 @@ import org.lins.mmmjjkx.mixtools.commands.speed.CMDAttackSpeed;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDFlySpeed;
 import org.lins.mmmjjkx.mixtools.commands.speed.CMDWalkSpeed;
 import org.lins.mmmjjkx.mixtools.commands.teleport.*;
+import org.lins.mmmjjkx.mixtools.commands.warp.CMDDelWarp;
+import org.lins.mmmjjkx.mixtools.commands.warp.CMDSetWarp;
+import org.lins.mmmjjkx.mixtools.commands.warp.CMDWarp;
+import org.lins.mmmjjkx.mixtools.generators.VoidWorldGenerator;
 import org.lins.mmmjjkx.mixtools.listeners.*;
 import org.lins.mmmjjkx.mixtools.managers.*;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
@@ -37,6 +45,7 @@ public final class MixTools extends JavaPlugin {
     public static HookManager hookManager;
     private static DataManager dataManager;
     public static SettingsManager settingsManager;
+    public static MixToolsAPI api;
     ///////////////features////////////
     public static MiscFeatureManager miscFeatureManager;
     public static SchedulerManager schedulerManager;
@@ -62,6 +71,7 @@ public final class MixTools extends JavaPlugin {
         registerCommands();
         registerListeners();
         new Metrics(this,17788);
+        api = new MixToolsAPI();
         log("MixTools enabled!");
     }
 
@@ -121,6 +131,9 @@ public final class MixTools extends JavaPlugin {
         new CMDRepairAll().register();
         new CMDKit().register();
         new CMDKits().register();
+        new CMDSetWarp().register();
+        new CMDWarp().register();
+        new CMDDelWarp().register();
     }
 
     private void registerListeners() {
@@ -155,6 +168,7 @@ public final class MixTools extends JavaPlugin {
         warpManager = new WarpManager();
         schedulerManager.reload();
         miscFeatureManager.reload();
+        api = new MixToolsAPI();
     }
 
     public static DataManager getDataManager(){

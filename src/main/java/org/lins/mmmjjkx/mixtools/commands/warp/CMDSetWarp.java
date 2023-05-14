@@ -32,7 +32,7 @@ public class CMDSetWarp implements MixCommandExecutor {
                         return false;
                     }
                     warpManager.addWarp(strings[0], p.getLocation(), p.getName());
-                    sendMessage(commandSender, "Warp.Added");
+                    sendMessage(commandSender, "Warp.Added", strings[0]);
                     return true;
                 }else {
                     sendMessage(commandSender, "Command.ArgError");
