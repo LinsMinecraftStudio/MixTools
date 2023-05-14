@@ -42,9 +42,9 @@ public abstract class MixToolsAddon extends JavaPlugin {
      * Can be overridden.
      * @param worldName the name of the world
      * @param generatorName the input
-     * @return a chunk generator
+     * @return a chunk generator or chunk generators
      */
-    public ChunkGenerator addGenerator(String worldName, String generatorName) {
+    public ChunkGenerator registerChunkGenerators(String worldName, String generatorName) {
         return null;
     }
 
