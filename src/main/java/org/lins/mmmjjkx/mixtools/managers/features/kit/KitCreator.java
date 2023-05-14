@@ -45,7 +45,7 @@ public class KitCreator implements Listener {
         }
         ItemStack close = MixTools.settingsManager.getItemStack(KIT_EDITOR_CLOSE_BUTTON_ITEM);
         ItemMeta closeMeta = close.getItemMeta();
-        closeMeta.setDisplayName(MixTools.settingsManager.getString(KIT_EDITOR_CLOSE_BUTTON_NAME));
+        closeMeta.setDisplayName(MixTools.settingsManager.getString(KIT_EDITOR_CLOSE_BUTTON_NAME,true));
         close.setItemMeta(closeMeta);
         inventory.setItem(8,close);
         player.openInventory(inventory);
@@ -90,7 +90,6 @@ public class KitCreator implements Listener {
                 if (unusableSlot.contains(i)) continue;
                 ItemStack stack = inv.getItem(i);
                 if (stack == null) continue;
-                MixTools.log(i + ": " + stack);
                 if (stack.getType().isAir()) continue;
                 switch (i) {
                     case 0 -> equipment.set("head", ItemStackBuilder.asMap(stack));
@@ -98,7 +97,7 @@ public class KitCreator implements Listener {
                     case 2 -> equipment.set("legs", ItemStackBuilder.asMap(stack));
                     case 3 -> equipment.set("feet", ItemStackBuilder.asMap(stack));
                     case 5 -> equipment.set("offHand", ItemStackBuilder.asMap(stack));
-                    default -> section.set(String.valueOf(i), ItemStackBuilder.asMap(stack));
+                    default -> section.set(String.valueOf(i-18), ItemStackBuilder.asMap(stack));
                 }
             }
             yamlConfiguration.save(kitFile);

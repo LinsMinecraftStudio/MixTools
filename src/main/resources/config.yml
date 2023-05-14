@@ -63,7 +63,7 @@ kit:
     name: "&a"
   editorCloseButton:
     item: "BARRIER"
-    name: "&cClose"
+    name: "&cClose and save"
 # NOT IMPLEMENTED
 #motd:
 #  hidePlayers: false

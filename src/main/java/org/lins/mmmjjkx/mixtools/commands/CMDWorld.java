@@ -43,6 +43,13 @@ public class CMDWorld implements MixTabExecutor {
                     }
                     return copyPartialMatches(args[2], ruleNames);
                 }
+                case "load" -> {
+                    List<String> typeNames = new ArrayList<>();
+                    for (World.Environment environmentType : World.Environment.values()) {
+                        typeNames.add(environmentType.toString().toLowerCase());
+                    }
+                    return copyPartialMatches(args[1], typeNames);
+                }
             }
         }else if (args.length==4 & args[0].equals("create")){
             List<String> typeNames = new ArrayList<>();
@@ -147,10 +154,14 @@ public class CMDWorld implements MixTabExecutor {
                     WorldCreator worldCreator = new WorldCreator(worldName);
                     worldCreator = worldCreator.type(wt);
                     if (!notSeed) {worldCreator = worldCreator.seed(seed);}
-                    else {worldCreator = worldCreator.generator(args[4]);}
+                    else {
+                        ChunkGenerator generator = worldManager.getChunkGenerator(args[4]);
+                        if (generator != null) { worldCreator = worldCreator.generator(generator);
+                        }else { worldCreator = worldCreator.generator(args[4]);}
+                    }
                     World w = Bukkit.createWorld(worldCreator);
                     worldManager.addWorld(w, wt);
-                    sendMessage(sender, "Created", worldName);
+                    sendMessage(sender, "World.CreateSuccess", worldName);
                     return true;
                 }
             } else if (args.length == 6) {
@@ -180,10 +191,15 @@ public class CMDWorld implements MixTabExecutor {
                     WorldCreator worldCreator = new WorldCreator(worldName);
                     worldCreator = worldCreator.type(wt);
                     worldCreator = worldCreator.seed(seed);
-                    worldCreator = worldCreator.generator(args[5]);
+                    ChunkGenerator generator = worldManager.getChunkGenerator(args[5]);
+                    if (generator != null) {
+                        worldCreator = worldCreator.generator(generator);
+                    }else {
+                        worldCreator = worldCreator.generator(args[5]);
+                    }
                     World w = Bukkit.createWorld(worldCreator);
                     worldManager.addWorld(w, wt);
-                    sendMessage(sender, "Created", worldName);
+                    sendMessage(sender, "World.CreateSuccess", worldName);
                     return true;
                 }
             } else if (args.length == 2) {
@@ -199,7 +215,10 @@ public class CMDWorld implements MixTabExecutor {
                                         w.getName(), worldManager.getWorldType(w.getName()),
                                         worldManager.getWorldAlias(w.getName()),
                                         worldManager.getWorldEnvironment(w.getName()),
-                                        w.getSeed(), w.getPVP());
+                                        w.getSeed(),
+                                        worldManager.getChunkGeneratorName(
+                                                worldManager.getWorldGenerator(w.getName())),
+                                        w.getPVP());
                         MixTools.messageHandler.sendMessages(sender, messages);
                         return true;
                     }
@@ -215,6 +234,9 @@ public class CMDWorld implements MixTabExecutor {
                         Bukkit.unloadWorld(w, false);
                         FileUtils.deleteDir(wf);
                         WorldCreator worldCreator = new WorldCreator(name).seed(seed);
+                        if (worldManager.getWorldGenerator(name)!=null) {
+                            worldCreator = worldCreator.generator(worldManager.getWorldGenerator(name));
+                        }
                         teleportPlayersToSpawn(name);
                         Bukkit.createWorld(worldCreator);
                         sendMessage(sender, "World.Reset", w.getName());
@@ -232,6 +254,9 @@ public class CMDWorld implements MixTabExecutor {
                         FileUtils.deleteDir(wf2);
                         WorldCreator worldCreator2 = new WorldCreator(name2);
                         worldCreator2 = worldCreator2.type(Objects.requireNonNull(worldManager.getWorldType(name2)));
+                        if (worldManager.getWorldGenerator(name2)!=null) {
+                            worldCreator2 = worldCreator2.generator(worldManager.getWorldGenerator(name2));
+                        }
                         Bukkit.createWorld(worldCreator2);
                         sendMessage(sender, "World.ResetNewSeed", w.getName());
                         return true;

@@ -8,8 +8,6 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.generator.ChunkGenerator;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.api.MixToolsAPI;
-import org.lins.mmmjjkx.mixtools.api.MixToolsAddon;
 import org.lins.mmmjjkx.mixtools.generators.VoidWorldGenerator;
 import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
@@ -17,7 +15,6 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
 public class WorldManager {
@@ -116,37 +113,30 @@ public class WorldManager {
         }
     }
 
+    @Nonnull
+    public String getChunkGeneratorName(ChunkGenerator chunkGenerator){
+        return chunkGenerator == null ? "Default" : chunkGenerator.getClass().getSimpleName();
+    }
+
     @Nullable
-    public String getWorldGenerator(String name){
-        ConfigurationSection section = configuration.getConfigurationSection(name);
+    public ChunkGenerator getWorldGenerator(String worldName){
+        ConfigurationSection section = configuration.getConfigurationSection(worldName);
         if (section != null) {
-            return section.getString("generator");
+            return getChunkGenerator(section.getString("generator",""));
         }
         return null;
     }
 
     @Nullable
-    public ChunkGenerator getChunkGenerator(String name, String worldName){
+    public ChunkGenerator getChunkGenerator(String name){
         Optional<ChunkGenerator> custom = OtherUtil.listGetIf(MixTools.api.getRegisteredChunkGenerators(), cg -> name.equals(cg.getClass().getSimpleName()));
         if (custom.isPresent()) {
             return custom.get();
         }
-        switch (name) {
-            case "ChunkGenerator" -> {
-                try {
-                    return ChunkGenerator.class.getDeclaredConstructor().newInstance();
-                } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
-                         NoSuchMethodException e) {
-                    throw new RuntimeException(e);
-                }
-            }
-            case "VoidWorldGenerator" -> {
-                return new VoidWorldGenerator();
-            }
-            default -> {
-                return null;
-            }
+        if (name.equals("VoidWorldGenerator")) {
+            return new VoidWorldGenerator();
         }
+        return null;
     }
 
     @Nullable

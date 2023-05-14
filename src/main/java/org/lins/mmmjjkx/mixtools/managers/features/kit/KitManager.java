@@ -27,8 +27,10 @@ public class KitManager {
 
     public void giveKit(Player player, MixToolsKit kit){
         if (kit == null) return;
-        List<ItemStack> stacks = kit.items();
-        player.getInventory().addItem(stacks.toArray(ItemStack[]::new));
+        Map<Integer, ItemStack> stacks = kit.items();
+        for (int i : stacks.keySet()) {
+            player.getInventory().setItem(i, stacks.get(i));
+        }
         if (kit.hasEquipment()) {
             Map<EquipmentSlot, ItemStack> equipment = kit.equipment();
             for (EquipmentSlot slot : equipment.keySet()) {
@@ -36,7 +38,7 @@ public class KitManager {
                 player.getInventory().setItem(slot, stack);
             }
         }
-        MixTools.messageHandler.sendMessage(player, "Kit.ReceivedKit", kit);
+        MixTools.messageHandler.sendMessage(player, "Kit.ReceivedKit", kit.kitName());
     }
 
     @Nullable
@@ -76,12 +78,12 @@ public class KitManager {
                 MixTools.warn("Kit " + kitFile.getName() + " cannot be loaded, because there were no slot configuration.");
                 continue;
             }
-            List<ItemStack> itemStacks = new ArrayList<>();
+            Map<Integer,ItemStack> itemStacks = new HashMap<>();
             for (String key : section.getKeys(false)) {
                 ConfigurationSection itemSection = section.getConfigurationSection(key);
                 if (itemSection == null) continue;
                 ItemStack stack = ItemStackBuilder.toItemStack(itemSection);
-                itemStacks.add(stack);
+                itemStacks.put(Integer.parseInt(key),stack);
             }
             ConfigurationSection equipmentSection = yamlConfiguration.getConfigurationSection("equipment");
             kits.add(new MixToolsKit(Files.getNameWithoutExtension(kitFile.getName()), itemStacks, readEquipment(equipmentSection)));
