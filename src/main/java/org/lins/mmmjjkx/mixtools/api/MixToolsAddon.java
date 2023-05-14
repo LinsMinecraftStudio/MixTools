@@ -5,6 +5,9 @@ import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
+import javax.annotation.Nullable;
+import java.util.List;
+
 public abstract class MixToolsAddon extends JavaPlugin {
     @Override
     public void onLoad(){
@@ -40,11 +43,10 @@ public abstract class MixToolsAddon extends JavaPlugin {
     /**
      * Register chunk generator(s) into MixTools.
      * Can be overridden.
-     * @param worldName the name of the world
-     * @param generatorName the input
      * @return a chunk generator or chunk generators
      */
-    public ChunkGenerator registerChunkGenerators(String worldName, String generatorName) {
+    @Nullable
+    public List<ChunkGenerator> registerChunkGenerators() {
         return null;
     }
 
