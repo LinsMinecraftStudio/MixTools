@@ -16,9 +16,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.events.SignEditEvent;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixToolsListener;
-import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -174,25 +172,9 @@ public class SignListener implements MixToolsListener {
         sign.update(true);
     }
 
-    @EventHandler
-    public void onSignEdit(SignEditEvent e){
-        String[] lines = e.getSign().getLines();
-        Sign sign = e.getSign();
-        for (int i = 0; i < lines.length; i++) {
-            sign.setLine(i, StringUtils.unformatString(lines[i]));
-        }
-        sign.update();
-    }
-
     private boolean isInteractingWithAir(Player player) {
-        try {
-            ItemStack mainHand = player.getInventory().getItemInMainHand();
-            ItemStack offHand = player.getInventory().getItemInOffHand();
-            return mainHand.getType().equals(Material.AIR) && !offHand.getType().toString().contains("DYE");
-        } catch (Throwable e) {
-            @SuppressWarnings("deprecation")
-            ItemStack item = player.getItemInHand();
-            return item.getType().equals(Material.AIR);
-        }
+        ItemStack mainHand = player.getInventory().getItemInMainHand();
+        ItemStack offHand = player.getInventory().getItemInOffHand();
+        return mainHand.getType().equals(Material.AIR) && !offHand.getType().toString().contains("DYE");
     }
 }
