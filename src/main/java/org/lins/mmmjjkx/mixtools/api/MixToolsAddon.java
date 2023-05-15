@@ -1,12 +1,8 @@
 package org.lins.mmmjjkx.mixtools.api;
 
 import org.bukkit.Bukkit;
-import org.bukkit.generator.ChunkGenerator;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.MixTools;
-
-import javax.annotation.Nullable;
-import java.util.List;
 
 public abstract class MixToolsAddon extends JavaPlugin {
     @Override
@@ -38,16 +34,6 @@ public abstract class MixToolsAddon extends JavaPlugin {
         String formatted_version = version.replaceAll("\\.","").replaceAll("-SNAPSHOW","");
         int ver_worth = Integer.parseInt(formatted_version);
         return ver_worth >= MixToolsAPI.VERSION_WORTH;
-    }
-
-    /**
-     * Register chunk generator(s) into MixTools.
-     * Can be overridden.
-     * @return a chunk generator or chunk generators
-     */
-    @Nullable
-    public List<ChunkGenerator> registerChunkGenerators() {
-        return null;
     }
 
     public MixToolsAPI.Managers getManagers() {

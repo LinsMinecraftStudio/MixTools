@@ -63,7 +63,7 @@ public class SignListener implements MixToolsListener {
                 tileEntitySignUsesModernMethods = false;
                 try {
                     nmsTileEntitySignIsEditableField = nmsTileEntitySignClass.getDeclaredField("isEditable");
-                    nmsTileEntitySignEntityHumanField = Arrays.stream(nmsTileEntitySignClass.getDeclaredFields()).filter(each -> each.getType().equals(nmsEntityHumanClass)).findFirst().orElse(null);
+                    nmsTileEntitySignEntityHumanField = Arrays.stream(nmsTileEntitySignClass.getDeclaredFields()).filter(each -> each.getType().equals(nmsEntityHumanClass)).findFirst().orElseThrow();
                 } catch (NoSuchFieldException e) {
                     nmsTileEntitySignSetEditableMethod = nmsTileEntitySignClass.getMethod("a", boolean.class);
                     nmsTileEntitySignSetUUIDMethod = nmsTileEntitySignClass.getMethod("a", UUID.class);
@@ -113,7 +113,7 @@ public class SignListener implements MixToolsListener {
     public void onEditSign(PlayerInteractEvent event){
         Player player = event.getPlayer();
         Block block = event.getClickedBlock();
-        if (block != null && block.getType().toString().contains("SIGN") && player.isSneaking() && event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && isInteractingWithAir(player)) {
+        if (block != null && block.getType().toString().contains("SIGN") && !player.isSneaking() && event.getAction().equals(Action.RIGHT_CLICK_BLOCK) && isInteractingWithAir(player)) {
             Material material = block.getType();
             Block attachedBlock;
             BlockData data = block.getBlockData();
@@ -127,7 +127,11 @@ public class SignListener implements MixToolsListener {
             Bukkit.getPluginManager().callEvent(placeEvent);
             if (!placeEvent.isCancelled()) {
                 Sign sign = (Sign) block.getState();
-                Bukkit.getPluginManager().callEvent(new SignEditEvent(sign));
+                String[] lines = sign.getLines();
+                for (int i = 0; i < lines.length; i++) {
+                    sign.setLine(i, MixTools.messageHandler.colorize(lines[i]));
+                }
+                sign.update();
                 Bukkit.getScheduler().runTaskLater(MixTools.INSTANCE, () -> {
                     if (useBukkitOpenSign) {
                         sign.setEditable(true);
@@ -137,8 +141,7 @@ public class SignListener implements MixToolsListener {
                         try {
                             Object entityPlayer = craftPlayerGetHandleMethod.invoke(craftPlayerClass.cast(player));
                             Object blockPosition = nmsBlockPositionConstructor.newInstance(block.getX(), block.getY(), block.getZ());
-                            Object tileEntity;
-                            tileEntity = getTileEntityMethod.invoke(craftWorldGetHandleMethod.invoke(craftWorldClass.cast(block.getWorld())), blockPosition, true);
+                            Object tileEntity = getTileEntityMethod.invoke(craftWorldGetHandleMethod.invoke(craftWorldClass.cast(block.getWorld())), blockPosition);
                             Object nmsSign = nmsTileEntitySignClass.cast(tileEntity);
                             if (tileEntitySignUsesModernMethods) {
                                 nmsTileEntitySignSetEditableMethod.invoke(nmsSign, true);

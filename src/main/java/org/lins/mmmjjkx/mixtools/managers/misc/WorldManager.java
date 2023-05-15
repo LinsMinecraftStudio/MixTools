@@ -9,13 +9,11 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.generator.ChunkGenerator;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.generators.VoidWorldGenerator;
-import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
-import java.util.Optional;
 
 public class WorldManager {
     private final YamlConfiguration configuration;
@@ -129,10 +127,6 @@ public class WorldManager {
 
     @Nullable
     public ChunkGenerator getChunkGenerator(String name){
-        Optional<ChunkGenerator> custom = OtherUtil.listGetIf(MixTools.api.getRegisteredChunkGenerators(), cg -> name.equals(cg.getClass().getSimpleName()));
-        if (custom.isPresent()) {
-            return custom.get();
-        }
         if (name.equals("VoidWorldGenerator")) {
             return new VoidWorldGenerator();
         }
