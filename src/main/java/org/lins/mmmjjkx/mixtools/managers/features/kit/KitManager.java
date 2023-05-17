@@ -8,7 +8,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsKit;
-import org.lins.mmmjjkx.mixtools.utils.ItemStackBuilder;
+import org.lins.mmmjjkx.mixtools.utils.ItemStackConverter;
 import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
 import javax.annotation.Nullable;
@@ -48,7 +48,8 @@ public class KitManager {
 
     public boolean removeKit(String name){
         if (kits.removeIf(p -> p.kitName().equals(name))){
-            getKitFile(name).delete();
+            File file = getKitFile(name);
+            if (file != null) file.delete();
             return true;
         }
         MixTools.warn("The kit "+ name + " is not found.");
@@ -82,7 +83,7 @@ public class KitManager {
             for (String key : section.getKeys(false)) {
                 ConfigurationSection itemSection = section.getConfigurationSection(key);
                 if (itemSection == null) continue;
-                ItemStack stack = ItemStackBuilder.toItemStack(itemSection);
+                ItemStack stack = ItemStackConverter.toItemStack(itemSection);
                 itemStacks.put(Integer.parseInt(key),stack);
             }
             ConfigurationSection equipmentSection = yamlConfiguration.getConfigurationSection("equipment");
@@ -90,6 +91,7 @@ public class KitManager {
         }
     }
 
+    @Nullable
     private File getKitFile(String name){
         File file = new File(MixTools.INSTANCE.getDataFolder(), "kits");
         if (!file.exists()) {
@@ -113,19 +115,19 @@ public class KitManager {
         ConfigurationSection offHandSection = section.getConfigurationSection("offHand");
         Map<EquipmentSlot,ItemStack> equipmentSlotItemStackMap = new HashMap<>();
         if (headSection != null){
-            equipmentSlotItemStackMap.put(EquipmentSlot.HEAD, ItemStackBuilder.toItemStack(headSection));
+            equipmentSlotItemStackMap.put(EquipmentSlot.HEAD, ItemStackConverter.toItemStack(headSection));
         }
         if (chestSection != null) {
-            equipmentSlotItemStackMap.put(EquipmentSlot.CHEST, ItemStackBuilder.toItemStack(chestSection));
+            equipmentSlotItemStackMap.put(EquipmentSlot.CHEST, ItemStackConverter.toItemStack(chestSection));
         }
         if (legsSection != null) {
-            equipmentSlotItemStackMap.put(EquipmentSlot.LEGS, ItemStackBuilder.toItemStack(legsSection));
+            equipmentSlotItemStackMap.put(EquipmentSlot.LEGS, ItemStackConverter.toItemStack(legsSection));
         }
         if (feetSection != null) {
-            equipmentSlotItemStackMap.put(EquipmentSlot.FEET, ItemStackBuilder.toItemStack(feetSection));
+            equipmentSlotItemStackMap.put(EquipmentSlot.FEET, ItemStackConverter.toItemStack(feetSection));
         }
         if (offHandSection != null) {
-            equipmentSlotItemStackMap.put(EquipmentSlot.OFF_HAND, ItemStackBuilder.toItemStack(offHandSection));
+            equipmentSlotItemStackMap.put(EquipmentSlot.OFF_HAND, ItemStackConverter.toItemStack(offHandSection));
         }
         return equipmentSlotItemStackMap;
     }

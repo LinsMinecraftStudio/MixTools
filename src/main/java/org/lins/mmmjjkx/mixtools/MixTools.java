@@ -140,7 +140,7 @@ public final class MixTools extends JavaPlugin {
     private void saveResources() {
         String configVer = getConfig().getString("config-version","UNDEFINED");
         if (!configVer.equals("UNDEFINED")){
-            FileUtils.completingFile("config.yml", false);
+            FileUtils.completeFile("config.yml", false);
             getConfig().set("config-version","2");
             saveDefaultConfig();
         }else {//has no config version

@@ -2,7 +2,6 @@ package org.lins.mmmjjkx.mixtools.managers.features.kit;
 
 import com.google.common.collect.Lists;
 import org.bukkit.Bukkit;
-import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -12,9 +11,9 @@ import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.utils.ItemStackBuilder;
+import org.lins.mmmjjkx.mixtools.utils.ItemStackConverter;
 
 import java.io.File;
 import java.util.List;
@@ -35,18 +34,16 @@ public class KitCreator implements Listener {
     public void openInventory(){
         Inventory inventory = Bukkit.createInventory(null, 54,
                 MixTools.messageHandler.getColored("Kit.Title",kitName));
-        ItemStack glassPane = MixTools.settingsManager.getItemStack(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_TYPE);
-        ItemMeta glassPaneMeta = glassPane.getItemMeta();
-        glassPaneMeta.setDisplayName(MixTools.settingsManager.getString(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_NAME,true));
-        glassPane.setItemMeta(glassPaneMeta);
+        ItemStackBuilder decorations = new ItemStackBuilder(MixTools.settingsManager.getItemStack(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_TYPE));
+        decorations.setNameInConfig(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_NAME);
+        ItemStack decorationsStack = decorations.build();
         for (int i: unusableSlot){
             if (i == 8) continue;
-            inventory.setItem(i,glassPane);
+            inventory.setItem(i,decorationsStack);
         }
-        ItemStack close = MixTools.settingsManager.getItemStack(KIT_EDITOR_CLOSE_BUTTON_ITEM);
-        ItemMeta closeMeta = close.getItemMeta();
-        closeMeta.setDisplayName(MixTools.settingsManager.getString(KIT_EDITOR_CLOSE_BUTTON_NAME,true));
-        close.setItemMeta(closeMeta);
+        ItemStackBuilder closeStackBuilder = new ItemStackBuilder(MixTools.settingsManager.getItemStack(KIT_EDITOR_CLOSE_BUTTON_ITEM));
+        closeStackBuilder.setNameInConfig(KIT_EDITOR_CLOSE_BUTTON_NAME);
+        ItemStack close = closeStackBuilder.build();
         inventory.setItem(8,close);
         player.openInventory(inventory);
     }
@@ -92,12 +89,12 @@ public class KitCreator implements Listener {
                 if (stack == null) continue;
                 if (stack.getType().isAir()) continue;
                 switch (i) {
-                    case 0 -> equipment.set("head", ItemStackBuilder.asMap(stack));
-                    case 1 -> equipment.set("chest", ItemStackBuilder.asMap(stack));
-                    case 2 -> equipment.set("legs", ItemStackBuilder.asMap(stack));
-                    case 3 -> equipment.set("feet", ItemStackBuilder.asMap(stack));
-                    case 5 -> equipment.set("offHand", ItemStackBuilder.asMap(stack));
-                    default -> section.set(String.valueOf(i-18), ItemStackBuilder.asMap(stack));
+                    case 0 -> equipment.set("head", ItemStackConverter.asMap(stack));
+                    case 1 -> equipment.set("chest", ItemStackConverter.asMap(stack));
+                    case 2 -> equipment.set("legs", ItemStackConverter.asMap(stack));
+                    case 3 -> equipment.set("feet", ItemStackConverter.asMap(stack));
+                    case 5 -> equipment.set("offHand", ItemStackConverter.asMap(stack));
+                    default -> section.set(String.valueOf(i-18), ItemStackConverter.asMap(stack));
                 }
             }
             yamlConfiguration.save(kitFile);

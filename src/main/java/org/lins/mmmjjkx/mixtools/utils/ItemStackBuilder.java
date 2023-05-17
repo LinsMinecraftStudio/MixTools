@@ -1,74 +1,63 @@
 package org.lins.mmmjjkx.mixtools.utils;
 
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Arrays;
+import java.util.List;
+
 public class ItemStackBuilder {
-    public static ItemStack toItemStack(ConfigurationSection section){
-        String mat = section.getString("material","STONE");
-        Material material = Material.getMaterial(mat);
-        if (material == null){
-            material = Material.STONE;
-        }
-        ItemStack item = new ItemStack(material);
-        ItemMeta meta = item.getItemMeta();
-        if (section.contains("amount")) {
-            item.setAmount(section.getInt("amount", 1));
-        }
-        if (meta != null) {
-            if (section.contains("displayname")) {
-                meta.setDisplayName(section.getString("displayname"));
-            }
-            if (section.contains("lore")) {
-                meta.setLore(section.getStringList("lore"));
-            }
-            ConfigurationSection section2 = section.getConfigurationSection("enchants");
-            if (section2 != null) {
-                for (String enchant : section2.getKeys(false)){
-                    ConfigurationSection section3 = section2.getConfigurationSection(enchant);
-                    if (section3 == null) {continue;}
-                    Enchantment enchantment = Enchantment.getByKey(
-                            NamespacedKey.fromString(section3.getString("key","")));
-                    if (enchantment != null) {
-                        int level = section3.getInt(enchant);
-                        item.addUnsafeEnchantment(enchantment, level);
-                    }
-                }
-            }
-            item.setItemMeta(meta);
-        }
-        return item;
+    private final ItemStack itemStack;
+    private final ItemMeta itemMeta;
+
+    public ItemStackBuilder(ItemStack item){
+        this.itemStack = item;
+        this.itemMeta = item.getItemMeta();
     }
 
-    public static Map<String,Object> asMap(ItemStack item){
-        ItemMeta meta = item.getItemMeta();
-        Map<String,Object> map = new HashMap<>();
-        map.put("material", item.getType().toString());
-        map.put("amount", item.getAmount());
-        if(meta != null){
-            if(meta.hasDisplayName()){
-                map.put("displayname", meta.getDisplayName());
-            }
-            if(meta.hasLore()){
-                map.put("lore", meta.getLore());
-            }
-            if(meta.hasEnchants()){
-                Map<String,Integer> enchantsMap = new HashMap<>();
-                Map<Enchantment, Integer> enchants = meta.getEnchants();
-                for (Enchantment enchantment : enchants.keySet()) {
-                    NamespacedKey key = enchantment.getKey();
-                    enchantsMap.put(key.toString(), enchants.get(enchantment));
-                }
-                map.put("enchants", enchantsMap);
-            }
-            map.put("unbreakable", meta.isUnbreakable());
-        }
-        return map;
+    public ItemStackBuilder(Material material){
+        this.itemStack = new ItemStack(material);
+        this.itemMeta = itemStack.getItemMeta();
+    }
+
+    public void name(String itemName){
+        itemMeta.setDisplayName(itemName);
+    }
+
+    public void lore(List<String> lore){
+        itemMeta.setLore(lore);
+    }
+
+    public void lore(String... lore){
+        itemMeta.setLore(Arrays.stream(lore).toList());
+    }
+
+    public void unbreakable(boolean unbreakable){
+        itemMeta.setUnbreakable(unbreakable);
+    }
+
+    public void enchantment(Enchantment enchantment, int lvl){
+        itemStack.addUnsafeEnchantment(enchantment, lvl);
+    }
+
+    public void amount(int amount){
+        itemStack.setAmount(amount);
+    }
+
+    public void flag(ItemFlag... flag){
+        itemMeta.addItemFlags(flag);
+    }
+
+    public void setNameInConfig(String node){
+        itemMeta.setDisplayName(MixTools.settingsManager.getString(node,true));
+    }
+
+    public ItemStack build() {
+        itemStack.setItemMeta(itemMeta);
+        return itemStack;
     }
 }
