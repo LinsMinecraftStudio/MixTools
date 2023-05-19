@@ -71,7 +71,7 @@
         </repository>
         <repository>
             <id>jitpack.io</id>
-            <url>https://jitpack.io</url>
+            <url>https://www.jitpack.io</url>
         </repository>
         <repository>
             <id>placeholderapi</id>
