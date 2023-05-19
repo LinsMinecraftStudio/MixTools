@@ -119,7 +119,12 @@ commands:
     description: set warps
   warp:
     description: teleport to a warp
+  warps:
+    description: list warps
 permissions:
+  mixtools.command.warps:
+    description: list warps
+    default: op
   mixtools.command.back:
     description: back permission
     default: op

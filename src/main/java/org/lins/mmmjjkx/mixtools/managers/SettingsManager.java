@@ -21,7 +21,7 @@ public class SettingsManager {
         return config.getInt(key);
     }
     public String getString(String key){
-        return config.getString(key,"");
+        return getString(key, false);
     }
     public String getString(String key, boolean colorize){
         return colorize ? MixTools.messageHandler.colorize(config.getString(key,"")) : getString(key);

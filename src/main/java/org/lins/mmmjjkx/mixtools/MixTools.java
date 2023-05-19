@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools;
 
+import io.github.linsminecraftstudio.polymer.file.FileUtils;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,7 +32,6 @@ import org.lins.mmmjjkx.mixtools.managers.features.SchedulerManager;
 import org.lins.mmmjjkx.mixtools.managers.features.WarpManager;
 import org.lins.mmmjjkx.mixtools.managers.features.kit.KitManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
-import org.lins.mmmjjkx.mixtools.utils.FileUtils;
 
 import java.io.File;
 
@@ -130,6 +130,7 @@ public final class MixTools extends JavaPlugin {
         new CMDSetWarp().register();
         new CMDWarp().register();
         new CMDDelWarp().register();
+        new CMDWarps().register();
     }
 
     private void registerListeners() {
@@ -140,7 +141,7 @@ public final class MixTools extends JavaPlugin {
     private void saveResources() {
         String configVer = getConfig().getString("config-version","UNDEFINED");
         if (!configVer.equals("UNDEFINED")){
-            FileUtils.completeFile("config.yml", false);
+            FileUtils.completeFile(this, "config.yml", false);
             getConfig().set("config-version","2");
             saveDefaultConfig();
         }else {//has no config version
@@ -151,8 +152,8 @@ public final class MixTools extends JavaPlugin {
             }
             saveDefaultConfig();
         }
-        FileUtils.completingLangFile("lang/en-us.yml");
-        FileUtils.completingLangFile("lang/zh-cn.yml");
+        FileUtils.completeLangFile(this, "lang/en-us.yml");
+        FileUtils.completeLangFile(this, "lang/zh-cn.yml");
     }
 
     public void Reload(){

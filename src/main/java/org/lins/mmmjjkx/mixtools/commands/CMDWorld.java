@@ -10,7 +10,7 @@ import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.misc.WorldManager;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
-import org.lins.mmmjjkx.mixtools.utils.FileUtils;
+import io.github.linsminecraftstudio.polymer.file.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;

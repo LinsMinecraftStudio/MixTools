@@ -1,6 +1,7 @@
 package org.lins.mmmjjkx.mixtools.managers.features.kit;
 
 import com.google.common.io.Files;
+import io.github.linsminecraftstudio.polymer.itemstack.ItemStackConverter;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -8,7 +9,6 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsKit;
-import org.lins.mmmjjkx.mixtools.utils.ItemStackConverter;
 import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
 import javax.annotation.Nullable;
