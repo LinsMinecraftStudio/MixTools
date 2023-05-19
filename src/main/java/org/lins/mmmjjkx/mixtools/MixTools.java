@@ -4,7 +4,6 @@ import io.github.linsminecraftstudio.polymer.file.FileUtils;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.lins.mmmjjkx.mixtools.api.MixToolsAPI;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDBalance;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDEconomy;
@@ -41,7 +40,6 @@ public final class MixTools extends JavaPlugin {
     public static HookManager hookManager;
     private static DataManager dataManager;
     public static SettingsManager settingsManager;
-    public static MixToolsAPI api;
     ///////////////features////////////
     public static MiscFeatureManager miscFeatureManager;
     public static SchedulerManager schedulerManager;
@@ -67,7 +65,6 @@ public final class MixTools extends JavaPlugin {
         registerCommands();
         registerListeners();
         new Metrics(this,17788);
-        api = new MixToolsAPI();
         log("MixTools enabled!");
     }
 
@@ -165,7 +162,6 @@ public final class MixTools extends JavaPlugin {
         warpManager = new WarpManager();
         schedulerManager.reload();
         miscFeatureManager.reload();
-        api = new MixToolsAPI();
     }
 
     public static DataManager getDataManager(){
