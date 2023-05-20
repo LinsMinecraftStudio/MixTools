@@ -1,7 +1,6 @@
 package org.lins.mmmjjkx.mixtools;
 
 import io.github.linsminecraftstudio.polymer.file.FileUtils;
-import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
@@ -46,7 +45,6 @@ public final class MixTools extends JavaPlugin {
     public static KitManager kitManager;
     public static WarpManager warpManager;
     ///////////////////////////////////
-    public static BukkitAudiences adventure;
 
     @Override
     public void onEnable() {
@@ -57,7 +55,6 @@ public final class MixTools extends JavaPlugin {
         messageHandler = new MessageHandler();
         dataManager = new DataManager();
         hookManager = new HookManager();
-        adventure = BukkitAudiences.create(this);
         miscFeatureManager = new MiscFeatureManager();
         schedulerManager = new SchedulerManager();
         warpManager = new WarpManager();
@@ -139,7 +136,7 @@ public final class MixTools extends JavaPlugin {
         String configVer = getConfig().getString("config-version","UNDEFINED");
         if (!configVer.equals("UNDEFINED")){
             FileUtils.completeFile(this, "config.yml", false);
-            getConfig().set("config-version","2");
+            getConfig().set("config-version","3");
             saveDefaultConfig();
         }else {//has no config version
             File file = new File(getDataFolder(),"config.yml");

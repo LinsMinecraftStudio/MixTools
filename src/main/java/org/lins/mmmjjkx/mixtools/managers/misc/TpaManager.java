@@ -55,6 +55,6 @@ public class TpaManager {
         }else {
             MixTools.messageHandler.sendMessage(to, "TPA.Request.Line1", to.getName());
         }
-        MixTools.adventure.player(to).sendMessage(component3);
+        to.sendMessage(component3);
     }
 }

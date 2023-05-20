@@ -127,7 +127,7 @@ public class PlayerListener implements MixToolsListener {
                 TextComponent component = LegacyComponentSerializer.legacyAmpersand().
                         deserialize(getMessageHandler().getColored("Check-Update.GetVer"));
                 component = component.clickEvent(ClickEvent.openUrl("https://www.spigotmc.org/resources/mixtools-an-essentials-plugin.109130/"));
-                MixTools.adventure.player(p).sendMessage(component);
+                p.sendMessage(component);
             }
             getMessageHandler().sendMessage(p, "Check-Update.Line3");
         }
