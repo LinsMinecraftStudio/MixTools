@@ -39,7 +39,7 @@ public class SettingsManager {
         return new ItemStack(m);
     }
     public List<Integer> getIntList(String key) {return config.getIntegerList(key);}
-    public List<String> getStrList(String key) {return config.getStringList(key);}
+    public ConfigurationSection getSection(String key) {return config.getConfigurationSection(key);}
     public void set(String key, Object value){
         config.set(key, value);
     }

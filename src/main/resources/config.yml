@@ -64,7 +64,16 @@ kit:
   editorCloseButton:
     item: "BARRIER"
     name: "&cClose and save"
-# NOT IMPLEMENTED
-#motd:
-#  hidePlayers: false
-#  motdString: "<green>Welcome to my server.</green>\n<blue>You can have a fun in this server!</blue>"
+motd:
+  icon: "example.png"
+  players:
+    changeCurrentPlayers: false
+    currentPlayers: 20
+    hidePlayers: false
+  changeVersion: false
+  version: "&a1.19.X"
+  protocolVersion: auto
+  string: "<green>Welcome to my server.</green><newline><blue>You can have a fun in this server!</blue>"
+  Xmore:
+    enabled: false
+    x: 3

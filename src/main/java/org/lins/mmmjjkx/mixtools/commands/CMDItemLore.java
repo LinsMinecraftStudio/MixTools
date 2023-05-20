@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -26,7 +27,7 @@ public class CMDItemLore implements MixTabExecutor {
                     try {lore = m.getLore().get(args.length-1);
                     } catch (Exception ignored) {}
                     if (!lore.isBlank()) {
-                        return List.of(StringUtils.unformatString(lore));
+                        return List.of(ChatColor.stripColor(lore));
                     }
                 }
             }

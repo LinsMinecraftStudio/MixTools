@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -9,7 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
-import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,7 +25,7 @@ public class CMDItemName implements MixTabExecutor {
                 ItemMeta meta = hand.getItemMeta();
                 if (meta != null) {
                     if (args.length==1 & meta.hasDisplayName()) {
-                        return Collections.singletonList(StringUtils.unformatString(meta.getDisplayName()));
+                        return Collections.singletonList(ChatColor.stripColor(meta.getDisplayName()));
                     }
                 }
             }

@@ -21,6 +21,7 @@ import org.lins.mmmjjkx.mixtools.commands.warp.CMDDelWarp;
 import org.lins.mmmjjkx.mixtools.commands.warp.CMDSetWarp;
 import org.lins.mmmjjkx.mixtools.commands.warp.CMDWarp;
 import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
+import org.lins.mmmjjkx.mixtools.listeners.ServerListener;
 import org.lins.mmmjjkx.mixtools.listeners.SignListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
@@ -130,6 +131,7 @@ public final class MixTools extends JavaPlugin {
     private void registerListeners() {
         new PlayerListener().register();
         new SignListener().register();
+        new ServerListener().register();
     }
 
     private void saveResources() {
