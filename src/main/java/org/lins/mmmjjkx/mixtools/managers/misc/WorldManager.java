@@ -91,7 +91,7 @@ public class WorldManager {
     public String getWorldAlias(String name){
         ConfigurationSection section = configuration.getConfigurationSection(name);
         if (section != null) {
-            return MixTools.messageHandler.colorize(section.getString("alias", name));
+            return MixTools.messageHandler.legacyColorize(section.getString("alias", name));
         }else {
             return "";
         }

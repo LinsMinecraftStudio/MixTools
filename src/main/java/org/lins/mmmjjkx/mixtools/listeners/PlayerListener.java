@@ -1,9 +1,8 @@
 package org.lins.mmmjjkx.mixtools.listeners;
 
 import me.clip.placeholderapi.PlaceholderAPI;
-import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -17,6 +16,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 import org.bukkit.event.player.PlayerRespawnEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.managers.features.ScoreBoardSetter;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixToolsListener;
 import org.lins.mmmjjkx.mixtools.utils.StringUtils;
@@ -32,46 +32,48 @@ public class PlayerListener implements MixToolsListener {
         if (MixTools.settingsManager.getBoolean(NAME_CHECK)){
             String name = p.getName();
             if (!StringUtils.matchNameRegex(name)) {
-                p.kickPlayer(getMessageHandler().getColored("Value.NoMatchNameRegex"));
+                p.kick(getMessageHandler().getColored("Value.NoMatchNameRegex"));
                 return;
             }
         }
         MixToolsEconomy economy = MixTools.hookManager.getEconomy();
         economy.createPlayerAccount(p);
-        e.setJoinMessage(getPlayerMessage(p, PLAYER_JOIN_MESSAGE));
+        e.joinMessage(getPlayerMessage(p, PLAYER_JOIN_MESSAGE));
         if (!p.hasPlayedBefore()){
             economy.depositPlayer(e.getPlayer(), MixTools.settingsManager.getInt(INITIAL_CURRENCY));
-            Bukkit.broadcastMessage(getPlayerMessage(p, PLAYER_WELCOME_MESSAGE));
+            Bukkit.broadcast(getPlayerMessage(p, PLAYER_WELCOME_MESSAGE));
         }
+        ScoreBoardSetter.addPlayer(p);
         checkVersion(p);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e){
         Player p = e.getPlayer();
-        e.setQuitMessage(getPlayerMessage(p, PLAYER_QUIT_MESSAGE));
+        ScoreBoardSetter.removePlayer(p);
+        e.quitMessage(getPlayerMessage(p, PLAYER_QUIT_MESSAGE));
     }
 
     @EventHandler
     public void openTrashBin(InventoryOpenEvent e){
-        String title = getMessageHandler().getColored("GUI.TrashBin");
-        if (e.getView().getTitle().equals(title)){
+        Component title = getMessageHandler().getColored("GUI.TrashBin");
+        if (e.getView().title().equals(title)){
             getMessageHandler().sendMessage(e.getPlayer(),"GUI.OpenTrashBin");
         }
     }
 
     @EventHandler
     public void closeTrashBin(InventoryCloseEvent e){
-        String title = getMessageHandler().getColored("GUI.TrashBin");
-        if (e.getView().getTitle().equals(title)){
+        Component title = getMessageHandler().getColored("GUI.TrashBin");
+        if (e.getView().title().equals(title)){
             getMessageHandler().sendMessage(e.getPlayer(),"GUI.CloseTrashBin");
         }
     }
 
     @EventHandler
     public void clickTrashBin(InventoryClickEvent e){
-        String title = getMessageHandler().getColored("GUI.TrashBin");
-        if (e.getView().getTitle().equals(title)) {
+        Component title = getMessageHandler().getColored("GUI.TrashBin");
+        if (e.getView().title().equals(title)) {
             List<Integer> slots = MixTools.settingsManager.getIntList(TRASH_PUT_ITEM_SLOTS);
             if (MixTools.settingsManager.getBoolean(TRASH_CLOSE_BUTTON_ENABLED)) {
                 if (e.getRawSlot() == MixTools.settingsManager.getInt(TRASH_CLOSE_BUTTON_SLOT)) {
@@ -102,7 +104,7 @@ public class PlayerListener implements MixToolsListener {
         }
     }
 
-    private String getPlayerMessage(Player p,String key){
+    private Component getPlayerMessage(Player p, String key){
         String str = getSettingString(key);
         if (MixTools.hookManager.checkPAPIInstalled()) {
             str = PlaceholderAPI.setPlaceholders(p, str);
@@ -116,7 +118,7 @@ public class PlayerListener implements MixToolsListener {
             String latest = "";
             try {latest = StringUtils.getPluginLatestVersion();
             }catch (Exception ignored){}
-            String ver = MixTools.INSTANCE.getDescription().getVersion();
+            String ver = MixTools.INSTANCE.getPluginMeta().getVersion();
             if (latest.equals("")){
                 getMessageHandler().sendMessage(p, "Check-Update.Failed");
             } else if (ver.equals(latest)) {
@@ -124,8 +126,7 @@ public class PlayerListener implements MixToolsListener {
             } else {
                 getMessageHandler().sendMessage(p, "Check-Update.Line1");
                 getMessageHandler().sendMessage(p, "Check-Update.Line2", ver, latest);
-                TextComponent component = LegacyComponentSerializer.legacyAmpersand().
-                        deserialize(getMessageHandler().getColored("Check-Update.GetVer"));
+                Component component = getMessageHandler().getColored("Check-Update.GetVer");
                 component = component.clickEvent(ClickEvent.openUrl("https://www.spigotmc.org/resources/mixtools-an-essentials-plugin.109130/"));
                 p.sendMessage(component);
             }

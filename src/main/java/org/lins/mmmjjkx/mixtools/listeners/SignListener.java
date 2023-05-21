@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.listeners;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -23,6 +24,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 
 public class SignListener implements MixToolsListener {
@@ -125,9 +127,9 @@ public class SignListener implements MixToolsListener {
             Bukkit.getPluginManager().callEvent(placeEvent);
             if (!placeEvent.isCancelled()) {
                 Sign sign = (Sign) block.getState();
-                String[] lines = sign.getLines();
-                for (int i = 0; i < lines.length; i++) {
-                    sign.setLine(i, MixTools.messageHandler.colorize(lines[i]));
+                List<Component> lines = sign.lines();
+                for (int i = 0; i < lines.size(); i++) {
+                    sign.line(i, MixTools.messageHandler.colorize(lines.get(i)));
                 }
                 sign.update();
                 Bukkit.getScheduler().runTaskLater(MixTools.INSTANCE, () -> {
@@ -164,10 +166,10 @@ public class SignListener implements MixToolsListener {
 
     @EventHandler
     public void onSignChanged(SignChangeEvent e){
-        String[] lines = e.getLines();
+        List<Component> lines = e.lines();
         Sign sign = (Sign) e.getBlock().getState();
-        for (int i = 0; i < lines.length; i++) {
-            sign.setLine(i, MixTools.messageHandler.colorize(lines[i]));
+        for (int i = 0; i < lines.size(); i++) {
+            sign.line(i, MixTools.messageHandler.colorize(lines.get(i)));
         }
         sign.update(true);
     }

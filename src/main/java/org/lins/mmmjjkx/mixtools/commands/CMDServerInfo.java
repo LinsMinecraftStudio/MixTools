@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -32,7 +33,7 @@ public class CMDServerInfo implements MixCommandExecutor {
             int usedMem = (int) ((Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1048576);
             int maxMem = (int) (Runtime.getRuntime().maxMemory() / 1048576);
             String mem_str = usedMem + "MB/" + maxMem + "MB";
-            List<String> messages = MixTools.messageHandler.getColoredMessagesParseVarPerLine("Info.Server",
+            List<Component> messages = MixTools.messageHandler.getColoredMessagesParseVarPerLine("Info.Server",
                     server_name,port,str,version,mem_str);
             MixTools.messageHandler.sendMessages(sender,messages);
             return true;

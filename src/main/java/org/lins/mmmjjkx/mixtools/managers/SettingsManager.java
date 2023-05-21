@@ -21,10 +21,10 @@ public class SettingsManager {
         return config.getInt(key);
     }
     public String getString(String key){
-        return getString(key, false);
+        return config.getString(key,"");
     }
     public String getString(String key, boolean colorize){
-        return colorize ? MixTools.messageHandler.colorize(config.getString(key,"")) : getString(key);
+        return colorize ? MixTools.messageHandler.legacyColorize(config.getString(key,"")) : getString(key);
     }
     public boolean getBoolean(String key){
         return config.getBoolean(key);

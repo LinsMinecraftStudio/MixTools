@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -210,7 +211,7 @@ public class CMDWorld implements MixTabExecutor {
                             sendMessage(sender, "Location.WorldNotFound");
                             return false;
                         }
-                        List<String> messages = MixTools.messageHandler.
+                        List<Component> messages = MixTools.messageHandler.
                                 getColoredMessagesParseVarPerLine("World.Info",
                                         w.getName(), worldManager.getWorldType(w.getName()),
                                         worldManager.getWorldAlias(w.getName()),

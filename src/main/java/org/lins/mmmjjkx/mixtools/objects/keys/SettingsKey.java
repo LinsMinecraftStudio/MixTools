@@ -28,6 +28,8 @@ public class SettingsKey {
     public static String KIT_ITEM_IN_NON_PLACEABLE_SLOTS_NAME = "kit.itemInNonPlaceableSlots.name";
     public static String KIT_EDITOR_CLOSE_BUTTON_ITEM = "kit.editorCloseButton.item";
     public static String KIT_EDITOR_CLOSE_BUTTON_NAME = "kit.editorCloseButton.name";
+    public static String MOTD_ENABLED = "motd.enabled";
+    public static String SCOREBOARD_ENABLED = "scoreboard.enabled";
     public static HikariDataSource getDataSource() {
         SettingsManager sm = MixTools.settingsManager;
         HikariDataSource dataSource = new HikariDataSource();

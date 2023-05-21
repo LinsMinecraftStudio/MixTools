@@ -1,4 +1,3 @@
-config-version: "3"
 language: "en-us"
 checkUpdate: true
 economy:
@@ -65,10 +64,13 @@ kit:
     item: "BARRIER"
     name: "&cClose and save"
 motd:
+  enabled: false
   icon: "example.png"
   players:
     changeCurrentPlayers: false
     currentPlayers: 20
+    changeMaxPlayers: false
+    maxPlayers: 20
     hidePlayers: false
   changeVersion: false
   version: "&a1.19.X"
@@ -77,3 +79,17 @@ motd:
   Xmore:
     enabled: false
     x: 3
+scoreboard:
+  enabled: false
+  changeDelay: 30
+  scoreboards:
+    example:
+      - "&aExample Server"
+      - "&aWelcome to my server"
+      - "<green>You can use legacy color codes or MiniMessage format in scoreboards.</green>"
+      - "&eExample server v1.0"
+    papi:
+      - "&aExample server"
+      - "&eName: %player_name%"
+      - "&cHealth: %player_health_rounded%"
+      - "&bMoney: %vault_eco_balance%"

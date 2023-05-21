@@ -1,5 +1,7 @@
 package org.lins.mmmjjkx.mixtools.managers;
 
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -40,12 +42,12 @@ public class MessageHandler {
         return message.getString(node,"§4Get message '"+node+"' failed, maybe it's not exists.");
     }
 
-    public String getColored(String node, Object... args){
+    public Component getColored(String node, Object... args){
         try {return colorize(String.format(get(node),args));
         } catch (IllegalFormatException e) {return colorize(get(node));}
     }
 
-    public String getColoredReplaceToOtherMessages(String node, boolean color, String... keys){
+    public Component getColoredReplaceToOtherMessages(String node, boolean color, String... keys){
         try {return colorize(String.format(get(node), getStrMessagesObj(color,keys)));
         } catch (IllegalFormatException e) {return colorize(get(node));}
     }
@@ -61,15 +63,15 @@ public class MessageHandler {
         return s;
     }
 
-    public List<String> getColoredMessagesParseVarPerLine(String node, Object... args){
+    public List<Component> getColoredMessagesParseVarPerLine(String node, Object... args){
         List<String> s = message.getStringList(node);
-        List<String> new_s = new ArrayList<>();
+        List<Component> new_s = new ArrayList<>();
         for (int j = 0; j < args.length; j++) {
             String st = s.get(j);
             Object arg = args[j];
             st = String.format(st, arg);
-            st = colorize(st);
-            new_s.add(st);
+            Component st2 = colorize(st);
+            new_s.add(st2);
         }
         return new_s;
     }
@@ -80,27 +82,31 @@ public class MessageHandler {
         }
     }
 
-    public void sendMessages(CommandSender cs,List<String> list){
+    public void sendMessages(CommandSender cs,List<Component> list){
         if (!list.isEmpty()){
-            for (String msg : list){
+            for (Component msg : list){
                 cs.sendMessage(msg);
             }
         }
     }
 
     public void broadcastMessage(String node,Object... args){
-        if (!getColored(node,args).isBlank()) {
-            Bukkit.broadcastMessage(getColored(node, args));
-        }
+        Bukkit.broadcast(getColored(node, args));
     }
 
     public void broadcastCustomMessage(String message){
-        if (!colorize(message).isBlank()) {
-            Bukkit.broadcastMessage(colorize(message));
-        }
+        Bukkit.broadcast(colorize(message));
     }
 
-    public String colorize(String string) {
+    public Component colorize(String string) {
+        return MiniMessage.miniMessage().deserialize(string);
+    }
+
+    public Component colorize(Component component){
+        return colorize(MiniMessage.miniMessage().serialize(component));
+    }
+
+    public String legacyColorize(String string) {
         Pattern pattern = Pattern.compile("&#[a-fA-F0-9]{6}");
         for (Matcher matcher = pattern.matcher(string); matcher.find(); matcher = pattern.matcher(string)) {
             String str = string.substring(matcher.start(), matcher.end());

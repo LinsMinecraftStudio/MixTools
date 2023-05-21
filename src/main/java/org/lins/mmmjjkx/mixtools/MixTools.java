@@ -28,17 +28,17 @@ import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.features.SchedulerManager;
+import org.lins.mmmjjkx.mixtools.managers.features.ScoreBoardSetter;
 import org.lins.mmmjjkx.mixtools.managers.features.WarpManager;
 import org.lins.mmmjjkx.mixtools.managers.features.kit.KitManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 
-import java.io.File;
 
 public final class MixTools extends JavaPlugin {
+    private static DataManager dataManager;
     public static MixTools INSTANCE;
     public static MessageHandler messageHandler;
     public static HookManager hookManager;
-    private static DataManager dataManager;
     public static SettingsManager settingsManager;
     ///////////////features////////////
     public static MiscFeatureManager miscFeatureManager;
@@ -135,19 +135,7 @@ public final class MixTools extends JavaPlugin {
     }
 
     private void saveResources() {
-        String configVer = getConfig().getString("config-version","UNDEFINED");
-        if (!configVer.equals("UNDEFINED")){
-            FileUtils.completeFile(this, "config.yml", false);
-            getConfig().set("config-version","3");
-            saveDefaultConfig();
-        }else {//has no config version
-            File file = new File(getDataFolder(),"config.yml");
-            if (file.exists()){
-                getLogger().warning("Config version is not exists. The config.yml has rename to config-backup.yml!");
-                file.renameTo(new File(getDataFolder(),"config-backup.yml"));
-            }
-            saveDefaultConfig();
-        }
+        FileUtils.completeFile(this, "config.yml", false);
         FileUtils.completeLangFile(this, "lang/en-us.yml");
         FileUtils.completeLangFile(this, "lang/zh-cn.yml");
     }
@@ -161,6 +149,7 @@ public final class MixTools extends JavaPlugin {
         warpManager = new WarpManager();
         schedulerManager.reload();
         miscFeatureManager.reload();
+        ScoreBoardSetter.restart();
     }
 
     public static DataManager getDataManager(){

@@ -1,6 +1,7 @@
 package org.lins.mmmjjkx.mixtools.objects.interfaces;
 
 import io.github.linsminecraftstudio.polymer.command.PolymerCommandExecutor;
+import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
@@ -13,5 +14,5 @@ public interface MixCommandExecutor extends PolymerCommandExecutor {
         MixTools.messageHandler.broadcastMessage(node,args);
     }
 
-    default String getMessage(String node,Object... args){return MixTools.messageHandler.getColored(node,args);}
+    default Component getMessage(String node, Object... args){return MixTools.messageHandler.getColored(node,args);}
 }

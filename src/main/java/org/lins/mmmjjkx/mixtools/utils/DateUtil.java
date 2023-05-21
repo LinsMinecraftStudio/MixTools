@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.utils;
 
+import net.kyori.adventure.text.Component;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 
@@ -102,14 +103,14 @@ public class DateUtil {
         return c.getTimeInMillis();
     }
 
-    public static String formatDateDiff(final long date) {
+    public static Component formatDateDiff(final long date) {
         final Calendar c = new GregorianCalendar();
         c.setTimeInMillis(date);
         final Calendar now = new GregorianCalendar();
         return DateUtil.formatDateDiff(now, c);
     }
 
-    public static String formatDateDiff(final Calendar fromDate, final Calendar toDate) {
+    public static Component formatDateDiff(final Calendar fromDate, final Calendar toDate) {
         boolean future = false;
         if (toDate.equals(fromDate)) {
             return messageHandler.getColored("now");
@@ -118,9 +119,10 @@ public class DateUtil {
             future = true;
         }
         toDate.add(Calendar.MILLISECOND, future ? 50 : -50);
-        final StringBuilder sb = new StringBuilder();
+        final Component sb = Component.empty();
         final int[] types = new int[] {Calendar.YEAR, Calendar.MONTH, Calendar.DAY_OF_MONTH, Calendar.HOUR_OF_DAY, Calendar.MINUTE, Calendar.SECOND};
-        final String[] names = new String[] {messageHandler.getColored("Date.year"),
+        final Component[] names = new Component[] {
+                messageHandler.getColored("Date.year"),
                 messageHandler.getColored("Date.years"),
                 messageHandler.getColored("Date.month"),
                 messageHandler.getColored("Date.months"),
@@ -140,14 +142,11 @@ public class DateUtil {
             final int diff = dateDiff(types[i], fromDate, toDate, future);
             if (diff > 0) {
                 accuracy++;
-                sb.append(" ").append(diff).append(" ").append(names[i * 2 + (diff > 1 ? 1 : 0)]);
+                sb.appendSpace().append(Component.text(diff)).appendSpace().append(names[i * 2 + (diff > 1 ? 1 : 0)]);
             }
         }
         toDate.add(Calendar.MILLISECOND, future ? -50 : 50);
-        if (sb.length() == 0) {
-            return messageHandler.getColored("Date.now");
-        }
-        return sb.toString().trim();
+        return sb;
     }
 
     private static int dateDiff(final int type, final Calendar fromDate, final Calendar toDate, final boolean future) {

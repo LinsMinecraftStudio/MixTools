@@ -52,7 +52,7 @@ public class CMDItemName implements MixTabExecutor {
                 if (!hand.getType().equals(Material.AIR)) {
                     if (args.length==1) {
                         ItemMeta meta = hand.getItemMeta();
-                        meta.setDisplayName(MixTools.messageHandler.colorize(args[0]));
+                        meta.setDisplayName(MixTools.messageHandler.legacyColorize(args[0]));
                         hand.setItemMeta(meta);
                         return true;
                     }else {

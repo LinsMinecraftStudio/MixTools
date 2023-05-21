@@ -118,7 +118,10 @@ public class SchedulerManager {
     }
 
     public void stopAllRunnable() {
-        Bukkit.getScheduler().cancelTasks(MixTools.INSTANCE);
+        for (BukkitTask task : tasks.keySet()) {
+            task.cancel();
+        }
+        tasks.clear();
     }
 
     private void runAction(String action){

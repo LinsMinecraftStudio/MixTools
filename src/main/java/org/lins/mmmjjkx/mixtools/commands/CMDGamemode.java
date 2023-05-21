@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -51,7 +52,7 @@ public class CMDGamemode implements MixTabExecutor {
                         mode = stringToGameMode(args[0]);
                     }
                     if (mode != null) {
-                        String s = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change",false,"GameMode."+
+                        Component s = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change",false,"GameMode."+
                                 mode.toString().toLowerCase());
                         p.setGameMode(mode);
                         p.sendMessage(s);
@@ -72,7 +73,7 @@ public class CMDGamemode implements MixTabExecutor {
                         }
                         Player p2 = findPlayer(p, args[1]);
                         if (mode2 != null) {
-                            String s2 = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change",false,"GameMode."+
+                            Component s2 = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change",false,"GameMode."+
                                     mode2.toString().toLowerCase());
                             p2.setGameMode(mode2);
                             p.sendMessage(s2);

@@ -10,7 +10,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
-import org.lins.mmmjjkx.mixtools.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,8 +54,7 @@ public class CMDItemLore implements MixTabExecutor {
                     List<String> lines = new ArrayList<>();
                     if (args.length>0){
                         for (String arg : args) {
-                            String str = MixTools.messageHandler.colorize(arg.replaceAll(":space:"," "));
-                            lines.add(str);
+                            lines.add(MixTools.messageHandler.legacyColorize(arg.replaceAll(":space:"," ")));
                         }
                         m.setLore(lines);
                         i.setItemMeta(m);

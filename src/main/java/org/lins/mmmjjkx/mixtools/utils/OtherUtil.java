@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 import java.util.function.Predicate;
 
@@ -29,6 +30,13 @@ public class OtherUtil {
     public static <T> Optional<T> listGetIf(List<T> list, Predicate<? super T> filter){
         for (T obj : list) {
             if (filter.test(obj)) return Optional.of(obj);
+        }
+        return Optional.empty();
+    }
+
+    public static <K,T> Optional<T> mapValueGetIf(Map<K, T> map, Predicate<? super T> filter){
+        for (T value : map.values()) {
+            if (filter.test(value)) return Optional.of(value);
         }
         return Optional.empty();
     }
