@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.features;
 
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -143,7 +144,9 @@ public class SchedulerManager {
                 try {Thread.sleep(Integer.parseInt(split[1])*1000L);
                 } catch (InterruptedException e) {throw new RuntimeException(e);}
             }
-            case "broadcast" -> MixTools.messageHandler.broadcastCustomMessage(split[1]);
+            case "broadcast" -> {
+                MixTools.messageHandler.broadcastCustomMessage(split[1]);
+            }
         }
     }
 }

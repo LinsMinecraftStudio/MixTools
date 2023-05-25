@@ -1,5 +1,7 @@
 package org.lins.mmmjjkx.mixtools.managers;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -25,6 +27,9 @@ public class SettingsManager {
     }
     public String getString(String key, boolean colorize){
         return colorize ? MixTools.messageHandler.legacyColorize(config.getString(key,"")) : getString(key);
+    }
+    public Component getComponent(String key, boolean colorize){
+        return colorize ? Polymer.serializer.deserialize(getString(key)) : Component.text(getString(key));
     }
     public boolean getBoolean(String key){
         return config.getBoolean(key);

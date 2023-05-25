@@ -70,6 +70,7 @@ public final class MixTools extends JavaPlugin {
     public void onDisable() {
         // Plugin shutdown logic
         schedulerManager.stopAllRunnable();
+        ScoreBoardSetter.stopTasks();
         log("MixTools disabled!");
     }
 
@@ -126,6 +127,7 @@ public final class MixTools extends JavaPlugin {
         new CMDWarp().register(this);
         new CMDDelWarp().register(this);
         new CMDWarps().register(this);
+        new CMDNick().register(this);
     }
 
     private void registerListeners() {

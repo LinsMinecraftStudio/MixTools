@@ -27,16 +27,9 @@ public class OtherUtil {
         return currency;
     }
 
-    public static <T> Optional<T> listGetIf(List<T> list, Predicate<? super T> filter){
+    public static <T> Optional<T> listGetIf(Iterable<T> list, Predicate<? super T> filter){
         for (T obj : list) {
             if (filter.test(obj)) return Optional.of(obj);
-        }
-        return Optional.empty();
-    }
-
-    public static <K,T> Optional<T> mapValueGetIf(Map<K, T> map, Predicate<? super T> filter){
-        for (T value : map.values()) {
-            if (filter.test(value)) return Optional.of(value);
         }
         return Optional.empty();
     }

@@ -1,6 +1,8 @@
 package org.lins.mmmjjkx.mixtools.managers.features.kit;
 
 import com.google.common.collect.Lists;
+import io.github.linsminecraftstudio.polymer.Polymer;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -23,11 +25,13 @@ import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.*;
 public class KitCreator implements Listener {
     private final Player player;
     private final String kitName;
+    private final Component kitNameComponent;
     private final List<Integer> unusableSlot = Lists.newArrayList(4,6,7,8,9,10,11,12,13,14,15,16,17);
 
     public KitCreator(Player p, String kitName) {
         this.player = p;
         this.kitName = kitName;
+        this.kitNameComponent = Polymer.serializer.deserialize(kitName);
         Bukkit.getPluginManager().registerEvents(this, MixTools.INSTANCE);
     }
 
@@ -35,14 +39,14 @@ public class KitCreator implements Listener {
         Inventory inventory = Bukkit.createInventory(null, 54,
                 MixTools.messageHandler.getColored("Kit.Title",kitName));
         ItemStackBuilder decorations = new ItemStackBuilder(MixTools.settingsManager.getItemStack(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_TYPE));
-        decorations.name(MixTools.settingsManager.getString(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_NAME,true));
+        decorations.name(MixTools.settingsManager.getComponent(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_NAME,true));
         ItemStack decorationsStack = decorations.build();
         for (int i: unusableSlot){
             if (i == 8) continue;
             inventory.setItem(i,decorationsStack);
         }
         ItemStackBuilder closeStackBuilder = new ItemStackBuilder(MixTools.settingsManager.getItemStack(KIT_EDITOR_CLOSE_BUTTON_ITEM));
-        closeStackBuilder.name(MixTools.settingsManager.getString(KIT_EDITOR_CLOSE_BUTTON_NAME,true));
+        closeStackBuilder.name(MixTools.settingsManager.getComponent(KIT_EDITOR_CLOSE_BUTTON_NAME,true));
         ItemStack close = closeStackBuilder.build();
         inventory.setItem(8,close);
         player.openInventory(inventory);
@@ -51,7 +55,7 @@ public class KitCreator implements Listener {
     @EventHandler
     public void onCreate(InventoryCloseEvent e) {
         Inventory inventory = e.getInventory();
-        if (e.getView().getTitle().contains(kitName)) {
+        if (e.getView().title().contains(kitNameComponent)) {
             saveToFile(inventory);
             MixTools.messageHandler.sendMessage(e.getPlayer(),"Kit.CreateSuccess",kitName);
         }
@@ -59,7 +63,7 @@ public class KitCreator implements Listener {
 
     @EventHandler
     public void onClick(InventoryClickEvent e){
-        if (e.getView().getTitle().contains(kitName)) {
+        if (e.getView().title().contains(kitNameComponent)) {
             if (unusableSlot.contains(e.getRawSlot())){
                 if (e.getRawSlot() == 8) {
                     e.getWhoClicked().closeInventory();

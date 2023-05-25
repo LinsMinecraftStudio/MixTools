@@ -1,7 +1,8 @@
 package org.lins.mmmjjkx.mixtools.managers;
 
+import io.github.linsminecraftstudio.polymer.objects.ArgumentReplacement;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -63,13 +64,13 @@ public class MessageHandler {
         return s;
     }
 
-    public List<Component> getColoredMessagesParseVarPerLine(String node, Object... args){
+    public List<Component> getColoredMessagesParseVarPerLine(String node, ArgumentReplacement... replacement){
         List<String> s = message.getStringList(node);
         List<Component> new_s = new ArrayList<>();
-        for (int j = 0; j < args.length; j++) {
+        for (int j = 0; j < replacement.length; j++) {
             String st = s.get(j);
-            Object arg = args[j];
-            st = String.format(st, arg);
+            ArgumentReplacement arg = replacement[j];
+            if (!arg.isEmpty()) st = String.format(st, arg.args());
             Component st2 = colorize(st);
             new_s.add(st2);
         }
@@ -99,11 +100,11 @@ public class MessageHandler {
     }
 
     public Component colorize(String string) {
-        return MiniMessage.miniMessage().deserialize(string);
+        return LegacyComponentSerializer.legacySection().deserialize(string);
     }
 
     public Component colorize(Component component){
-        return colorize(MiniMessage.miniMessage().serialize(component));
+        return colorize(LegacyComponentSerializer.legacySection().serialize(component));
     }
 
     public String legacyColorize(String string) {

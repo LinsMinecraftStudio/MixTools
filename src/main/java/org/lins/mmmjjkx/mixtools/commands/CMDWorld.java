@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.objects.ArgumentReplacement;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.command.Command;
@@ -213,13 +214,14 @@ public class CMDWorld implements MixTabExecutor {
                         }
                         List<Component> messages = MixTools.messageHandler.
                                 getColoredMessagesParseVarPerLine("World.Info",
-                                        w.getName(), worldManager.getWorldType(w.getName()),
-                                        worldManager.getWorldAlias(w.getName()),
-                                        worldManager.getWorldEnvironment(w.getName()),
-                                        w.getSeed(),
-                                        worldManager.getChunkGeneratorName(
-                                                worldManager.getWorldGenerator(w.getName())),
-                                        w.getPVP());
+                                        new ArgumentReplacement(w.getName()),
+                                        new ArgumentReplacement(worldManager.getWorldType(w.getName())),
+                                        new ArgumentReplacement(worldManager.getWorldAlias(w.getName())),
+                                        new ArgumentReplacement(worldManager.getWorldEnvironment(w.getName())),
+                                        new ArgumentReplacement(w.getSeed()),
+                                        new ArgumentReplacement(worldManager.getChunkGeneratorName(
+                                                worldManager.getWorldGenerator(w.getName()))),
+                                        new ArgumentReplacement(w.getPVP()));
                         MixTools.messageHandler.sendMessages(sender, messages);
                         return true;
                     }

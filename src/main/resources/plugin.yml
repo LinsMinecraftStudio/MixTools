@@ -121,6 +121,8 @@ commands:
     description: teleport to a warp
   warps:
     description: list warps
+  nick:
+    description: change player display name
 permissions:
   mixtools.command.warps:
     description: list warps
@@ -309,3 +311,6 @@ permissions:
   mixtools.command.warp:
     description: teleport to a warp permission
     default: op
+  mixtools.command.nick:
+    default: op
+    description: change player display name permission

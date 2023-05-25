@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.objects.ArgumentReplacement;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -34,7 +35,8 @@ public class CMDServerInfo implements MixCommandExecutor {
             int maxMem = (int) (Runtime.getRuntime().maxMemory() / 1048576);
             String mem_str = usedMem + "MB/" + maxMem + "MB";
             List<Component> messages = MixTools.messageHandler.getColoredMessagesParseVarPerLine("Info.Server",
-                    server_name,port,str,version,mem_str);
+                    new ArgumentReplacement(server_name),new ArgumentReplacement(port),new ArgumentReplacement(str),
+                    new ArgumentReplacement(version),new ArgumentReplacement(mem_str));
             MixTools.messageHandler.sendMessages(sender,messages);
             return true;
         }
