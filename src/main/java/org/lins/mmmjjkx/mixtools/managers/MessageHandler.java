@@ -3,6 +3,7 @@ package org.lins.mmmjjkx.mixtools.managers;
 import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.objects.ArgumentReplacement;
 import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
@@ -104,7 +105,7 @@ public class MessageHandler {
     }
 
     public Component colorize(Component component){
-        return colorize(Polymer.serializer.serialize(component));
+        return colorize(MiniMessage.miniMessage().serialize(component));
     }
 
     public String legacyColorize(String string) {

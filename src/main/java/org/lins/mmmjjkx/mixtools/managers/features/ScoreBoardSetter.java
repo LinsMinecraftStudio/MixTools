@@ -15,7 +15,7 @@ public class ScoreBoardSetter {
     private static final Map<Player, BukkitTask> taskMap = new HashMap<>();
     public static void addPlayer(Player p){
         if (MixTools.settingsManager.getBoolean(SCOREBOARD_ENABLED)) {
-            taskMap.put(p, new ScoreBoardTask(p).runTaskAsynchronously(MixTools.INSTANCE));
+            taskMap.put(p, new ScoreBoardTask(p).runTask(MixTools.INSTANCE));
         }
     }
 

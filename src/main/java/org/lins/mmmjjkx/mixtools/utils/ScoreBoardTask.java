@@ -1,9 +1,7 @@
 package org.lins.mmmjjkx.mixtools.utils;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import me.clip.placeholderapi.PlaceholderAPI;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -18,6 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ScoreBoardTask extends BukkitRunnable {
+    private long second;
     private final Player player;
     public ScoreBoardTask(Player p){
         this.player = p;
@@ -37,17 +36,15 @@ public class ScoreBoardTask extends BukkitRunnable {
             Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
             List<String> strings = scoreboards.getStringList(key);
             Objective sidebar = scoreboard.registerNewObjective(key, Criteria.DUMMY,
-                    MiniMessage.miniMessage().deserialize(
+                    Polymer.serializer.deserialize(
                             MixTools.hookManager.checkPAPIInstalled() ?
                                     PlaceholderAPI.setPlaceholders(player, strings.get(0)) :
                                     strings.get(0)));
             sidebar.setDisplaySlot(DisplaySlot.SIDEBAR);
             for (int i = 1; i < strings.size()-1; i++) {
-                Component component = MiniMessage.miniMessage().deserialize(strings.get(i));
-                LegacyComponentSerializer serializer = LegacyComponentSerializer.builder().character('&')
-                        .hexColors().build();
-                sidebar.getScore(serializer.serialize(component)).setScore(0);
+                sidebar.getScore(MixTools.messageHandler.legacyColorize(strings.get(i))).setScore(0);
             }
+            scoreboardList.add(scoreboard);
         }
         return scoreboardList;
     }
@@ -56,12 +53,25 @@ public class ScoreBoardTask extends BukkitRunnable {
     public void run() {
         long delay = MixTools.settingsManager.getSection("scoreboard").getLong("changeDelay")*20L;
         new BukkitRunnable() {
-            private int index = 0;
             @Override
             public void run() {
-                player.setScoreboard(getScoreboards().get(index));
-                index += 1;
+                while (MixTools.INSTANCE.isEnabled()) {
+                    List<Scoreboard> scoreboards = getScoreboards();
+                    int index = 0;
+                    if (second % delay == 0) {
+                        index = (int) (second / delay) - 1;
+                        if (index < 0) index = 0;
+                        if (index >= scoreboards.size()) {
+                            index = 0;
+                            second = 0;
+                        }
+                        player.setScoreboard(scoreboards.get(index));
+                    }else {
+                        player.setScoreboard(scoreboards.get(index));
+                    }
+                    second += 20L;
+                }
             }
-        }.runTaskTimerAsynchronously(MixTools.INSTANCE,delay,delay);
+        }.runTask(MixTools.INSTANCE);
     }
 }

@@ -33,6 +33,8 @@ import org.lins.mmmjjkx.mixtools.managers.features.WarpManager;
 import org.lins.mmmjjkx.mixtools.managers.features.kit.KitManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 
+import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.SCOREBOARD_ENABLED;
+
 
 public final class MixTools extends JavaPlugin {
     private static DataManager dataManager;
@@ -151,7 +153,7 @@ public final class MixTools extends JavaPlugin {
         warpManager = new WarpManager();
         schedulerManager.reload();
         miscFeatureManager.reload();
-        ScoreBoardSetter.restart();
+        if (getConfig().getBoolean(SCOREBOARD_ENABLED)) ScoreBoardSetter.restart();
     }
 
     public static DataManager getDataManager(){

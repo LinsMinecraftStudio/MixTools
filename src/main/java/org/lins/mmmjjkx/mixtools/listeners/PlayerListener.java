@@ -36,12 +36,18 @@ public class PlayerListener implements MixToolsListener {
                 return;
             }
         }
-        MixToolsEconomy economy = MixTools.hookManager.getEconomy();
-        economy.createPlayerAccount(p);
+        boolean vaultInstalled = MixTools.hookManager.checkVaultInstalled();
+        if (vaultInstalled) {
+            MixToolsEconomy economy = MixTools.hookManager.getEconomy();
+            economy.createPlayerAccount(p);
+        }
         e.joinMessage(getPlayerMessage(p, PLAYER_JOIN_MESSAGE));
         if (!p.hasPlayedBefore()){
-            economy.depositPlayer(e.getPlayer(), MixTools.settingsManager.getInt(INITIAL_CURRENCY));
-            Bukkit.broadcast(getPlayerMessage(p, PLAYER_WELCOME_MESSAGE));
+            if (vaultInstalled) {
+                MixToolsEconomy economy = MixTools.hookManager.getEconomy();
+                economy.depositPlayer(e.getPlayer(), MixTools.settingsManager.getInt(INITIAL_CURRENCY));
+                Bukkit.broadcast(getPlayerMessage(p, PLAYER_WELCOME_MESSAGE));
+            }
         }
         ScoreBoardSetter.addPlayer(p);
         checkVersion(p);

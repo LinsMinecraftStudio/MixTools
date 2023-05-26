@@ -9,6 +9,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
 import org.lins.mmmjjkx.mixtools.MixTools;
+import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixToolsListener;
 
 import java.io.File;
@@ -18,8 +19,9 @@ import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MOTD_ENABLED;
 public class ServerListener implements MixToolsListener {
     @EventHandler
     public void onMotd(PaperServerListPingEvent e){
-        if (MixTools.settingsManager.getBoolean(MOTD_ENABLED)) {
-            ConfigurationSection section = MixTools.settingsManager.getSection("motd");
+        SettingsManager manager = MixTools.settingsManager;
+        if (manager.getBoolean(MOTD_ENABLED)) {
+            ConfigurationSection section = manager.getSection("motd");
             if (section == null) return;
             String motd = section.getString("string", "");
             int onlinePlayers = Bukkit.getOnlinePlayers().size();
