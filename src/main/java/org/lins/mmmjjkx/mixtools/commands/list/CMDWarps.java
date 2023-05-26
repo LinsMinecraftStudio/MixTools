@@ -14,7 +14,7 @@ public class CMDWarps implements ListCMD<MixToolsWarp> {
 
     @Override
     public void sendLineMessage(CommandSender sender, MixToolsWarp object, int number) {
-        sendMessage(sender, "Info.List.Styles.Default",number, object.name());
+        sendMessage(sender, "Info.List.Styles.Default", number, object.name());
     }
 
     @Override

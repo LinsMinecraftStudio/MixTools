@@ -1,12 +1,12 @@
 package org.lins.mmmjjkx.mixtools.managers.features;
 
+import io.github.linsminecraftstudio.polymer.utils.ListUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsWarp;
-import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
 import javax.annotation.Nullable;
 import java.io.File;
@@ -74,6 +74,6 @@ public class WarpManager {
     }
     @Nullable
     public MixToolsWarp getWarpByName(String name){
-        return OtherUtil.listGetIf(warps, w -> w.name().equals(name)).orElse(null);
+        return ListUtil.listGetIf(warps, w -> w.name().equals(name)).orElse(null);
     }
 }

@@ -1,6 +1,6 @@
 package org.lins.mmmjjkx.mixtools;
 
-import io.github.linsminecraftstudio.polymer.file.FileUtils;
+import io.github.linsminecraftstudio.polymer.utils.FileUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
@@ -69,7 +69,7 @@ public final class MixTools extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
-        schedulerManager.stopAllRunnable();
+        if (schedulerManager != null) schedulerManager.stopAllRunnable();
         ScoreBoardSetter.stopTasks();
         log("MixTools disabled!");
     }

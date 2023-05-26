@@ -1,6 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.features;
 
-import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
+import io.github.linsminecraftstudio.polymer.utils.ListUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -9,12 +9,14 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsScheduler;
-import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
 import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SchedulerManager {
     private YamlConfiguration config = new YamlConfiguration();
@@ -101,12 +103,12 @@ public class SchedulerManager {
     }
 
     public boolean containsScheduler(String name){
-        return OtherUtil.listGetIf(schedulers, scheduler -> scheduler.name().equals(name)).isPresent();
+        return ListUtil.listGetIf(schedulers, scheduler -> scheduler.name().equals(name)).isPresent();
     }
 
     @Nullable
     public MixToolsScheduler getScheduler(String name){
-        return OtherUtil.listGetIf(schedulers, sc -> sc.name().equals(name)).orElse(null);
+        return ListUtil.listGetIf(schedulers, sc -> sc.name().equals(name)).orElse(null);
     }
 
     public void stopRunnable(String name){
@@ -144,9 +146,7 @@ public class SchedulerManager {
                 try {Thread.sleep(Integer.parseInt(split[1])*1000L);
                 } catch (InterruptedException e) {throw new RuntimeException(e);}
             }
-            case "broadcast" -> {
-                MixTools.messageHandler.broadcastCustomMessage(split[1]);
-            }
+            case "broadcast" -> MixTools.messageHandler.broadcastCustomMessage(split[1]);
         }
     }
 }

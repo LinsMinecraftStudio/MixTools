@@ -7,10 +7,11 @@ import org.bukkit.OfflinePlayer;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey;
-import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
 import java.math.BigDecimal;
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
 
@@ -38,7 +39,15 @@ public class MixToolsEconomy implements Economy {
 
     @Override
     public String format(double amount) {
-        return OtherUtil.ToStringCurrency(new BigDecimal(amount));
+        BigDecimal decimal = new BigDecimal(amount);
+        String currency = NumberFormat.getInstance(Locale.getDefault()).format(decimal);
+        if (currency.endsWith(".00")) {
+            currency = currency.substring(0, currency.length() - 3);
+        }
+        if (decimal.signum() < 0) {
+            currency = currency.substring(1);
+        }
+        return currency;
     }
 
     @Override

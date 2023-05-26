@@ -2,6 +2,7 @@ package org.lins.mmmjjkx.mixtools.managers.features.kit;
 
 import com.google.common.io.Files;
 import io.github.linsminecraftstudio.polymer.itemstack.ItemStackConverter;
+import io.github.linsminecraftstudio.polymer.utils.ListUtil;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
@@ -9,11 +10,13 @@ import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsKit;
-import org.lins.mmmjjkx.mixtools.utils.OtherUtil;
 
 import javax.annotation.Nullable;
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class KitManager {
     private List<MixToolsKit> kits = new ArrayList<>();
@@ -43,7 +46,7 @@ public class KitManager {
 
     @Nullable
     public MixToolsKit getKitByName(String name){
-        return OtherUtil.listGetIf(kits, k -> k.kitName().equals(name)).orElse(null);
+        return ListUtil.listGetIf(kits, k -> k.kitName().equals(name)).orElse(null);
     }
 
     public boolean removeKit(String name){
