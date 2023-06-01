@@ -1,26 +1,28 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
 import com.google.common.collect.Lists;
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.commands.list.ListCMD;
 import org.lins.mmmjjkx.mixtools.managers.misc.CommandGroupManager;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsCommandGroup;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CMDCommandGroup implements MixTabExecutor {
+public class CMDCommandGroup extends PolymerCommand {
     private final CommandGroupManager commandGroupManager = MixTools.miscFeatureManager.getCommandGroupManager();
 
-    @Nullable
+    public CMDCommandGroup(@NotNull String name) {
+        super(name);
+        setAliases(List.of("cg"));
+    }
+
     @Override
-    public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
+    public @NotNull List<String> tabComplete(@Nonnull CommandSender sender, @Nonnull String label, @Nonnull String[] args) {
         List<String> argsList = new ArrayList<>();
         if (args.length==1){
             argsList.add("add");
@@ -35,13 +37,9 @@ public class CMDCommandGroup implements MixTabExecutor {
             playerList.add("CONSOLE-RUN");//run command group on console
             return copyPartialMatches(args[2],playerList);
         }
-        return null;
+        return new ArrayList<>();
     }
 
-    @Override
-    public String name() {
-        return "commandgroup";
-    }
 
     @Override
     public String requirePlugin() {
@@ -49,7 +47,12 @@ public class CMDCommandGroup implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@Nonnull CommandSender sender, @Nonnull String label, @Nonnull String[] args) {
         if (hasCustomPermission(sender,"commandgroup")){
             if (args.length==0) {
                 sendMessage(sender, "Command.ArgError");

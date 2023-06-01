@@ -1,8 +1,8 @@
 package org.lins.mmmjjkx.mixtools.utils;
 
+import io.github.linsminecraftstudio.polymer.objects.PolymerMessageHandler;
 import net.kyori.adventure.text.Component;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -10,7 +10,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DateUtil {
-    private static final MessageHandler messageHandler = MixTools.messageHandler;
+    private static final PolymerMessageHandler messageHandler = MixTools.messageHandler;
     private static final Pattern timePattern = Pattern.compile("(?:([0-9]+)\\s*y[a-z]*[,\\s]*)?" + "(?:([0-9]+)\\s*mo[a-z]*[,\\s]*)?" + "(?:([0-9]+)\\s*w[a-z]*[,\\s]*)?" + "(?:([0-9]+)\\s*d[a-z]*[,\\s]*)?" + "(?:([0-9]+)\\s*h[a-z]*[,\\s]*)?" + "(?:([0-9]+)\\s*m[a-z]*[,\\s]*)?" + "(?:([0-9]+)\\s*(?:s[a-z]*)?)?", Pattern.CASE_INSENSITIVE);
     private static final int maxYears = 10000;
     public static long parseDateDiff(String time, boolean future) {

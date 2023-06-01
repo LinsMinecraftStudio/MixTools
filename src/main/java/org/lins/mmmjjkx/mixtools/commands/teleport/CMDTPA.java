@@ -7,7 +7,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.managers.misc.TpaManager;
+import org.lins.mmmjjkx.mixtools.managers.features.setters.TpaSetter;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsTeleportRequest;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
@@ -41,16 +41,16 @@ public class CMDTPA implements MixTabExecutor {
                 if (args.length == 1) {
                     Player p2 = findPlayer(p, args[0]);
                     if (p2 != null) {
-                        TpaManager tpaManager = MixTools.miscFeatureManager.getTpaManager();
+                        TpaSetter tpaSetter = MixTools.miscFeatureManager.getTpaManager();
                         MixToolsTeleportRequest request = new MixToolsTeleportRequest(p,p2);
-                        tpaManager.setExpireTime(request,tpaManager.DEFAULT_EXPIRE_TIME);
+                        tpaSetter.setExpireTime(request, tpaSetter.DEFAULT_EXPIRE_TIME);
                         sendMessage(p,"TPA.Sent");
-                        tpaManager.buildRequestMessage(request,false);
+                        tpaSetter.buildRequestMessage(request,false);
                         new BukkitRunnable() {
                             @Override
                             public void run() {
-                                int timeLeft = tpaManager.getExpireTime(request);
-                                tpaManager.setExpireTime(request, --timeLeft);
+                                int timeLeft = tpaSetter.getExpireTime(request);
+                                tpaSetter.setExpireTime(request, --timeLeft);
                                 if  (timeLeft == 1){
                                     sendMessage(sender,"TPA.Timeout",p2.getName());
                                 }

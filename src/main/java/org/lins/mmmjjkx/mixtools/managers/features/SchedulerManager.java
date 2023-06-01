@@ -1,9 +1,9 @@
 package org.lins.mmmjjkx.mixtools.managers.features;
 
+import io.github.linsminecraftstudio.polymer.objects.AbstractFeatureManager;
 import io.github.linsminecraftstudio.polymer.utils.ListUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
@@ -11,40 +11,27 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsScheduler;
 
 import javax.annotation.Nullable;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class SchedulerManager {
-    private YamlConfiguration config = new YamlConfiguration();
-    private final File cfgFile;
+public class SchedulerManager extends AbstractFeatureManager {
+    private YamlConfiguration config;
     private final List<MixToolsScheduler> schedulers = new ArrayList<>();
     private final Map<BukkitTask,String> tasks = new HashMap<>();
 
     public SchedulerManager() {
-        File f = new File(MixTools.INSTANCE.getDataFolder(), "scheduler.yml");
-        if (!f.exists()) {
-            MixTools.INSTANCE.saveResource("scheduler.yml",false);
-        }
-        cfgFile = f;
-        try {config.load(f);
-        }catch (Exception e){throw new RuntimeException(e);}
+        super(MixTools.INSTANCE);
+        config = handleConfig("scheduler.yml");
         loadSchedulers();
         startAllRunnable();
     }
 
     public void reload() {
         stopAllRunnable();
-        try {
-            config = new YamlConfiguration();
-            config.load(cfgFile);
-            startAllRunnable();
-        } catch (IOException | InvalidConfigurationException e) {
-            throw new RuntimeException(e);
-        }
+        config = handleConfig("scheduler.yml");
+        startAllRunnable();
     }
 
     public void loadSchedulers(){

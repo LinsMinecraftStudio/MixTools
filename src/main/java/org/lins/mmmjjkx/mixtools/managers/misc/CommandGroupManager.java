@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.misc;
 
+import io.github.linsminecraftstudio.polymer.objects.AbstractFeatureManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -13,25 +14,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-public class CommandGroupManager {
-    private final YamlConfiguration cmdgroup = new YamlConfiguration();
-    private File cfgFile;
-    private List<MixToolsCommandGroup> groups = new ArrayList<>();
+public class CommandGroupManager extends AbstractFeatureManager {
+    private YamlConfiguration cmdgroup;
+    private final File cfgFile = new File(MixTools.INSTANCE.getDataFolder(), "commandGroup.yml");
+    private final List<MixToolsCommandGroup> groups;
 
     public CommandGroupManager() {
-        setup();
-    }
-
-    private void setup() {
-        cfgFile = new File(MixTools.INSTANCE.getDataFolder(), "commandGroup.yml");
-        if (!cfgFile.exists()) {
-            MixTools.INSTANCE.saveResource("commandGroup.yml",false);
-        }
-        try {
-            cmdgroup.load(cfgFile);
-        }catch (Exception e){
-            e.printStackTrace();
-        }
+        super(MixTools.INSTANCE);
+        cmdgroup = handleConfig("commandGroup.yml");
         groups = getAllGroups();
     }
 
@@ -108,5 +98,10 @@ public class CommandGroupManager {
 
     public boolean containsGroup(String name) {
         return cmdgroup.contains(name);
+    }
+
+    @Override
+    public void reload() {
+        cmdgroup = handleConfig("commandGroup");
     }
 }

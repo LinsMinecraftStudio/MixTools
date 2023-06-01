@@ -1,9 +1,7 @@
 package org.lins.mmmjjkx.mixtools.utils;
 
-import io.github.linsminecraftstudio.polymer.Polymer;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.Criteria;
@@ -12,66 +10,42 @@ import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public class ScoreBoardTask extends BukkitRunnable {
-    private long second;
-    private final Player player;
-    public ScoreBoardTask(Player p){
-        this.player = p;
-    }
-
-    private List<Scoreboard> getScoreboards(){
-        ConfigurationSection section = MixTools.settingsManager.getSection("scoreboard");
-        if (section == null) {
-            return new ArrayList<>();
-        }
-        ConfigurationSection scoreboards = section.getConfigurationSection("scoreboards");
-        if (scoreboards == null) {
-            return new ArrayList<>();
-        }
-        List<Scoreboard> scoreboardList = new ArrayList<>();
-        for (String key : scoreboards.getKeys(false)) {
-            Scoreboard scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-            List<String> strings = scoreboards.getStringList(key);
-            Objective sidebar = scoreboard.registerNewObjective(key, Criteria.DUMMY,
-                    Polymer.serializer.deserialize(
-                            MixTools.hookManager.checkPAPIInstalled() ?
-                                    PlaceholderAPI.setPlaceholders(player, strings.get(0)) :
-                                    strings.get(0)));
-            sidebar.setDisplaySlot(DisplaySlot.SIDEBAR);
-            for (int i = 1; i < strings.size()-1; i++) {
-                sidebar.getScore(MixTools.messageHandler.legacyColorize(strings.get(i))).setScore(0);
-            }
-            scoreboardList.add(scoreboard);
-        }
-        return scoreboardList;
-    }
 
     @Override
     public void run() {
-        long delay = MixTools.settingsManager.getSection("scoreboard").getLong("changeDelay")*20L;
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                while (MixTools.INSTANCE.isEnabled()) {
-                    List<Scoreboard> scoreboards = getScoreboards();
-                    int index = 0;
-                    if (second % delay == 0) {
-                        index = (int) (second / delay) - 1;
-                        if (index < 0) index = 0;
-                        if (index >= scoreboards.size()) {
-                            index = 0;
-                            second = 0;
-                        }
-                        player.setScoreboard(scoreboards.get(index));
-                    }else {
-                        player.setScoreboard(scoreboards.get(index));
+        try {
+            for (Player player : Bukkit.getOnlinePlayers()) {
+                Scoreboard playerScoreboard = player.getScoreboard();
+                if (!isScoreboardEmpty(playerScoreboard)) {
+                    Objective objective = playerScoreboard.getObjective(DisplaySlot.SIDEBAR);
+                    if (objective != null) {
+                        objective.unregister();
                     }
-                    second += 20L;
                 }
+                List<String> strings = MixTools.settingsManager.getSection("scoreboard").getStringList("scoreboard");
+                Objective objective = playerScoreboard.registerNewObjective("SCOREBOARD_TITLE", Criteria.DUMMY,
+                        MixTools.settingsManager.getComponent("scoreboard.title", true));
+                objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+                for (String string : strings){
+                    objective.getScore(parse(player, string)).setScore(0);
+                }
+                player.setScoreboard(playerScoreboard);
             }
-        }.runTask(MixTools.INSTANCE);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private boolean isScoreboardEmpty(Scoreboard scoreboard){
+        return scoreboard.equals(Bukkit.getScoreboardManager().getNewScoreboard());
+    }
+
+    private String parse(Player player, String text) {
+        return MixTools.hookManager.checkPAPIInstalled() ? MixTools.messageHandler.legacyColorize(PlaceholderAPI.setPlaceholders(player, text))
+                : MixTools.messageHandler.legacyColorize(text);
     }
 }

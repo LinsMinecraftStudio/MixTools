@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -10,20 +11,19 @@ import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CMDSudo implements MixTabExecutor {
+public class CMDSudo extends PolymerCommand {
+    public CMDSudo(@NotNull String name) {
+        super(name);
+    }
+
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
         if (args.length==1){
             return copyPartialMatches(args[0], getPlayerNames());
         } else if (args.length > 1) {
             return List.of("cmd:","chat:","cmdgroup:");
         }
-        return null;
-    }
-
-    @Override
-    public String name() {
-        return "sudo";
+        return new ArrayList<>();
     }
 
     @Override
@@ -32,7 +32,12 @@ public class CMDSudo implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             if (args.length>=2){
                 Player p = findPlayer(sender,args[0]);

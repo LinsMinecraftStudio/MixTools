@@ -57,12 +57,17 @@ trash:
     item: "RED_STAINED_GLASS_PANE"
     name: "&cClose"
 kit:
-  itemInNonPlaceableSlots:
-    type: "BLACK_STAINED_GLASS_PANE"
-    name: "&a"
   editorCloseButton:
     item: "BARRIER"
     name: "&cClose and save"
+inventory:
+  defaultStyle:
+    decoration:
+      type: "BLACK_STAINED_GLASS_PANE"
+      name: "&a"
+    closeButton:
+      type: "RED_STAINED_GLASS_PANE"
+      name: "&cClose"
 motd:
   enabled: false
   icon: "example.png"
@@ -81,15 +86,9 @@ motd:
     x: 3
 scoreboard:
   enabled: false
-  changeDelay: 30
-  scoreboards:
-    example:
-      - "&aExample Server"
-      - "&aWelcome to my server"
-      - "<green>You can use legacy color codes or MiniMessage format in scoreboards.</green>"
-      - "&eExample server v1.0"
-    papi:
-      - "&aExample server"
-      - "&eName: %player_name%"
-      - "&cHealth: %player_health_rounded%"
-      - "&bMoney: %vault_eco_balance%"
+  title: "<green>Example Server"
+  scoreboard:
+    - "<green>Example server</green>"
+    - "<yellow>Name: %player_name%</yellow>"
+    - "<red>Health: %player_health_rounded%</red>"
+    - "<blue>Money: %vault_eco_balance%</blue>"

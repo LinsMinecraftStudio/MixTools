@@ -30,6 +30,10 @@ public class SettingsKey {
     public static String KIT_EDITOR_CLOSE_BUTTON_NAME = "kit.editorCloseButton.name";
     public static String MOTD_ENABLED = "motd.enabled";
     public static String SCOREBOARD_ENABLED = "scoreboard.enabled";
+    public static String INVENTORY_DEFAULT_STYLE_DECORATION_TYPE = "inventory.defaultStyle.decoration.type";
+    public static String INVENTORY_DEFAULT_STYLE_DECORATION_NAME = "inventory.defaultStyle.decoration.name";
+    public static String INVENTORY_DEFAULT_STYLE_CLOSE_BUTTON_TYPE = "inventory.defaultStyle.closeButton.type";
+    public static String INVENTORY_DEFAULT_STYLE_CLOSE_BUTTON_NAME = "inventory.defaultStyle.closeButton.name";
     public static HikariDataSource getDataSource() {
         SettingsManager sm = MixTools.settingsManager;
         HikariDataSource dataSource = new HikariDataSource();

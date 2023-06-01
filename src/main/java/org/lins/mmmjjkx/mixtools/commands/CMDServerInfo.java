@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import io.github.linsminecraftstudio.polymer.objects.ArgumentReplacement;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
@@ -11,10 +12,10 @@ import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
 import java.util.List;
 
-public class CMDServerInfo implements MixCommandExecutor {
-    @Override
-    public String name() {
-        return "serverinfo";
+public class CMDServerInfo extends PolymerCommand {
+
+    public CMDServerInfo(@NotNull String name) {
+        super(name);
     }
 
     @Override
@@ -23,7 +24,10 @@ public class CMDServerInfo implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {}
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)) {
             String server_name = Bukkit.getName();
             int port = Bukkit.getPort();

@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.managers.misc;
+package org.lins.mmmjjkx.mixtools.managers.features.setters;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -11,7 +11,7 @@ import java.util.Map;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.TPA_EXPIRE_TIME;
 
-public class TpaManager {
+public class TpaSetter {
     private final Map<MixToolsTeleportRequest,Integer> requestMap = new HashMap<>();
     public final int DEFAULT_EXPIRE_TIME = MixTools.settingsManager.getInt(TPA_EXPIRE_TIME);
     public void setExpireTime(MixToolsTeleportRequest request, int time){

@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.features;
 
+import io.github.linsminecraftstudio.polymer.objects.AbstractFeatureManager;
 import io.github.linsminecraftstudio.polymer.utils.ListUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -14,19 +15,21 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WarpManager {
-    private final YamlConfiguration warpConfiguration = new YamlConfiguration();
+public class WarpManager extends AbstractFeatureManager {
+    private YamlConfiguration warpConfiguration;
     private final File cfgFile = new File(MixTools.INSTANCE.getDataFolder(), "warps.yml");
     private final List<MixToolsWarp> warps = new ArrayList<>();
     public WarpManager() {
-        if (!cfgFile.exists()){
-            try {cfgFile.createNewFile();
-            } catch (IOException e) {throw new RuntimeException(e);}
-        }
-        try {warpConfiguration.load(cfgFile);
-        } catch (Exception e) {throw new RuntimeException(e);}
+        super(MixTools.INSTANCE);
+        warpConfiguration = handleConfig("warps.yml");
         loadWarps();
     }
+
+    @Override
+    public void reload() {
+        warpConfiguration = handleConfig("warps.yml");
+    }
+
     public void loadWarps() {
         for (String key : warpConfiguration.getKeys(false)){
             ConfigurationSection section = warpConfiguration.getConfigurationSection(key);

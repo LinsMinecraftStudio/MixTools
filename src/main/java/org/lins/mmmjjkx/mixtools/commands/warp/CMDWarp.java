@@ -1,30 +1,27 @@
 package org.lins.mmmjjkx.mixtools.commands.warp;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.features.WarpManager;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsWarp;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CMDWarp implements MixTabExecutor {
-    @Nullable
-    @Override
-    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        if (strings.length==1){
-            return copyPartialMatches(strings[0], MixTools.warpManager.getWarpNames());
-        }
-        return null;
+public class CMDWarp extends PolymerCommand {
+    public CMDWarp(@NotNull String name) {
+        super(name);
     }
 
     @Override
-    public String name() {
-        return "warp";
+    public @NotNull List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
+        if (strings.length==1){
+            return copyPartialMatches(strings[0], MixTools.warpManager.getWarpNames());
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -33,7 +30,12 @@ public class CMDWarp implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
         if (hasPermission(commandSender)) {
             Player p = toPlayer(commandSender);
             if (p != null) {

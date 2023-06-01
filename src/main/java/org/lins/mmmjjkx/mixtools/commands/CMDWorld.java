@@ -1,30 +1,31 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import io.github.linsminecraftstudio.polymer.objects.ArgumentReplacement;
+import io.github.linsminecraftstudio.polymer.utils.FileUtils;
 import net.kyori.adventure.text.Component;
 import org.bukkit.*;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.generator.ChunkGenerator;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.misc.WorldManager;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
-import io.github.linsminecraftstudio.polymer.utils.FileUtils;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class CMDWorld implements MixTabExecutor {
+public class CMDWorld extends PolymerCommand {
     private final WorldManager worldManager = MixTools.miscFeatureManager.getWorldManager();
 
-    @Nullable
+    public CMDWorld(@NotNull String name) {
+        super(name);
+    }
+
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length==1){
             List<String> list = List.of("create","info","reset","reset-seed","remove","gamerule","load");
             return copyPartialMatches(args[0],list);
@@ -69,12 +70,7 @@ public class CMDWorld implements MixTabExecutor {
                 return copyPartialMatches(args[1], worldNames);
             }
         }
-        return null;
-    }
-
-    @Override
-    public String name() {
-        return "world";
+        return new ArrayList<>();
     }
 
     @Override
@@ -83,7 +79,12 @@ public class CMDWorld implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasCustomPermission(sender, "world")) {
             if (args.length == 4) {
                 switch (args[0]) {

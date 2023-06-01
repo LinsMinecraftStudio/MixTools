@@ -39,7 +39,7 @@ public class ServerListener implements MixToolsListener {
                 e.setVersion(MixTools.settingsManager.getString("motd.version", true));
             }
             if (section.getBoolean("Xmore.enabled")) {
-                ConfigurationSection xmore = section.getConfigurationSection("xmore");
+                ConfigurationSection xmore = section.getConfigurationSection("Xmore");
                 if (xmore != null) {
                     int x = xmore.getInt("x", 1);
                     x += onlinePlayers;
@@ -64,11 +64,8 @@ public class ServerListener implements MixToolsListener {
             } else if (!Files.getFileExtension(icon.getName()).equals("png")) {
                 MixTools.warn("Cannot set the motd icon, because it's not a png file.");
             } else {
-                try {
-                    e.setServerIcon(Bukkit.loadServerIcon(icon));
-                } catch (Exception ex) {
-                    throw new RuntimeException(ex);
-                }
+                try {e.setServerIcon(Bukkit.loadServerIcon(icon));
+                } catch (Exception ex) {throw new RuntimeException(ex);}
             }
             e.setHidePlayers(section.getBoolean("players.hidePlayers"));
         }

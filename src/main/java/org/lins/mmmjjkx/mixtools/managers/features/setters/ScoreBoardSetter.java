@@ -1,4 +1,4 @@
-package org.lins.mmmjjkx.mixtools.managers.features;
+package org.lins.mmmjjkx.mixtools.managers.features.setters;
 
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -15,7 +15,7 @@ public class ScoreBoardSetter {
     private static final Map<Player, BukkitTask> taskMap = new HashMap<>();
     public static void addPlayer(Player p){
         if (MixTools.settingsManager.getBoolean(SCOREBOARD_ENABLED)) {
-            taskMap.put(p, new ScoreBoardTask(p).runTask(MixTools.INSTANCE));
+            taskMap.put(p, new ScoreBoardTask().runTask(MixTools.INSTANCE));
         }
     }
 

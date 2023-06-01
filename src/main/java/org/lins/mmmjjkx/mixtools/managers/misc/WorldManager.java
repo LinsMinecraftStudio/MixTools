@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.misc;
 
+import io.github.linsminecraftstudio.polymer.objects.AbstractFeatureManager;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -15,15 +16,13 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.io.IOException;
 
-public class WorldManager {
-    private final YamlConfiguration configuration;
-    private final File cfgfile;
+public class WorldManager extends AbstractFeatureManager {
+    private YamlConfiguration configuration;
+    private final File cfgfile = new File(MixTools.INSTANCE.getDataFolder(), "world.yml");
 
     public WorldManager() {
-        configuration = new YamlConfiguration();
-        cfgfile = new File(MixTools.INSTANCE.getDataFolder(), "world.yml");
-        try {configuration.load(cfgfile);
-        }catch (Exception ignored){}
+        super(MixTools.INSTANCE);
+        configuration = handleConfig("world.yml");
         for (World world: Bukkit.getWorlds()){
             if (!configuration.contains(world.getName())){
                 addWorld(world);
@@ -32,6 +31,12 @@ public class WorldManager {
         loadWorldsFromConfig();
         applyConfigToWorld();
     }
+
+    @Override
+    public void reload() {
+        configuration = handleConfig("world.yml");
+    }
+
     public void addWorld(World world){addWorld(world, WorldType.NORMAL);}
 
     public void addWorld(World world, WorldType type){

@@ -16,6 +16,7 @@ import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import io.github.linsminecraftstudio.polymer.itemstack.ItemStackBuilder;
 import io.github.linsminecraftstudio.polymer.itemstack.ItemStackConverter;
+import org.lins.mmmjjkx.mixtools.utils.InventoryFactory;
 
 import java.io.File;
 import java.util.List;
@@ -36,15 +37,7 @@ public class KitCreator implements Listener {
     }
 
     public void openInventory(){
-        Inventory inventory = Bukkit.createInventory(null, 54,
-                MixTools.messageHandler.getColored("Kit.Title",kitName));
-        ItemStackBuilder decorations = new ItemStackBuilder(MixTools.settingsManager.getItemStack(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_TYPE));
-        decorations.name(MixTools.settingsManager.getComponent(KIT_ITEM_IN_NON_PLACEABLE_SLOTS_NAME,true));
-        ItemStack decorationsStack = decorations.build();
-        for (int i: unusableSlot){
-            if (i == 8) continue;
-            inventory.setItem(i,decorationsStack);
-        }
+        Inventory inventory = InventoryFactory.createDefaultStyleInventory(MixTools.messageHandler.getColored("Kit.Title",kitName), false);
         ItemStackBuilder closeStackBuilder = new ItemStackBuilder(MixTools.settingsManager.getItemStack(KIT_EDITOR_CLOSE_BUTTON_ITEM));
         closeStackBuilder.name(MixTools.settingsManager.getComponent(KIT_EDITOR_CLOSE_BUTTON_NAME,true));
         ItemStack close = closeStackBuilder.build();

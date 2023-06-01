@@ -1,15 +1,14 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
-public class CMDWorkbench implements MixCommandExecutor {
-    @Override
-    public String name() {
-        return "workbench";
+public class CMDWorkbench extends PolymerCommand {
+
+    public CMDWorkbench(@NotNull String name) {
+        super(name);
     }
 
     @Override
@@ -18,7 +17,12 @@ public class CMDWorkbench implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        //this command don't need to send message
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (p != null) {

@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools;
 
+import io.github.linsminecraftstudio.polymer.objects.PolymerMessageHandler;
 import io.github.linsminecraftstudio.polymer.utils.FileUtils;
 import org.bstats.bukkit.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -24,11 +25,10 @@ import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
 import org.lins.mmmjjkx.mixtools.listeners.ServerListener;
 import org.lins.mmmjjkx.mixtools.listeners.SignListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
-import org.lins.mmmjjkx.mixtools.managers.MessageHandler;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.features.SchedulerManager;
-import org.lins.mmmjjkx.mixtools.managers.features.ScoreBoardSetter;
+import org.lins.mmmjjkx.mixtools.managers.features.setters.ScoreBoardSetter;
 import org.lins.mmmjjkx.mixtools.managers.features.WarpManager;
 import org.lins.mmmjjkx.mixtools.managers.features.kit.KitManager;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
@@ -39,7 +39,7 @@ import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.SCOREBOARD_ENAB
 public final class MixTools extends JavaPlugin {
     private static DataManager dataManager;
     public static MixTools INSTANCE;
-    public static MessageHandler messageHandler;
+    public static PolymerMessageHandler messageHandler;
     public static HookManager hookManager;
     public static SettingsManager settingsManager;
     ///////////////features////////////
@@ -55,7 +55,7 @@ public final class MixTools extends JavaPlugin {
         INSTANCE = this;
         saveResources();
         settingsManager = new SettingsManager();
-        messageHandler = new MessageHandler();
+        messageHandler = new PolymerMessageHandler(this);
         dataManager = new DataManager();
         hookManager = new HookManager();
         miscFeatureManager = new MiscFeatureManager();
@@ -77,65 +77,65 @@ public final class MixTools extends JavaPlugin {
     }
 
     private void registerCommands() {
-        new CMDGamemode().register(this);
-        new CMDKillAll().register(this);
-        new CMDKill().register(this);
-        new CMDSuicide().register(this);
-        new CMDFly().register(this);
-        new CMDWorkbench().register(this);
-        new CMDSudo().register(this);
-        new CMDItemName().register(this);
-        new CMDItemLore().register(this);
-        new CMDTrash().register(this);
-        new CMDSethome().register(this);
-        new CMDDelhome().register(this);
-        new CMDCommandGroup().register(this);
-        new CMDSetSpawn().register(this);
-        new CMDSpawn().register(this);
-        new CMDBack().register(this);
-        new CMDHome().register(this);
-        new CMDTPA().register(this);
-        new CMDTPAAccept().register(this);
-        new CMDTPARefuse().register(this);
-        new CMDReload().register(this);
-        new CMDEnderChest().register(this);
-        new CMDTPAHere().register(this);
-        new CMDTeleport().register(this);
-        new CMDServerInfo().register(this);
-        new CMDTPAll().register(this);
-        new CMDFlySpeed().register(this);
-        new CMDWalkSpeed().register(this);
-        new CMDAttackSpeed().register(this);
-        new CMDBalance().register(this);
-        new CMDOPList().register(this);
-        new CMDBanList().register(this);
-        new CMDLightning().register(this);
-        new CMDTNT().register(this);
-        new CMDWorld().register(this);
-        new CMDBroadcast().register(this);
-        new CMDBurn().register(this);
-        new CMDHeal().register(this);
-        new CMDRepair().register(this);
-        new CMDVoid().register(this);
-        new CMDHomes().register(this);
-        new CMDScheduler().register(this);
-        new CMDTPAAll().register(this);
-        new CMDEconomy().register(this);
-        new CMDPay().register(this);
-        new CMDRepairAll().register(this);
-        new CMDKit().register(this);
-        new CMDKits().register(this);
-        new CMDSetWarp().register(this);
-        new CMDWarp().register(this);
-        new CMDDelWarp().register(this);
-        new CMDWarps().register(this);
-        new CMDNick().register(this);
+        new CMDGamemode();
+        new CMDKillAll();
+        new CMDKill();
+        new CMDSuicide("suicide");
+        new CMDFly();
+        new CMDWorkbench("workbench");
+        new CMDSudo("sudo");
+        new CMDItemName();
+        new CMDItemLore();
+        new CMDTrash("trash");
+        new CMDSethome();
+        new CMDDelhome();
+        new CMDCommandGroup("commandgroup");
+        new CMDSetSpawn("setspawn");
+        new CMDSpawn("spawn");
+        new CMDBack();
+        new CMDHome();
+        new CMDTPA("tpa");
+        new CMDTPAAccept("tpaaccept");
+        new CMDTPARefuse("tparefuse");
+        new CMDReload("mixtoolsreload");
+        new CMDEnderChest("enderchest");
+        new CMDTPAHere();
+        new CMDTeleport();
+        new CMDServerInfo("serverinfo");
+        new CMDTPAll();
+        new CMDFlySpeed();
+        new CMDWalkSpeed();
+        new CMDAttackSpeed();
+        new CMDBalance();
+        new CMDOPList();
+        new CMDBanList();
+        new CMDLightning();
+        new CMDTNT();
+        new CMDWorld("world");
+        new CMDBroadcast();
+        new CMDBurn();
+        new CMDHeal();
+        new CMDRepair();
+        new CMDVoid("void");
+        new CMDHomes();
+        new CMDScheduler();
+        new CMDTPAAll();
+        new CMDEconomy();
+        new CMDPay();
+        new CMDRepairAll();
+        new CMDKit();
+        new CMDKits();
+        new CMDSetWarp("setwarp");
+        new CMDWarp("warp");
+        new CMDDelWarp("delwarp");
+        new CMDWarps();
+        new CMDNick();
     }
 
     private void registerListeners() {
-        new PlayerListener().register();
-        new SignListener().register();
-        new ServerListener().register();
+        new PlayerListener();
+        new SignListener();
+        new ServerListener();
     }
 
     private void saveResources() {
@@ -146,14 +146,14 @@ public final class MixTools extends JavaPlugin {
 
     public void Reload(){
         saveResources();
-        messageHandler = new MessageHandler();
+        messageHandler = new PolymerMessageHandler(this);
         settingsManager = new SettingsManager();
         dataManager = new DataManager();
         kitManager = new KitManager();
         warpManager = new WarpManager();
         schedulerManager.reload();
         miscFeatureManager.reload();
-        if (getConfig().getBoolean(SCOREBOARD_ENABLED)) ScoreBoardSetter.restart();
+        if (settingsManager.getBoolean(SCOREBOARD_ENABLED)) ScoreBoardSetter.restart();
     }
 
     public static DataManager getDataManager(){

@@ -15,10 +15,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class SettingsManager {
-    private final FileConfiguration config;
-    public SettingsManager(){
-        this.config = MixTools.INSTANCE.getConfig();
-    }
+    private final FileConfiguration config = MixTools.INSTANCE.getConfig();
     public int getInt(String key){
         return config.getInt(key);
     }

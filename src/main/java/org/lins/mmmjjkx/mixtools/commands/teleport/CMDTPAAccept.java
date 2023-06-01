@@ -1,18 +1,19 @@
 package org.lins.mmmjjkx.mixtools.commands.teleport;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.managers.misc.TpaManager;
+import org.lins.mmmjjkx.mixtools.managers.features.setters.TpaSetter;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsTeleportRequest;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
-public class CMDTPAAccept implements MixCommandExecutor {
-    @Override
-    public String name() {
-        return "tpaaccept";
+public class CMDTPAAccept extends PolymerCommand {
+
+    public CMDTPAAccept(@NotNull String name) {
+        super(name);
     }
 
     @Override
@@ -21,12 +22,17 @@ public class CMDTPAAccept implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (p != null){
-                TpaManager tpaManager = MixTools.miscFeatureManager.getTpaManager();
-                MixToolsTeleportRequest request = tpaManager.getRequest(p);
+                TpaSetter tpaSetter = MixTools.miscFeatureManager.getTpaManager();
+                MixToolsTeleportRequest request = tpaSetter.getRequest(p);
                 if (request == null){
                     sendMessage(sender,"TPA.NoRequest");
                     return false;
@@ -37,7 +43,7 @@ public class CMDTPAAccept implements MixCommandExecutor {
                     return false;
                 }
                 from.teleport(p);
-                tpaManager.setExpireTime(request,0);
+                tpaSetter.setExpireTime(request,0);
                 sendMessage(sender,"TPA.Teleported",from.getName());
                 return true;
             }

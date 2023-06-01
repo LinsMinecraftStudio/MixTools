@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands.warp;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -8,11 +9,10 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.features.WarpManager;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
-public class CMDSetWarp implements MixCommandExecutor {
+public class CMDSetWarp extends PolymerCommand {
 
-    @Override
-    public String name() {
-        return "setwarp";
+    public CMDSetWarp(@NotNull String name) {
+        super(name);
     }
 
     @Override
@@ -21,7 +21,12 @@ public class CMDSetWarp implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
         if (hasPermission(commandSender)) {
             Player p = toPlayer(commandSender);
             if (p != null) {
