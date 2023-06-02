@@ -1,16 +1,16 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
+import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
 import javax.annotation.Nonnull;
+import java.util.List;
 
-public class CMDBroadcast implements MixCommandExecutor {
-    @Override
-    public String name() {
-        return "broadcast";
+public class CMDBroadcast extends PolymerCommand {
+    public CMDBroadcast(@NotNull String name, List<String> aliases) {
+        super(name, aliases);
     }
 
     @Override
@@ -19,11 +19,15 @@ public class CMDBroadcast implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@Nonnull CommandSender sender, @Nonnull String label, @Nonnull String[] args) {
         if (hasPermission(sender)){
             if (args.length==1){
-                broadcastMessage("Command.Broadcast",
-                        MixTools.messageHandler.colorize(args[0].replace("<sp>"," ")));
+                MixTools.messageHandler.broadcastCustomMessage(args[0].replace("<sp>"," "));
                 return true;
             }else {
                 sendMessage(sender,"Command.ArgError");

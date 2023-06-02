@@ -21,8 +21,7 @@ Command:
   Broadcast: "&2[&e公告&2] &b%s"
   Healed: "&a已治愈&e%s。"
   TeleportToVoid: "&e%s 已传送至虚空。"
-  UnableToGetOp: "&4无法获取op权限。op锁已开启。"
-  UnableToDeOp: "&4无法移除op身份。op锁已开启。"
+  EntitySpawned: "&a已生成实体。"
 Speed:
   FlyingSpeedSet: "&a飞行速度已设置为 &e%.2f&a。"
   WalkSpeedSet: "&a行走速度已设置为 &e%.2f&a。"
@@ -70,6 +69,7 @@ Home:
   NotExists: "&4那个家不存在。"
   Teleported: "&a将你传送到家 &e%s&a."
   Full: "&4你不能再创建更多的家了！"
+  Removed: "&a你删除了家 &e%s&a。"
 TPA:
   Sent: "&a传送请求已发送。"
   NoRequest: "&4你没有任何的传送请求。"

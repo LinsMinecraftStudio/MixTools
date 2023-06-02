@@ -21,8 +21,7 @@ Command:
   Broadcast: "&2[&eBroadcast&2] &b%s"
   Healed: "&aHealed &e%s."
   TeleportToVoid: "&e%s was teleported to the void."
-  UnableToGetOp: "&aUnable to obtain operator permissions. The operator lock is enabled."
-  UnableToDeOp: "&aUnable to remove the operator status. The operator lock is enabled."
+  EntitySpawned: "&aSpawned entity(or entities)"
 Speed:
   FlyingSpeedSet: "&aFlying speed was set to &e%.2f&a."
   WalkSpeedSet: "&aWalk speed was set to &e%.2f&a."
@@ -70,6 +69,7 @@ Home:
   NotExists: "&4That home is not exists."
   Teleported: "&aTeleported you to home &e%s&a."
   Full: "&4You can't create more homes anymore!"
+  Removed: "&aRemoved home &e%s&a."
 TPA:
   Sent: "&aTeleport request sent."
   NoRequest: "&4You don't have any teleport request."

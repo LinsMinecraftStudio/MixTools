@@ -1,11 +1,10 @@
 package org.lins.mmmjjkx.mixtools.commands.economy;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,27 +12,20 @@ import java.util.List;
 import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.CURRENCY_SYMBOL;
 
-public class CMDEconomy implements MixTabExecutor {
+public class CMDEconomy extends PolymerCommand {
+    public CMDEconomy(@NotNull String name) {
+        super(name);
+    }
+
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
         if (args.length==1){
-            List<String> list = new ArrayList<>();
-            list.add("balance");
-            list.add("clear");
-            list.add("add");
-            list.add("take");
-            list.add("currency-symbol");
-            return copyPartialMatches(args[0],list);
+            return copyPartialMatches(args[0],List.of("balance", "clear", "add", "take", "currency-symbol"));
         }
         if (args.length==2) {
             return copyPartialMatches(args[1],getPlayerNames());
         }
-        return null;
-    }
-
-    @Override
-    public String name() {
-        return "economy";
+        return new ArrayList<>();
     }
 
     @Override
@@ -42,7 +34,12 @@ public class CMDEconomy implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         Player p = toPlayer(sender);
         if (p != null) {
             if (args.length == 0) {

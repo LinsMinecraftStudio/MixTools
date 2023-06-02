@@ -4,10 +4,8 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
 public class CMDAttackSpeed extends SpeedCMD{
-
-    @Override
-    public String name() {
-        return "attackspeed";
+    public CMDAttackSpeed(String name) {
+        super(name);
     }
 
     @Override

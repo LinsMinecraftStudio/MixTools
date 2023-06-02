@@ -4,11 +4,9 @@ import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import io.github.linsminecraftstudio.polymer.objects.ArgumentReplacement;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
 import java.util.List;
 

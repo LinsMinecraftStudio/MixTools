@@ -3,9 +3,8 @@ package org.lins.mmmjjkx.mixtools.commands.speed;
 import org.bukkit.entity.Player;
 
 public class CMDFlySpeed extends SpeedCMD {
-    @Override
-    public String name() {
-        return "flyspeed";
+    public CMDFlySpeed(String name) {
+        super(name);
     }
 
     @Override

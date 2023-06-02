@@ -1,41 +1,40 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.ChatColor;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Material;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CMDItemName implements MixTabExecutor {
+public class CMDItemName extends PolymerCommand {
+    public CMDItemName(@NotNull String name) {
+        super(name);
+    }
+
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String alias, String[] args) {
-        List<String> s = new ArrayList<>();
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
         if (sender instanceof Player p){
             ItemStack hand = p.getInventory().getItemInMainHand();
             if (!hand.getType().equals(Material.AIR) && hand.hasItemMeta()) {
                 ItemMeta meta = hand.getItemMeta();
                 if (meta != null) {
-                    if (args.length==1 & meta.hasDisplayName()) {
-                        return Collections.singletonList(ChatColor.stripColor(meta.getDisplayName()));
+                    Component displayName = meta.displayName();
+                    if (args.length==1 & displayName != null) {
+                        return Collections.singletonList(MiniMessage.miniMessage().serialize(displayName));
                     }
                 }
             }
         }
-        return s;
-    }
-
-    @Override
-    public String name() {
-        return "itemname";
+        return new ArrayList<>();
     }
 
     @Override
@@ -44,7 +43,12 @@ public class CMDItemName implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (p != null){
@@ -52,7 +56,7 @@ public class CMDItemName implements MixTabExecutor {
                 if (!hand.getType().equals(Material.AIR)) {
                     if (args.length==1) {
                         ItemMeta meta = hand.getItemMeta();
-                        meta.setDisplayName(MixTools.messageHandler.legacyColorize(args[0]));
+                        meta.displayName(MixTools.messageHandler.colorize(args[0]));
                         hand.setItemMeta(meta);
                         return true;
                     }else {

@@ -1,22 +1,26 @@
 package org.lins.mmmjjkx.mixtools.commands.teleport;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.World;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CMDTeleport implements MixTabExecutor {
+public class CMDTeleport extends PolymerCommand {
 
-    @Nullable
+    public CMDTeleport(@NotNull String name) {
+        super(name);
+        setAliases(List.of("tp"));
+    }
+
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length>1) {
             List<String> list = getPlayerNames();
             for (World w : Bukkit.getWorlds()) {
@@ -24,12 +28,7 @@ public class CMDTeleport implements MixTabExecutor {
             }
             return copyPartialMatches(args[args.length-1], list);
         }
-        return null;
-    }
-
-    @Override
-    public String name() {
-        return "teleport";
+        return new ArrayList<>();
     }
 
     @Override
@@ -38,7 +37,12 @@ public class CMDTeleport implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)) {
             Player p = toPlayer(sender);
             switch (args.length) {

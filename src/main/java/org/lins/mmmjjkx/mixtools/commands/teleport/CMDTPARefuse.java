@@ -1,18 +1,17 @@
 package org.lins.mmmjjkx.mixtools.commands.teleport;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.features.setters.TpaSetter;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsTeleportRequest;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 
-public class CMDTPARefuse implements MixCommandExecutor {
-    @Override
-    public String name() {
-        return "tparefuse";
+public class CMDTPARefuse extends PolymerCommand {
+
+    public CMDTPARefuse(@NotNull String name) {
+        super(name);
     }
 
     @Override
@@ -21,7 +20,12 @@ public class CMDTPARefuse implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (p != null){

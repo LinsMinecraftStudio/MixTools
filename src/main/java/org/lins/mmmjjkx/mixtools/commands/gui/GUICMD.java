@@ -1,28 +1,25 @@
-package org.lins.mmmjjkx.mixtools.commands;
+package org.lins.mmmjjkx.mixtools.commands.gui;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.util.List;
 
-public class CMDEnderChest implements MixTabExecutor {
-    @Nullable
-    @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length==1){
-            return copyPartialMatches(args[0],getPlayerNames());
-        }
-        return null;
+public abstract class GUICMD extends PolymerCommand {
+    public GUICMD(@NotNull String name) {
+        super(name);
     }
 
-    @Override
-    public String name() {
-        return "enderchest";
+    public GUICMD(@NotNull String name, List<String> aliases){
+        super(name, aliases);
     }
+
+    public abstract void openGUI(Player player);
+
+    public abstract void openGUI2(Player player, Player player2);
 
     @Override
     public String requirePlugin() {
@@ -30,12 +27,17 @@ public class CMDEnderChest implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
         if (args.length==0) {
             if (hasPermission(sender)) {
                 Player p = toPlayer(sender);
                 if (p != null) {
-                    p.openInventory(p.getEnderChest());
+                    openGUI(p);
                     return true;
                 }
             }
@@ -45,7 +47,7 @@ public class CMDEnderChest implements MixTabExecutor {
                 Player p = toPlayer(sender);
                 Player p2 = findPlayer(sender, args[0]);
                 if (p != null && p2 != null) {
-                    p.openInventory(p2.getEnderChest());
+                    openGUI2(p, p2);
                     return true;
                 }
             }

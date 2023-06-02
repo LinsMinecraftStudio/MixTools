@@ -1,38 +1,47 @@
 package org.lins.mmmjjkx.mixtools.commands.entityspawn;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.World;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public interface EntitySpawnCMD extends MixTabExecutor {
-    @Nullable
+public abstract class EntitySpawnCMD extends PolymerCommand {
+    public EntitySpawnCMD(@NotNull String name) {
+        super(name);
+    }
+
     @Override
-    default List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public @NotNull List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
         if (args.length==1){
             return copyPartialMatches(args[0],getPlayerNames());
         } else if (args.length==2) {
             return copyPartialMatches(args[1], List.of("1","2","3","4","5"));
         }
-        return null;
+        return new ArrayList<>();
     }
 
-    EntityType entityType();
+    public abstract EntityType entityType();
 
     @Override
-    default boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+    public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
         if (hasPermission(sender)){
             if (args.length==0) {
                 Player p = toPlayer(sender);
                 if (p != null) {
                     World world = p.getWorld();
                     world.spawnEntity(p.getLocation(), entityType());
+                    sendMessage(sender, "");
                     return true;
                 }
             }else if (args.length==1) {

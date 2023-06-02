@@ -1,31 +1,28 @@
 package org.lins.mmmjjkx.mixtools.commands.economy;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.CURRENCY_SYMBOL;
 
-public class CMDPay implements MixTabExecutor {
-    @Nullable
-    @Override
-    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
-        if (strings.length == 1) {
-            return copyPartialMatches(strings[0], getPlayerNames());
-        }
-        return null;
+public class CMDPay extends PolymerCommand {
+    public CMDPay(@NotNull String name) {
+        super(name);
     }
 
     @Override
-    public String name() {
-        return "pay";
+    public @NotNull List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
+        if (strings.length == 1) {
+            return copyPartialMatches(strings[0], getPlayerNames());
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -34,7 +31,12 @@ public class CMDPay implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] strings) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] strings) {
         if (hasPermission(commandSender)) {
             if (strings.length == 2) {
                 Player p = toPlayer(commandSender);

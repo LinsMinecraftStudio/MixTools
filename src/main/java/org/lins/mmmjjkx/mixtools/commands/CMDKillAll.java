@@ -1,16 +1,15 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
-public class CMDKillAll implements MixCommandExecutor {
-    @Override
-    public String name() {
-        return "killall";
+public class CMDKillAll extends PolymerCommand {
+    public CMDKillAll(@NotNull String name) {
+        super(name);
     }
 
     @Override
@@ -19,12 +18,15 @@ public class CMDKillAll implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {}
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             for (Player p: Bukkit.getOnlinePlayers()){
                 p.setHealth(0);
             }
-            broadcastMessage("Command.KillAll",sender.getName());
+            MixTools.messageHandler.broadcastMessage("Command.KillAll",sender.getName());
             return true;
         }
         return false;

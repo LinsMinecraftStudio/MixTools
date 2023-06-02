@@ -1,24 +1,25 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
+import org.jetbrains.annotations.NotNull;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CMDFly implements MixTabExecutor {
-    @Override
-    public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] args) {
-        if (args.length==1){
-            return copyPartialMatches(args[0],getPlayerNames());
-        }
-        return null;
+public class CMDFly extends PolymerCommand {
+    public CMDFly(@NotNull String name) {
+        super(name);
     }
 
     @Override
-    public String name() {
-        return "fly";
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, String[] args) {
+        if (args.length==1){
+            return copyPartialMatches(args[0],getPlayerNames());
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -27,7 +28,12 @@ public class CMDFly implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (args.length==0) {

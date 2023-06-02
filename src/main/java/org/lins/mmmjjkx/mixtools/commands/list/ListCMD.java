@@ -1,22 +1,29 @@
 package org.lins.mmmjjkx.mixtools.commands.list;
 
 import com.google.common.collect.Lists;
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ListCMD<T> extends MixTabExecutor {
-    List<T> list(CommandSender sender);
-    void sendLineMessage(CommandSender sender, T object, int number);
+public abstract class ListCMD<T> extends PolymerCommand {
+    public ListCMD(@NotNull String name) {
+        super(name);
+    }
 
-    @Nullable
     @Override
-    default List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args){
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    public abstract List<T> list(CommandSender sender);
+    public abstract void sendLineMessage(CommandSender sender, int number, T object);
+
+    @Override
+    public @NotNull List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args){
         if (args.length==1) {
             List<String> argList = new ArrayList<>();
             List<List<T>> partition = Lists.partition(list(commandSender), 10);
@@ -26,11 +33,11 @@ public interface ListCMD<T> extends MixTabExecutor {
             }
             return copyPartialMatches(args[0],argList);
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
-    default boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args){
+    public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args){
         if (hasPermission(sender)){
             if (args.length==0){
                 sendMessages(sender,1);
@@ -62,7 +69,7 @@ public interface ListCMD<T> extends MixTabExecutor {
         sendMessage(sender, "Info.List.Head",page);
         int head = page==1 ? 1 : (10*real_page)+1;
         for (T obj : parted) {
-            sendLineMessage(sender, obj, head);
+            sendLineMessage(sender, head, obj);
             head++;
         }
         sendMessage(sender, "Info.List.Tail");

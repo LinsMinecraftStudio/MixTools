@@ -1,37 +1,41 @@
 package org.lins.mmmjjkx.mixtools.commands.speed;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public abstract class SpeedCMD implements MixTabExecutor {
+public abstract class SpeedCMD extends PolymerCommand {
     private final List<String> speedList = new ArrayList<>();
-    public SpeedCMD(){
+    public SpeedCMD(String name){
+        super(name);
         for (int i = 1; i < maxSpeed(); i++) {
             speedList.add(String.valueOf(i));
         }
         speedList.add(String.valueOf(maxSpeed()));
     }
 
-    @Nullable
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public @NotNull List<String> tabComplete(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
         if (args.length==1){
             return copyPartialMatches(args[0],speedList);
         } else if (args.length==2) {
             return copyPartialMatches(args[1],getPlayerNames());
         }
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+    public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
         if (hasPermission(sender)){
             if (args.length==1) {
                 Player p = toPlayer(sender);

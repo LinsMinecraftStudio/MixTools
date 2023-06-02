@@ -1,29 +1,28 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
+import org.jetbrains.annotations.NotNull;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.ArrayList;
 import java.util.List;
 
-public class CMDBurn implements MixTabExecutor {
-    @Nullable
+public class CMDBurn extends PolymerCommand {
+    public CMDBurn(@NotNull String name) {
+        super(name);
+    }
+
     @Override
-    public List<String> onTabComplete(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
+    public @NotNull List<String> tabComplete(@Nonnull CommandSender sender, @Nonnull String label, @Nonnull String[] args) {
         if (args.length==1){
             return copyPartialMatches(args[0],getPlayerNames());
         }else if (args.length==2){
             return copyPartialMatches(args[1],List.of("1","5","10","20","40","60"));
         }
-        return null;
-    }
-
-    @Override
-    public String name() {
-        return "burn";
+        return new ArrayList<>();
     }
 
     @Override
@@ -32,7 +31,12 @@ public class CMDBurn implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@Nonnull CommandSender sender, @Nonnull Command command, @Nonnull String label, @Nonnull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@Nonnull CommandSender sender, @Nonnull String label, @Nonnull String[] args) {
         if (hasPermission(sender)){
             if (args.length==2) {
                 Player p = findPlayer(sender,args[0]);

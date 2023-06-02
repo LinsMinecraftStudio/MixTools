@@ -1,18 +1,18 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
-import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.jetbrains.annotations.NotNull;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
-public class CMDRepair implements MixCommandExecutor {
-    @Override
-    public String name() {
-        return "repair";
+public class CMDRepair extends PolymerCommand {
+
+    public CMDRepair(@NotNull String name) {
+        super(name);
     }
 
     @Override
@@ -21,7 +21,12 @@ public class CMDRepair implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)){
             Player p = toPlayer(sender);
             if (p != null){

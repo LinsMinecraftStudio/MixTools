@@ -4,9 +4,8 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 
 public class CMDWalkSpeed extends SpeedCMD {
-    @Override
-    public String name() {
-        return "walkspeed";
+    public CMDWalkSpeed(String name) {
+        super(name);
     }
 
     @Override

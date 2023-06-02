@@ -1,28 +1,26 @@
 package org.lins.mmmjjkx.mixtools.commands.teleport;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
+import org.lins.mmmjjkx.mixtools.MixTools;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class CMDTPAll implements MixTabExecutor {
-    @Nullable
-    @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length==1){
-            return copyPartialMatches(args[0],getPlayerNames());
-        }
-        return null;
+public class CMDTPAll extends PolymerCommand {
+    public CMDTPAll(@NotNull String name) {
+        super(name);
     }
 
     @Override
-    public String name() {
-        return "tpall";
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        if (args.length==1){
+            return copyPartialMatches(args[0],getPlayerNames());
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -31,7 +29,10 @@ public class CMDTPAll implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {}
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)) {
             if (args.length==0) {
                 Player p = toPlayer(sender);
@@ -39,7 +40,7 @@ public class CMDTPAll implements MixTabExecutor {
                     for (Player ps: Bukkit.getOnlinePlayers()) {
                         ps.teleport(p);
                     }
-                    broadcastMessage("Location.TeleportAll",p.getName());
+                    MixTools.messageHandler.broadcastMessage("Location.TeleportAll",p.getName());
                     return true;
                 }
             }else if (args.length==1) {
@@ -48,7 +49,7 @@ public class CMDTPAll implements MixTabExecutor {
                     for (Player ps: Bukkit.getOnlinePlayers()) {
                         ps.teleport(p);
                     }
-                    broadcastMessage("Location.TeleportAll",p.getName());
+                    MixTools.messageHandler.broadcastMessage("Location.TeleportAll",p.getName());
                     return true;
                 }
             }else {

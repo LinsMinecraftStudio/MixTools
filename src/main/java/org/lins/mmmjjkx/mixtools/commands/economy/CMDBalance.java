@@ -1,31 +1,28 @@
 package org.lins.mmmjjkx.mixtools.commands.economy;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.CURRENCY_SYMBOL;
 
-public class CMDBalance implements MixTabExecutor {
-    @Nullable
-    @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
-        if (args.length==1){
-            return copyPartialMatches(args[0],getPlayerNames());
-        }
-        return null;
+public class CMDBalance extends PolymerCommand {
+    public CMDBalance(@NotNull String name) {
+        super(name);
     }
 
     @Override
-    public String name() {
-        return "balance";
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
+        if (args.length==1){
+            return copyPartialMatches(args[0],getPlayerNames());
+        }
+        return new ArrayList<>();
     }
 
     @Override
@@ -34,7 +31,12 @@ public class CMDBalance implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)) {
             Player p = toPlayer(sender);
             if (args.length == 0) {

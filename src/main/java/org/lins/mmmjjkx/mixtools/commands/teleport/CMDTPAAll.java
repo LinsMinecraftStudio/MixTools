@@ -1,20 +1,18 @@
 package org.lins.mmmjjkx.mixtools.commands.teleport;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.Bukkit;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.features.setters.TpaSetter;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixCommandExecutor;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsTeleportRequest;
 
-public class CMDTPAAll implements MixCommandExecutor {
-    @Override
-    public String name() {
-        return "tpaall";
+public class CMDTPAAll extends PolymerCommand {
+    public CMDTPAAll(@NotNull String name) {
+        super(name);
     }
 
     @Override
@@ -23,7 +21,12 @@ public class CMDTPAAll implements MixCommandExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
         if (hasPermission(sender)) {
             Player p = toPlayer(sender);
             if (p != null) {

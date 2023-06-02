@@ -1,11 +1,12 @@
 package org.lins.mmmjjkx.mixtools.commands.entityspawn;
 
 import org.bukkit.entity.EntityType;
+import org.jetbrains.annotations.NotNull;
 
-public class CMDTNT implements EntitySpawnCMD {
-    @Override
-    public String name() {
-        return "tnt";
+public class CMDTNT extends EntitySpawnCMD {
+
+    public CMDTNT(@NotNull String name) {
+        super(name);
     }
 
     @Override

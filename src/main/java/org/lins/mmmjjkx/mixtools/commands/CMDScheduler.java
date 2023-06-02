@@ -1,24 +1,25 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
-import org.bukkit.command.Command;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.features.SchedulerManager;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsScheduler;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CMDScheduler implements MixTabExecutor {
+public class CMDScheduler extends PolymerCommand {
     private final SchedulerManager schedulerManager = MixTools.schedulerManager;
 
-    @Nullable
+    public CMDScheduler(@NotNull String name) {
+        super(name);
+    }
+
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (args.length==1){
             List<String> list = List.of("stopAll","stop","start","startAll");
             return StringUtil.copyPartialMatches(args[0], list, new ArrayList<>());
@@ -34,12 +35,7 @@ public class CMDScheduler implements MixTabExecutor {
                 }
             }
         }
-        return null;
-    }
-
-    @Override
-    public String name() {
-        return "scheduler";
+        return new ArrayList<>();
     }
 
     @Override
@@ -48,7 +44,12 @@ public class CMDScheduler implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+        MixTools.messageHandler.sendMessage(sender, message, args);
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasCustomPermission(sender,"scheduler")) {
             if (args.length==1){
                 switch (args[0]) {

@@ -1,20 +1,23 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
-import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.objects.interfaces.MixTabExecutor;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CMDGamemode implements MixTabExecutor {
+public class CMDGamemode extends PolymerCommand {
+    public CMDGamemode(@NotNull String name, List<String> aliases) {
+        super(name, aliases);
+    }
+
     @Override
-    public List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         List<String> modes = new ArrayList<>();
         if (args.length==1){
             for (GameMode mode: GameMode.values()) {
@@ -25,12 +28,7 @@ public class CMDGamemode implements MixTabExecutor {
         if (args.length==2){
             return copyPartialMatches(args[1],getPlayerNames());
         }
-        return null;
-    }
-
-    @Override
-    public String name() {
-        return "gamemode";
+        return new ArrayList<>();
     }
 
     @Override
@@ -39,7 +37,12 @@ public class CMDGamemode implements MixTabExecutor {
     }
 
     @Override
-    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public void sendMessage(CommandSender sender, String message, Object... args) {
+
+    }
+
+    @Override
+    public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
         Player p = toPlayer(sender);
         if (hasPermission(p)){
             switch (args.length) {

@@ -16,20 +16,14 @@ import java.util.List;
 public class CMDCommandGroup extends PolymerCommand {
     private final CommandGroupManager commandGroupManager = MixTools.miscFeatureManager.getCommandGroupManager();
 
-    public CMDCommandGroup(@NotNull String name) {
-        super(name);
-        setAliases(List.of("cg"));
+    public CMDCommandGroup(@NotNull String name, List<String> aliases) {
+        super(name, aliases);
     }
 
     @Override
     public @NotNull List<String> tabComplete(@Nonnull CommandSender sender, @Nonnull String label, @Nonnull String[] args) {
-        List<String> argsList = new ArrayList<>();
         if (args.length==1){
-            argsList.add("add");
-            argsList.add("run");
-            argsList.add("remove");
-            argsList.add("list");
-            return copyPartialMatches(args[0],argsList);
+            return copyPartialMatches(args[0],List.of("run", "remove", "list", "add"));
         } else if (args.length==2&!args[1].equals("add")) {
             return copyPartialMatches(args[1],commandGroupManager.getAllGroupsName());
         } else if (args.length==3&args[1].equals("run")) {
