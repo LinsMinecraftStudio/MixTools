@@ -33,7 +33,7 @@ public class KitCreator implements Listener {
     public KitCreator(Player p, String kitName) {
         this.player = p;
         this.kitName = kitName;
-        this.kitNameComponent = ComponentConverter.toSimpleTextComponent(kitName);
+        this.kitNameComponent = ComponentConverter.toComponent(kitName);
         Bukkit.getPluginManager().registerEvents(this, MixTools.INSTANCE);
     }
 

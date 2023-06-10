@@ -31,7 +31,7 @@ public class ServerListener implements MixToolsListener {
             if (e.getClient().getProtocolVersion() < 735){
                 e.motd(LegacyComponentSerializer.legacySection().deserialize(motd));
             }else {
-                e.motd(ComponentConverter.toSimpleTextComponent(motd));
+                e.motd(ComponentConverter.toComponent(motd));
             }
             if (section.getBoolean("changeVersion")) {
                 e.setVersion(manager.getString("motd.version", true));
