@@ -32,7 +32,7 @@ public class CMDServerInfo extends PolymerCommand {
             int online_player = Bukkit.getOnlinePlayers().size();
             int max_player = Bukkit.getMaxPlayers();
             String str = online_player + "/" + max_player;
-            String version = Bukkit.getBukkitVersion().split("-")[0];
+            String version = Bukkit.getMinecraftVersion();
             int usedMem = (int) ((Runtime.getRuntime().maxMemory() - Runtime.getRuntime().freeMemory()) / 1048576);
             int maxMem = (int) (Runtime.getRuntime().maxMemory() / 1048576);
             String mem_str = usedMem + "MB/" + maxMem + "MB";

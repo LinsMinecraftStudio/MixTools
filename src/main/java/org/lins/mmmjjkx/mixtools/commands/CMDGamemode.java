@@ -55,7 +55,7 @@ public class CMDGamemode extends PolymerCommand {
                         mode = stringToGameMode(args[0]);
                     }
                     if (mode != null) {
-                        Component s = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change",false,"GameMode."+
+                        Component s = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change","GameMode."+
                                 mode.toString().toLowerCase());
                         p.setGameMode(mode);
                         p.sendMessage(s);
@@ -76,7 +76,7 @@ public class CMDGamemode extends PolymerCommand {
                         }
                         Player p2 = findPlayer(p, args[1]);
                         if (mode2 != null) {
-                            Component s2 = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change",false,"GameMode."+
+                            Component s2 = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change","GameMode."+
                                     mode2.toString().toLowerCase());
                             p2.setGameMode(mode2);
                             p.sendMessage(s2);

@@ -2,8 +2,7 @@ package org.lins.mmmjjkx.mixtools.listeners;
 
 import com.destroystokyo.paper.event.server.PaperServerListPingEvent;
 import com.google.common.io.Files;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
+import io.github.linsminecraftstudio.polymer.utils.ComponentConverter;
 import net.kyori.adventure.text.serializer.legacy.LegacyComponentSerializer;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -32,11 +31,10 @@ public class ServerListener implements MixToolsListener {
             if (e.getClient().getProtocolVersion() < 735){
                 e.motd(LegacyComponentSerializer.legacySection().deserialize(motd));
             }else {
-                Component component = MiniMessage.miniMessage().deserialize(motd);
-                e.motd(component);
+                e.motd(ComponentConverter.toSimpleTextComponent(motd));
             }
             if (section.getBoolean("changeVersion")) {
-                e.setVersion(MixTools.settingsManager.getString("motd.version", true));
+                e.setVersion(manager.getString("motd.version", true));
             }
             if (section.getBoolean("Xmore.enabled")) {
                 ConfigurationSection xmore = section.getConfigurationSection("Xmore");

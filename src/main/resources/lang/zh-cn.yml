@@ -58,6 +58,7 @@ GUI:
   TrashBin: "垃圾箱"
   OpenTrashBin: ""
   CloseTrashBin: ""
+  InvseeTitle: "&e%s&a的背包"
 Item:
   AIR: "&4物品不能为空气！"
   Unrepairable: "&4此物品无法被修复。"

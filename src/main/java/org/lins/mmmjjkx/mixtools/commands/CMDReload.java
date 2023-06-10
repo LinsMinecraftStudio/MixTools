@@ -8,9 +8,8 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import java.util.List;
 
 public class CMDReload extends PolymerCommand {
-    public CMDReload(@NotNull String name) {
-        super(name);
-        setAliases(List.of("mtlr"));
+    public CMDReload(@NotNull String name, List<String> aliases) {
+        super(name, aliases);
     }
 
     @Override

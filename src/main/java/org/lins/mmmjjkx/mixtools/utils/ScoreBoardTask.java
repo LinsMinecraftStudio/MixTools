@@ -11,7 +11,6 @@ import org.bukkit.scoreboard.Scoreboard;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
 import java.util.List;
-import java.util.Set;
 
 public class ScoreBoardTask extends BukkitRunnable {
 

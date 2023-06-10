@@ -6,7 +6,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.records.MixToolsHome;
-import org.lins.mmmjjkx.mixtools.utils.StringUtils;
+import org.lins.mmmjjkx.mixtools.utils.MTUtils;
 
 public class CMDSethome extends PolymerCommand {
     public CMDSethome(@NotNull String name) {
@@ -31,7 +31,7 @@ public class CMDSethome extends PolymerCommand {
                 if (MixTools.getDataManager().canCreateHomes(p)) {
                     if (args.length == 1) {
                         String name = args[0];
-                        if (StringUtils.matchStringRegex(name)) {
+                        if (MTUtils.matchStringRegex(name)) {
                             MixTools.getDataManager().addHome(new MixToolsHome(args[0], p, p.getLocation()));
                             sendMessage(p, "Home.CreateSuccess", args[0]);
                             return true;

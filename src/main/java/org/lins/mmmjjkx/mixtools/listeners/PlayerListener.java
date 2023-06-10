@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.listeners;
 
+import io.github.linsminecraftstudio.polymer.utils.OtherUtils;
 import me.clip.placeholderapi.PlaceholderAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
@@ -19,7 +20,7 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.managers.features.setters.ScoreBoardSetter;
 import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsEconomy;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixToolsListener;
-import org.lins.mmmjjkx.mixtools.utils.StringUtils;
+import org.lins.mmmjjkx.mixtools.utils.MTUtils;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class PlayerListener implements MixToolsListener {
         Player p = e.getPlayer();
         if (MixTools.settingsManager.getBoolean(NAME_CHECK)){
             String name = p.getName();
-            if (!StringUtils.matchNameRegex(name)) {
+            if (!MTUtils.matchNameRegex(name)) {
                 p.kick(getMessageHandler().getColored("Value.NoMatchNameRegex"));
                 return;
             }
@@ -111,7 +112,7 @@ public class PlayerListener implements MixToolsListener {
     }
 
     private Component getPlayerMessage(Player p, String key){
-        String str = getSettingString(key);
+        String str = MixTools.settingsManager.getString(key);
         if (MixTools.hookManager.checkPAPIInstalled()) {
             str = PlaceholderAPI.setPlaceholders(p, str);
         }
@@ -121,9 +122,7 @@ public class PlayerListener implements MixToolsListener {
 
     private void checkVersion(Player p){
         if (MixTools.settingsManager.getBoolean(CHECK_UPDATE) & p.isOp()) {
-            String latest = "";
-            try {latest = StringUtils.getPluginLatestVersion();
-            }catch (Exception ignored){}
+            String latest = OtherUtils.getPluginLatestVersion("109130");
             String ver = MixTools.INSTANCE.getPluginMeta().getVersion();
             if (latest.equals("")){
                 getMessageHandler().sendMessage(p, "Check-Update.Failed");
@@ -133,7 +132,7 @@ public class PlayerListener implements MixToolsListener {
                 getMessageHandler().sendMessage(p, "Check-Update.Line1");
                 getMessageHandler().sendMessage(p, "Check-Update.Line2", ver, latest);
                 Component component = getMessageHandler().getColored("Check-Update.GetVer");
-                component = component.clickEvent(ClickEvent.openUrl("https://www.spigotmc.org/resources/mixtools-an-essentials-plugin.109130/"));
+                component = component.clickEvent(ClickEvent.openUrl("https://www.spigotmc.org/resources/109130/"));
                 p.sendMessage(component);
             }
             getMessageHandler().sendMessage(p, "Check-Update.Line3");

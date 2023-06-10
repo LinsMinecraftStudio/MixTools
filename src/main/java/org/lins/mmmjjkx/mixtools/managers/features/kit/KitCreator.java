@@ -1,7 +1,9 @@
 package org.lins.mmmjjkx.mixtools.managers.features.kit;
 
 import com.google.common.collect.Lists;
-import io.github.linsminecraftstudio.polymer.Polymer;
+import io.github.linsminecraftstudio.polymer.itemstack.ItemStackBuilder;
+import io.github.linsminecraftstudio.polymer.itemstack.ItemStackConverter;
+import io.github.linsminecraftstudio.polymer.utils.ComponentConverter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -14,14 +16,13 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import io.github.linsminecraftstudio.polymer.itemstack.ItemStackBuilder;
-import io.github.linsminecraftstudio.polymer.itemstack.ItemStackConverter;
 import org.lins.mmmjjkx.mixtools.utils.InventoryFactory;
 
 import java.io.File;
 import java.util.List;
 
-import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.*;
+import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.KIT_EDITOR_CLOSE_BUTTON_ITEM;
+import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.KIT_EDITOR_CLOSE_BUTTON_NAME;
 
 public class KitCreator implements Listener {
     private final Player player;
@@ -32,7 +33,7 @@ public class KitCreator implements Listener {
     public KitCreator(Player p, String kitName) {
         this.player = p;
         this.kitName = kitName;
-        this.kitNameComponent = Polymer.serializer.deserialize(kitName);
+        this.kitNameComponent = ComponentConverter.toSimpleTextComponent(kitName);
         Bukkit.getPluginManager().registerEvents(this, MixTools.INSTANCE);
     }
 

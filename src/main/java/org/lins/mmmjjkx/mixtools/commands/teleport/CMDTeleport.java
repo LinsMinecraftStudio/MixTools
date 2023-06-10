@@ -48,10 +48,10 @@ public class CMDTeleport extends PolymerCommand {
             switch (args.length) {
                 case 1 -> {
                     String s = args[0];
-                    if (findPlayerNoMessage(s) == null) {
+                    if (Bukkit.getPlayer(s) == null) {
                         World w = Bukkit.getWorld(s);
                         if (w == null) {
-                            Player p2 = findPlayerNoMessage(s);
+                            Player p2 = Bukkit.getPlayer(s);
                             if (p2!=null) {
                                 p.teleport(p2.getLocation());
                                 sendMessage(sender,"Location.Teleported");
@@ -76,7 +76,7 @@ public class CMDTeleport extends PolymerCommand {
                     if (p2 != null) {
                         World wo = Bukkit.getWorld(w);
                         if (wo == null) {
-                            Player p3 = findPlayerNoMessage(w);
+                            Player p3 = Bukkit.getPlayer(w);
                             if (p3 != null){
                                 p2.teleport(p3.getLocation());
                                 sendMessage(sender,"Location.Teleported");

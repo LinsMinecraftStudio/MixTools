@@ -1,6 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers;
 
-import io.github.linsminecraftstudio.polymer.Polymer;
+import io.github.linsminecraftstudio.polymer.utils.ComponentConverter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -11,11 +11,15 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.lins.mmmjjkx.mixtools.MixTools;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
 public class SettingsManager {
-    private final FileConfiguration config = MixTools.INSTANCE.getConfig();
+    private final FileConfiguration config;
+    public SettingsManager(@Nonnull FileConfiguration configuration) {
+        config = configuration;
+    }
     public int getInt(String key){
         return config.getInt(key);
     }
@@ -26,7 +30,7 @@ public class SettingsManager {
         return colorize ? MixTools.messageHandler.legacyColorize(config.getString(key,"")) : getString(key);
     }
     public Component getComponent(String key, boolean colorize){
-        return colorize ? Polymer.serializer.deserialize(getString(key)) : Component.text(getString(key));
+        return colorize ? ComponentConverter.toComponent(getString(key)) : Component.text(getString(key));
     }
     public boolean getBoolean(String key){
         return config.getBoolean(key);

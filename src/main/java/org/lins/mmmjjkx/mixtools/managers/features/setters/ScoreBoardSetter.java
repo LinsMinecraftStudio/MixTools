@@ -30,17 +30,16 @@ public class ScoreBoardSetter {
     }
 
     public static void stopTasks(){
-        if (MixTools.settingsManager.getBoolean(SCOREBOARD_ENABLED)) {
-            for (BukkitTask task : taskMap.values()) {
-                task.cancel();
-            }
-            taskMap.clear();
+        for (Player player : taskMap.keySet()) {
+            player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+            taskMap.get(player).cancel();
         }
+        taskMap.clear();
     }
 
     public static void restart(){
+        stopTasks();
         if (MixTools.settingsManager.getBoolean(SCOREBOARD_ENABLED)) {
-            stopTasks();
             for (Player player : Bukkit.getOnlinePlayers()) {
                 addPlayer(player);
             }

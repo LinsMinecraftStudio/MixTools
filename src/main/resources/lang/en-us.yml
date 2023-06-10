@@ -58,6 +58,7 @@ GUI:
   TrashBin: "Trash bin"
   OpenTrashBin: ""
   CloseTrashBin: ""
+  InvseeTitle: "&e%s&a's inventory"
 Item:
   AIR: "&4The item should not be air!"
   Unrepairable: "&4The item can't be repaired."

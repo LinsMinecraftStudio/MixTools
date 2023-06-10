@@ -1,6 +1,7 @@
 package org.lins.mmmjjkx.mixtools.commands.entityspawn;
 
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.EntityType;
@@ -45,7 +46,7 @@ public abstract class EntitySpawnCMD extends PolymerCommand {
                     return true;
                 }
             }else if (args.length==1) {
-                Player p = findPlayerNoMessage(args[0]);
+                Player p = Bukkit.getPlayer(args[0]);
                 if (p != null) {
                     World world = p.getWorld();
                     world.spawnEntity(p.getLocation(), entityType());

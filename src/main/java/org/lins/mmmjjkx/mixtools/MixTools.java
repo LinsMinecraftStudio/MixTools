@@ -1,19 +1,15 @@
 package org.lins.mmmjjkx.mixtools;
 
 import io.github.linsminecraftstudio.polymer.objects.PolymerMessageHandler;
-import io.github.linsminecraftstudio.polymer.utils.FileUtils;
+import io.github.linsminecraftstudio.polymer.objects.PolymerPlugin;
 import org.bstats.bukkit.Metrics;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDBalance;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDEconomy;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDPay;
 import org.lins.mmmjjkx.mixtools.commands.entityspawn.CMDLightning;
 import org.lins.mmmjjkx.mixtools.commands.entityspawn.CMDTNT;
-import org.lins.mmmjjkx.mixtools.commands.gui.CMDAnvil;
-import org.lins.mmmjjkx.mixtools.commands.gui.CMDEnderChest;
-import org.lins.mmmjjkx.mixtools.commands.gui.CMDLoom;
-import org.lins.mmmjjkx.mixtools.commands.gui.CMDWorkbench;
+import org.lins.mmmjjkx.mixtools.commands.gui.*;
 import org.lins.mmmjjkx.mixtools.commands.home.CMDDelhome;
 import org.lins.mmmjjkx.mixtools.commands.home.CMDHome;
 import org.lins.mmmjjkx.mixtools.commands.home.CMDSethome;
@@ -27,22 +23,19 @@ import org.lins.mmmjjkx.mixtools.commands.warp.CMDSetWarp;
 import org.lins.mmmjjkx.mixtools.commands.warp.CMDWarp;
 import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
 import org.lins.mmmjjkx.mixtools.listeners.ServerListener;
-import org.lins.mmmjjkx.mixtools.listeners.SignListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
 import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.features.SchedulerManager;
-import org.lins.mmmjjkx.mixtools.managers.features.setters.ScoreBoardSetter;
 import org.lins.mmmjjkx.mixtools.managers.features.WarpManager;
 import org.lins.mmmjjkx.mixtools.managers.features.kit.KitManager;
+import org.lins.mmmjjkx.mixtools.managers.features.setters.ScoreBoardSetter;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 
 import java.util.List;
 
-import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.SCOREBOARD_ENABLED;
 
-
-public final class MixTools extends JavaPlugin {
+public final class MixTools extends PolymerPlugin {
     private static DataManager dataManager;
     public static MixTools INSTANCE;
     public static PolymerMessageHandler messageHandler;
@@ -60,7 +53,7 @@ public final class MixTools extends JavaPlugin {
         // Plugin startup logic
         INSTANCE = this;
         saveResources();
-        settingsManager = new SettingsManager();
+        settingsManager = new SettingsManager(getConfig());
         messageHandler = new PolymerMessageHandler(this);
         dataManager = new DataManager();
         hookManager = new HookManager();
@@ -72,6 +65,11 @@ public final class MixTools extends JavaPlugin {
         registerListeners();
         new Metrics(this,17788);
         log("MixTools enabled!");
+    }
+
+    @Override
+    public int requireVersion() {
+        return 13;
     }
 
     @Override
@@ -103,7 +101,7 @@ public final class MixTools extends JavaPlugin {
         new CMDTPA("tpa");
         new CMDTPAAccept("tpaaccept");
         new CMDTPARefuse("tparefuse");
-        new CMDReload("mixtoolsreload");
+        new CMDReload("mixtoolsreload", List.of("mtlr"));
         new CMDEnderChest("enderchest", List.of("ec"));
         new CMDTPAHere("tpahere");
         new CMDTeleport("teleport");
@@ -138,30 +136,30 @@ public final class MixTools extends JavaPlugin {
         new CMDNick("nick");
         new CMDLoom("loom");
         new CMDAnvil("anvil");
+        new CMDInvsee("invsee");
     }
 
     private void registerListeners() {
-        new PlayerListener();
-        new SignListener();
-        new ServerListener();
+        new PlayerListener().register();
+        new ServerListener().register();
     }
 
     private void saveResources() {
-        FileUtils.completeFile(this, "config.yml", false);
-        FileUtils.completeLangFile(this, "lang/en-us.yml");
-        FileUtils.completeLangFile(this, "lang/zh-cn.yml");
+        completeDefaultConfig();
+        reloadConfig();
+        completeLangFile("en-us","zh-cn");
     }
 
     public void Reload(){
         saveResources();
         messageHandler = new PolymerMessageHandler(this);
-        settingsManager = new SettingsManager();
+        settingsManager = new SettingsManager(getConfig());
         dataManager = new DataManager();
         kitManager = new KitManager();
         warpManager.reload();
         schedulerManager.reload();
         miscFeatureManager.reload();
-        if (settingsManager.getBoolean(SCOREBOARD_ENABLED)) ScoreBoardSetter.restart();
+        ScoreBoardSetter.restart();
     }
 
     public static DataManager getDataManager(){
