@@ -3,6 +3,7 @@ package org.lins.mmmjjkx.mixtools;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerMessageHandler;
 import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerPlugin;
+import io.github.linsminecraftstudio.polymer.utils.FileUtils;
 import org.bstats.bukkit.Metrics;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDBalance;
@@ -149,7 +150,7 @@ public final class MixTools extends PolymerPlugin {
     }
 
     private void saveResources() {
-        completeDefaultConfig();
+        FileUtils.completeFile(this,"config.yml",List.of("motd.motds"));
         reloadConfig();
         completeLangFile("en-us","zh-cn");
     }

@@ -80,6 +80,7 @@ motd:
   changeVersion: false
   version: "&a1.19.X"
   randomMotd: false
+  defaultMotd: "<green>Welcome to my server.</green><newline><blue>You can have a fun in this server!</blue>"
   motds:
     example: "<green>Welcome to my server.</green><newline><blue>You can have a fun in this server!</blue>"
     custom: "<green>Hello there</green><newline><yellow>You find the custom motd!</yellow>"

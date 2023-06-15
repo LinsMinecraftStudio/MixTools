@@ -24,10 +24,14 @@ public class ServerListener implements MixToolsListener {
             ConfigurationSection section = manager.getSection("motd");
             if (section == null) return;
             Random random = new Random();
+            String motd;
             ConfigurationSection motds = section.getConfigurationSection("motds");
-            if (motds == null) return;
-            String[] motdsKeys = motds.getKeys(false).toArray(new String[0]);
-            String motd = motds.getString(motdsKeys[random.nextInt(motdsKeys.length)], "");
+            if (motds == null) {
+                motd = section.getString("defaultMotd","");
+            } else {
+                String[] motdsKeys = motds.getKeys(false).toArray(new String[0]);
+                motd = motds.getString(motdsKeys[random.nextInt(motdsKeys.length)], "");
+            }
             int onlinePlayers = Bukkit.getOnlinePlayers().size();
             motd = motd.replaceAll("%maxPlayers%", String.valueOf(Bukkit.getMaxPlayers()));
             motd = motd.replaceAll("%currentPlayers%", String.valueOf(onlinePlayers));
