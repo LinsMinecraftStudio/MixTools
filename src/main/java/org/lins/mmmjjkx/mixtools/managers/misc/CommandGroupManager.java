@@ -102,6 +102,6 @@ public class CommandGroupManager extends AbstractFeatureManager {
 
     @Override
     public void reload() {
-        cmdgroup = handleConfig("commandGroup");
+        cmdgroup = handleConfig("commandGroup.yml");
     }
 }

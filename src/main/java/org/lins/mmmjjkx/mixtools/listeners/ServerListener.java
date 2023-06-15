@@ -11,6 +11,8 @@ import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixToolsListener;
 
 import java.io.File;
+import java.text.DecimalFormat;
+import java.util.Random;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MOTD_ENABLED;
 
@@ -21,12 +23,16 @@ public class ServerListener implements MixToolsListener {
         if (manager.getBoolean(MOTD_ENABLED)) {
             ConfigurationSection section = manager.getSection("motd");
             if (section == null) return;
-            String motd = section.getString("string", "");
+            Random random = new Random();
+            ConfigurationSection motds = section.getConfigurationSection("motds");
+            if (motds == null) return;
+            String[] motdsKeys = motds.getKeys(false).toArray(new String[0]);
+            String motd = motds.getString(motdsKeys[random.nextInt(motdsKeys.length)], "");
             int onlinePlayers = Bukkit.getOnlinePlayers().size();
             motd = motd.replaceAll("%maxPlayers%", String.valueOf(Bukkit.getMaxPlayers()));
             motd = motd.replaceAll("%currentPlayers%", String.valueOf(onlinePlayers));
-            motd = motd.replaceAll("%mspt%", String.valueOf(Bukkit.getAverageTickTime()));
-            motd = motd.replace("%tps%", String.valueOf(Math.min(Math.round(Bukkit.getTPS()[0] * 100.0) / 100.0, 20.0)));
+            motd = motd.replaceAll("%mspt%", String.valueOf(new DecimalFormat("#.00").format(Bukkit.getAverageTickTime())));
+            motd = motd.replaceAll("%tps%", String.valueOf(Math.min(Math.round(Bukkit.getTPS()[0] * 100.0) / 100.0, 20.0)));
             e.motd(MiniMessage.miniMessage().deserialize(motd));
             if (section.getBoolean("changeVersion")) {
                 e.setVersion(manager.getString("motd.version", true));

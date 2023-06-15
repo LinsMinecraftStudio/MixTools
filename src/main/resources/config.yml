@@ -79,7 +79,10 @@ motd:
     hidePlayers: false
   changeVersion: false
   version: "&a1.19.X"
-  string: "<green>Welcome to my server.</green><newline><blue>You can have a fun in this server!</blue>"
+  randomMotd: false
+  motds:
+    example: "<green>Welcome to my server.</green><newline><blue>You can have a fun in this server!</blue>"
+    custom: "<green>Hello there</green><newline><yellow>You find the custom motd!</yellow>"
   Xmore:
     enabled: false
     x: 3
