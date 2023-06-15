@@ -26,7 +26,7 @@ public class CMDReload extends PolymerCommand {
     public boolean execute(@NotNull CommandSender sender, @NotNull String label, @NotNull String[] args) {
         if (hasPermission(sender)) {
             try {
-                MixTools.INSTANCE.Reload();
+                MixTools.getInstance().reload();
             }catch (Exception e) {
                 e.printStackTrace();
             }

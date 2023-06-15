@@ -1,6 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.features;
 
-import io.github.linsminecraftstudio.polymer.objects.AbstractFeatureManager;
+import io.github.linsminecraftstudio.polymer.objects.plugin.AbstractFeatureManager;
 import io.github.linsminecraftstudio.polymer.utils.ListUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -22,7 +22,7 @@ public class SchedulerManager extends AbstractFeatureManager {
     private final Map<BukkitTask,String> tasks = new HashMap<>();
 
     public SchedulerManager() {
-        super(MixTools.INSTANCE);
+        super(MixTools.getInstance());
         config = handleConfig("scheduler.yml");
         loadSchedulers();
         startAllRunnable();
@@ -80,7 +80,7 @@ public class SchedulerManager extends AbstractFeatureManager {
                         runAction(action);
                     }
                 }
-            }.runTaskTimerAsynchronously(MixTools.INSTANCE, scheduler.delay(), scheduler.delay());
+            }.runTaskTimerAsynchronously(MixTools.getInstance(), scheduler.delay(), scheduler.delay());
             tasks.put(task, scheduler.name());
         }
     }
@@ -122,13 +122,13 @@ public class SchedulerManager extends AbstractFeatureManager {
                 public void run() {
                     Bukkit.dispatchCommand(Bukkit.getConsoleSender(), split[1]);
                 }
-            }.runTask(MixTools.INSTANCE);
+            }.runTask(MixTools.getInstance());
             case "cmdgroup" -> new BukkitRunnable() {
                 @Override
                 public void run() {
                     MixTools.miscFeatureManager.getCommandGroupManager().runCommandGroupAsConsole(split[1]);
                 }
-            }.runTask(MixTools.INSTANCE);
+            }.runTask(MixTools.getInstance());
             case "wait" -> {
                 try {Thread.sleep(Integer.parseInt(split[1])*1000L);
                 } catch (InterruptedException e) {throw new RuntimeException(e);}

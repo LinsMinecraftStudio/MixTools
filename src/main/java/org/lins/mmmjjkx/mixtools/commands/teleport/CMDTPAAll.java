@@ -50,7 +50,7 @@ public class CMDTPAAll extends PolymerCommand {
                                     this.cancel();
                                 }
                             }
-                        }.runTaskTimer(MixTools.INSTANCE, 20, 20);
+                        }.runTaskTimer(MixTools.getInstance(), 20, 20);
                         return true;
                     }
                 }else {

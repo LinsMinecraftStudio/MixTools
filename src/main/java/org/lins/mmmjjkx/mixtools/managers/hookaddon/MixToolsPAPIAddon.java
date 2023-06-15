@@ -4,8 +4,10 @@ import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-import org.lins.mmmjjkx.mixtools.MixTools;
 
+/**
+ * I don't know what I can write in this class
+ */
 public class MixToolsPAPIAddon extends PlaceholderExpansion {
     @Override
     public @NotNull String getIdentifier() {
@@ -24,10 +26,6 @@ public class MixToolsPAPIAddon extends PlaceholderExpansion {
 
     @Override
     public @Nullable String onPlaceholderRequest(Player player, @NotNull String params) {
-        if (params.equalsIgnoreCase("world_alias")){
-            return MixTools.miscFeatureManager.getWorldManager().getWorldAlias(
-                    player.getWorld().getName());
-        }
         return null;
     }
 }

@@ -79,16 +79,8 @@ motd:
     hidePlayers: false
   changeVersion: false
   version: "&a1.19.X"
-  protocolVersion: auto
   string: "<green>Welcome to my server.</green><newline><blue>You can have a fun in this server!</blue>"
   Xmore:
     enabled: false
     x: 3
-scoreboard:
-  enabled: false
-  title: "<green>Example Server"
-  scoreboard:
-    - "<green>Example server</green>"
-    - "<yellow>Name: %player_name%</yellow>"
-    - "<red>Health: %player_health_rounded%</red>"
-    - "<blue>Money: %vault_eco_balance%</blue>"
+respawnOnSpawnLocation: false

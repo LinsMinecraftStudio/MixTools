@@ -13,10 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CMDTeleport extends PolymerCommand {
-
-    public CMDTeleport(@NotNull String name) {
-        super(name);
-        setAliases(List.of("tp"));
+    public CMDTeleport(String name, List<String> aliases){
+        super(name,aliases);
     }
 
     @Override

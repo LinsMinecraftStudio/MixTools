@@ -50,14 +50,14 @@ public class PlayerListener implements MixToolsListener {
                 Bukkit.broadcast(getPlayerMessage(p, PLAYER_WELCOME_MESSAGE));
             }
         }
-        ScoreBoardSetter.addPlayer(p);
+        //ScoreBoardSetter.addPlayer(p);
         checkVersion(p);
     }
 
     @EventHandler
     public void onQuit(PlayerQuitEvent e){
         Player p = e.getPlayer();
-        ScoreBoardSetter.removePlayer(p);
+        //ScoreBoardSetter.removePlayer(p);
         e.quitMessage(getPlayerMessage(p, PLAYER_QUIT_MESSAGE));
     }
 
@@ -106,8 +106,11 @@ public class PlayerListener implements MixToolsListener {
 
     @EventHandler
     public void onRespawn(PlayerRespawnEvent e){
-        if (MixTools.settingsManager.getSpawnLocation()!=null){
-            e.getPlayer().teleport(MixTools.settingsManager.getSpawnLocation());
+        if (MixTools.settingsManager.getBoolean("respawnOnSpawnLocation")) {
+            Location location = MixTools.settingsManager.getLocation("spawn");
+            if (location != null) {
+                e.getPlayer().teleport(location);
+            }
         }
     }
 
@@ -123,7 +126,7 @@ public class PlayerListener implements MixToolsListener {
     private void checkVersion(Player p){
         if (MixTools.settingsManager.getBoolean(CHECK_UPDATE) & p.isOp()) {
             String latest = OtherUtils.getPluginLatestVersion("109130");
-            String ver = MixTools.INSTANCE.getPluginMeta().getVersion();
+            String ver = MixTools.getInstance().getPluginMeta().getVersion();
             if (latest.equals("")){
                 getMessageHandler().sendMessage(p, "Check-Update.Failed");
             } else if (ver.equals(latest)) {

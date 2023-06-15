@@ -1,6 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.misc;
 
-import io.github.linsminecraftstudio.polymer.objects.AbstractFeatureManager;
+import io.github.linsminecraftstudio.polymer.objects.plugin.AbstractFeatureManager;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -16,11 +16,11 @@ import java.util.Set;
 
 public class CommandGroupManager extends AbstractFeatureManager {
     private YamlConfiguration cmdgroup;
-    private final File cfgFile = new File(MixTools.INSTANCE.getDataFolder(), "commandGroup.yml");
+    private final File cfgFile = new File(MixTools.getInstance().getDataFolder(), "commandGroup.yml");
     private final List<MixToolsCommandGroup> groups;
 
     public CommandGroupManager() {
-        super(MixTools.INSTANCE);
+        super(MixTools.getInstance());
         cmdgroup = handleConfig("commandGroup.yml");
         groups = getAllGroups();
     }

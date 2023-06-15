@@ -28,7 +28,7 @@ public class CMDSetSpawn extends PolymerCommand {
             Player p = toPlayer(sender);
             if (p != null) {
                 Location loc = p.getLocation();
-                MixTools.settingsManager.setSpawn(loc);
+                MixTools.settingsManager.set("spawn",loc);
                 sendMessage(sender,"Spawn.Set",loc.getX(),loc.getY(),loc.getZ(),loc.getPitch(),loc.getYaw());
                 return true;
             }

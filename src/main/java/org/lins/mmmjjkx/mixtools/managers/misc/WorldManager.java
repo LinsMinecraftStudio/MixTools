@@ -1,6 +1,7 @@
 package org.lins.mmmjjkx.mixtools.managers.misc;
 
-import io.github.linsminecraftstudio.polymer.objects.AbstractFeatureManager;
+import io.github.linsminecraftstudio.polymer.objects.plugin.AbstractFeatureManager;
+import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -18,10 +19,10 @@ import java.io.IOException;
 
 public class WorldManager extends AbstractFeatureManager {
     private YamlConfiguration configuration;
-    private final File cfgfile = new File(MixTools.INSTANCE.getDataFolder(), "world.yml");
+    private final File cfgfile = new File(MixTools.getInstance().getDataFolder(), "world.yml");
 
     public WorldManager() {
-        super(MixTools.INSTANCE);
+        super(MixTools.getInstance());
         configuration = handleConfig("world.yml");
         for (World world: Bukkit.getWorlds()){
             if (!configuration.contains(world.getName())){
@@ -67,7 +68,7 @@ public class WorldManager extends AbstractFeatureManager {
     }
 
     public boolean loadWorld(String folderName, WorldType type){
-        File server_root = MixTools.INSTANCE.getDataFolder().getParentFile().getParentFile();
+        File server_root = MixTools.getInstance().getDataFolder().getParentFile().getParentFile();
         File folder = new File(server_root,folderName);
         if (folder.exists()) {
             World w = new WorldCreator(folderName).createWorld();
@@ -84,7 +85,7 @@ public class WorldManager extends AbstractFeatureManager {
     public void loadWorldsFromConfig(){
         for (String name : configuration.getKeys(false)){
             if (Bukkit.getWorld(name)!=null) continue;//world is loaded
-            File folder = MixTools.INSTANCE.getDataFolder().getParentFile().getParentFile();
+            File folder = MixTools.getInstance().getDataFolder().getParentFile().getParentFile();
             File world_folder = new File(folder,name);
             if (world_folder.exists()) {
                 new WorldCreator(name).createWorld();
@@ -93,12 +94,12 @@ public class WorldManager extends AbstractFeatureManager {
     }
 
     @Nonnull
-    public String getWorldAlias(String name){
+    public Component getWorldAlias(String name){
         ConfigurationSection section = configuration.getConfigurationSection(name);
         if (section != null) {
-            return MixTools.messageHandler.legacyColorize(section.getString("alias", name));
+            return MixTools.messageHandler.colorize(section.getString("alias", name));
         }else {
-            return "";
+            return Component.empty();
         }
     }
 

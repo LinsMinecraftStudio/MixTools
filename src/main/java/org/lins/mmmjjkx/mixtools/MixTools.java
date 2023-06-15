@@ -1,7 +1,8 @@
 package org.lins.mmmjjkx.mixtools;
 
-import io.github.linsminecraftstudio.polymer.objects.PolymerMessageHandler;
-import io.github.linsminecraftstudio.polymer.objects.PolymerPlugin;
+import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
+import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerMessageHandler;
+import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerPlugin;
 import org.bstats.bukkit.Metrics;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDBalance;
@@ -37,7 +38,7 @@ import java.util.List;
 
 public final class MixTools extends PolymerPlugin {
     private static DataManager dataManager;
-    public static MixTools INSTANCE;
+    private static MixTools INSTANCE;
     public static PolymerMessageHandler messageHandler;
     public static HookManager hookManager;
     public static SettingsManager settingsManager;
@@ -49,7 +50,7 @@ public final class MixTools extends PolymerPlugin {
     ///////////////////////////////////
 
     @Override
-    public void onEnable() {
+    public void onPluginEnable() {
         // Plugin startup logic
         INSTANCE = this;
         saveResources();
@@ -73,70 +74,73 @@ public final class MixTools extends PolymerPlugin {
     }
 
     @Override
-    public void onDisable() {
+    public void onPluginDisable() {
         // Plugin shutdown logic
         if (schedulerManager != null) schedulerManager.stopAllRunnable();
-        ScoreBoardSetter.stopTasks();
+        //ScoreBoardSetter.stopTasks();
         log("MixTools disabled!");
     }
 
-    private void registerCommands() {
-        new CMDGamemode("gamemode", List.of("gm"));
-        new CMDKillAll("killall");
-        new CMDKill("kill");
-        new CMDSuicide("suicide");
-        new CMDFly("fly");
-        new CMDWorkbench("workbench");
-        new CMDSudo("sudo");
-        new CMDItemName("itemname");
-        new CMDItemLore("itemlore");
-        new CMDTrash("trash");
-        new CMDSethome("sethome");
-        new CMDDelhome("delhome");
-        new CMDCommandGroup("commandgroup", List.of("cg"));
-        new CMDSetSpawn("setspawn");
-        new CMDSpawn("spawn");
-        new CMDBack("back");
-        new CMDHome("home");
-        new CMDTPA("tpa");
-        new CMDTPAAccept("tpaaccept");
-        new CMDTPARefuse("tparefuse");
-        new CMDReload("mixtoolsreload", List.of("mtlr"));
-        new CMDEnderChest("enderchest", List.of("ec"));
-        new CMDTPAHere("tpahere");
-        new CMDTeleport("teleport");
-        new CMDServerInfo("serverinfo");
-        new CMDTPAll("tpall");
-        new CMDFlySpeed("flyspeed");
-        new CMDWalkSpeed("walkspeed");
-        new CMDAttackSpeed("attackspeed");
-        new CMDBalance("balance");
-        new CMDOPList("oplist");
-        new CMDBanList("banlist");
-        new CMDLightning("lightning");
-        new CMDTNT("tnt");
-        new CMDWorld("world");
-        new CMDBroadcast("broadcast", List.of("bc"));
-        new CMDBurn("burn");
-        new CMDHeal("heal");
-        new CMDRepair("repair");
-        new CMDVoid("void");
-        new CMDHomes("homes");
-        new CMDScheduler("scheduler");
-        new CMDTPAAll("tpaall");
-        new CMDEconomy("economy");
-        new CMDPay("pay");
-        new CMDRepairAll("repairall");
-        new CMDKit("kit");
-        new CMDKits("kits");
-        new CMDSetWarp("setwarp");
-        new CMDWarp("warp");
-        new CMDDelWarp("delwarp");
-        new CMDWarps("warps");
-        new CMDNick("nick");
-        new CMDLoom("loom");
-        new CMDAnvil("anvil");
-        new CMDInvsee("invsee");
+    @Override
+    public List<PolymerCommand> registerCommands() {
+        return List.of(
+        new CMDGamemode("gamemode", List.of("gm")),
+        new CMDKillAll("killall"),
+        new CMDKill("kill"),
+        new CMDSuicide("suicide"),
+        new CMDFly("fly"),
+        new CMDWorkbench("workbench"),
+        new CMDSudo("sudo"),
+        new CMDItemName("itemname"),
+        new CMDItemLore("itemlore"),
+        new CMDTrash("trash"),
+        new CMDSethome("sethome"),
+        new CMDDelhome("delhome"),
+        new CMDCommandGroup("commandgroup", List.of("cg")),
+        new CMDSetSpawn("setspawn"),
+        new CMDSpawn("spawn"),
+        new CMDBack("back"),
+        new CMDHome("home"),
+        new CMDTPA("tpa"),
+        new CMDTPAAccept("tpaaccept"),
+        new CMDTPARefuse("tparefuse"),
+        new CMDReload("mixtoolsreload", List.of("mtlr")),
+        new CMDEnderChest("enderchest", List.of("ec")),
+        new CMDTPAHere("tpahere"),
+        new CMDTeleport("teleport", List.of("tp")),
+        new CMDServerInfo("serverinfo"),
+        new CMDTPAll("tpall"),
+        new CMDFlySpeed("flyspeed"),
+        new CMDWalkSpeed("walkspeed"),
+        new CMDAttackSpeed("attackspeed"),
+        new CMDBalance("balance"),
+        new CMDOPList("oplist"),
+        new CMDBanList("banlist"),
+        new CMDLightning("lightning"),
+        new CMDTNT("tnt"),
+        new CMDWorld("world"),
+        new CMDBroadcast("broadcast", List.of("bc")),
+        new CMDBurn("burn"),
+        new CMDHeal("heal"),
+        new CMDRepair("repair"),
+        new CMDVoid("void"),
+        new CMDHomes("homes"),
+        new CMDScheduler("scheduler"),
+        new CMDTPAAll("tpaall"),
+        new CMDEconomy("economy"),
+        new CMDPay("pay"),
+        new CMDRepairAll("repairall"),
+        new CMDKit("kit"),
+        new CMDKits("kits"),
+        new CMDSetWarp("setwarp"),
+        new CMDWarp("warp"),
+        new CMDDelWarp("delwarp"),
+        new CMDWarps("warps"),
+        new CMDNick("nick"),
+        new CMDLoom("loom"),
+        new CMDAnvil("anvil"),
+        new CMDInvsee("invsee")
+        );
     }
 
     private void registerListeners() {
@@ -150,7 +154,7 @@ public final class MixTools extends PolymerPlugin {
         completeLangFile("en-us","zh-cn");
     }
 
-    public void Reload(){
+    public void reload(){
         saveResources();
         messageHandler = new PolymerMessageHandler(this);
         settingsManager = new SettingsManager(getConfig());
@@ -159,7 +163,10 @@ public final class MixTools extends PolymerPlugin {
         warpManager.reload();
         schedulerManager.reload();
         miscFeatureManager.reload();
-        ScoreBoardSetter.restart();
+        //ScoreBoardSetter.restart();
+    }
+    public static MixTools getInstance() {
+        return INSTANCE;
     }
 
     public static DataManager getDataManager(){

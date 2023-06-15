@@ -61,7 +61,7 @@ public class KitManager {
 
     void loadKits(){
         kits = new ArrayList<>();
-        File file = new File(MixTools.INSTANCE.getDataFolder(), "kits");
+        File file = new File(MixTools.getInstance().getDataFolder(), "kits");
         if (!file.exists()) {
             file.mkdirs();
             return;
@@ -96,7 +96,7 @@ public class KitManager {
 
     @Nullable
     private File getKitFile(String name){
-        File file = new File(MixTools.INSTANCE.getDataFolder(), "kits");
+        File file = new File(MixTools.getInstance().getDataFolder(), "kits");
         if (!file.exists()) {
             file.mkdirs();
             return null;

@@ -327,7 +327,7 @@ public class CMDWorld extends PolymerCommand {
 
     private void teleportPlayersToSpawn(String worldName){
         for (Player p : Bukkit.getOnlinePlayers()){
-            Location spawn = MixTools.settingsManager.getSpawnLocation();
+            Location spawn = MixTools.settingsManager.getLocation("spawn");
             if (worldName.equals(p.getWorld().getName())){
                 p.teleport(Objects.requireNonNullElse(spawn, Bukkit.getWorlds().get(0).getSpawnLocation()));
             }

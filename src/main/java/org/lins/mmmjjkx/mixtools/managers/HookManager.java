@@ -10,7 +10,7 @@ import org.lins.mmmjjkx.mixtools.managers.hookaddon.MixToolsPAPIAddon;
 import java.util.logging.Logger;
 
 public class HookManager {
-    private final Logger log = MixTools.INSTANCE.getLogger();
+    private final Logger log = MixTools.getInstance().getLogger();
     private MixToolsEconomy economy;
     public HookManager(){
         setup();
@@ -25,7 +25,7 @@ public class HookManager {
         }
         if (checkVaultInstalled()){
             economy = new MixToolsEconomy();
-            Bukkit.getServicesManager().register(Economy.class,economy,MixTools.INSTANCE,ServicePriority.High);
+            Bukkit.getServicesManager().register(Economy.class,economy,MixTools.getInstance(),ServicePriority.High);
             log.info("Hooked into Vault.");
         }else {
             log.warning("Vault is not installed. You can't use commands about economy!");

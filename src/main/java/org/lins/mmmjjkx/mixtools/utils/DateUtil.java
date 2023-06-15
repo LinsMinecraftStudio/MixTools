@@ -1,6 +1,6 @@
 package org.lins.mmmjjkx.mixtools.utils;
 
-import io.github.linsminecraftstudio.polymer.objects.PolymerMessageHandler;
+import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerMessageHandler;
 import net.kyori.adventure.text.Component;
 import org.lins.mmmjjkx.mixtools.MixTools;
 

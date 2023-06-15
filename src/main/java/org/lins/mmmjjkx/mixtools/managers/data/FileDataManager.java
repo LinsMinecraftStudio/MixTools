@@ -40,7 +40,7 @@ public class FileDataManager {
             } else {
                 return;
             }
-            try {cs.save(new File(MixTools.INSTANCE.getDataFolder() + File.separator +
+            try {cs.save(new File(MixTools.getInstance().getDataFolder() + File.separator +
                         "data", home.owner().getUniqueId() + ".yml"));
             } catch (IOException e) {throw new RuntimeException(e);}
         }).start();
@@ -99,7 +99,7 @@ public class FileDataManager {
             return;
         }
         section.set(name,null);
-        try {cs.save(new File(MixTools.INSTANCE.getDataFolder()+File.separator+
+        try {cs.save(new File(MixTools.getInstance().getDataFolder()+File.separator+
                 "data", p.getUniqueId() + ".yml"));
         } catch (IOException e) {throw new RuntimeException(e);}
     }
@@ -107,7 +107,7 @@ public class FileDataManager {
     public void setData(String key, UUID playerUUID, Object o) {
         YamlConfiguration cs = checkPlayerInData(playerUUID);
         cs.set(key,o);
-        try {cs.save(new File(MixTools.INSTANCE.getDataFolder()+File.separator+
+        try {cs.save(new File(MixTools.getInstance().getDataFolder()+File.separator+
                     "data", playerUUID + ".yml"));
         } catch (IOException e) {throw new RuntimeException(e);}
     }
@@ -128,7 +128,7 @@ public class FileDataManager {
         return cs.getDouble(key);
     }
     private YamlConfiguration checkPlayerInData(UUID playerUUID) {
-        File f = new File(MixTools.INSTANCE.getDataFolder()+File.separator+
+        File f = new File(MixTools.getInstance().getDataFolder()+File.separator+
                 "data", playerUUID + ".yml");
         YamlConfiguration yamlConfiguration = new YamlConfiguration();
         if (!f.exists()) {

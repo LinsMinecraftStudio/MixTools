@@ -1,6 +1,6 @@
 package org.lins.mmmjjkx.mixtools.managers.features;
 
-import io.github.linsminecraftstudio.polymer.objects.AbstractFeatureManager;
+import io.github.linsminecraftstudio.polymer.objects.plugin.AbstractFeatureManager;
 import io.github.linsminecraftstudio.polymer.utils.ListUtil;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -17,10 +17,10 @@ import java.util.List;
 
 public class WarpManager extends AbstractFeatureManager {
     private YamlConfiguration warpConfiguration;
-    private final File cfgFile = new File(MixTools.INSTANCE.getDataFolder(), "warps.yml");
+    private final File cfgFile = new File(MixTools.getInstance().getDataFolder(), "warps.yml");
     private final List<MixToolsWarp> warps = new ArrayList<>();
     public WarpManager() {
-        super(MixTools.INSTANCE);
+        super(MixTools.getInstance());
         warpConfiguration = handleConfig("warps.yml");
         loadWarps();
     }

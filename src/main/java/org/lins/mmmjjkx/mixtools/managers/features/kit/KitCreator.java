@@ -34,7 +34,7 @@ public class KitCreator implements Listener {
         this.player = p;
         this.kitName = kitName;
         this.kitNameComponent = ComponentConverter.toComponent(kitName);
-        Bukkit.getPluginManager().registerEvents(this, MixTools.INSTANCE);
+        Bukkit.getPluginManager().registerEvents(this, MixTools.getInstance());
     }
 
     public void openInventory(){
@@ -69,7 +69,7 @@ public class KitCreator implements Listener {
 
     public void saveToFile(Inventory inv) {
         try {
-            File file = new File(MixTools.INSTANCE.getDataFolder(), "kits");
+            File file = new File(MixTools.getInstance().getDataFolder(), "kits");
             if (!file.exists()) {
                 file.mkdirs();
             }
