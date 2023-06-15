@@ -28,7 +28,7 @@ public class CMDSpawn extends PolymerCommand {
         if(hasPermission(sender)) {
             Player p = toPlayer(sender);
             if (p != null) {
-                Location spawn = MixTools.settingsManager.getSpawnLocation();
+                Location spawn = MixTools.settingsManager.getLocation("spawn");
                 if (spawn != null) {
                     p.teleport(spawn);
                     sendMessage(p, "Spawn.Teleported");
