@@ -33,28 +33,27 @@ public abstract class GUICMD extends PolymerCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String s, @NotNull String[] args) {
-        if (args.length==0) {
-            if (hasPermission(sender)) {
+        if (hasPermission(sender)) {
+            if (args.length == 0) {
                 Player p = toPlayer(sender);
                 if (p != null) {
                     openGUI(p);
                     return true;
                 }
-            }
-            return false;
-        }else if (args.length==1) {
-            if (hasSubPermission(sender,"others")) {
+                return false;
+            } else if (args.length == 1) {
                 Player p = toPlayer(sender);
                 Player p2 = findPlayer(sender, args[0]);
                 if (p != null && p2 != null) {
                     openGUI2(p, p2);
                     return true;
                 }
+                return false;
+            } else {
+                sendMessage(sender, "Command.ArgError");
+                return false;
             }
-            return false;
-        }else {
-            sendMessage(sender,"Command.ArgError");
-            return false;
         }
+        return false;
     }
 }

@@ -3,6 +3,7 @@ package org.lins.mmmjjkx.mixtools;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerMessageHandler;
 import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerPlugin;
+import io.github.linsminecraftstudio.polymer.objects.plugin.SimpleSettingsManager;
 import io.github.linsminecraftstudio.polymer.utils.FileUtils;
 import org.bstats.bukkit.Metrics;
 import org.lins.mmmjjkx.mixtools.commands.*;
@@ -26,12 +27,10 @@ import org.lins.mmmjjkx.mixtools.commands.warp.CMDWarp;
 import org.lins.mmmjjkx.mixtools.listeners.PlayerListener;
 import org.lins.mmmjjkx.mixtools.listeners.ServerListener;
 import org.lins.mmmjjkx.mixtools.managers.HookManager;
-import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 import org.lins.mmmjjkx.mixtools.managers.data.DataManager;
 import org.lins.mmmjjkx.mixtools.managers.features.SchedulerManager;
 import org.lins.mmmjjkx.mixtools.managers.features.WarpManager;
 import org.lins.mmmjjkx.mixtools.managers.features.kit.KitManager;
-import org.lins.mmmjjkx.mixtools.managers.features.setters.ScoreBoardSetter;
 import org.lins.mmmjjkx.mixtools.managers.misc.MiscFeatureManager;
 
 import java.util.List;
@@ -42,7 +41,7 @@ public final class MixTools extends PolymerPlugin {
     private static MixTools INSTANCE;
     public static PolymerMessageHandler messageHandler;
     public static HookManager hookManager;
-    public static SettingsManager settingsManager;
+    public static SimpleSettingsManager settingsManager;
     ///////////////features////////////
     public static MiscFeatureManager miscFeatureManager;
     public static SchedulerManager schedulerManager;
@@ -55,7 +54,7 @@ public final class MixTools extends PolymerPlugin {
         // Plugin startup logic
         INSTANCE = this;
         saveResources();
-        settingsManager = new SettingsManager(getConfig());
+        settingsManager = new SimpleSettingsManager(getConfig());
         messageHandler = new PolymerMessageHandler(this);
         dataManager = new DataManager();
         hookManager = new HookManager();
@@ -158,7 +157,7 @@ public final class MixTools extends PolymerPlugin {
     public void reload(){
         saveResources();
         messageHandler = new PolymerMessageHandler(this);
-        settingsManager = new SettingsManager(getConfig());
+        settingsManager = new SimpleSettingsManager(getConfig());
         dataManager = new DataManager();
         kitManager = new KitManager();
         warpManager.reload();

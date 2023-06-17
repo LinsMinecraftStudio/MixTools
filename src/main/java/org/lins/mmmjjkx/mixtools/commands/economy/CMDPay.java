@@ -9,7 +9,6 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.CURRENCY_SYMBOL;
 
 public class CMDPay extends PolymerCommand {
@@ -44,15 +43,14 @@ public class CMDPay extends PolymerCommand {
                     Player p2 = findPlayer(commandSender, strings[0]);
                     double amount = toDouble(commandSender, strings[1], 2);
                     if (p2 != null & amount != -100) {
-                        double balance = MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId());
+                        double balance = MixTools.hookManager.getEconomy().getBalance(p);
                         double cost = balance - amount;
                         if (cost < 0.01){
                             sendMessage(commandSender, "Economy.NotEnoughMoneyToPay");
                             return false;
                         }
-                        MixTools.getDataManager().setData(ECONOMY_MONEY, p.getUniqueId(), cost);
-                        double balance2 = MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p2.getUniqueId());
-                        MixTools.getDataManager().setData(ECONOMY_MONEY, p2.getUniqueId(), balance2 + amount);
+                        MixTools.hookManager.getEconomy().withdrawPlayer(p, cost);
+                        MixTools.hookManager.getEconomy().depositPlayer(p2, amount);
                         sendMessage(p2, "Economy.PaySuccess",p.getName(),
                                 MixTools.settingsManager.getString(CURRENCY_SYMBOL),amount);
                         return true;

@@ -40,25 +40,6 @@ public class CMDEconomy extends PolymerCommand {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String label, String[] args) {
-        Player p = toPlayer(sender);
-        if (p != null) {
-            if (args.length == 0) {
-                if (hasCustomPermission(p, "economy.balance")) {
-                    sendMessage(p, "Economy.Balance",
-                            MixTools.settingsManager.getString(CURRENCY_SYMBOL),
-                            MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()));
-                    return true;
-                }
-                return false;
-            } else if (args.length == 1 && args[0].equals("balance")) {
-                if (hasCustomPermission(p, "economy.balance")) {
-                    sendMessage(p, "Economy.Balance", MixTools.settingsManager.getString(CURRENCY_SYMBOL),
-                            MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()));
-                    return true;
-                }
-                return false;
-            }
-        }
         if (args.length == 2) {
             String name = args[1];
             Player p2 = findPlayer(sender,name);
@@ -67,7 +48,7 @@ public class CMDEconomy extends PolymerCommand {
                     case "balance" -> {
                         if (hasCustomPermission(sender,"economy.balance.others")) {
                             sendMessage(sender, "Economy.OtherBalance", name, MixTools.settingsManager.getString(CURRENCY_SYMBOL),
-                                    MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p2.getUniqueId()));
+                                    MixTools.hookManager.getEconomy().getBalance(p2));
                             return true;
                         }
                     }
@@ -83,7 +64,9 @@ public class CMDEconomy extends PolymerCommand {
                         if (hasCustomPermission(sender, "economy.currency-symbol")) {
                             MixTools.settingsManager.set(CURRENCY_SYMBOL, args[1]);
                             sendMessage(sender, "Economy.ChangeCurrencySymbol", args[1]);
+                            return true;
                         }
+                        return false;
                     }
                 }
             }
@@ -96,9 +79,8 @@ public class CMDEconomy extends PolymerCommand {
                 switch (args[0]) {
                     case "add" -> {
                         if (hasCustomPermission(sender, "economy.add")) {
-                            MixTools.getDataManager().setData(ECONOMY_MONEY, p3.getUniqueId(),
-                                    MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p3.getUniqueId()) + amount);
-                            sendMessage(p, "Economy.AddSuccess", name,
+                            MixTools.hookManager.getEconomy().depositPlayer(p3, amount);
+                            sendMessage(sender, "Economy.AddSuccess", name,
                                     MixTools.settingsManager.getString(CURRENCY_SYMBOL), amount);
                             return true;
                         }
@@ -106,9 +88,8 @@ public class CMDEconomy extends PolymerCommand {
                     }
                     case "take" -> {
                         if (hasCustomPermission(sender, "economy.take")) {
-                            MixTools.getDataManager().setData(ECONOMY_MONEY, p3.getUniqueId(),
-                                    MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p3.getUniqueId()) - amount);
-                            sendMessage(p, "Economy.TakeSuccess", name,
+                            MixTools.hookManager.getEconomy().withdrawPlayer(p3, amount);
+                            sendMessage(sender, "Economy.TakeSuccess", name,
                                     MixTools.settingsManager.getString(CURRENCY_SYMBOL), amount);
                             return true;
                         }
@@ -118,7 +99,7 @@ public class CMDEconomy extends PolymerCommand {
             }
             return false;
         }else {
-            sendMessage(p, "Command.ArgError");
+            sendMessage(sender, "Command.ArgError");
             return false;
         }
     }

@@ -1,8 +1,8 @@
 package org.lins.mmmjjkx.mixtools.objects.keys;
 
 import com.zaxxer.hikari.HikariDataSource;
+import io.github.linsminecraftstudio.polymer.objects.plugin.SimpleSettingsManager;
 import org.lins.mmmjjkx.mixtools.MixTools;
-import org.lins.mmmjjkx.mixtools.managers.SettingsManager;
 
 public class SettingsKey {
     public static String CHECK_UPDATE = "checkUpdate";
@@ -33,7 +33,7 @@ public class SettingsKey {
     public static String INVENTORY_DEFAULT_STYLE_CLOSE_BUTTON_TYPE = "inventory.defaultStyle.closeButton.type";
     public static String INVENTORY_DEFAULT_STYLE_CLOSE_BUTTON_NAME = "inventory.defaultStyle.closeButton.name";
     public static HikariDataSource getDataSource() {
-        SettingsManager sm = MixTools.settingsManager;
+        SimpleSettingsManager sm = MixTools.settingsManager;
         HikariDataSource dataSource = new HikariDataSource();
         dataSource.setDriverClassName(sm.getString("mysql.driver-class-name"));
         dataSource.setJdbcUrl(sm.getString("mysql.jdbc-url"));

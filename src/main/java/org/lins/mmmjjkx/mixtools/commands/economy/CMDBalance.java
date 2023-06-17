@@ -9,9 +9,6 @@ import org.lins.mmmjjkx.mixtools.MixTools;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.lins.mmmjjkx.mixtools.objects.keys.DataKey.ECONOMY_MONEY;
-import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.CURRENCY_SYMBOL;
-
 public class CMDBalance extends PolymerCommand {
     public CMDBalance(@NotNull String name) {
         super(name);
@@ -42,9 +39,7 @@ public class CMDBalance extends PolymerCommand {
             if (args.length == 0) {
                 if (p != null) {
                     if (hasCustomPermission(p, "economy.balance")) {
-                        sendMessage(p, "Economy.Balance",
-                                MixTools.settingsManager.getString(CURRENCY_SYMBOL),
-                                MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p.getUniqueId()));
+                        sendMessage(p, "Economy.Balance", MixTools.hookManager.getEconomy().getBalance(p));
                         return true;
                     }
                     return false;
@@ -53,8 +48,7 @@ public class CMDBalance extends PolymerCommand {
                 Player p2 = findPlayer(sender,args[0]);
                 if (p2!=null) {
                     if (hasCustomPermission(sender, "economy.balance.others")) {
-                        sendMessage(sender, "Economy.OtherBalance", p2.getName(), MixTools.settingsManager.getString(CURRENCY_SYMBOL),
-                                MixTools.getDataManager().getDoubleData(ECONOMY_MONEY, p2.getUniqueId()));
+                        sendMessage(sender, "Economy.OtherBalance", MixTools.hookManager.getEconomy().getBalance(p2));
                         return true;
                     }
                 }
