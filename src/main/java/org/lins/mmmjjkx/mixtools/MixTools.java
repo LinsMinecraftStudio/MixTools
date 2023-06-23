@@ -6,6 +6,7 @@ import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerPlugin;
 import io.github.linsminecraftstudio.polymer.objects.plugin.SimpleSettingsManager;
 import io.github.linsminecraftstudio.polymer.utils.FileUtils;
 import org.bstats.bukkit.Metrics;
+import org.bstats.charts.SimplePie;
 import org.lins.mmmjjkx.mixtools.commands.*;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDBalance;
 import org.lins.mmmjjkx.mixtools.commands.economy.CMDEconomy;
@@ -64,13 +65,14 @@ public final class MixTools extends PolymerPlugin {
         kitManager = new KitManager();
         registerCommands();
         registerListeners();
-        new Metrics(this,17788);
+        Metrics m = new Metrics(this,17788);
+        m.addCustomChart(new SimplePie("Use mysql", () -> String.valueOf(dataManager.isMySQLEnabled())));
         log("MixTools enabled!");
     }
 
     @Override
-    public int requireVersion() {
-        return 13;
+    public String requireVersion() {
+        return "1.3.1";
     }
 
     @Override

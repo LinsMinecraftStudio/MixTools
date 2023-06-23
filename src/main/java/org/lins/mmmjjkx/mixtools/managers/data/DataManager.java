@@ -24,6 +24,10 @@ public class DataManager {
         }catch (Exception ignored){}
     }
 
+    public boolean isMySQLEnabled() {
+        return isMYSQLEnabled;
+    }
+
     public void addHome(MixToolsHome home){
         if (isMYSQLEnabled && mysqlDataManager != null){
             try {mysqlDataManager.addHome(home);
