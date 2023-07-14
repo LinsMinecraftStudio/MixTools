@@ -5,14 +5,19 @@ import com.google.common.io.Files;
 import io.github.linsminecraftstudio.polymer.objects.plugin.SimpleSettingsManager;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
+import org.bukkit.command.BlockCommandSender;
+import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.server.ServerCommandEvent;
 import org.lins.mmmjjkx.mixtools.MixTools;
 import org.lins.mmmjjkx.mixtools.objects.interfaces.MixToolsListener;
 
 import java.io.File;
 import java.text.DecimalFormat;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import static org.lins.mmmjjkx.mixtools.objects.keys.SettingsKey.MOTD_ENABLED;
 
@@ -73,6 +78,16 @@ public class ServerListener implements MixToolsListener {
                 } catch (Exception ex) {ex.printStackTrace();}
             }
             e.setHidePlayers(section.getBoolean("players.hidePlayers"));
+        }
+    }
+
+    @EventHandler
+    public void onCmdExecuted(ServerCommandEvent e){
+        CommandSender sender = e.getSender();
+        Logger logger = MixTools.getInstance().getLogger();
+        if (sender instanceof BlockCommandSender bls) {
+            logger.log(Level.WARNING, "[Command block in location {} is executed, command: {}]",
+                    bls.getBlock().getLocation());
         }
     }
 }

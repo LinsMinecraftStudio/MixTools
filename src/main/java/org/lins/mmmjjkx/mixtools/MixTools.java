@@ -72,7 +72,7 @@ public final class MixTools extends PolymerPlugin {
 
     @Override
     public String requireVersion() {
-        return "1.3.1";
+        return "1.3.2";
     }
 
     @Override
