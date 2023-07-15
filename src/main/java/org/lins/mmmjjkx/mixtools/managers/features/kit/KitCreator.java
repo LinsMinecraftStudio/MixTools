@@ -3,7 +3,7 @@ package org.lins.mmmjjkx.mixtools.managers.features.kit;
 import com.google.common.collect.Lists;
 import io.github.linsminecraftstudio.polymer.itemstack.ItemStackBuilder;
 import io.github.linsminecraftstudio.polymer.itemstack.ItemStackConverter;
-import io.github.linsminecraftstudio.polymer.utils.ComponentConverter;
+import io.github.linsminecraftstudio.polymer.utils.ObjectConverter;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
@@ -33,7 +33,7 @@ public class KitCreator implements Listener {
     public KitCreator(Player p, String kitName) {
         this.player = p;
         this.kitName = kitName;
-        this.kitNameComponent = ComponentConverter.toComponent(kitName);
+        this.kitNameComponent = ObjectConverter.toComponent(kitName);
         Bukkit.getPluginManager().registerEvents(this, MixTools.getInstance());
     }
 

@@ -1,7 +1,7 @@
 package org.lins.mmmjjkx.mixtools;
 
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
-import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerMessageHandler;
+import io.github.linsminecraftstudio.polymer.objects.plugin.message.PolymerMessageHandler;
 import io.github.linsminecraftstudio.polymer.objects.plugin.PolymerPlugin;
 import io.github.linsminecraftstudio.polymer.objects.plugin.SimpleSettingsManager;
 import io.github.linsminecraftstudio.polymer.utils.FileUtils;
@@ -51,7 +51,7 @@ public final class MixTools extends PolymerPlugin {
     ///////////////////////////////////
 
     @Override
-    public void onPluginEnable() {
+    public void onEnable() {
         // Plugin startup logic
         INSTANCE = this;
         saveResources();
@@ -76,7 +76,7 @@ public final class MixTools extends PolymerPlugin {
     }
 
     @Override
-    public void onPluginDisable() {
+    public void onDisable() {
         // Plugin shutdown logic
         if (schedulerManager != null) schedulerManager.stopAllRunnable();
         //ScoreBoardSetter.stopTasks();

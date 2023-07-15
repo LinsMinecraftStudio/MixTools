@@ -77,6 +77,6 @@ public class WarpManager extends AbstractFeatureManager {
     }
     @Nullable
     public MixToolsWarp getWarpByName(String name){
-        return ListUtil.listGetIf(warps, w -> w.name().equals(name)).orElse(null);
+        return ListUtil.getIf(warps, w -> w.name().equals(name)).orElse(null);
     }
 }

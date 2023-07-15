@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.utils;
 
+import io.github.linsminecraftstudio.polymer.objects.plugin.message.SpigotPolymerMessageHandler;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -44,7 +45,7 @@ public class ScoreBoardTask extends BukkitRunnable {
     }
 
     private String parse(Player player, String text) {
-        return MixTools.hookManager.checkPAPIInstalled() ? MixTools.messageHandler.legacyColorize(PlaceholderAPI.setPlaceholders(player, text))
-                : MixTools.messageHandler.legacyColorize(text);
+        return MixTools.hookManager.checkPAPIInstalled() ? SpigotPolymerMessageHandler.colorize(PlaceholderAPI.setPlaceholders(player, text))
+                : SpigotPolymerMessageHandler.colorize(text);
     }
 }

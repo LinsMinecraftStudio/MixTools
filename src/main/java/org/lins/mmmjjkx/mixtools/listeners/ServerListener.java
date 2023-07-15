@@ -3,11 +3,13 @@ package org.lins.mmmjjkx.mixtools.listeners;
 import com.destroystokyo.paper.event.server.PaperServerListPingEvent;
 import com.google.common.io.Files;
 import io.github.linsminecraftstudio.polymer.objects.plugin.SimpleSettingsManager;
+import io.github.linsminecraftstudio.polymer.utils.ObjectConverter;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.command.BlockCommandSender;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.entity.minecart.CommandMinecart;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.server.ServerCommandEvent;
 import org.lins.mmmjjkx.mixtools.MixTools;
@@ -87,7 +89,13 @@ public class ServerListener implements MixToolsListener {
         Logger logger = MixTools.getInstance().getLogger();
         if (sender instanceof BlockCommandSender bls) {
             logger.log(Level.WARNING, "[Command block in location {} is executed, command: {}]",
-                    bls.getBlock().getLocation());
+                    new Object[]{ObjectConverter.toLocationString(bls.getBlock().getLocation()),
+                    e.getCommand()});
+        }
+        if (sender instanceof CommandMinecart cm) {
+            logger.log(Level.WARNING, "[Command minecart in location {} is executed, command: {}]",
+                    new Object[]{ObjectConverter.toLocationString(cm.getLocation()),
+                            e.getCommand()});
         }
     }
 }

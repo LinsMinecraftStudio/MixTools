@@ -46,7 +46,7 @@ public class KitManager {
 
     @Nullable
     public MixToolsKit getKitByName(String name){
-        return ListUtil.listGetIf(kits, k -> k.kitName().equals(name)).orElse(null);
+        return ListUtil.getIf(kits, k -> k.kitName().equals(name)).orElse(null);
     }
 
     public boolean removeKit(String name){

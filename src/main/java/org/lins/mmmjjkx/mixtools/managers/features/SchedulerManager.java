@@ -90,12 +90,12 @@ public class SchedulerManager extends AbstractFeatureManager {
     }
 
     public boolean containsScheduler(String name){
-        return ListUtil.listGetIf(schedulers, scheduler -> scheduler.name().equals(name)).isPresent();
+        return ListUtil.getIf(schedulers, scheduler -> scheduler.name().equals(name)).isPresent();
     }
 
     @Nullable
     public MixToolsScheduler getScheduler(String name){
-        return ListUtil.listGetIf(schedulers, sc -> sc.name().equals(name)).orElse(null);
+        return ListUtil.getIf(schedulers, sc -> sc.name().equals(name)).orElse(null);
     }
 
     public void stopRunnable(String name){
