@@ -1,6 +1,7 @@
 package org.lins.mmmjjkx.mixtools.commands.list;
 
 import com.google.common.collect.Lists;
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -46,7 +47,7 @@ public abstract class ListCMD<T> extends PolymerCommand {
                 sendMessages(sender, toInteger(sender, args[0], 1));
                 return true;
             }else {
-                sendMessage(sender,"Command.ArgError");
+                Polymer.messageHandler.sendMessage(sender,"Command.ArgError");
                 return false;
             }
         }
@@ -61,7 +62,7 @@ public abstract class ListCMD<T> extends PolymerCommand {
             sendMessage(sender,"Info.List.ListEmpty");
             return;
         } else if (page>partition.size()) {
-            sendMessage(sender,"Value.TooHigh",1);
+            Polymer.messageHandler.sendMessage(sender,"Value.TooHigh",1);
             return;
         }
         int real_page = page-1;

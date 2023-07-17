@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands.home;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.Location;
 import org.bukkit.command.CommandSender;
@@ -52,7 +53,7 @@ public class CMDHome extends PolymerCommand {
                     return false;
                 }
             }else {
-                sendMessage(p,"Command.ArgError");
+                Polymer.messageHandler.sendMessage(p,"Command.ArgError");
                 return false;
             }
         }

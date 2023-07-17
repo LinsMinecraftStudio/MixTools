@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
@@ -30,7 +31,7 @@ public class CMDBroadcast extends PolymerCommand {
                 MixTools.messageHandler.broadcastCustomMessage(args[0].replace("<sp>"," "));
                 return true;
             }else {
-                sendMessage(sender,"Command.ArgError");
+                Polymer.messageHandler.sendMessage(sender,"Command.ArgError");
                 return false;
             }
         }

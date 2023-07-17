@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.util.StringUtil;
@@ -64,7 +65,7 @@ public class CMDScheduler extends PolymerCommand {
                         return true;
                     }
                     default -> {
-                        sendMessage(sender, "Command.ArgError");
+                        Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
                         return false;
                     }
                 }
@@ -91,12 +92,12 @@ public class CMDScheduler extends PolymerCommand {
                         return true;
                     }
                     default -> {
-                        sendMessage(sender, "Command.ArgError");
+                        Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
                         return false;
                     }
                 }
             } else {
-                sendMessage(sender, "Command.ArgError");
+                Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
                 return false;
             }
         }

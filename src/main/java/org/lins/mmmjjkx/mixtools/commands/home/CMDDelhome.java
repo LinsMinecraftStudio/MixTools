@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands.home;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -46,7 +47,7 @@ public class CMDDelhome extends PolymerCommand {
                     sendMessage(sender, "Home.Removed", args[0]);
                     return true;
                 }else {
-                    sendMessage(p, "Command.ArgError");
+                    Polymer.messageHandler.sendMessage(p, "Command.ArgError");
                     return false;
                 }
             }

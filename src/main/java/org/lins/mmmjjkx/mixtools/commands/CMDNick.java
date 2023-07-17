@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import net.kyori.adventure.text.Component;
 import org.bukkit.command.CommandSender;
@@ -32,7 +33,7 @@ public class CMDNick extends PolymerCommand {
                     player.displayName(component);
                     return true;
                 }else {
-                    sendMessage(commandSender,"Command.ArgError");
+                    Polymer.messageHandler.sendMessage(commandSender,"Command.ArgError");
                     return false;
                 }
             }

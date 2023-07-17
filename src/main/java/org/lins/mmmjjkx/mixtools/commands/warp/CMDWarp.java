@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands.warp;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -50,7 +51,7 @@ public class CMDWarp extends PolymerCommand {
                     sendMessage(commandSender, "Warp.Teleported", strings[0]);
                     return true;
                 }else {
-                    sendMessage(commandSender, "Command.ArgError");
+                    Polymer.messageHandler.sendMessage(commandSender, "Command.ArgError");
                     return false;
                 }
             }

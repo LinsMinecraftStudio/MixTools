@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands.entityspawn;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -42,7 +43,7 @@ public abstract class EntitySpawnCMD extends PolymerCommand {
                 if (p != null) {
                     World world = p.getWorld();
                     world.spawnEntity(p.getLocation(), entityType());
-                    sendMessage(sender, "");
+                    sendMessage(sender, "Command.EntitySpawned");
                     return true;
                 }
             }else if (args.length==1) {
@@ -50,6 +51,7 @@ public abstract class EntitySpawnCMD extends PolymerCommand {
                 if (p != null) {
                     World world = p.getWorld();
                     world.spawnEntity(p.getLocation(), entityType());
+                    sendMessage(sender, "Command.EntitySpawned");
                     return true;
                 } else {
                     Player self = toPlayer(sender);
@@ -59,6 +61,7 @@ public abstract class EntitySpawnCMD extends PolymerCommand {
                             for (int i = 0; i < amount; i++) {
                                 self.getWorld().spawnEntity(self.getLocation(), entityType());
                             }
+                            sendMessage(sender, "Command.EntitySpawned");
                             return true;
                         }
                     }
@@ -72,11 +75,12 @@ public abstract class EntitySpawnCMD extends PolymerCommand {
                         for (int i = 0; i < amount; i++) {
                             world.spawnEntity(p.getLocation(), entityType());
                         }
+                        sendMessage(sender, "Command.EntitySpawned");
                         return true;
                     }
                 }
             } else {
-                sendMessage(sender,"Command.ArgError");
+                Polymer.messageHandler.sendMessage(sender,"Command.ArgError");
                 return false;
             }
         }

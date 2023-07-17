@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -66,7 +67,8 @@ public class CMDItemLore extends PolymerCommand {
                         i.setItemMeta(m);
                         return true;
                     }else {
-                        sendMessage(sender, "Command.ArgError");
+                        Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
+                        return false;
                     }
                 }else {
                     sendMessage(sender, "Item.AIR");

@@ -27,4 +27,9 @@ public class CMDFlySpeed extends SpeedCMD {
         p.setFlySpeed((float) (speed / 5));
         sendMessage(p, "Speed.FlyingSpeedSet", speed);
     }
+
+    @Override
+    void sendPlayerInfo(Player p) {
+        sendMessage(p,"Speed.Current.FlyingSpeed",p.getFlySpeed());
+    }
 }

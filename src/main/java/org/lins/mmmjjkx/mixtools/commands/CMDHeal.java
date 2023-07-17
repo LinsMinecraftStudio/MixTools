@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.command.CommandSender;
@@ -53,7 +54,7 @@ public class CMDHeal extends PolymerCommand {
                     return true;
                 }
             }else {
-                sendMessage(sender,"Command.ArgError");
+                Polymer.messageHandler.sendMessage(sender,"Command.ArgError");
                 return false;
             }
         }

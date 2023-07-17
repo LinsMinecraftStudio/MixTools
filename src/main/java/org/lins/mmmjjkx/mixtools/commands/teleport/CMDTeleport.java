@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands.teleport;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -113,7 +114,7 @@ public class CMDTeleport extends PolymerCommand {
                     }
                 }
                 default -> {
-                    sendMessage(sender, "Command.ArgError");
+                    Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
                     return false;
                 }
                 case 4 -> {
@@ -136,7 +137,7 @@ public class CMDTeleport extends PolymerCommand {
                             sendMessage(sender, "Location.Teleported");
                             return true;
                         }else {
-                            sendMessage(sender, "Command.ArgError");
+                            Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
                             return false;
                         }
                     }
@@ -165,7 +166,7 @@ public class CMDTeleport extends PolymerCommand {
                         sendMessage(sender, "Location.Teleported");
                         return true;
                     }else {
-                        sendMessage(sender, "Command.ArgError");
+                        Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
                         return false;
                     }
                 }
@@ -194,7 +195,7 @@ public class CMDTeleport extends PolymerCommand {
                             sendMessage(sender, "Location.Teleported");
                             return true;
                         }else {
-                            sendMessage(sender, "Command.ArgError");
+                            Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
                             return false;
                         }
                     }else {
@@ -225,7 +226,7 @@ public class CMDTeleport extends PolymerCommand {
                             sendMessage(sender, "Location.Teleported");
                             return true;
                         }else {
-                            sendMessage(sender, "Command.ArgError");
+                            Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
                             return false;
                         }
                     }

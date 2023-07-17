@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands.teleport;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -53,7 +54,7 @@ public class CMDTPAll extends PolymerCommand {
                     return true;
                 }
             }else {
-                sendMessage(sender,"Command.ArgError");
+                Polymer.messageHandler.sendMessage(sender,"Command.ArgError");
                 return false;
             }
         }

@@ -22,6 +22,10 @@ Speed:
   FlyingSpeedSet: "&a飞行速度已设置为 &e%.2f&a。"
   WalkSpeedSet: "&a行走速度已设置为 &e%.2f&a。"
   AttackSpeedSet: "&a攻击速度已设置为 &e%.2f&a."
+  Current:
+    FlyingSpeed: "&a当前飞行速度：&e%.2f&a."
+    WalkSpeed: "&a当前行走速度： &e%.2f&a."
+    AttackSpeed: "&a当前攻击速度： &e%.2f&a."
 CommandGroup:
   Executed: "&a指令组已执行。"
   NotFound: "&4那个指令组不存在。"

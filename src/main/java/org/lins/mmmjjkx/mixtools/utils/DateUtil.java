@@ -107,7 +107,7 @@ public class DateUtil {
         final Calendar c = new GregorianCalendar();
         c.setTimeInMillis(date);
         final Calendar now = new GregorianCalendar();
-        return DateUtil.formatDateDiff(now, c);
+        return formatDateDiff(now, c);
     }
 
     public static Component formatDateDiff(final Calendar fromDate, final Calendar toDate) {

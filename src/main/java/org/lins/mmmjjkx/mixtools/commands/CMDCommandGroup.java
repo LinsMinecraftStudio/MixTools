@@ -1,6 +1,7 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
 import com.google.common.collect.Lists;
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -49,7 +50,7 @@ public class CMDCommandGroup extends PolymerCommand {
     public boolean execute(@Nonnull CommandSender sender, @Nonnull String label, @Nonnull String[] args) {
         if (hasCustomPermission(sender,"commandgroup")){
             if (args.length==0) {
-                sendMessage(sender, "Command.ArgError");
+                Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
                 return false;
             } else if (args.length==1 & args[0].equals("list")) {
                 sendMessages(sender,1);
@@ -85,8 +86,8 @@ public class CMDCommandGroup extends PolymerCommand {
                             return false;
                         }
                     }
-                    case "run" -> {
-                        sendMessage(sender,"Command.ArgError");
+                    default -> {
+                        Polymer.messageHandler.sendMessage(sender,"Command.ArgError");
                         return false;
                     }
                     case "list" -> {
@@ -94,7 +95,6 @@ public class CMDCommandGroup extends PolymerCommand {
                         return true;
                     }
                 }
-                return false;
             } else if (args.length==3&&args[0].equals("run")){
                 Player p = findPlayer(sender, args[2]);
                 String groupName = args[1];
@@ -127,7 +127,7 @@ public class CMDCommandGroup extends PolymerCommand {
             sendMessage(sender,"Info.List.CommandGroupListEmpty");
             return;
         } else if (page>partition.size()) {
-            sendMessage(sender,"Value.TooHigh",1);
+            Polymer.messageHandler.sendMessage(sender,"Value.TooHigh",1);
             return;
         }
         int real_page = page-1;

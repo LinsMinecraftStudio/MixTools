@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands.economy;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -57,7 +58,7 @@ public class CMDPay extends PolymerCommand {
                     }
                 }
             }else {
-                sendMessage(commandSender, "Command.ArgError");
+                Polymer.messageHandler.sendMessage(commandSender, "Command.ArgError");
                 return false;
             }
         }

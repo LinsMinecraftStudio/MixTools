@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands.home;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -36,11 +37,11 @@ public class CMDSethome extends PolymerCommand {
                             sendMessage(p, "Home.CreateSuccess", args[0]);
                             return true;
                         } else {
-                            sendMessage(p, "Value.NoMatchRegex", 1);
+                            Polymer.messageHandler.sendMessage(p, "Value.NoMatchRegex", 1);
                             return false;
                         }
                     } else {
-                        sendMessage(p, "Command.ArgError");
+                        Polymer.messageHandler.sendMessage(p, "Command.ArgError");
                         return false;
                     }
                 } else {

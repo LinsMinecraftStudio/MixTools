@@ -1,5 +1,6 @@
 package org.lins.mmmjjkx.mixtools.commands;
 
+import io.github.linsminecraftstudio.polymer.Polymer;
 import io.github.linsminecraftstudio.polymer.command.PolymerCommand;
 import net.kyori.adventure.text.Component;
 import org.bukkit.GameMode;
@@ -38,7 +39,7 @@ public class CMDGamemode extends PolymerCommand {
 
     @Override
     public void sendMessage(CommandSender sender, String message, Object... args) {
-
+        MixTools.messageHandler.sendMessage(sender, message, args);
     }
 
     @Override
@@ -46,23 +47,31 @@ public class CMDGamemode extends PolymerCommand {
         Player p = toPlayer(sender);
         if (hasPermission(p)){
             switch (args.length) {
-                case 1 -> {
-                    GameMode mode;
-                    try {
-                        int in = Integer.parseInt(args[0]);
-                        mode = intToGameMode(in);
-                    }catch (NumberFormatException e) {
-                        mode = stringToGameMode(args[0]);
-                    }
-                    if (mode != null) {
-                        Component s = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change","GameMode."+
-                                mode.toString().toLowerCase());
-                        p.setGameMode(mode);
-                        p.sendMessage(s);
+                case 0 -> {
+                    if (p!=null) {
+                        sendMessage(sender, "Gamemode.Current",p.getGameMode().toString());
                         return true;
-                    }else {
-                        sendMessage(sender,"Command.ArgError");
-                        return false;
+                    }
+                }
+                case 1 -> {
+                    if (p!=null) {
+                        GameMode mode;
+                        try {
+                            int in = Integer.parseInt(args[0]);
+                            mode = intToGameMode(in);
+                        } catch (NumberFormatException e) {
+                            mode = stringToGameMode(args[0]);
+                        }
+                        if (mode != null) {
+                            Component s = MixTools.messageHandler.getColoredReplaceToOtherMessages("GameMode.Change", "GameMode." +
+                                    mode.toString().toLowerCase());
+                            p.setGameMode(mode);
+                            p.sendMessage(s);
+                            return true;
+                        } else {
+                            Polymer.messageHandler.sendMessage(sender, "Command.ArgError");
+                            return false;
+                        }
                     }
                 }
                 case 2 -> {
@@ -82,14 +91,14 @@ public class CMDGamemode extends PolymerCommand {
                             p.sendMessage(s2);
                             return true;
                         }else {
-                            sendMessage(sender,"Command.ArgError");
+                            Polymer.messageHandler.sendMessage(sender,"Command.ArgError");
                             return false;
                         }
                     }
                     return false;
                 }
                 default -> {
-                    sendMessage(sender,"Command.ArgError");
+                    Polymer.messageHandler.sendMessage(sender,"Command.ArgError");
                     return false;
                 }
             }
@@ -98,21 +107,13 @@ public class CMDGamemode extends PolymerCommand {
     }
 
     private GameMode intToGameMode(int mode) {
-        switch (mode) {
-            case 0 -> {
-                return GameMode.SURVIVAL;
-            }
-            case 1 -> {
-                return GameMode.CREATIVE;
-            }
-            case 2 -> {
-                return GameMode.ADVENTURE;
-            }
-            case 3 -> {
-                return GameMode.SPECTATOR;
-            }
-        }
-        return null;
+        return switch (mode) {
+            case 0 -> GameMode.SURVIVAL;
+            case 1 -> GameMode.CREATIVE;
+            case 2 -> GameMode.ADVENTURE;
+            case 3 -> GameMode.SPECTATOR;
+            default -> null;
+        };
     }
 
     private GameMode stringToGameMode(String s) {

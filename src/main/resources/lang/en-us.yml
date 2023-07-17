@@ -22,6 +22,10 @@ Speed:
   FlyingSpeedSet: "&aFlying speed was set to &e%.2f&a."
   WalkSpeedSet: "&aWalk speed was set to &e%.2f&a."
   AttackSpeedSet: "&aAttack speed was set to &e%.2f&a."
+  Current:
+    FlyingSpeed: "&aCurrent flying speed: &e%.2f&a."
+    WalkSpeed: "&aCurrent walk speed: &e%.2f&a."
+    AttackSpeed: "&aCurrent attack speed: &e%.2f&a."
 CommandGroup:
   Executed: "&aCommand group executed."
   NotFound: "&4That command group is not exists."
@@ -91,6 +95,7 @@ GameMode:
   creative: "Creative"
   adventure: "Adventure"
   NotFound: "&4The game mode was not found."
+  Current: "&aCurrent game mode: &e%s&a."
 World:
   EnvironmentTypeInvalid: "&4The world environment type is invalid. Available types are &eNORMAL / NETHER / THE_END / CUSTOM"
   TypeInvalid: "&4The world type is invalid. Available types are &eFLAT / NORMAL / AMPLIFIED / LARGE_BIOMES"

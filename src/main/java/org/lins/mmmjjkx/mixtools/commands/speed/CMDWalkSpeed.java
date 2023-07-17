@@ -27,6 +27,11 @@ public class CMDWalkSpeed extends SpeedCMD {
     void changePlayerSpeed(Player p, double speed) {
         float defaultSpeed = 0.10000000149011612f;
         p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).setBaseValue(speed * defaultSpeed);
-        sendMessage(p, "Command.WalkSpeedSet", speed);
+        sendMessage(p, "Speed.WalkSpeedSet", speed);
+    }
+
+    @Override
+    void sendPlayerInfo(Player p) {
+        sendMessage(p,"Speed.Current.WalkSpeed",p.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).getBaseValue());
     }
 }
